@@ -11,7 +11,7 @@ export default createStore({
     },
   },
   actions: {
-    //Osäker om denna är relevant
+    //Använder Axios för tillfället!
 
     async fetchHotel(){
       await axios.get("http://localhost:3000/rest/hotels")

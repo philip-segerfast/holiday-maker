@@ -3,8 +3,8 @@
 
   <div class="search-result">
 
-      <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)  (User story 4)-->
-      <!-- Loopar ut (v-for) listan av kategorier enskilt = Skapar varje "category" som en egen komponent (User story 4)-->  
+      <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
+      <!-- Loopar ut (v-for) listan av kategorier enskilt = Skapar varje "category" som en egen komponent-->  
     <div v-if="hotels.length > 0">
       <HotelCard 
         v-for="(hotel, i) in hotels"
@@ -17,26 +17,26 @@
 
 <script>
 
-// Import HotelCard to use in ResultPage (User story 4)
+// Import HotelCard to use in ResultPage
 import HotelCard from "../components/HotelCard.vue";
 
 export default {
  
- // declare HotelCard from import (User story 4)
+ // declare HotelCard from import
   components: {
     HotelCard,
   },
 
  
   computed: {
-  // Hämtar hotellistan från store (User story 4)
+  // Hämtar hotellistan från store
     hotels() {
             return this.$store.getters.getHotel
         },
     
   },
 
-  // Aktiverar kopplingen till backend (User story 4)
+  // Aktiverar kopplingen till backend 
   mounted() {
         this.$store.dispatch("fetchHotel");
     }
