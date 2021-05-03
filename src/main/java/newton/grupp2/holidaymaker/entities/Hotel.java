@@ -25,16 +25,16 @@ public class Hotel {
     @OneToMany
     private List<HotelTag> hotelTags;
     @OneToMany
-    private List<Room> rooms;
+    private List<HotelRoom> hotelRooms;
 
     public Hotel() {}
 
-    public List<Room> getRooms() {
-        return rooms;
+    public List<HotelRoom> getRooms() {
+        return hotelRooms;
     }
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+    public void setRooms(List<HotelRoom> hotelRooms) {
+        this.hotelRooms = hotelRooms;
     }
 
     public Long getId() {
