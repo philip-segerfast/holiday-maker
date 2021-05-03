@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service
 public class HotelService {
@@ -24,4 +25,7 @@ public class HotelService {
         */
     }
 
+    public List<Hotel> getAllHotels() {
+        return hotelRepository.findAll();
+    }
 }
