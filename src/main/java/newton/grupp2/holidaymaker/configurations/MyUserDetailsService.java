@@ -36,7 +36,7 @@ public class MyUserDetailsService implements UserDetailsService {
         return toUserDetails(user);
     }
 
-    public User registerUser(User user){ // abc123 -> 1239e78hf23ewffjf293478hf2doi321u9c27gt39c2uh3w
+    public User registerUser(User user) { // abc123 -> 1239e78hf23ewffjf293478hf2doi321u9c27gt39c2uh3w
         user.setPassword(encoder.encode(user.getPassword()));
         try {
             return userRepo.save(user);
