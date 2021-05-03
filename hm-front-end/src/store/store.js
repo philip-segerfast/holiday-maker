@@ -3,7 +3,23 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    hotels: [],
+    hotels: [
+      {
+        id: 1,
+        name: "Hotel 1",
+        city: "Barcelona"
+      },
+      {
+        id: 2,
+        name: "Hotel 2",
+        city: "Berlin"
+      },
+      {
+        id: 3,
+        name: "Hotel 3",
+        city: "Zagreb"
+      },
+    ],
   },
   mutations: {
     setHotel(state, payload){
@@ -20,6 +36,7 @@ export default createStore({
         console.log(response.data)
       })
     },
+  },
 
     getters: {
       getHotel(state){
@@ -27,6 +44,4 @@ export default createStore({
       },
     }
 
-  },
-  modules: {},
 });

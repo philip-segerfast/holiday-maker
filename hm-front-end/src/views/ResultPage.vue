@@ -7,9 +7,9 @@
       <!-- Loopar ut (v-for) listan av kategorier enskilt = Skapar varje "category" som en egen komponent-->  
     <div v-if="hotels.length > 0">
       <HotelCard 
-        v-for="(hotel, i) in hotels"
-        :key="hotel + i"
-        :hotel="hotel"
+        v-for="(allHotels, i) in hotels"
+        :key="i"
+        :hotel="allHotels"
       /> 
     </div>
    </div>
@@ -31,14 +31,14 @@ export default {
   computed: {
   // Hämtar hotellistan från store
     hotels() {
-            return this.$store.getters.getHotel
+            return this.$store.getters.hotels
         },
     
   },
 
   // Aktiverar kopplingen till backend 
   mounted() {
-        this.$store.dispatch("fetchHotel");
+      //  this.$store.dispatch("fetchHotel");
     }
 };
 </script>
