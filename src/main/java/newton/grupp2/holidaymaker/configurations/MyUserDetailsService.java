@@ -22,16 +22,16 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @PostConstruct
     private void createDefaultUsers(){
-        if (userRepo.findByUsername("Lasse74") == null) {
-            registerUser(new User("Erik", "hemligt"));
+        if (userRepo.findByEmail("Lasse74@example.com") == null) {
+            registerUser(new User("lasse74@example.com", "abc123", "Lasse", "Larsson"));
         }
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepo.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found by name: " + username);
+            throw new UsernameNotFoundException("User not found by name: " + email);
         }
         return toUserDetails(user);
     }
