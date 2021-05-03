@@ -24,8 +24,18 @@ public class Hotel {
     private HotelLuxuryClass luxuryClass;
     @OneToMany
     private List<HotelTag> hotelTags;
+    @OneToMany
+    private List<HotelRoom> hotelRooms;
 
     public Hotel() {}
+
+    public List<HotelRoom> getRooms() {
+        return hotelRooms;
+    }
+
+    public void setRooms(List<HotelRoom> hotelRooms) {
+        this.hotelRooms = hotelRooms;
+    }
 
     public Long getId() {
         return id;

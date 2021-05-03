@@ -21,9 +21,9 @@ public class MyUserDetailsService implements UserDetailsService {
     private UserRepository userRepo;
 
     @PostConstruct
-    private void createDefaultUsers(){
-        if (userRepo.findByUsername("Lasse74") == null) {
-            registerUser(new User("Erik", "hemligt"));
+    private void createDefaultUsers() {
+        if (userRepo.findByUsername("psegerfast@gmail.com") == null) {
+            registerUser(new User("psegerfast@gmail.com", "hemligt"));
         }
     }
 
@@ -36,7 +36,7 @@ public class MyUserDetailsService implements UserDetailsService {
         return toUserDetails(user);
     }
 
-    public User registerUser(User user) { // abc123 -> 1239e78hf23ewffjf293478hf2doi321u9c27gt39c2uh3w
+    public User registerUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         try {
             return userRepo.save(user);

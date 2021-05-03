@@ -2,7 +2,7 @@ package newton.grupp2.holidaymaker.entities;
 
 import javax.persistence.*;
 
-@Table(name = "USER")
+@Table(name = "USERS")
 @Entity
 public class User {
     @Id

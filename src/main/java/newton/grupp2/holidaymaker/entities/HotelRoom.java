@@ -2,9 +2,9 @@ package newton.grupp2.holidaymaker.entities;
 
 import javax.persistence.*;
 
-@Table(name = "ROOMS")
+@Table(name = "HOTEL_ROOMS")
 @Entity
-public class Room {
+public class HotelRoom {
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,8 +16,18 @@ public class Room {
     private double baseNightPrice;
     private int maxAmountOfExtraBeds;
     private int roomNumber;
+    @ManyToOne
+    private Hotel hotel;
 
-    public Room() { }
+    public HotelRoom() { }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
 
     public Long getId() {
         return id;
