@@ -16,8 +16,18 @@ public class Room {
     private double baseNightPrice;
     private int maxAmountOfExtraBeds;
     private int roomNumber;
+    @ManyToOne
+    private Hotel hotel;
 
     public Room() { }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
 
     public Long getId() {
         return id;
