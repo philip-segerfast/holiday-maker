@@ -5,16 +5,20 @@ import javax.persistence.*;
 /**
  * Just contains an image URL.
  */
-@Table(name = "HOTEL_PICTURES")
+@Table(name = "HOTEL_IMAGES")
 @Entity
-public class HotelPicture {
+public class HotelImage {
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String url;
 
-    public HotelPicture() {}
+    public HotelImage() {}
+
+    public HotelImage(String url) {
+        this.url = url;
+    }
 
     public Long getId() {
         return id;

@@ -13,15 +13,11 @@ public class HotelService {
     @Autowired
     private HotelRepository hotelRepository;
 
+    @Autowired
+    private HotelImageService hotelImageService;
+
     @PostConstruct
     public void generateTestData() {
-        /*
-        Hotel hotel = new Hotel();
-
-        hotel.setName("test hotel 1");
-
-        hotelRepository.save(hotel);
-        */
     }
 
 }

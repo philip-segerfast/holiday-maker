@@ -23,7 +23,7 @@ public class Hotel {
     private double selfCateringPrice;
     private double halfPensionPrice;
     @OneToMany
-    private List<HotelPicture> pictures;
+    private List<HotelImage> images;
     @OneToMany
     private List<HotelTag> hotelTags;
     @OneToMany
@@ -135,12 +135,12 @@ public class Hotel {
         this.halfPensionPrice = halfPensionPrice;
     }
 
-    public List<HotelPicture> getPictures() {
-        return pictures;
+    public List<HotelImage> getImages() {
+        return images;
     }
 
-    public void setPictures(List<HotelPicture> pictures) {
-        this.pictures = pictures;
+    public void setImages(List<HotelImage> pictures) {
+        this.images = pictures;
     }
 
     public List<HotelTag> getHotelTags() {
