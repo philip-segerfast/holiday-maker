@@ -18,24 +18,18 @@ public class Hotel {
     private String coordinates;
     private double beachDistance;
     private double centerDistance;
+    private double allInclusivePrice;
+    private double fullBoardPrice;
+    private double selfCateringPrice;
+    private double halfPensionPrice;
     @OneToMany
     private List<HotelPicture> pictures;
-    @ManyToOne
-    private HotelLuxuryClass luxuryClass;
     @OneToMany
     private List<HotelTag> hotelTags;
     @OneToMany
     private List<HotelRoom> hotelRooms;
 
     public Hotel() {}
-
-    public List<HotelRoom> getRooms() {
-        return hotelRooms;
-    }
-
-    public void setRooms(List<HotelRoom> hotelRooms) {
-        this.hotelRooms = hotelRooms;
-    }
 
     public Long getId() {
         return id;
@@ -109,6 +103,38 @@ public class Hotel {
         this.centerDistance = centerDistance;
     }
 
+    public double getAllInclusivePrice() {
+        return allInclusivePrice;
+    }
+
+    public void setAllInclusivePrice(double allInclusivePrice) {
+        this.allInclusivePrice = allInclusivePrice;
+    }
+
+    public double getFullBoardPrice() {
+        return fullBoardPrice;
+    }
+
+    public void setFullBoardPrice(double fullBoardPrice) {
+        this.fullBoardPrice = fullBoardPrice;
+    }
+
+    public double getSelfCateringPrice() {
+        return selfCateringPrice;
+    }
+
+    public void setSelfCateringPrice(double selfCateringPrice) {
+        this.selfCateringPrice = selfCateringPrice;
+    }
+
+    public double getHalfPensionPrice() {
+        return halfPensionPrice;
+    }
+
+    public void setHalfPensionPrice(double halfPensionPrice) {
+        this.halfPensionPrice = halfPensionPrice;
+    }
+
     public List<HotelPicture> getPictures() {
         return pictures;
     }
@@ -117,19 +143,19 @@ public class Hotel {
         this.pictures = pictures;
     }
 
-    public HotelLuxuryClass getLuxuryClass() {
-        return luxuryClass;
-    }
-
-    public void setLuxuryClass(HotelLuxuryClass luxuryClass) {
-        this.luxuryClass = luxuryClass;
-    }
-
     public List<HotelTag> getHotelTags() {
         return hotelTags;
     }
 
     public void setHotelTags(List<HotelTag> hotelTags) {
         this.hotelTags = hotelTags;
+    }
+
+    public List<HotelRoom> getHotelRooms() {
+        return hotelRooms;
+    }
+
+    public void setHotelRooms(List<HotelRoom> hotelRooms) {
+        this.hotelRooms = hotelRooms;
     }
 }
