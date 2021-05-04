@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HotelService {
@@ -27,5 +29,21 @@ public class HotelService {
 
     public List<Hotel> getAllHotels() {
         return hotelRepository.findAll();
+    }
+
+    public List<Hotel> getHotelsBySearch(Hotel hotelSearch) {
+        System.out.println("Id of searched hotel is: " + hotelSearch.getId());
+        List<Hotel> listOfHotels = new ArrayList<>();
+
+        return hotelRepository.findAll();
+    }
+
+    public Hotel getHotelById(long id) {
+        Optional<Hotel> hotel = hotelRepository.findById(id);
+
+        if (hotel.isPresent()) {
+            return hotel.get();
+        }
+        return null;
     }
 }

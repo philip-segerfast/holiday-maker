@@ -3,8 +3,7 @@ package newton.grupp2.holidaymaker.controllers;
 import newton.grupp2.holidaymaker.entities.Hotel;
 import newton.grupp2.holidaymaker.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +16,19 @@ public class HotelController {
     @GetMapping("/rest/allhotels")
     public List<Hotel> getAllHotels() {
         return hotelService.getAllHotels();
-}
+    }
+
+    @GetMapping("/rest/hotels/id/{id}")
+        public Hotel getHotelById(@PathVariable long id) {
+            return hotelService.getHotelById(id);
+        }
+
+
+
+    @PostMapping("/rest/search")
+        public List<Hotel> getHotelsBySearch(@RequestBody Hotel hotelSearch) {
+            return hotelService.getHotelsBySearch(hotelSearch);
+    }
 
 
 }
