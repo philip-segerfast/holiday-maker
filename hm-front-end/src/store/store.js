@@ -30,7 +30,7 @@ export default createStore({
     //Använder Axios för tillfället!
 
     async fetchHotel(){
-      await axios.get("http://localhost:3000/rest/hotels")
+      await axios.get("http://localhost:3000/rest/allhotels")
       .then(response => {
         this.commit("setHotel", response.data)
         console.log(response.data)

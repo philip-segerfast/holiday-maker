@@ -1,11 +1,10 @@
 <template>
 
 <!-- Implementera click funktion när HotelPage är klar @click="redirectToHotelPage" -->
-    <div class="hotel-card">
-        <h2>          
-            <span></span>
-        </h2>
-        
+    <div class="hotel-card">         
+            <span>{{ hotel.name }}</span>
+            -
+            <span>{{ hotel.city }}</span>       
     </div>
 </template>
 
@@ -29,7 +28,7 @@ export default {
 
 <style>
 
-.category-card {
+.hotel-card {
   background-color: lightgray;
   margin-bottom: 20px;
   padding: 10px;
