@@ -31,13 +31,6 @@ public class HotelService {
         return hotelRepository.findAll();
     }
 
-    public List<Hotel> getHotelsBySearch(Hotel hotelSearch) {
-        System.out.println("Id of searched hotel is: " + hotelSearch.getId());
-        List<Hotel> listOfHotels = new ArrayList<>();
-
-        return hotelRepository.findAll();
-    }
-
     public Hotel getHotelById(long id) {
         Optional<Hotel> hotel = hotelRepository.findById(id);
 
@@ -46,4 +39,15 @@ public class HotelService {
         }
         return null;
     }
+
+    public List<Hotel> getHotelsBySearch(Hotel hotelSearch) {
+        if (getAllHotels() == null) {
+            System.out.println("Database has no hotels");
+            return null;
+        } else {
+        return hotelRepository.findAllByCityContainingOrderByNameAsc(hotelSearch.getCity());
+
+        }
+    }
+
 }
