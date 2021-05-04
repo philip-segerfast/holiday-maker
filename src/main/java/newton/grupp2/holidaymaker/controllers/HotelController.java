@@ -23,7 +23,7 @@ public class HotelController {
             return hotelService.getHotelById(id);
         }
 
-    @PostMapping("/rest/search")
+    @GetMapping("/rest/search")
         public List<Hotel> getHotelsBySearch(@RequestBody Hotel hotelSearch) {
             return hotelService.getHotelsBySearch(hotelSearch);
     }

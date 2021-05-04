@@ -45,8 +45,9 @@ public class HotelService {
             System.out.println("Database has no hotels");
             return null;
         } else {
-        return hotelRepository.findAllByCityContainingOrderByNameAsc(hotelSearch.getCity());
-
+            System.out.println("debug: " + hotelSearch.getCity() + " " + hotelSearch.getName());
+        //return hotelRepository.findAllByCityContainingOrderByNameAsc(hotelSearch.getCity());
+        return hotelRepository.findHotelstest(hotelSearch.getCity(), hotelSearch.getName());
         }
     }
 
