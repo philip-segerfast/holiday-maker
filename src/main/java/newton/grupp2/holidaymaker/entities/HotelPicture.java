@@ -12,7 +12,6 @@ public class HotelPicture {
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String url;
 
     public HotelPicture() {}
