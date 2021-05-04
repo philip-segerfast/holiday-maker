@@ -22,8 +22,4 @@ public class HotelRoom {
 
     public HotelRoom() { }
 
-    public Long getId() {
-        return id;
-    }
-
 }

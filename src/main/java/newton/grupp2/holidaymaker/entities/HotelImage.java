@@ -1,5 +1,8 @@
 package newton.grupp2.holidaymaker.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +10,8 @@ import javax.persistence.*;
  */
 @Table(name = "HOTEL_IMAGES")
 @Entity
+@Getter
+@Setter
 public class HotelImage {
     @Id
     @Column(name = "ID", nullable = false)
@@ -17,22 +22,6 @@ public class HotelImage {
     public HotelImage() {}
 
     public HotelImage(String url) {
-        this.url = url;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
         this.url = url;
     }
 }
