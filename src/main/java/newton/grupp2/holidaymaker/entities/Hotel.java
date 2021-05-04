@@ -1,5 +1,7 @@
 package newton.grupp2.holidaymaker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class Hotel {
     private double centerDistance;
     @OneToMany
     private List<HotelPicture> pictures;
+    @JsonIgnoreProperties("hotel")      //To stop loop when using getAllHotels in postman /Peter
     @ManyToOne
     private HotelLuxuryClass luxuryClass;
     @OneToMany
