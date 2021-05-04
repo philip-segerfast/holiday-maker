@@ -36,7 +36,7 @@ export default {
 
   // Aktiverar kopplingen till backend 
   mounted() {
-      //  this.$store.dispatch("fetchHotel");
+        this.$store.dispatch("fetchHotel");
     }
 };
 </script>
