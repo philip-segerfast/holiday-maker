@@ -3,11 +3,10 @@
 <input type="text" id="search" placeholder="type search" v-model="searchtext">
 <button type="submit">Search</button>
 </form>
+    
 </template>
 
 <script>
-//FÖR SÖKRESULTAT
-import HotelCard from "../components/HotelCard.vue";
 
 export default {
     data() {
@@ -21,24 +20,25 @@ export default {
         searchMethod() {
             let searchtext = this.searchtext
             console.log("searchtext is: "+searchtext);
-            this.$store.commit("setSearchQuery", searchtext)
-            this.$store.dispatch("fetchHotels");
+            this.$store.commit("setHotelSearch", searchtext)
+            this.$store.dispatch("fetchHotelSearch");
         }
     },
 
     components: {
-        HotelCard,
+        
     },
 
     computed: {
         hotels(){
-            return this.$store.getters.getHotel
+            return this.$store.getters.getHotelSearch
         },
 
     },
-    mounted() {
-        this.$store.dispatch("fetchHotel")
-    }
+
+    // mounted() {
+    //    this.$store.dispatch("fetchHotel")
+    // }
 
 };
 </script>

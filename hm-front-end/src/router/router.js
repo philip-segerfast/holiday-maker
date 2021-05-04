@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import ResultPage from "../views/ResultPage.vue";
 
+
 const routes = [
   {
     path: "/",

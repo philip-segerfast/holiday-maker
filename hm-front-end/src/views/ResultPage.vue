@@ -14,7 +14,6 @@
 </template>
 
 <script>
-
 // Import HotelCard to use in ResultPage
 import HotelCard from "../components/HotelCard.vue";
 
@@ -36,7 +35,7 @@ export default {
 
   // Aktiverar kopplingen till backend 
   mounted() {
-        this.$store.dispatch("fetchHotel");
+        this.$store.dispatch("fetchAllHotels");
     }
 };
 </script>
