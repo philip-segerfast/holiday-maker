@@ -6,22 +6,30 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@Table(name = "USERS")
+@Table(name = "USER")
 @Entity
-@Getter
 @Setter
 @ToString
+@Table(name = "user")
+@Getter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String username;
+    private String email;
     private String password;
+    private String first_name;
+    private String last_name;
 
-    public User(String username, String password) {
-        this.username = username;
+
+
+    public User(String email, String password, String firstName, String lastName) {
+        this.email = email;
         this.password = password;
+        this.first_name = firstName;
+        this.last_name = lastName;
     }
 
     public User() {}
 }
+
