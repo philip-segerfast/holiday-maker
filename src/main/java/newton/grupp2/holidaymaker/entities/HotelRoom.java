@@ -1,8 +1,8 @@
 package newton.grupp2.holidaymaker.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class HotelRoom {
     @Id
     @Column(name = "ID", nullable = false)
@@ -28,7 +29,5 @@ public class HotelRoom {
     @ManyToOne
     @JsonIgnore
     private Hotel hotel;
-
-    public HotelRoom() { }
 
 }

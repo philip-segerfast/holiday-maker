@@ -1,17 +1,18 @@
 package newton.grupp2.holidaymaker.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "USERS")
-@ToString
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,4 @@ public class User {
         this.first_name = firstName;
         this.last_name = lastName;
     }
-
-    public User() {}
 }
-
