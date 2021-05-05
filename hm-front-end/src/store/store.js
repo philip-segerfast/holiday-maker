@@ -14,14 +14,14 @@ export default createStore({
 
     //Hur implementeras detta??
     setHotelSearch(state, payload) {
-      state.searchQuery = payload;
+      state.HotelSearch = payload;
     },
   },
   actions: {
     //Använder Axios för tillfället!
 
     async fetchAllHotels(){
-      await axios.get("http://localhost:3000/rest/allhotels")
+      await axios.get("http://localhost:3000/rest/all-hotels")
       .then(response => {
         this.commit("setAllHotels", response.data)
         console.log(response.data)
@@ -44,7 +44,7 @@ export default createStore({
       let response = await fetch('/rest/search', {
       method: 'POST',
       headers: {'Content-Type': 'application/json' },
-      body: JSON.stringify(this.state.searchQuery)
+      body: JSON.stringify(this.state.HotelSearch)
   })
       console.log('Response from search: '+ response)
   },
@@ -59,7 +59,7 @@ export default createStore({
 
       //SÖKRESULTAT KOLLA UPP!
       getHotelSearch(state){
-        return state.hotels
+        return state.HotelSearch
       },
     }
 

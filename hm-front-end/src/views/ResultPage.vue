@@ -2,8 +2,6 @@
   <div class="result-page">
     <div>
       <SearchBar/>
-      <!-- Hello -->
-      <div>Hello</div>
     </div>
       <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
       <!-- Loopar ut (v-for) listan av kategorier enskilt = Skapar varje "category" som en egen komponent-->  
