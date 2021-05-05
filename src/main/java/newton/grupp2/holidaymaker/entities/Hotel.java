@@ -37,7 +37,7 @@ public class Hotel {
     @OneToMany
     private List<HotelTag> hotelTags = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "hotel")
     private List<HotelRoom> hotelRooms = new ArrayList<>();
 
     public Hotel() {}

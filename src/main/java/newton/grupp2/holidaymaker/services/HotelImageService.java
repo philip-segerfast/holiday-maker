@@ -20,6 +20,7 @@ public class HotelImageService {
 
         System.out.println("Path: " + path);
 
+        // Save the file
         String savedFileName = Files.write(path, bytes).getFileName().toString();
         return new HotelImage(savedFileName);
     }

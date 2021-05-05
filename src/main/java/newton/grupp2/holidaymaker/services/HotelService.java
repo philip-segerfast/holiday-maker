@@ -2,11 +2,14 @@ package newton.grupp2.holidaymaker.services;
 
 import newton.grupp2.holidaymaker.entities.Hotel;
 import newton.grupp2.holidaymaker.entities.HotelImage;
+import newton.grupp2.holidaymaker.entities.HotelRoom;
 import newton.grupp2.holidaymaker.forms.NewHotelForm;
 import newton.grupp2.holidaymaker.repositories.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 public class HotelService {
@@ -42,6 +45,13 @@ public class HotelService {
         return hotelRepository.save(hotel);
     }
 
+    public List<HotelRoom> getRoomsForHotel(long id) {
+        Hotel hotel = hotelRepository.findById(id).orElse(null);
+        if(hotel != null) {
+            return hotel.getHotelRooms();
+        }
+        return null;
+    }
 }
 
 

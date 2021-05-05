@@ -1,5 +1,7 @@
 package newton.grupp2.holidaymaker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,6 +24,10 @@ public class HotelRoom {
     private int doubleBedsAmount;
     private double baseNightPrice;
     private int maxAmountOfExtraBeds;
+
+    @ManyToOne
+    @JsonIgnore
+    private Hotel hotel;
 
     public HotelRoom() { }
 
