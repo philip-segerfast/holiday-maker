@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,17 +65,6 @@ public class HotelService {
             return hotel.get();
         }
         return null;
-    }
-
-    public List<Hotel> getHotelsBySearch(Hotel hotelSearch) {
-        if (getAllHotels() == null) {
-            System.out.println("Database has no hotels");
-            return null;
-        } else {
-            System.out.println("debug: " + hotelSearch.getCity() + " " + hotelSearch.getName());
-        //return hotelRepository.findAllByCityContainingOrderByNameAsc(hotelSearch.getCity());
-        return hotelRepository.findHotelstest(hotelSearch.getCity(), hotelSearch.getName());
-        }
     }
 
 }
