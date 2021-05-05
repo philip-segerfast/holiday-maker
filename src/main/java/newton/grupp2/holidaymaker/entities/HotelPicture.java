@@ -1,29 +1,34 @@
 package newton.grupp2.holidaymaker.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
 
 /**
  * Just contains an image URL.
  */
-@Table(name = "HOTEL_IMAGES")
+@Table(name = "HOTEL_PICTURES")
 @Entity
-@Getter
-@Setter
-@ToString
-public class HotelImage {
+public class HotelPicture {
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String url;
 
-    public HotelImage() {}
+    public HotelPicture() {}
 
-    public HotelImage(String url) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
         this.url = url;
     }
 }
