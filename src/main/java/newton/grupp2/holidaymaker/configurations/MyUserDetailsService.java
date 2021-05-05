@@ -36,7 +36,9 @@ public class MyUserDetailsService implements UserDetailsService {
         return toUserDetails(user);
     }
 
-    public User registerUser(User user){ // abc123 -> 1239e78hf23ewffjf293478hf2doi321u9c27gt39c2uh3w
+    public User registerUser(User user){
+        System.out.println(user);
+        // abc123 -> 1239e78hf23ewffjf293478hf2doi321u9c27gt39c2uh3w
         user.setPassword(encoder.encode(user.getPassword()));
         try {
             return userRepo.save(user);
@@ -50,7 +52,7 @@ public class MyUserDetailsService implements UserDetailsService {
         // If you have a User entity you have to
         // use the userdetails User for this to work
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
+                .withUsername(user.getEmail())
                 .password(user.getPassword())
                 .roles("USER").build();
     }
