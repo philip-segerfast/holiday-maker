@@ -13,9 +13,20 @@ import java.util.List;
 public class HotelController {
 
     @Autowired
-    HotelService hotelService;
+    private HotelService hotelService;
 
-    @PostMapping("/rest/save-hotel")
+    //Get list of all hotels in database
+    @GetMapping("/rest/hotels/all-hotels")
+    public List<Hotel> getAllHotels() {
+        return hotelService.getAllHotels();
+    }
+
+    @GetMapping("/rest/hotels/id/{id}")
+    public Hotel getHotelById(@PathVariable long id) {
+            return hotelService.getHotelById(id);
+        }
+
+    @PostMapping("/rest/hotels/save")
     public Hotel saveHotel(@ModelAttribute NewHotelForm newHotelForm) {
         try {
             return hotelService.saveHotelWithForm(newHotelForm);
@@ -26,7 +37,7 @@ public class HotelController {
         }
     }
 
-    @GetMapping("/rest/get-rooms-for-hotel/{id}")
+    @GetMapping("/rest/hotels/get-rooms/{id}")
     public List<HotelRoom> getRoomsForHotel(@PathVariable long id) {
         return hotelService.getRoomsForHotel(id);
     }
