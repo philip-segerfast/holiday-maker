@@ -1,10 +1,17 @@
 package newton.grupp2.holidaymaker.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 
-
+@Table(name = "USER")
 @Entity
+@Setter
+@ToString
 @Table(name = "user")
+@Getter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,40 +31,5 @@ public class User {
     }
 
     public User() {}
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String username) {
-        this.email = this.email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + first_name + '\'' +
-                ", lastName='" + last_name + '\'' +
-                '}';
-    }
 }
 
