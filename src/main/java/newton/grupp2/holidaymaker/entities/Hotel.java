@@ -2,14 +2,17 @@ package newton.grupp2.holidaymaker.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "HOTELS")
 @Entity
 @Getter
 @Setter
+@ToString
 public class Hotel {
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +30,15 @@ public class Hotel {
     private double fullBoardPrice;
     private double selfCateringPrice;
     private double halfPensionPrice;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<HotelImage> images = new ArrayList<>();
+
     @OneToMany
-    private List<HotelImage> images;
-    @OneToMany
-    private List<HotelTag> hotelTags;
-    @OneToMany
-    private List<HotelRoom> hotelRooms;
+    private List<HotelTag> hotelTags = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<HotelRoom> hotelRooms = new ArrayList<>();
 
     public Hotel() {}
 }

@@ -1,0 +1,75 @@
+{
+  "hotelRooms": [
+    {
+      "name": "Room 1",
+      "size": "20",
+      "singleBedsAmount": "2",
+      "doubleBedsAmount": "1",
+      "baseNightPrice": "1200",
+      "maxAmountOfExtraBeds": "2"
+    },
+    {
+      "name": "Room 2",
+      "size": "23",
+      "singleBedsAmount": "4",
+      "doubleBedsAmount": "0",
+      "baseNightPrice": "1690",
+      "maxAmountOfExtraBeds": "3"
+    },
+    {
+      "name": "Room 3",
+      "size": "19",
+      "singleBedsAmount": "0",
+      "doubleBedsAmount": "1",
+      "baseNightPrice": "890",
+      "maxAmountOfExtraBeds": "2"
+    }
+  ],
+
+  "hotelTags": [
+    {
+      "label": "Close to the beach"
+    },
+    {
+      "label": "Has restaurant"
+    },
+    {
+      "label": "In the forest"
+    },
+    {
+      "label": "In the city"
+    }
+  ]
+}
+
+
+{
+  "hotel-info": {
+      "name": "Super Hotel",
+      "description": "The best hotel you'll ever visit",
+      "city": "Malmö",
+      "address": "Supergatan 76",
+      "extraBedPrice": "299",
+      "coordinates": "55.571386, 13.089234",
+      "beachDistance": "10km",
+      "centerDistance": "300m",
+      "allInclusivePrice": "5000kr",
+      "fullBoardPrice": "4000kr",
+      "selfCateringPrice": "3000kr",
+      "halfPensionPrice": "2000kr",
+      "hotelTags": [
+          {
+            "id": "1"
+          },
+          {
+            "id": "2"
+          },
+          {
+            "id": "3"
+          }
+      ]
+  },
+  "images": {
+
+  }
+}

@@ -2,6 +2,7 @@ package newton.grupp2.holidaymaker.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@ToString
 public class HotelImage {
     @Id
     @Column(name = "ID", nullable = false)
