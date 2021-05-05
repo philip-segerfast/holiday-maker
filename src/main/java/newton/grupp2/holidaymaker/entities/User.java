@@ -6,12 +6,12 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@Table(name = "USER")
+
 @Entity
-@Setter
+@Table(name = "USERS")
 @ToString
-@Table(name = "user")
 @Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +20,6 @@ public class User {
     private String password;
     private String first_name;
     private String last_name;
-
-
 
     public User(String email, String password, String firstName, String lastName) {
         this.email = email;
