@@ -2,6 +2,7 @@ package newton.grupp2.holidaymaker.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,11 +10,13 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@ToString
 public class HotelRoom {
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     private int size; // Change datatype?
     private int singleBedsAmount;
     private int doubleBedsAmount;
@@ -21,9 +24,5 @@ public class HotelRoom {
     private int maxAmountOfExtraBeds;
 
     public HotelRoom() { }
-
-    public Long getId() {
-        return id;
-    }
 
 }
