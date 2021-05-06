@@ -28,7 +28,7 @@ export default createStore({
     
     async fetchHotelById() {
       console.log("Fetch programById running")
-      const url = "/rest/hotels/id/{id}"+this.state.hotelId
+      const url = "/rest/hotels/id" + this.state.hotelId
       await axios.get(url)
       .then(response =>(
         this.commit("setHotelById", response.data)

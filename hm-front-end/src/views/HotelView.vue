@@ -33,11 +33,10 @@ export default {
   },
   mounted() {
         this.$store.dispatch("fetchHotelRoomsByHotel");
+        this.$store.dispatch("fetchHotelById");
     }
 };
 </script>
 
 <style>
-
-
 </style>
