@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import ResultPage from "../views/ResultPage.vue";
+import HotelView from"@/views/HotelView.vue";
 
 
 const routes = [
@@ -22,7 +23,12 @@ const routes = [
     path: "/result-page",
     name: "Result",
     component: ResultPage,
-  }
+  },
+  {
+    path: "/hotelView",
+    name: "Hotel",
+    component: HotelView,
+  },
 ];
 
 const router = createRouter({
