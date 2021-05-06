@@ -8,9 +8,15 @@ export default createStore({
     HotelSearch: {},
     hotelRooms:[],
     hotel:{},
-    hotelId:1
+    hotelId: {},
+    hotelById:{},
   },
   mutations: {
+
+    setHotelById(state, payload){
+      state.hotelById=payload;
+    },
+
     setAllHotels(state, payload){
     state.hotels = payload;
     },
@@ -19,6 +25,16 @@ export default createStore({
     },
   },
   actions: {
+    
+    async fetchHotelById() {
+      console.log("Fetch programById running")
+      const url = "/rest/hotels/id/{id}"+this.state.hotelId
+      await axios.get(url)
+      .then(response =>(
+        this.commit("setHotelById", response.data)
+      ))
+    },
+
     async fetchAllHotels(){
       await axios.get("/rest/all-hotels")
       .then(response => {
@@ -47,6 +63,10 @@ export default createStore({
     hotelR = await hotelR.json()
     this.commit("setHotelRooms", hotelR)*/
     getters: {
+      getHotelById(state){
+        return state.hotelById
+      },
+
       getAllHotels(state){
         return state.hotels
       },
