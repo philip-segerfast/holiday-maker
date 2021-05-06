@@ -42,8 +42,5 @@ public class HotelController {
         return hotelService.getRoomsForHotel(id);
     }
 
-    // Search hotel by name
-    @GetMapping("/rest/hotels/search/{name}")
-    public List<Hotel> getHotelByNameSearch(@PathVariable String name) {return (List<Hotel>) hotelService.getHotelByNameSearch(name); }
 
 }

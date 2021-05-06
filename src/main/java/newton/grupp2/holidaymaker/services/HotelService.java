@@ -66,12 +66,6 @@ public class HotelService {
         }
         return null;
     }
-    // Search Hotel by searched hotel name
-    public Hotel getHotelByNameSearch(String name){
-        Optional<Hotel> hotel = hotelRepository.findAll(name);
-
-        return hotel.orElse(null);
-    }
 
 }
 
