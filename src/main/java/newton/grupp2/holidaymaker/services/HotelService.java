@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HotelService {
@@ -52,6 +53,20 @@ public class HotelService {
         }
         return null;
     }
+
+    public List<Hotel> getAllHotels() {
+        return hotelRepository.findAll();
+    }
+
+    public Hotel getHotelById(long id) {
+        Optional<Hotel> hotel = hotelRepository.findById(id);
+
+        if (hotel.isPresent()) {
+            return hotel.get();
+        }
+        return null;
+    }
+
 }
 
 

@@ -1,23 +1,33 @@
 <template>
-<div class="hotel-card">
-<h2>{{hotel.name}}</h2>
-<h2>{{hotel.city}}</h2>
 
-
-</div>
-  
+<!-- Implementera click funktion när HotelPage är klar @click="redirectToHotelPage" -->
+    <div class="hotel-card">         
+            <span>{{ hotel.name }}</span>
+            -
+            <span>{{ hotel.city }}</span>       
+    </div>
 </template>
 
 <script>
 export default {
-props:["hotel"],
-computed:{
 
-}
+    props: ["hotel"],
+
+    /* Inväntar HotelPage
+    methods: {
+        redirectToHotelPage() {
+            this.$store.commit("setTempHotelName", this.hotel.name)
+            let routerUrl = '/hotel-card/' + this.hotel.id
+            this.$router.push({path: routerUrl})
+
+        }
+    }
+    */
 }
 </script>
 
 <style>
+
 .hotel-card {
   background-color: lightgray;
   margin-bottom: 20px;
@@ -25,9 +35,6 @@ computed:{
   font-family: 'Arial';
   border-radius: 30px;
   border: 5px solid whitesmoke;
-  width: 100%;
-  
   }
-  
 
 </style>

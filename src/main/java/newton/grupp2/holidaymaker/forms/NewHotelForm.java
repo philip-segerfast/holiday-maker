@@ -16,8 +16,8 @@ public class NewHotelForm {
     private String description;
     private String city;
     private String address;
-    private double extraBedPrice;
     private String coordinates;
+    private double extraBedPrice;
     private double beachDistance;
     private double centerDistance;
     private double allInclusivePrice;

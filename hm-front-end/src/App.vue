@@ -2,6 +2,7 @@
   <div id="nav">
     <router-link to="/">Home</router-link>
     <router-link to="/about">About</router-link>
+    <router-link to="/result-page">Result</router-link>
     <router-link to="/hotelView">Hotel</router-link>
   </div>
   <router-view />

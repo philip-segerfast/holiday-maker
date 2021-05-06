@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import ResultPage from "../views/ResultPage.vue";
 import HotelView from"@/views/HotelView.vue";
 
 
@@ -18,6 +19,11 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+  {
+    path: "/result-page",
+    name: "Result",
+    component: ResultPage,
+  }
   {
     path: "/hotelView",
     name: "Hotel",
