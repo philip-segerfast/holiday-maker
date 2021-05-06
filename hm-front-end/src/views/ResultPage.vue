@@ -4,7 +4,7 @@
       <SearchBar/>
     </div>
       <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
-      <!-- Loopar ut (v-for) listan av kategorier enskilt = Skapar varje "category" som en egen komponent-->  
+      <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->  
     <div v-if="hotels.length > 0">
       <HotelCard 
         v-for="(hotel, i) in hotels"
@@ -17,6 +17,7 @@
 
 <script>
 // Import HotelCard to use in ResultPage
+// Import SearchBar -''-
 import HotelCard from "../components/HotelCard.vue";
 import SearchBar from "../components/SearchBar.vue"
 
@@ -24,6 +25,7 @@ import SearchBar from "../components/SearchBar.vue"
 export default {
  
  // declare HotelCard from import
+ // declare SearchBar from import
   components: {
     HotelCard,
     SearchBar,

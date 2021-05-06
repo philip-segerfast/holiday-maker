@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="searchMethod">
-<input type="text" id="search" placeholder="type search" v-model="searchtext">
+<input type="text" id="search" placeholder="type search" v-model="searchText">
 <button type="submit">Search</button>
 </form>
     
@@ -11,16 +11,16 @@
 export default {
     data() {
         return {
-            searchtext: ""
+            searchText: ""
         }
     },
 
     //Kolla upp "fetchHotels"
     methods: {
         searchMethod() {
-            let searchtext = this.searchtext
-            console.log("searchtext is: "+searchtext);
-            this.$store.commit("setHotelSearch", searchtext)
+            let searchText = this.searchText
+            console.log("searchtext is: "+searchText);
+            this.$store.commit("setHotelSearch", searchText)
             this.$store.dispatch("fetchHotelSearch");
         }
     },

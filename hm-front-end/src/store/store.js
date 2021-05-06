@@ -24,6 +24,7 @@ export default createStore({
       await axios.get("http://localhost:3000/rest/all-hotels")
       .then(response => {
         this.commit("setAllHotels", response.data)
+        console.log("TESTING") 
         console.log(response.data)
       })
     },
@@ -35,18 +36,12 @@ export default createStore({
     async fetchHotelSearch() {
 
     // Credentials - Ett objekt som kommer att innehålla en massa sökval 
-   //   let credentials = {
+   //   let hotels = {
    //       email: this.email,
    //       password: this.password,
    //       name: this.name
    //   }
 
-      let response = await fetch('/rest/search', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json' },
-      body: JSON.stringify(this.state.HotelSearch)
-  })
-      console.log('Response from search: '+ response)
   },
 
 
