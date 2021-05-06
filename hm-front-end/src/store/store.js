@@ -18,13 +18,15 @@ export default createStore({
     },
   },
   actions: {
-    async fetchAllHotels(){
-      await axios.get("/rest/all-hotels")
-      .then(response => {
-        this.commit("setAllHotels", response.data)
-        console.log(response.data)
-      })
+   // actions får tillgång till context objektet
+   async fetchAllHotels(context) {
+    let response = await fetch("/rest/hotels/all-hotels");
+    let json = await response.json();
+    console.log("Response:");
+    console.log(json);
+    context.commit("setAllHotels", json)
     },
+
     async fetchHotelRoomsByHotel(){
       console.log("hotel id: "+ this.state.hotelId)
       const url="/rest/hotels/get-rooms/"+this.state.hotelId
@@ -34,14 +36,10 @@ export default createStore({
     })
   },
     async fetchHotelSearch() {
-      let response = await fetch('/rest/search', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json' },
-      body: JSON.stringify(this.state.searchQuery)
-  })
-      console.log('Response from search: '+ response)
+     
   },
-  },
+},
+
           /*let hotelR = await fetch(url)
     hotelR = await hotelR.json()
     this.commit("setHotelRooms", hotelR)*/
