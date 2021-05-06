@@ -23,7 +23,7 @@ const routes = [
     path: "/result-page",
     name: "Result",
     component: ResultPage,
-  }
+  },
   {
     path: "/hotelView",
     name: "Hotel",

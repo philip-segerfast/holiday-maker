@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createStore } from "vuex";
-import axios from "axios";
 
 
 export default createStore({
@@ -8,7 +7,8 @@ export default createStore({
     hotels: [],
     HotelSearch: {},
     hotelRooms:[],
-    hotel:{}
+    hotel:{},
+    hotelId:1
   },
   mutations: {
     setAllHotels(state, payload){
@@ -20,7 +20,7 @@ export default createStore({
   },
   actions: {
     async fetchAllHotels(){
-      await axios.get("http://localhost:3000/rest/allhotels")
+      await axios.get("/rest/all-hotels")
       .then(response => {
         this.commit("setAllHotels", response.data)
         console.log(response.data)
@@ -28,11 +28,12 @@ export default createStore({
     },
     async fetchHotelRoomsByHotel(){
       console.log("hotel id: "+ this.state.hotelId)
-    const url="/rest/get-rooms-for-hotel/"+this.state.hotelId
-    await axios.get(url)
-    .then(response => {
-      this.commit("setHotelRooms", response.data)
+      const url="/rest/hotels/get-rooms/"+this.state.hotelId
+      await axios.get(url)
+      .then(response => {
+        this.commit("setHotelRooms", response.data)
     })
+  },
     async fetchHotelSearch() {
       let response = await fetch('/rest/search', {
       method: 'POST',
@@ -41,7 +42,8 @@ export default createStore({
   })
       console.log('Response from search: '+ response)
   },
-    /*let hotelR = await fetch(url)
+  },
+          /*let hotelR = await fetch(url)
     hotelR = await hotelR.json()
     this.commit("setHotelRooms", hotelR)*/
     getters: {
@@ -50,7 +52,7 @@ export default createStore({
       },
     getHotelRooms(state){
       return state.hotelRooms
-    }
+    },
       getHotelSearch(state){
         return state.hotels
       },
