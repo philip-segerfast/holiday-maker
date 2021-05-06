@@ -1,46 +1,40 @@
 import axios from "axios";
 import { createStore } from "vuex";
 
+
 export default createStore({
   state: {
     hotels: [],
     HotelSearch: {},
-
+    hotelRooms:[],
+    hotel:{},
+    hotelId:1
   },
   mutations: {
     setAllHotels(state, payload){
     state.hotels = payload;
     },
-
-    //Hur implementeras detta??
-    setHotelSearch(state, payload) {
-      state.searchQuery = payload;
+    setHotelRooms(state,payload){
+      state.hotelRooms=payload;
     },
   },
   actions: {
-    //Använder Axios för tillfället!
-
     async fetchAllHotels(){
-      await axios.get("http://localhost:3000/rest/allhotels")
+      await axios.get("/rest/all-hotels")
       .then(response => {
         this.commit("setAllHotels", response.data)
         console.log(response.data)
       })
     },
-
-    // FÖR SÖKRESULTAT Kolla upp!
-    // Axios eller ???
-    // Kommer att söka på fler än en Entitet
-    
+    async fetchHotelRoomsByHotel(){
+      console.log("hotel id: "+ this.state.hotelId)
+      const url="/rest/hotels/get-rooms/"+this.state.hotelId
+      await axios.get(url)
+      .then(response => {
+        this.commit("setHotelRooms", response.data)
+    })
+  },
     async fetchHotelSearch() {
-
-    // Credentials - Ett objekt som kommer att innehålla en massa sökval 
-   //   let credentials = {
-   //       email: this.email,
-   //       password: this.password,
-   //       name: this.name
-   //   }
-
       let response = await fetch('/rest/search', {
       method: 'POST',
       headers: {'Content-Type': 'application/json' },
@@ -48,19 +42,19 @@ export default createStore({
   })
       console.log('Response from search: '+ response)
   },
-
-
   },
-
+          /*let hotelR = await fetch(url)
+    hotelR = await hotelR.json()
+    this.commit("setHotelRooms", hotelR)*/
     getters: {
       getAllHotels(state){
         return state.hotels
       },
-
-      //SÖKRESULTAT KOLLA UPP!
+    getHotelRooms(state){
+      return state.hotelRooms
+    },
       getHotelSearch(state){
         return state.hotels
       },
     }
-
 });
