@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div>
-      <SearchBar/>
+      <SearchBar />
       <!-- Hello -->
       <div>Hello</div>
     </div>
@@ -11,10 +11,8 @@
 <script>
 import SearchBar from "../components/SearchBar.vue";
 
-
 export default {
   name: "Home",
-  components: { SearchBar,
-  },
+  components: { SearchBar },
 };
 </script>

@@ -1,52 +1,42 @@
 <template>
   <div class="result-page">
     <div>
-      <SearchBar/>
+      <SearchBar />
     </div>
-      <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
-      <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->  
+    <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
+    <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
     <div v-if="hotels.length > 0">
-      <HotelCard 
-        v-for="(hotel, i) in hotels"
-        :key="hotel + i"
-        :hotel="hotel"
-      /> 
+      <HotelCard v-for="(hotel, i) in hotels" :key="hotel + i" :hotel="hotel" />
     </div>
-   </div>
+  </div>
 </template>
 
 <script>
 // Import HotelCard to use in ResultPage
 // Import SearchBar -''-
 import HotelCard from "../components/HotelCard.vue";
-import SearchBar from "../components/SearchBar.vue"
-
+import SearchBar from "../components/SearchBar.vue";
 
 export default {
- 
- // declare HotelCard from import
- // declare SearchBar from import
+  // declare HotelCard from import
+  // declare SearchBar from import
   components: {
     HotelCard,
     SearchBar,
   },
 
- 
   computed: {
-  // Hämtar hotellistan från store
+    // Hämtar hotellistan från store
     hotels() {
-            return this.$store.state.hotels
-        },
-    
+      return this.$store.state.hotels;
+    },
   },
 
-  // Aktiverar kopplingen till backend 
+  // Aktiverar kopplingen till backend
   mounted() {
-        this.$store.dispatch("fetchAllHotels");
-    }
+    this.$store.dispatch("fetchAllHotels");
+  },
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
