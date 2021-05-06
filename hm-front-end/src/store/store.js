@@ -5,7 +5,9 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     hotels: [],
-    HotelSearch: {},
+    hotelSearch: {
+      name: null,
+    },
     hotelRooms:[],
     hotel:{},
     hotelId:1
@@ -16,6 +18,9 @@ export default createStore({
     },
     setHotelRooms(state,payload){
       state.hotelRooms=payload;
+    },
+    setHotelSearch(state, payload){
+      state.hotelSearch = payload;
     },
   },
   actions: {
@@ -37,10 +42,10 @@ export default createStore({
     })
   },
     async fetchHotelSearch() {
-      let response = await fetch('/rest/search', {
+      let response = await fetch('/rest/hotels/search'+ this.state.hotelSearch, {
       method: 'POST',
       headers: {'Content-Type': 'application/json' },
-      body: JSON.stringify(this.state.searchQuery)
+      body: JSON.stringify(this.state.hotelSearch)
   })
       console.log('Response from search: '+ response)
   },
@@ -56,7 +61,7 @@ export default createStore({
       return state.hotelRooms
     },
       getHotelSearch(state){
-        return state.hotels
+        return state.hotelSearch
       },
     }
 });
