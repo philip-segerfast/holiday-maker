@@ -1,19 +1,17 @@
 <template>
-
-<!-- Implementera click funktion när HotelPage är klar @click="redirectToHotelPage" -->
-    <div class="hotel-card">         
-            <span>{{ hotel.name }}</span>
-            -
-            <span>{{ hotel.city }}</span>       
-    </div>
+  <!-- Implementera click funktion när HotelPage är klar @click="redirectToHotelPage" -->
+  <div class="hotel-card">
+    <span>{{ hotel.name }}</span>
+    -
+    <span>{{ hotel.city }}</span>
+  </div>
 </template>
 
 <script>
 export default {
+  props: ["hotel"],
 
-    props: ["hotel"],
-
-    /* Inväntar HotelPage
+  /* Inväntar HotelPage
     methods: {
         redirectToHotelPage() {
             this.$store.commit("setTempHotelName", this.hotel.name)
@@ -23,18 +21,16 @@ export default {
         }
     }
     */
-}
+};
 </script>
 
 <style>
-
 .hotel-card {
   background-color: lightgray;
   margin-bottom: 20px;
   padding: 10px;
-  font-family: 'Arial';
+  font-family: "Arial";
   border-radius: 30px;
   border: 5px solid whitesmoke;
-  }
-
+}
 </style>

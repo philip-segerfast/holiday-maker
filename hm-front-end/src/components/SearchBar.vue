@@ -1,48 +1,52 @@
+<!-- eslint-disable -->
 <template>
-  <form @submit.prevent="searchMethod">
-<input type="text" id="search" placeholder="type search" v-model="searchtext">
-<button type="submit">Search</button>
-</form>
-    
+  <form id="search-bar-container" @submit.prevent="searchMethod">
+    <SearchBox />
+    <CheckInRange />
+    <AmountOfPeople />
+    <button type="submit">Search</button>
+  </form>
 </template>
 
 <script>
+import SearchBox from "../components/SearchBox.vue";
+import CheckInRange from "../components/CheckInRange.vue";
+import AmountOfPeople from "../components/AmountOfPeople.vue";
 
 export default {
-    data() {
-        return {
-            searchtext: ""
-        }
+  data() {
+    return {};
+  },
+  components: {
+    CheckInRange,
+    SearchBox,
+    AmountOfPeople,
+  },
+  computed: {
+    hotels() {
+      return this.$store.getters.getHotelSearch;
     },
-
-    //Kolla upp "fetchHotels"
-    methods: {
-        searchMethod() {
-            let searchtext = this.searchtext
-            console.log("searchtext is: "+searchtext);
-            this.$store.commit("setHotelSearch", searchtext)
-            this.$store.dispatch("fetchHotelSearch");
-        }
+    searchValue() {
+      return this.$store.getters.getSearchText;
     },
+  },
 
-    components: {
-        
-    },
-
-    computed: {
-        hotels(){
-            return this.$store.getters.getHotelSearch
-        },
-
-    },
-
-    // mounted() {
-    //    this.$store.dispatch("fetchHotel")
-    // }
-
+  // mounted() {
+  //    this.$store.dispatch("fetchHotel")
+  // }
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+#search-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
 
+  #form {
+
+  }
+}
 </style>
