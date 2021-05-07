@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <!-- NEED TO ADD AGES FOR CHILDREN -->
 
 <template>
@@ -14,22 +15,24 @@
       <div class="dropdown-info">
         <span>Adults</span>
         <!-- eslint-disable-next-line -->
-        <input type="number" name="adults-amt" min="0" @input="updateAdultsAmount" />
+        <input type="number" name="adults-amt" min="0" v-model="adultsAmount" @input="updateAdultsAmount" />
       </div>
       <div class="dropdown-info">
         <span>Children</span>
         <!-- eslint-disable-next-line -->
-        <input type="number" name="children-amt" min="0" @input="updateChildrenAmount" />
+        <input type="number" name="children-amt" min="0" v-model="childrenAmount" @input="updateChildrenAmount" />
       </div>
     </div>
   </div>
 </template>
-
+<!-- eslint-disable -->
 <script>
 export default {
   data() {
     return {
       isDropdownHidden: true,
+      childrenAmount: 0,
+      adultsAmount: 0,
     };
   },
   methods: {
@@ -42,11 +45,11 @@ export default {
         this.toggleShowDropdown();
       }
     },
-    updateAdultsAmount(e) {
-      this.$store.commit("updateAdultsAmount", e.target.value);
+    updateAdultsAmount () {
+      this.$store.commit("updateAdultsAmount", this.adultsAmount);
     },
-    updateChildrenAmount(e) {
-      this.$store.commit("updateChildrenAmount", e.target.value);
+    updateChildrenAmount () {
+      this.$store.commit("updateChildrenAmount", this.childrenAmount);
     },
   },
 };

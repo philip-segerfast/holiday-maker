@@ -49,11 +49,11 @@ export default createStore({
   actions: {
    // actions får tillgång till context objektet
    async fetchAllHotels(context) {
-    let response = await fetch("/rest/hotels/all-hotels");
-    let json = await response.json();
-    console.log("Response:");
-    console.log(json);
-    context.commit("setAllHotels", json)
+      let response = await fetch("/rest/hotels/all-hotels");
+      let json = await response.json();
+      console.log("Response:");
+      console.log(json);
+      context.commit("setAllHotels", json)
     },
     async fetchHotelRoomsByHotel() {
       console.log("hotel id: "+ this.state.hotelId)
@@ -63,8 +63,6 @@ export default createStore({
         this.commit("setHotelRooms", response.data)
       })
     },
-    async fetchHotelSearch() {
-     
   },
   /*let hotelR = await fetch(url)
   hotelR = await hotelR.json()
