@@ -21,8 +21,8 @@ export default createStore({
         adultsAmount: 0,
         childrenAmount: 0
       }
-    }
-    hotelById:{},
+    },
+    hotelById:{}, // Använd this.$route.params.programId istället
   },
   mutations: {
     setHotelById(state, payload){
@@ -72,9 +72,8 @@ export default createStore({
     getAllHotels(state){
       return state.hotels;
     },
-      getHotelById(state){
-        return state.hotelById
-      },
+    getHotelById(state){
+      return state.hotelById
     },
     getHotelSearch(state){
       return state.hotels;
