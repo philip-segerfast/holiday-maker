@@ -1,10 +1,8 @@
-<!-- eslint-disable -->
 <template>
   <form id="search-bar-container" @submit.prevent="searchMethod">
     <SearchBox />
     <CheckInRange />
     <AmountOfPeople />
-    <button type="submit">Search</button>
   </form>
 </template>
 
@@ -30,10 +28,6 @@ export default {
       return this.$store.getters.getSearchText;
     },
   },
-
-  // mounted() {
-  //    this.$store.dispatch("fetchHotel")
-  // }
 };
 </script>
 
@@ -44,9 +38,5 @@ export default {
   justify-content: center;
   flex-direction: row;
   width: 100%;
-
-  #form {
-
-  }
 }
 </style>

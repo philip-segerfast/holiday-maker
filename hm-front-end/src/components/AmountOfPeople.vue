@@ -1,6 +1,4 @@
-<!-- eslint-disable -->
 <!-- NEED TO ADD AGES FOR CHILDREN -->
-
 <template>
   <div id="container" class="unselectable" v-click-away="onClickAway">
     <!-- eslint-disable-next-line -->
@@ -25,7 +23,6 @@
     </div>
   </div>
 </template>
-<!-- eslint-disable -->
 <script>
 export default {
   data() {
@@ -45,10 +42,10 @@ export default {
         this.toggleShowDropdown();
       }
     },
-    updateAdultsAmount () {
+    updateAdultsAmount() {
       this.$store.commit("updateAdultsAmount", this.adultsAmount);
     },
-    updateChildrenAmount () {
+    updateChildrenAmount() {
       this.$store.commit("updateChildrenAmount", this.childrenAmount);
     },
   },

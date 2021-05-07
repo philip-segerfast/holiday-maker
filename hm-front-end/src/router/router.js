@@ -2,8 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Register from "../views/Register.vue";
 import ResultPage from "../views/ResultPage.vue";
-import HotelView from"@/views/HotelView.vue";
-
+import HotelView from "@/views/HotelView.vue";
 
 const routes = [
   {
@@ -23,7 +22,7 @@ const routes = [
   {
     path: "/Register",
     name: "Register",
-    component: Register
+    component: Register,
   },
   {
     path: "/result-page",
@@ -33,8 +32,7 @@ const routes = [
   {
     path: "/Login",
     name: "Login",
-    component: () =>
-    import("../views/Login.vue"),
+    component: () => import("../views/Login.vue"),
   },
   {
     path: "/hotelView",

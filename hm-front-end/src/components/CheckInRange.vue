@@ -1,11 +1,22 @@
-<!-- eslint-disable -->
 <template>
   <div id="container">
     <div id="date-range">
-      <span style="padding-left: 0;">from:</span>
-      <input class="date-picker" type="date" name="start" v-model="startDate" @input="updateStartDate">
+      <span style="padding-left: 0">from:</span>
+      <input
+        class="date-picker"
+        type="date"
+        name="start"
+        v-model="startDate"
+        @input="updateStartDate"
+      />
       <span>to:</span>
-      <input class="date-picker" type="date" name="end" v-model="endDate" @input="updateEndDate">
+      <input
+        class="date-picker"
+        type="date"
+        name="end"
+        v-model="endDate"
+        @input="updateEndDate"
+      />
     </div>
   </div>
 </template>
@@ -15,7 +26,7 @@ export default {
   data() {
     return {
       startDate: "",
-      endDate: ""
+      endDate: "",
     };
   },
   methods: {

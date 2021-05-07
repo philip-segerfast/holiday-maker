@@ -2,7 +2,7 @@
   <div>
     <div>
       <!-- Hello -->
-      <div>LOGIN </div>
+      <div>LOGIN</div>
     </div>
   </div>
 </template>
