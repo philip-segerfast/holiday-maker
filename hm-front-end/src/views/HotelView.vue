@@ -1,7 +1,12 @@
 <template>
 <h1>Hotel</h1>
 
-
+ <div class="hotel-information">  
+   <h2>{{hotelInfo.name}}</h2>
+   <h3>Description: {{hotelInfo.description}}</h3> 
+   <Address>Location: {{hotelInfo.address}}</Address>
+                 
+    </div>
 
   <div class="room-list">
         
@@ -11,7 +16,7 @@
         :key="room + i"
         :hotelRoom="room"
       /> 
-    </div>
+       </div>
    </div>
 </template>
 
@@ -19,9 +24,10 @@
 import HotelRoomCard from "../components/HotelRoomCard.vue";
 
 export default {
+  props:["hotelById"],
  
   components: {
-    HotelRoomCard,
+    HotelRoomCard, 
   },
 
   computed: {
@@ -29,10 +35,19 @@ export default {
             
             return this.$store.getters.getHotelRooms
         },
+
+    hotelInfo(){
+          return this.$store.getters.getHotelById
+
+      }
     
   },
   mounted() {
         this.$store.dispatch("fetchHotelRoomsByHotel");
+        this.$store.dispatch("fetchHotelById");
+
+
+        
     }
 };
 </script>
