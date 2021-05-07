@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import Register from "../views/Register.vue";
 import ResultPage from "../views/ResultPage.vue";
 import HotelView from"@/views/HotelView.vue";
 
@@ -20,9 +21,20 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
+    path: "/Register",
+    name: "Register",
+    component: Register
+  },
+  {
     path: "/result-page",
     name: "Result",
     component: ResultPage,
+  },
+  {
+    path: "/Login",
+    name: "Login",
+    component: () =>
+    import("../views/Login.vue"),
   },
   {
     path: "/hotelView",
