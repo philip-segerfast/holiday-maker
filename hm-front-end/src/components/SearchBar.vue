@@ -1,40 +1,33 @@
+<!-- eslint-disable -->
 <template>
-  <form @submit.prevent="searchMethod">
-    <input
-      type="text"
-      id="search"
-      placeholder="Where do you want to travel?"
-      v-model="searchText"
-    />
-    <div id="period"></div>
-    <div id="people-amount"></div>
+  <form id="search-bar-container" @submit.prevent="searchMethod">
+    <SearchBox />
+    <CheckInRange />
+    <AmountOfPeople />
     <button type="submit">Search</button>
   </form>
 </template>
 
 <script>
+import SearchBox from "../components/SearchBox.vue";
+import CheckInRange from "../components/CheckInRange.vue";
+import AmountOfPeople from "../components/AmountOfPeople.vue";
+
 export default {
   data() {
-    return {
-      searchText: "",
-    };
+    return {};
   },
-
-  //Kolla upp "fetchHotels"
-  methods: {
-    searchMethod() {
-      let searchText = this.searchText;
-      console.log("searchtext is: " + searchText);
-      this.$store.commit("setHotelSearch", searchText);
-      this.$store.dispatch("fetchHotelSearch");
-    },
+  components: {
+    CheckInRange,
+    SearchBox,
+    AmountOfPeople,
   },
-
-  components: {},
-
   computed: {
     hotels() {
       return this.$store.getters.getHotelSearch;
+    },
+    searchValue() {
+      return this.$store.getters.getSearchText;
     },
   },
 
@@ -44,4 +37,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped lang="scss">
+#search-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+
+  #form {
+
+  }
+}
+</style>
