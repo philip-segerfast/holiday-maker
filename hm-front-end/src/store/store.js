@@ -5,13 +5,23 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     hotels: [],
-    hotelSearch: {
-      name: null,
+    seacrhHotelFilter: {
+      searchText: "",
+      city: "",
+      checkInDates: {
+        startDate: "",
+        endDate: ""
+      },
+      peopleAmount: {
+        adultsAmount: 0,
+        childrenAmount: 0
+      }
     },
     hotelRooms:[],
     hotel:{},
     hotelId:1
   },
+
   mutations: {
     setAllHotels(state, payload){
     state.hotels = payload;
@@ -19,8 +29,15 @@ export default createStore({
     setHotelRooms(state,payload){
       state.hotelRooms=payload;
     },
-    setHotelSearch(state, payload){
-      state.hotelSearch = payload;
+    setSearchHotelFilter(state, payload){
+      state.searchHotelFilter = payload;
+
+    // let hotelSearch = hotels.filter(
+    //   (hotel) =>hotel.name === "Newton Hotel" 
+   //  );
+    // console.log(hotelSearch);
+
+
     },
   },
   actions: {
@@ -41,14 +58,18 @@ export default createStore({
         this.commit("setHotelRooms", response.data)
     })
   },
-    async fetchHotelSearch() {
-      let response = await fetch('/rest/hotels/search'+ this.state.hotelSearch, {
-      method: 'POST',
+    async fetchSearchHotelFilter(context) {
+      let response = await fetch("/rest/hotels/all-hotels"+this.state.searchHotelFilter, {
+      method: 'GET',
       headers: {'Content-Type': 'application/json' },
-      body: JSON.stringify(this.state.hotelSearch)
-  })
+      mode: 'cors',
+      cache: 'default'
+    })
+    let json = await response.json
+    context.commit("setSearchHotelFilter", json)
+
       console.log('Response from search: '+ response)
-  },
+    },
   },
           /*let hotelR = await fetch(url)
     hotelR = await hotelR.json()
@@ -60,8 +81,8 @@ export default createStore({
     getHotelRooms(state){
       return state.hotelRooms
     },
-      getHotelSearch(state){
-        return state.hotelSearch
+      getSearchHotelFilter(state){
+        return state.searchHotelFilter
       },
     }
 });

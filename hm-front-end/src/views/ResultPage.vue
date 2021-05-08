@@ -33,13 +33,17 @@ export default {
   computed: {
   // Hämtar hotellistan från store
     hotels() {
-            return this.$store.state.hotels
-        },
-    
+      return this.$store.state.hotels
+    },
+    filteredSearch(){
+     
+     return this.$store.state.hotels;
+    }
   },
 
   // Aktiverar kopplingen till backend 
   mounted() {
+    
         this.$store.dispatch("fetchAllHotels");
     }
 };

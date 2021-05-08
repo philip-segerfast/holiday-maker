@@ -13,7 +13,7 @@ export default {
 
     props: ["hotel"],
 
-    /* Inväntar HotelPage
+    /* Inväntar HotelView
     methods: {
         redirectToHotelPage() {
             this.$store.commit("setTempHotelName", this.hotel.name)
