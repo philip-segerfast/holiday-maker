@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="searchMethod">
-    <input type="text" id="search" placeholder="type search" v-model="searchtext">
+    <input type="text" id="search" placeholder="type search" v-model="searchResult">
         <button type="submit">Search</button>
 
    
@@ -13,7 +13,7 @@
 export default {
     data() {
         return {
-            searchText: "",
+             props: ["seacrhHotelFilter"],
             
         }
     },
@@ -21,9 +21,9 @@ export default {
     //Kolla upp "fetchHotels"
     methods: {
         searchMethod() {
-            let searchText = this.searchText
-            console.log("searchtext is: "+searchText);
-            this.$store.commit("setSearchHotelFilter", searchText)
+            let searchResult = this.searchResult
+            console.log("searchtext is: "+searchResult);
+            this.$store.commit("setSearchHotelFilter", searchResult)
             this.$store.dispatch("fetchSearchHotelFilter");
         }
     },
@@ -34,14 +34,12 @@ export default {
 
     computed: {
         hotels(){
-            return this.$store.getters.getHotelSearch
+            return this.$store.getters.searchResult
         },
 
     },
 
-    // mounted() {
-    //    this.$store.dispatch("fetchHotel")
-    // }
+    
 
 };
 </script>

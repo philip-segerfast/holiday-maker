@@ -43,6 +43,7 @@ export default createStore({
   actions: {
   // actions får tillgång till context objektet
    async fetchAllHotels(context) {
+    console.log('Search is '+this.state.seacrhHotelFilter)
     let response = await fetch("/rest/hotels/all-hotels");
     let json = await response.json();
     console.log("Response:");
@@ -63,7 +64,8 @@ export default createStore({
       method: 'GET',
       headers: {'Content-Type': 'application/json' },
       mode: 'cors',
-      cache: 'default'
+      cache: 'default',
+      
     })
     let json = await response.json
     context.commit("setSearchHotelFilter", json)
@@ -78,9 +80,9 @@ export default createStore({
       getAllHotels(state){
         return state.hotels
       },
-    getHotelRooms(state){
+      getHotelRooms(state){
       return state.hotelRooms
-    },
+      },
       getSearchHotelFilter(state){
         return state.searchHotelFilter
       },
