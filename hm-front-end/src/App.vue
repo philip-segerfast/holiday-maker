@@ -1,34 +1,16 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link>
-    -
-    <router-link to="/about">About</router-link>
-    -
-    <router-link to="/Register">Register</router-link>
-    -
-    <router-link to="/Login">Login</router-link>
-    -
-    <router-link to="/result-page">Result</router-link>
-    -
-    <router-link to="/hotelView">Hotel</router-link>
-    -
-    <button @click="logout">Logout</button>
+    <Navbar />
   </div>
   <router-view />
 </template>
 
 <script>
+import Navbar from "./components/Navbar"
 export default {
-   
-  methods: {
-    logout() {
-            //logout from backend
-            fetch('/logout', {mode: 'no-cors'})
-            
-            //removes user from store.js
-            this.$store.commit('setLoggedInUser', null)
-            },
-          }
+  components:{
+    Navbar
+  },
 }
 </script>
 
