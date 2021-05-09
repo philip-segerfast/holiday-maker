@@ -8,6 +8,7 @@ export default createStore({
     hotelRooms: [],
     hotel: {},
     hotelId: 1,
+    tempHotelName: String,
     searchHotelFilter: {
       searchText: "",
       checkInDates: {
@@ -25,11 +26,17 @@ export default createStore({
     setHotelById(state, payload) {
       state.hotelById = payload;
     },
+    setHotelId(state, payload) {
+      state.hotelId = payload;
+    },
     setAllHotels(state, payload) {
       state.hotels = payload;
     },
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
+    },
+    setTempHotelName(state, payload){
+      state.tempHotelName = payload;
     },
     updateSearchText(state, searchText) {
       state.searchHotelFilter.searchText = searchText;
@@ -49,6 +56,15 @@ export default createStore({
   },
   actions: {
     // actions får tillgång till context objektet
+       
+    async fetchHotelById() {
+      console.log("Fetch programById running")
+      const url = "/rest/hotels/id/" + this.state.hotelId
+      await axios.get(url)
+      .then(response =>(
+        this.commit("setHotelById", response.data)
+      ))
+    },
     async fetchAllHotels(context) {
       let response = await fetch("/rest/hotels/all-hotels");
       let json = await response.json();
@@ -67,6 +83,9 @@ export default createStore({
   getters: {
     getAllHotels(state) {
       return state.hotels;
+    },
+    getHotelRooms(state) {
+      return state.hotelRooms;
     },
     getHotelById(state) {
       return state.hotelById;
