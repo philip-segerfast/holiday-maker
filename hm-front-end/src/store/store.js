@@ -1,4 +1,5 @@
 import axios from "axios";
+//import { clearConfigCache } from "prettier";
 import { createStore } from "vuex";
 
 
@@ -19,7 +20,8 @@ export default createStore({
     },
     hotelRooms:[],
     hotel:{},
-    hotelId:1
+    hotelId:1,
+    filteredHotels: [],
   },
 
   mutations: {
@@ -37,8 +39,23 @@ export default createStore({
    //  );
     // console.log(hotelSearch);
 
-
     },
+    setFilteredHotels () {
+      //this.state.filteredHotels = this.state.hotels.filter(
+      //  item => {return (item.name == "Super")});
+      //this.state.filteredHotels = this.state.hotels
+      let searchValue = "Super"
+      let myHotels = this.state.hotels
+      if (searchValue != '' && searchValue) {
+        myHotels = myHotels.filter((item) => {
+          return item.name
+            .toUpperCase()
+            .includes(searchValue.toUpperCase())
+        })
+      }
+      this.state.filteredHotels = myHotels
+      console.log("Filtered hotels: " + this.state.filteredHotels)
+    }
   },
   actions: {
   // actions får tillgång till context objektet
@@ -69,6 +86,9 @@ export default createStore({
       },
       getHotelRooms(state){
       return state.hotelRooms
+      },
+      getFilteredHotels(state){
+        return state.filteredHotels
       },
     
     }

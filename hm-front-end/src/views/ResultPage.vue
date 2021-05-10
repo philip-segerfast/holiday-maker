@@ -5,14 +5,15 @@
     </div>
       <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
       <!-- Loopar ut (v-for) listan av kategorier enskilt = Skapar varje "category" som en egen komponent-->  
-    <div v-if="hotels.length > 0">
+    <div v-if="filteredHotels.length > 0">
       <HotelCard 
-        v-for="(hotel, i) in hotels"
+        v-for="(hotel, i) in filteredHotels"
         :key="hotel + i"
         :hotel="hotel"
       /> 
     </div>
    </div>
+   <button @click="filterHotels">Filter</button>
 </template>
 
 <script>
@@ -24,7 +25,7 @@ import SearchBar from "../components/SearchBar.vue"
 export default {
   data(){
     return{
-      hotels: [],
+      morehotels: [],
       searchtext: "",
 
     }
@@ -49,16 +50,22 @@ export default {
 
      return filteredSearch;
       
+      },
+      filterHotels() {
+        this.$store.commit("setFilteredHotels")
+
       }
   },
 
  
   computed: {
   // Hämtar hotellistan från store
-    listHotels() {
+    hotels() {
       return this.$store.getters.getAllHotels
     },    
-     
+     filteredHotels() {
+      return this.$store.getters.getFilteredHotels
+    },
     },
   
 
