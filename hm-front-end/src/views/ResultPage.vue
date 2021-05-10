@@ -64,7 +64,7 @@ export default {
       return this.$store.getters.getAllHotels
     },    
      filteredHotels() {
-      return this.$store.getters.getFilteredHotels
+      return this.$store.state.filteredHotels
     },
     },
   

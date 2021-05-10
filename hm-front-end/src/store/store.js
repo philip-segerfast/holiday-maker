@@ -7,7 +7,7 @@ export default createStore({
   state: {
     hotels: [],
     searchHotelFilter: {
-      searchText: "",
+      searchText: "S",
       city: "",
       checkInDates: {
         startDate: "",
@@ -41,8 +41,6 @@ export default createStore({
 
     },
     setFilteredHotels () {
-      //this.state.filteredHotels = this.state.hotels.filter(
-      //  item => {return (item.name == "Super")});
       //this.state.filteredHotels = this.state.hotels
       //let searchValue = ""
       let myHotels;
@@ -53,15 +51,6 @@ export default createStore({
           return item.name.includes(this.state.searchHotelFilter.searchText.toLowerCase())
         })
       }
-      
-      /*if(searchHotelFilter.searchText) {
-        myHotels = this.state.hotels.filter((item) => {
-          item.name = item.name.toLowerCase()
-          return item.name.includes(searchHotelFilter.city.toLowerCase())
-        })
-      }
-*/
-
       this.state.filteredHotels = myHotels
 
       /*
