@@ -21,6 +21,7 @@ export default createStore({
       },
     },
     hotelById: {}, // Använd this.$route.params.programId istället
+    filteredHotels: [],
   },
   mutations: {
     setHotelById(state, payload) {
@@ -53,6 +54,19 @@ export default createStore({
     updateAdultsAmount(state, adultsAmount) {
       state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
     },
+    setFilteredHotels(){
+      // let seachValue = "",
+      let myHotels;
+
+      if(this.state.searchHotelFilter.searchText) {
+        myHotels = this.state.hotels.filter((item) => {
+          item.name = item.name.toLowerCase()
+          return item.name.includes(this.state.searchHotelFilter.searchText.toLowerCase())
+        })
+        this.state.filteredHotels = myHotels
+      }
+      console.log(this.state.filteredHotels = myHotels)
+    }
   },
   actions: {
     // actions får tillgång till context objektet

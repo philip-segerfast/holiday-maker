@@ -12,6 +12,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 // Import HotelCard to use in ResultPage
 // Import SearchBar -''-
 import HotelCard from "../components/HotelCard.vue";
@@ -30,11 +31,26 @@ export default {
     hotels() {
       return this.$store.state.hotels;
     },
+    filteredHotels() {
+      return this.$store.state.searchHotelFilter
+    },
   },
 
   // Aktiverar kopplingen till backend
   mounted() {
-    this.$store.dispatch("fetchAllHotels");
+    let storeHotels = this.$store.dispatch("fetchAllHotels");
+    let filters = this.$store.getters.getSearchHotelFilter;
+    console.log(filters)
+
+    let copy = [];
+
+    for(let hotel in storeHotels) {
+       copy.push(hotel);
+    }
+
+     console.log("Test:");
+     console.log(copy);
+
   },
 };
 </script>
