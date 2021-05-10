@@ -1,6 +1,6 @@
 <template>
-  <!-- Implementera click funktion när HotelPage är klar @click="redirectToHotelPage" -->
-  <div class="hotel-card">
+ 
+  <div class="hotel-card" @click="redirectToHotelView" >
     <span>{{ hotel.name }}</span>
     -
     <span>{{ hotel.city }}</span>
@@ -11,16 +11,15 @@
 export default {
   props: ["hotel"],
 
-  /* Inväntar HotelPage
     methods: {
-        redirectToHotelPage() {
-            this.$store.commit("setTempHotelName", this.hotel.name)
-            let routerUrl = '/hotel-card/' + this.hotel.id
+        redirectToHotelView() {
+            this.$store.commit("setHotelId", this.hotel.id)
+            let routerUrl = '/hotelView/' + this.hotel.id
             this.$router.push({path: routerUrl})
 
         }
     }
-    */
+    
 };
 </script>
 

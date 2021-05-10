@@ -39,6 +39,10 @@ const routes = [
     name: "Hotel",
     component: HotelView,
   },
+  {
+    path: "/hotelView/:id",
+    component: HotelView,
+  },
 ];
 
 const router = createRouter({
