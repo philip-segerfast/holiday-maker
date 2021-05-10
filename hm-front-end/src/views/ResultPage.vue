@@ -22,6 +22,13 @@ import SearchBar from "../components/SearchBar.vue"
 
 
 export default {
+  data(){
+    return{
+      hotels: [],
+      searchtext: "",
+
+    }
+  },
  
  // declare HotelCard from import
   components: {
@@ -29,17 +36,31 @@ export default {
     SearchBar,
   },
 
+  methods: {
+   filteredSearch(){
+     let filteredSearch = this.hotels
+
+     if(this.searchtext != "" && this.searchtext){
+       filteredSearch = filteredSearch.filter((hotel) => {
+       return hotel.name;
+     })
+
+     }
+
+     return filteredSearch;
+      
+      }
+  },
+
  
   computed: {
   // Hämtar hotellistan från store
-    hotels() {
-      return this.$store.state.hotels
-    },
-    filteredSearch(){
+    listHotels() {
+      return this.$store.getters.getAllHotels
+    },    
      
-     return this.$store.state.hotels;
-    }
-  },
+    },
+  
 
   // Aktiverar kopplingen till backend 
   mounted() {

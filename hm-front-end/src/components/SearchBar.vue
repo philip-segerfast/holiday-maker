@@ -13,7 +13,7 @@
 export default {
     data() {
         return {
-             props: ["seacrhHotelFilter"],
+             searchResult: '',
             
         }
     },
@@ -24,7 +24,8 @@ export default {
             let searchResult = this.searchResult
             console.log("searchtext is: "+searchResult);
             this.$store.commit("setSearchHotelFilter", searchResult)
-            this.$store.dispatch("fetchSearchHotelFilter");
+            this.$store.dispatch("fetchAllHotels");
+            console.log(searchResult);
         }
     },
 
@@ -34,7 +35,7 @@ export default {
 
     computed: {
         hotels(){
-            return this.$store.getters.searchResult
+            return this.$store.getters.searchHotelFilter
         },
 
     },

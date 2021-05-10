@@ -42,13 +42,12 @@ export default createStore({
   },
   actions: {
   // actions får tillgång till context objektet
-   async fetchAllHotels(context) {
+   async fetchAllHotels() {
     console.log('Search is '+this.state.seacrhHotelFilter)
-    let response = await fetch("/rest/hotels/all-hotels");
+    let response = await fetch("/rest/hotels/all-hotels" );
     let json = await response.json();
-    console.log("Response:");
     console.log(json);
-    context.commit("setAllHotels", json)
+    this.commit("setAllHotels", json)
     },
 
     async fetchHotelRoomsByHotel(){
@@ -59,19 +58,7 @@ export default createStore({
         this.commit("setHotelRooms", response.data)
     })
   },
-    async fetchSearchHotelFilter(context) {
-      let response = await fetch("/rest/hotels/all-hotels"+this.state.searchHotelFilter, {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json' },
-      mode: 'cors',
-      cache: 'default',
-      
-    })
-    let json = await response.json
-    context.commit("setSearchHotelFilter", json)
-
-      console.log('Response from search: '+ response)
-    },
+  
   },
           /*let hotelR = await fetch(url)
     hotelR = await hotelR.json()
@@ -83,8 +70,6 @@ export default createStore({
       getHotelRooms(state){
       return state.hotelRooms
       },
-      getSearchHotelFilter(state){
-        return state.searchHotelFilter
-      },
+    
     }
 });
