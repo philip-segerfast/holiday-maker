@@ -5,8 +5,8 @@
     </div>
     <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
     <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
-    <div v-if="hotels.length > 0">
-      <HotelCard v-for="(hotel, i) in hotels" :key="hotel + i" :hotel="hotel" />
+    <div v-if="filteredHotels2.length > 0">
+      <HotelCard v-for="(hotel, i) in filteredHotels2" :key="hotel + i" :hotel="hotel" />
     </div>
   </div>
 </template>
@@ -32,8 +32,11 @@ export default {
       return this.$store.state.hotels;
     },
     filteredHotels() {
-      return this.$store.state.filteredHotels.city
+      return this.$store.state.filteredHotels
     },
+    filteredHotels2() {
+      return this.$store.computed.filteredHotelsFromStore()
+    }
   },
 
   // Aktiverar kopplingen till backend
