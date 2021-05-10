@@ -4,6 +4,7 @@
     <CheckInRange />
     <AmountOfPeople />
   </form>
+  <button @click="filterHotels">Search</button>
 </template>
 
 <script>
@@ -27,6 +28,13 @@ export default {
     searchValue() {
       return this.$store.getters.getSearchText;
     },
+  },
+  methods: {
+    filterHotels() {
+        console.log("klicked")
+        this.$store.commit("setFilteredHotels")
+        this.$router.push({path: "/result-page"})
+      }
   },
 };
 </script>

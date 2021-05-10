@@ -10,7 +10,7 @@ export default createStore({
     hotelId: 1,
     tempHotelName: String,
     searchHotelFilter: {
-      searchText: "s",
+      searchText: "",
       checkInDates: {
         startDate: "",
         endDate: "",
@@ -60,29 +60,15 @@ export default createStore({
       
       if(this.state.searchHotelFilter.searchText) {
         myHotels = this.state.hotels.filter((item) => {
-          item.name = item.name.toLowerCase()
-          return item.name.includes(this.state.searchHotelFilter.searchText.toLowerCase())
+          item.city = item.city.toLowerCase()
+          return item.city.includes(this.state.searchHotelFilter.searchText.toLowerCase())
         })
         this.state.filteredHotels = myHotels
+      } else {
+        this.state.filteredHotels = this.state.hotels
       }
       console.log(this.state.filteredHotels)
     }
-  },
-  computed: {
-    filteredHotelsFromStore() {
-      let myHotels;
-      
-      if(this.state.searchHotelFilter.searchText) {
-        myHotels = this.state.hotels.filter((item) => {
-          item.name = item.name.toLowerCase()
-          return item.name.includes(this.state.searchHotelFilter.searchText.toLowerCase())
-        })
-        this.state.filteredHotels = myHotels
-      }
-      console.log(this.state.filteredHotels)
-
-      return this.state.filteredHotels
-    },
   },
   actions: {
     // actions får tillgång till context objektet
