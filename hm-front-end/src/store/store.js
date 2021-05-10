@@ -7,8 +7,8 @@ export default createStore({
   state: {
     hotels: [],
     searchHotelFilter: {
-      searchText: "S",
-      city: "",
+      searchText: "hotel",
+      city: "B",
       checkInDates: {
         startDate: "",
         endDate: ""
@@ -32,7 +32,7 @@ export default createStore({
       state.hotelRooms=payload;
     },
     setSearchHotelFilter(state, payload){
-      state.searchHotelFilter = payload;
+      state.searchHotelFilter.city = payload;
 
     // let hotelSearch = hotels.filter(
     //   (hotel) =>hotel.name === "Newton Hotel" 
@@ -44,13 +44,14 @@ export default createStore({
       //this.state.filteredHotels = this.state.hotels
       //let searchValue = ""
       let myHotels;
-      
-      if(this.state.searchHotelFilter.searchText) {
+     
+      if(this.state.searchHotelFilter.city) {
         myHotels = this.state.hotels.filter((item) => {
-          item.name = item.name.toLowerCase()
-          return item.name.includes(this.state.searchHotelFilter.searchText.toLowerCase())
+          item.city = item.city.toLowerCase()
+          return item.city.includes(this.state.searchHotelFilter.city.toLowerCase())
         })
       }
+
       this.state.filteredHotels = myHotels
 
       /*
@@ -66,6 +67,7 @@ export default createStore({
       console.log("Filtered hotels: " + this.state.filteredHotels)
     }
   },
+
   actions: {
   // actions får tillgång till context objektet
    async fetchAllHotels() {
