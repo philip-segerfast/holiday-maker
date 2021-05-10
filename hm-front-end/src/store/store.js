@@ -6,7 +6,7 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     hotels: [],
-    seacrhHotelFilter: {
+    searchHotelFilter: {
       searchText: "",
       city: "",
       checkInDates: {
@@ -44,8 +44,27 @@ export default createStore({
       //this.state.filteredHotels = this.state.hotels.filter(
       //  item => {return (item.name == "Super")});
       //this.state.filteredHotels = this.state.hotels
-      let searchValue = "Super"
-      let myHotels = this.state.hotels
+      //let searchValue = ""
+      let myHotels;
+      
+      if(this.state.searchHotelFilter.searchText) {
+        myHotels = this.state.hotels.filter((item) => {
+          item.name = item.name.toLowerCase()
+          return item.name.includes(this.state.searchHotelFilter.searchText.toLowerCase())
+        })
+      }
+      
+      /*if(searchHotelFilter.searchText) {
+        myHotels = this.state.hotels.filter((item) => {
+          item.name = item.name.toLowerCase()
+          return item.name.includes(searchHotelFilter.city.toLowerCase())
+        })
+      }
+*/
+
+      this.state.filteredHotels = myHotels
+
+      /*
       if (searchValue != '' && searchValue) {
         myHotels = myHotels.filter((item) => {
           return item.name
@@ -54,6 +73,7 @@ export default createStore({
         })
       }
       this.state.filteredHotels = myHotels
+      */
       console.log("Filtered hotels: " + this.state.filteredHotels)
     }
   },
