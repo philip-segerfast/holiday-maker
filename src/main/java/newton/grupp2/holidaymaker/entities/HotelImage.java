@@ -23,7 +23,7 @@ public class HotelImage {
     private Long id;
     private String fileName;
 
-    public HotelImage(String url) {
-        this.fileName = url;
+    public HotelImage(String fileName) {
+        this.fileName = fileName;
     }
 }

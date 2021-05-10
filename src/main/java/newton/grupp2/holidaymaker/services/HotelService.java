@@ -4,6 +4,7 @@ import newton.grupp2.holidaymaker.entities.Hotel;
 import newton.grupp2.holidaymaker.entities.HotelImage;
 import newton.grupp2.holidaymaker.entities.HotelRoom;
 import newton.grupp2.holidaymaker.forms.NewHotelForm;
+import newton.grupp2.holidaymaker.forms.NewHotelImagesForm;
 import newton.grupp2.holidaymaker.repositories.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,20 @@ public class HotelService {
         return null;
     }
 
+    public Hotel saveImages(long hotelId, NewHotelImagesForm hotelImages) throws Exception {
+        Hotel hotel = hotelRepository.findById(hotelId).orElse(null);
+        MultipartFile[] imageFiles = hotelImages.getImages();
+        if(imageFiles != null) {
+            for(MultipartFile imageFile : imageFiles) {
+                HotelImage savedImage = hotelImageService.saveImageToFileSystem(imageFile);
+                hotel.getImages().add(savedImage);
+                System.out.println("Multpart: " + imageFile.getOriginalFilename());
+                System.out.println("Image entity: " + savedImage);
+            }
+            return hotelRepository.saveAndFlush(hotel);
+        }
+        return null;
+    }
 }
 
 
