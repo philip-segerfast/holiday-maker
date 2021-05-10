@@ -21,6 +21,10 @@ export default createStore({
       },
     },
     hotelById: {}, // Använd this.$route.params.programId istället
+    loggedInUser: { //Hårdkodad inloggad användera tills vi har en login-funktion för att se om logout fungerar
+      email: "Bob@gmail.com"
+    }
+
   },
   mutations: {
     setHotelById(state, payload) {
@@ -52,6 +56,9 @@ export default createStore({
     },
     updateAdultsAmount(state, adultsAmount) {
       state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
+    },
+    setLoggedInUser(state, user) {
+      state.loggedInUser = user
     },
   },
   actions: {
