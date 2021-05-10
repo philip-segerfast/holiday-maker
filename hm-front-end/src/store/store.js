@@ -10,7 +10,7 @@ export default createStore({
     hotelId: 1,
     tempHotelName: String,
     searchHotelFilter: {
-      searchText: "",
+      searchText: "s",
       checkInDates: {
         startDate: "",
         endDate: "",
@@ -65,7 +65,7 @@ export default createStore({
         })
         this.state.filteredHotels = myHotels
       }
-      console.log(this.state.filteredHotels = myHotels)
+      console.log(this.state.filteredHotels)
     }
   },
   actions: {

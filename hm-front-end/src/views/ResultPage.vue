@@ -32,24 +32,16 @@ export default {
       return this.$store.state.hotels;
     },
     filteredHotels() {
-      return this.$store.state.searchHotelFilter
+      return this.$store.state.filteredHotels.city
     },
   },
 
   // Aktiverar kopplingen till backend
   mounted() {
     let storeHotels = this.$store.dispatch("fetchAllHotels");
-    let filters = this.$store.getters.getSearchHotelFilter;
-    console.log(filters)
 
-    let copy = [];
 
-    for(let hotel in storeHotels) {
-       copy.push(hotel);
-    }
-
-     console.log("Test:");
-     console.log(copy);
+   
 
   },
 };
