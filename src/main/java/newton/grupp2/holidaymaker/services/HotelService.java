@@ -71,14 +71,14 @@ public class HotelService {
     public Hotel saveImages(long hotelId, NewHotelImagesForm hotelImages) throws Exception {
         Hotel hotel = hotelRepository.findById(hotelId).orElse(null);
         MultipartFile[] imageFiles = hotelImages.getImages();
-        if(imageFiles != null) {
-            for(MultipartFile imageFile : imageFiles) {
-                HotelImage savedImage = hotelImageService.saveImageToFileSystem(imageFile);
-                hotel.getImages().add(savedImage);
-                System.out.println("Multpart: " + imageFile.getOriginalFilename());
-                System.out.println("Image entity: " + savedImage);
+        if(hotel != null) {
+            if(imageFiles != null) {
+                for(MultipartFile imageFile : imageFiles) {
+                    HotelImage savedImage = hotelImageService.saveImageToFileSystem(imageFile);
+                    hotel.getImages().add(savedImage);
+                }
+                return hotelRepository.save(hotel);
             }
-            return hotelRepository.saveAndFlush(hotel);
         }
         return null;
     }
