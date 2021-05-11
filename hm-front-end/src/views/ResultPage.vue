@@ -32,6 +32,7 @@ export default {
       return this.$store.state.hotels;
     },
     filteredHotels() {
+    // gets list of filtered hotels from store  
       return this.$store.state.filteredHotels
     },
   },

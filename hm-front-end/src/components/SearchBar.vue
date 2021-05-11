@@ -31,8 +31,10 @@ export default {
   },
   methods: {
     filterHotels() {
-        console.log("klicked")
+        //  Shows result page view
         this.$router.push({path: "/result-page"})
+        
+        //  Activates filtering
         this.$store.commit("setFilteredHotels")
       }
   },

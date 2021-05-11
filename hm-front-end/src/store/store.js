@@ -55,19 +55,30 @@ export default createStore({
       state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
     },
     setFilteredHotels(){
-      // let seachValue = "",
+      // Creates local variable to temporary hold filtered hotels
       let myHotels;
       
-      if(this.state.searchHotelFilter.searchText) {
-        myHotels = this.state.hotels.filter((item) => {
-          item.city = item.city.toLowerCase()
-          return item.city.includes(this.state.searchHotelFilter.searchText.toLowerCase())
+      // If searchquery is empty it will not activate filtering
+      if(this.state.searchHotelFilter.searchText) {   
+
+        // Filtering loop, each hotel in list is called hotelObject
+        myHotels = this.state.hotels.filter((hotelObject) => {  
+          
+          // Changes hotels city name to lower case
+          hotelObject.city = hotelObject.city.toLowerCase()     
+          
+          // returns list of hotels that have city name like the searchquery
+          return hotelObject.city.includes(this.state.searchHotelFilter.searchText.toLowerCase()) 
         })
+
+        // Puts list of filtered hotel in a list in state
         this.state.filteredHotels = myHotels
+
+        //If searchquery is empty it puts list of all hotels into filteredHotels list
       } else {
         this.state.filteredHotels = this.state.hotels
       }
-      console.log(this.state.filteredHotels)
+      console.log(this.state.filteredHotels) // Debug
     }
   },
   actions: {
