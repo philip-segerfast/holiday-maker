@@ -6,15 +6,15 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar"
+import Navbar from "./components/Navbar";
 export default {
-  components:{
-    Navbar
+  components: {
+    Navbar,
   },
   mounted() {
     this.$store.dispatch("fetchLoggedInUser");
   },
-}
+};
 </script>
 <style lang="scss" src="./style.scss"></style>
 <style lang="scss">
@@ -25,6 +25,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   #nav {
     padding: 30px;
