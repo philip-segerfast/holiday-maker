@@ -28,6 +28,7 @@ export default createStore({
     }
 
   },
+  // "Setters"
   mutations: {
     setHotelById(state, payload) {
       state.hotelById = payload;
@@ -64,18 +65,18 @@ export default createStore({
       let myHotels;
       
       // Hämta ut searchText ifrån objektet searchHotelFilter ur state
-      // Filtrera hotelen inuti hotels[] i state samt skapa filtervariabel(item)
-      // "peka på city" med den skapade filtreringsvariabeln (item.city (små bokstäver))
-      // Returnera filtrerings variabeln som matchar(inkluderar) sökningsresultatet från state.
       if(this.state.searchHotelFilter.searchText) {
+      // Filtrera hotelen inuti hotels[] i state samt skapar filtervariabel(item). Lagra resultat i myHotels.
         myHotels = this.state.hotels.filter((item) => {
+      // "peka på city" med den skapade filtreringsvariabeln (item.city (små bokstäver))
           item.city = item.city.toLowerCase()
+      // Returnera filtrerings variabeln som matchar sökningsresultatet från state.    
           return item.city.includes(this.state.searchHotelFilter.searchText.toLowerCase())
         })
         // Hämta ut de filtrerade hotelen utifrån sökning
         this.state.filteredHotels = myHotels
       } else {
-        // Om inget skrivs i sökningsfältet --> trycker på button
+        // Om inget skrivs i sökningsfältet och en trycker på button
         // Lista ut alla hotel från hotels[] ifrån state 
         this.state.filteredHotels = this.state.hotels
       }
@@ -99,14 +100,14 @@ export default createStore({
       ))
     },
     // actions får tillgång till context objektet
-    // fetch alla hotel från backend och lägg i response-variabeln
-    // gör om response till json objekt
-    // objektet context gör så att vi kan commita alla hotels, json??
     async fetchAllHotels(context) {
+    // fetch alla hotel från backend och lägg i response-variabeln  
       let response = await fetch("/rest/hotels/all-hotels");
+    // gör om response till json objekt
       let json = await response.json();
       console.log("Response:");
       console.log(json);
+    // objektet context gör så att vi kan commita alla hotels, json??
       context.commit("setAllHotels", json);
     },
     async fetchHotelRoomsByHotel() {

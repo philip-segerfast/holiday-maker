@@ -19,10 +19,11 @@ import HotelCard from "../components/HotelCard.vue";
 import SearchBar from "../components/SearchBar.vue";
 
 export default {
-  // declare HotelCard from import
   // declare SearchBar from import
   components: {
+  // declare HotelCard from import  
     HotelCard,
+  // declare SearchBar from import  
     SearchBar,
   },
 
@@ -39,7 +40,7 @@ export default {
 
   // Aktiverar kopplingen till backend
   mounted() {
-    let storeHotels = this.$store.dispatch("fetchAllHotels");
+      return this.$store.dispatch("fetchAllHotels");
 
 
    
