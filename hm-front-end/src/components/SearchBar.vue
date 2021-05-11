@@ -12,9 +12,6 @@ import CheckInRange from "../components/CheckInRange.vue";
 import AmountOfPeople from "../components/AmountOfPeople.vue";
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     CheckInRange,
     SearchBox,

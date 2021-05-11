@@ -47,7 +47,7 @@ const routes = [
   {
     path: "/newHotelCard",
     component: NewHotelCardTestView,
-  }
+  },
 ];
 
 const router = createRouter({

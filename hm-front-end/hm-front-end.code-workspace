@@ -1,0 +1,10 @@
+{
+  "folders": [],
+  "settings": {
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
+    "files.eol": "\n"
+  }
+}

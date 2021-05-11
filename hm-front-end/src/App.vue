@@ -11,6 +11,9 @@ export default {
   components: {
     Navbar,
   },
+  mounted() {
+    this.$store.dispatch("fetchAllHotels");
+  },
 };
 </script>
 

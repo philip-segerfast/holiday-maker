@@ -2,32 +2,40 @@
 <template>
   <div class="hotel-card-container">
     <div class="image-container">
-      <span class="material-icons like">
-        favorite_border
-      </span>
-      <img src="../assets/images/superhotel.jpg">
+      <span class="material-icons like"> favorite_border </span>
+      <img src="../assets/images/superhotel.jpg" />
     </div>
     <div class="info-container">
-      <div class="header">Super Hotel<!--{{hotel.name}}--></div>
+      <div class="header">{{ hotel.name }}</div>
       <div class="stars">★★★★☆</div>
       <div class="separator"></div>
       <div class="city-price-container">
         <div class="imp-info-container">
           <span class="left">City</span>
-          <span class="right"><!-- {{hotel.city}} -->Malmö</span>
+          <span class="right">{{ hotel.city }}</span>
         </div>
         <div class="imp-info-container">
           <span class="left">Price</span>
           <!-- eslint-disable-next-line -->
-          <span class="right"><!-- {{hotel.selfCateringPrice}} -->750<span style="font-size: 75%;">SEK/night</span></span>
+          <span class="right">
+            {{ hotel.selfCateringPrice }}
+            <span style="font-size: 75%">SEK/night</span>
+          </span>
         </div>
       </div>
       <div class="separator"></div>
-      <div class="description">
-        <!--{{hotel.description}}-->
-        A really sick hotel with everything you could ever ask for.
-        Breakfast, lunch and dinner included for all rooms. 
-        What else could you ask for?
+      <div class="description-container">
+        hello
+        <!--
+        <span class="description">
+          {{ hotel.description }}
+          asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf
+          asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf
+          asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf
+          asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf
+          asdf asdf asdf asdf asdf asdf asdf asdf asdf
+        </span>
+        -->
       </div>
     </div>
   </div>
@@ -36,7 +44,7 @@
 <script>
 export default {
   props: ["hotel"],
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -73,12 +81,10 @@ export default {
   }
   .info-container {
     display: grid;
-    grid-template-rows: repeat(5, min-content) auto;
+    grid-template-rows: repeat(6, min-content) auto;
     flex-direction: column;
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
-    width: 100%;
-    max-height: 100%;
     padding: 0 5px 15px 5px;
     .header {
       font-size: 150%;
@@ -96,18 +102,23 @@ export default {
     }
     .imp-info-container {
       display: flex;
-      .left {
-        display: inline-block;
-      }
       .right {
-        display: inline-block;
         margin-left: auto;
       }
     }
-    .description {
-      height: 60px;
-      font-size: 65%;
-      overflow-y: scroll;
+    description-container {
+      /*
+      overflow: hidden;
+      .description {
+        font-size: 65%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: -17px; /* Increase/Decrease this value for cross-browser compatibility /
+        overflow-y: scroll;
+      }
+      */
     }
   }
 }

@@ -21,10 +21,16 @@ export default createStore({
       },
     },
     hotelById: {}, // Använd this.$route.params.programId istället
-    loggedInUser: { //Hårdkodad inloggad användera tills vi har en login-funktion för att se om logout fungerar
-      email: "Bob@gmail.com"
+    loggedInUser: {
+      //Hårdkodad inloggad användera tills vi har en login-funktion för att se om logout fungerar
+      email: "Bob@gmail.com",
+    },
+  },
+  created: () => {
+    // eslint-disable-next-line
+    while (true) {
+      console.log("Hello");
     }
-
   },
   mutations: {
     setHotelById(state, payload) {
@@ -39,7 +45,7 @@ export default createStore({
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
     },
-    setTempHotelName(state, payload){
+    setTempHotelName(state, payload) {
       state.tempHotelName = payload;
     },
     updateSearchText(state, searchText) {
@@ -58,19 +64,18 @@ export default createStore({
       state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
     },
     setLoggedInUser(state, user) {
-      state.loggedInUser = user
+      state.loggedInUser = user;
     },
   },
   actions: {
     // actions får tillgång till context objektet
-       
+
     async fetchHotelById() {
-      console.log("Fetch programById running")
-      const url = "/rest/hotels/id/" + this.state.hotelId
-      await axios.get(url)
-      .then(response =>(
-        this.commit("setHotelById", response.data)
-      ))
+      console.log("Fetch programById running");
+      const url = "/rest/hotels/id/" + this.state.hotelId;
+      await axios
+        .get(url)
+        .then((response) => this.commit("setHotelById", response.data));
     },
     async fetchAllHotels(context) {
       let response = await fetch("/rest/hotels/all-hotels");
