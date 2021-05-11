@@ -27,14 +27,11 @@
 </template>
 
 <script>
-import HotelRoomCard from "../components/HotelRoomCard.vue";
-//import HotelImage from "../components/HotelImage.vue"; 
+import HotelRoomCard from "../components/HotelRoomCard.vue"; 
 
 
 export default {
-  props: ["hotelById"],
-
-
+  
   components: {
    HotelRoomCard,  
   },
