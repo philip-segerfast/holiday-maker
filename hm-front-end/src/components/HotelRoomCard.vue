@@ -23,7 +23,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .hotelRoom-card {
   background-color: rgb(187, 202, 202);
   margin-bottom: 20px;

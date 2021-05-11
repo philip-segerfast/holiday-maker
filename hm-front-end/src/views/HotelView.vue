@@ -4,13 +4,17 @@
   <div class="hotel-information">
     <h2>{{ hotelInfo.name }}</h2>
     <h3>Description: {{ hotelInfo.description }}</h3>
-    <Address>Location: {{ hotelInfo.address }}</Address>
+    <Address>Location: {{ hotelInfo.address }}</Address>    
   </div>
 
-  <li class="hotel-images" >
-    <img src="@/assets/images/hotell1.png" alt="" />
-    <img src="@/assets/images/hotell2.png" alt="" />
-  </li>
+  <!--Visar alla bilder som är kopplade till ett hotell -->
+  <div id="v-image" class="image-list">
+    <li v-for="image in hotelInfo.images" :key="image"> 
+       <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`"> 
+    </li>
+  </div>
+
+  <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
   <li  class="room-list" v-if="rooms.length > 0"> 
       <hotel-room-card
         v-for="(room, i) in rooms"
@@ -19,22 +23,17 @@
       />
   </li>
   
-  
-
-
 
 </template>
 
 <script>
-import HotelRoomCard from "../components/HotelRoomCard.vue";
-//import HotelImage from "../components/HotelImage.vue"; 
+import HotelRoomCard from "../components/HotelRoomCard.vue"; 
+
 
 export default {
-  props: ["hotelById"],
-
+  
   components: {
-   HotelRoomCard, 
-   //HotelImage, 
+   HotelRoomCard,  
   },
 
   computed: {
@@ -54,10 +53,16 @@ export default {
 </script>
 
 <style>
-#hotelImage {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}</style>
+  .image-list {
+    align-content: center;
+    position: relative;
+   
+  }
+    img {
+      
+      width: 300px;
+      height: auto;
+    
+    }
+
+</style>

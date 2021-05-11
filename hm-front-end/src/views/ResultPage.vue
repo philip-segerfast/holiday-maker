@@ -5,13 +5,14 @@
     </div>
     <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
     <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
-    <div v-if="hotels.length > 0">
-      <HotelCard v-for="(hotel, i) in hotels" :key="hotel + i" :hotel="hotel" />
+    <div v-if="filteredHotels.length > 0">
+      <HotelCard v-for="(hotel, i) in filteredHotels" :key="hotel + i" :hotel="hotel" />
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 // Import HotelCard to use in ResultPage
 // Import SearchBar -''-
 import HotelCard from "../components/HotelCard.vue";
@@ -30,11 +31,19 @@ export default {
     hotels() {
       return this.$store.state.hotels;
     },
+    // Hämtar filteredHotels från store
+    filteredHotels() {
+      return this.$store.state.filteredHotels
+    },
   },
 
   // Aktiverar kopplingen till backend
   mounted() {
-    this.$store.dispatch("fetchAllHotels");
+    let storeHotels = this.$store.dispatch("fetchAllHotels");
+
+
+   
+
   },
 };
 </script>
