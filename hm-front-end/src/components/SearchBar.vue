@@ -32,8 +32,8 @@ export default {
   methods: {
     filterHotels() {
         console.log("klicked")
-        this.$store.commit("setFilteredHotels")
         this.$router.push({path: "/result-page"})
+        this.$store.commit("setFilteredHotels")
       }
   },
 };
