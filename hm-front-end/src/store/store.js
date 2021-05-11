@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default createStore({
   state: {
+    
     hotels: [],
     HotelSearch: {},
     hotelRooms: [],
@@ -20,6 +21,9 @@ export default createStore({
         adultsAmount: 0,
         childrenAmount: 0,
       },
+      loggedInUser:null,
+      
+
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
