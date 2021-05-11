@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Hotel {
     @Column(name = "ID", nullable = false)
@@ -30,15 +29,34 @@ public class Hotel {
     private double selfCateringPrice;
     private double halfPensionPrice;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL)
     private List<HotelImage> images = new ArrayList<>();
 
     @OneToMany
-    @ToString.Exclude
     private List<HotelTag> hotelTags = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "hotel")
-    @ToString.Exclude
     private List<HotelRoom> hotelRooms = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", extraBedPrice=" + extraBedPrice +
+                ", coordinates='" + coordinates + '\'' +
+                ", beachDistance=" + beachDistance +
+                ", centerDistance=" + centerDistance +
+                ", allInclusivePrice=" + allInclusivePrice +
+                ", fullBoardPrice=" + fullBoardPrice +
+                ", selfCateringPrice=" + selfCateringPrice +
+                ", halfPensionPrice=" + halfPensionPrice +
+                ", images=" + images +
+                ", hotelTags=" + hotelTags +
+                ", hotelRooms=" + hotelRooms +
+                '}';
+    }
 }

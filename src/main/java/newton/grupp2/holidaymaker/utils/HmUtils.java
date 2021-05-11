@@ -8,6 +8,6 @@ import java.nio.file.Paths;
  */
 public class HmUtils {
 
-    public static final Path imagesPath = Paths.get(System.getProperty("user.dir")).resolve("src/main/resources/img");
+    public static final Path imagesPath = Paths.get(System.getProperty("user.dir")).resolve("src/main/resources/static/uploads");
 
 }

@@ -6,6 +6,7 @@ export default createStore({
     hotels: [],
     HotelSearch: {},
     hotelRooms: [],
+    hotelImages: [],
     hotel: {},
     hotelId: 1,
     tempHotelName: String,
@@ -22,6 +23,10 @@ export default createStore({
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
+    loggedInUser: { //Hårdkodad inloggad användera tills vi har en login-funktion för att se om logout fungerar
+      email: "Bob@gmail.com"
+    }
+
   },
   mutations: {
     setHotelById(state, payload) {
@@ -79,6 +84,9 @@ export default createStore({
     },
     
 
+    setLoggedInUser(state, user) {
+      state.loggedInUser = user
+    },
   },
   actions: {
        
