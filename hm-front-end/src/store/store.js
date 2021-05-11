@@ -6,6 +6,7 @@ export default createStore({
     hotels: [],
     HotelSearch: {},
     hotelRooms: [],
+    hotelImages: [],
     hotel: {},
     hotelId: 1,
     tempHotelName: String,
