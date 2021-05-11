@@ -3,6 +3,7 @@ package newton.grupp2.holidaymaker.controllers;
 import newton.grupp2.holidaymaker.entities.Hotel;
 import newton.grupp2.holidaymaker.entities.HotelRoom;
 import newton.grupp2.holidaymaker.forms.NewHotelForm;
+import newton.grupp2.holidaymaker.forms.NewHotelImagesForm;
 import newton.grupp2.holidaymaker.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +38,41 @@ public class HotelController {
         }
     }
 
+    @PostMapping("/rest/hotels/add-images/{hotelId}")
+    public Hotel saveHotelImages(@ModelAttribute NewHotelImagesForm hotelImages, @PathVariable long hotelId) {
+        try {
+            return hotelService.saveImages(hotelId, hotelImages);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @GetMapping("/rest/hotels/get-rooms/{id}")
     public List<HotelRoom> getRoomsForHotel(@PathVariable long id) {
         return hotelService.getRoomsForHotel(id);
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
