@@ -55,23 +55,32 @@ export default createStore({
       state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
     },
     setFilteredHotels(){
-      // let seachValue = "",
+      // Skapa en myHotels variabel utan att tillge ett värde.
       let myHotels;
       
+      // Hämta ut searchText ifrån objektet searchHotelFilter ur state
+      // Filtrera hotelen inuti hotels[] i state samt skapa filtervariabel(item)
+      // "peka på city" med den skapade filtreringsvariabeln (item.city (små bokstäver))
+      // Returnera filtrerings variabeln som matchar(inkluderar) sökningsresultatet från state.
       if(this.state.searchHotelFilter.searchText) {
         myHotels = this.state.hotels.filter((item) => {
           item.city = item.city.toLowerCase()
           return item.city.includes(this.state.searchHotelFilter.searchText.toLowerCase())
         })
+        // Hämta ut de filtrerade hotelen utifrån sökning
         this.state.filteredHotels = myHotels
       } else {
+        // Om inget skrivs i sökningsfältet --> trycker på button
+        // Lista ut alla hotel från hotels[] ifrån state 
         this.state.filteredHotels = this.state.hotels
       }
       console.log(this.state.filteredHotels)
-    }
+      
+    },
+    
+
   },
   actions: {
-    // actions får tillgång till context objektet
        
     async fetchHotelById() {
       console.log("Fetch programById running")
@@ -81,6 +90,10 @@ export default createStore({
         this.commit("setHotelById", response.data)
       ))
     },
+    // actions får tillgång till context objektet
+    // fetch alla hotel från backend och lägg i response-variabeln
+    // gör om response till json objekt
+    // objektet context gör så att vi kan commita alla hotels, json??
     async fetchAllHotels(context) {
       let response = await fetch("/rest/hotels/all-hotels");
       let json = await response.json();

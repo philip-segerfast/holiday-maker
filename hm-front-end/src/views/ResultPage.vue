@@ -31,6 +31,7 @@ export default {
     hotels() {
       return this.$store.state.hotels;
     },
+    // Hämtar filteredHotels från store
     filteredHotels() {
       return this.$store.state.filteredHotels
     },
