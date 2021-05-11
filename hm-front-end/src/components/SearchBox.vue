@@ -13,7 +13,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 #search {
   width: 190px;
 }

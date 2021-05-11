@@ -14,7 +14,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .hotelImage-card {
   background-color: rgb(187, 202, 202);
   margin-bottom: 20px;

@@ -60,8 +60,6 @@ export default {
 .open {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  outline: black solid 1px;
-  border-bottom: none;
 }
 
 #container {

@@ -87,6 +87,9 @@ export default createStore({
       });
     },
   },
+  mounted() {
+    console.log("Hello");
+  },
   getters: {
     getAllHotels(state) {
       return state.hotels;
