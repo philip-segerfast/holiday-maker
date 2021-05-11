@@ -11,11 +11,12 @@ export default {
   components:{
     Navbar
   },
+  mounted() {
+    this.$store.dispatch("fetchLoggedInUser");
+  },
 }
 </script>
-
 <style lang="scss" src="./style.scss"></style>
-
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -3,7 +3,6 @@ import axios from "axios";
 
 export default createStore({
   state: {
-    
     hotels: [],
     HotelSearch: {},
     hotelRooms: [],
@@ -20,17 +19,11 @@ export default createStore({
       peopleAmount: {
         adultsAmount: 0,
         childrenAmount: 0,
-      },
-      loggedInUser:null,
-      
-
+      }
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
-    loggedInUser: { //Hårdkodad inloggad användera tills vi har en login-funktion för att se om logout fungerar
-      email: "Bob@gmail.com"
-    }
-
+    loggedInUser: null,
   },
   // "Setters"
   mutations: {
@@ -87,14 +80,11 @@ export default createStore({
       console.log(this.state.filteredHotels)
       
     },
-    
-
     setLoggedInUser(state, user) {
       state.loggedInUser = user
     },
   },
   actions: {
-       
     async fetchHotelById() {
       console.log("Fetch programById running")
       const url = "/rest/hotels/id/" + this.state.hotelId
@@ -121,6 +111,12 @@ export default createStore({
         this.commit("setHotelRooms", response.data);
       });
     },
+    async fetchLoggedInUser() {
+      const url = "/auth/whoami";
+      await axios.get(url).then((response) => {
+        this.commit("setLoggedInUser", response.data);
+      });
+    }
   },
   getters: {
     getAllHotels(state) {
@@ -138,5 +134,8 @@ export default createStore({
     getSearchHotelFilter(state) {
       return state.searchHotelFilter;
     },
+    getLoggedInUser(state) {
+      return state.loggedInUser;
+    }
   },
 });
