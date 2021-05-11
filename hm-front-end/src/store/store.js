@@ -20,6 +20,9 @@ export default createStore({
         adultsAmount: 0,
         childrenAmount: 0,
       },
+      loggedInUser:null,
+      
+
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     loggedInUser: { //Hårdkodad inloggad användera tills vi har en login-funktion för att se om logout fungerar

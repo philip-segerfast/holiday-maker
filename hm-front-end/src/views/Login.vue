@@ -18,22 +18,39 @@
 <script>
 export default {
   name: "Login",
-};
 
-methods: {
-  async login() {
-  const credentials =
-    "username=" +
-    encodeURIComponent(this.email) +
-    "&password=" +
-    encodeURIComponent(this.password);
+  methods: {
+    async login() {
+      // put email and password in credentials and make them encoded
+      const credentials =
+        "email=" +
+        encodeURIComponent(this.email) +
+        "&password=" +
+        encodeURIComponent(this.password);
+
+      // login to backend
+
+      let request = {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        mode: "no-cors",
+        body: credentials,
+      };
+      let response = await fetch("/login", request);
+
+      // using WhoAmI in backend tosee who is logged in
+      let user = await fetch("/auth/whoami")
+      try{
+        user=await user.json()
+        this.$store.comit("setLoggedInUser", user)
+        alert("welcome" + user.email)}
+    catch{ console.log("wrong")
+      
     }
-
-    let response = await fetch("/login",{
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      mode: 'no-cors',
-      body: credentials
-    });
-}
+    if(response.url.includes("error")){
+      console.log("wrong username or password")
+    }
+    },
+  },
+};
 </script>
