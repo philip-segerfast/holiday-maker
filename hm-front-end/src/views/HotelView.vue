@@ -7,12 +7,14 @@
     <Address>Location: {{ hotelInfo.address }}</Address>    
   </div>
 
-  <ul id="v-image" class="image-list">
+  <!--Visar alla bilder som är kopplade till ett hotell -->
+  <div id="v-image" class="image-list">
     <li v-for="image in hotelInfo.images" :key="image"> 
        <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`"> 
     </li>
-  </ul>
+  </div>
 
+  <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
   <li  class="room-list" v-if="rooms.length > 0"> 
       <hotel-room-card
         v-for="(room, i) in rooms"
@@ -21,9 +23,6 @@
       />
   </li>
   
-  
-
-
 
 </template>
 
@@ -37,8 +36,7 @@ export default {
 
 
   components: {
-   HotelRoomCard, 
-  // HotelImage, 
+   HotelRoomCard,  
   },
 
   computed: {
@@ -59,7 +57,6 @@ export default {
 
 <style>
   .image-list {
-   
     align-content: center;
     position: relative;
    
