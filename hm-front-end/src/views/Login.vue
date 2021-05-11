@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="login">
     <input
       v-model="email"
       name="email"
@@ -7,49 +7,53 @@
       placeholder="email"
       required
     />
-    <input v-model="password" type="password" placeholder="Password" required />
-    <button @click="login">login</button>
-    <router-link to="/register">
-      If you dont have an account, click here</router-link
-    >
+    <input v-model="password" type="password" placeholder="password" required />
+    <button type="submit">Login</button>
   </form>
+  <router-link to="/Register">if you dont have account click here </router-link>
 </template>
 
 <script>
-export default {
-  name: "Login",
+// @ is an alias to /src
 
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
   methods: {
     async login() {
-      // put email and password in credentials and make them encoded
+      //Putting email/password in credentials and change special signs like @
       const credentials =
-        "email=" +
+        "username=" +
         encodeURIComponent(this.email) +
         "&password=" +
         encodeURIComponent(this.password);
 
-      // login to backend
-
-      let request = {
+      //Login to backend using email/password in credentials
+      let response = await fetch("/login", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         mode: "no-cors",
         body: credentials,
-      };
-      let response = await fetch("/login", request);
+      });
+      //Using backend WhoAmI to se who is logged in to backend
+      let user = await fetch("/auth/whoami");
+      try {
+        user = await user.json();
 
-      // using WhoAmI in backend tosee who is logged in
-      let user = await fetch("/auth/whoami")
-      try{
-        user=await user.json()
-        this.$store.comit("setLoggedInUser", user)
-        alert("welcome" + user.email)}
-    catch{ console.log("wrong")
-      
-    }
-    if(response.url.includes("error")){
-      console.log("wrong username or password")
-    }
+        //save user in store using setLoggedInUser mutation
+        this.$store.commit("setLoggedInUser", user);
+        console.log(user.email + " is logged in");
+      } catch {
+        alert("Wrong username/password");
+      }
+
+      if (response.url.includes("error")) {
+        console.log("Wrong username/password");
+      }
     },
   },
 };
