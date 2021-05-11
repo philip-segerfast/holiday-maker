@@ -10,8 +10,6 @@
     -
     <router-link to="/result-page">Result</router-link>
     -
-    <router-link to="/hotelView">Hotel</router-link>
-    -
     <button @click="logout">Logout</button>
   </div>
 </template>
