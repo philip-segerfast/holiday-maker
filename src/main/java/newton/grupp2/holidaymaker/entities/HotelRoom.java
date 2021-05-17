@@ -4,19 +4,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import newton.grupp2.holidaymaker.utils.HmUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "HOTEL_ROOMS")
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class HotelRoom {
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ROOM_ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
@@ -30,4 +31,12 @@ public class HotelRoom {
     @JsonIgnore
     private Hotel hotel;
 
+    @ManyToMany(mappedBy = "hotelRooms")
+    @JsonIgnore
+    private List<Booking> bookings = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return HmUtils.getPrettyToString(this);
+    }
 }
