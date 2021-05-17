@@ -11,7 +11,9 @@
     <button type="submit">Login</button>
   </form>
   <router-link to="/Register">if you dont have account click here </router-link>
-  <span v-if="$store.getters.getLoggedInUser != null"> Logged in as: {{ $store.getters.getLoggedInUser.email }} </span>
+  <span v-if="$store.getters.getLoggedInUser != null">
+    Logged in as: {{ $store.getters.getLoggedInUser.email }}
+  </span>
 </template>
 
 <script>

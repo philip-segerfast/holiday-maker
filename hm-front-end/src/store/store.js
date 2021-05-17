@@ -19,7 +19,7 @@ export default createStore({
       peopleAmount: {
         adultsAmount: 0,
         childrenAmount: 0,
-      }
+      },
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
@@ -39,7 +39,7 @@ export default createStore({
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
     },
-    setTempHotelName(state, payload){
+    setTempHotelName(state, payload) {
       state.tempHotelName = payload;
     },
     updateSearchText(state, searchText) {
@@ -57,51 +57,51 @@ export default createStore({
     updateAdultsAmount(state, adultsAmount) {
       state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
     },
-    setFilteredHotels(){
+    setFilteredHotels() {
       // Skapa en myHotels variabel utan att tillge ett värde.
       let myHotels;
-      
+
       // Hämta ut searchText ifrån objektet searchHotelFilter ur state
-      if(this.state.searchHotelFilter.searchText) {
-      // Filtrera hotelen inuti hotels[] i state samt skapar filtervariabel(item). Lagra resultat i myHotels.
+      if (this.state.searchHotelFilter.searchText) {
+        // Filtrera hotelen inuti hotels[] i state samt skapar filtervariabel(item). Lagra resultat i myHotels.
         myHotels = this.state.hotels.filter((item) => {
-      // "peka på city" med den skapade filtreringsvariabeln (item.city (små bokstäver))
-          item.city = item.city.toLowerCase()
-      // Returnera filtrerings variabeln som matchar sökningsresultatet från state.    
-          return item.city.includes(this.state.searchHotelFilter.searchText.toLowerCase())
-        })
+          // "peka på city" med den skapade filtreringsvariabeln (item.city (små bokstäver))
+          item.city = item.city.toLowerCase();
+          // Returnera filtrerings variabeln som matchar sökningsresultatet från state.
+          return item.city.includes(
+            this.state.searchHotelFilter.searchText.toLowerCase()
+          );
+        });
         // Hämta ut de filtrerade hotelen utifrån sökning
-        this.state.filteredHotels = myHotels
+        this.state.filteredHotels = myHotels;
       } else {
         // Om inget skrivs i sökningsfältet och en trycker på button
-        // Lista ut alla hotel från hotels[] ifrån state 
-        this.state.filteredHotels = this.state.hotels
+        // Lista ut alla hotel från hotels[] ifrån state
+        this.state.filteredHotels = this.state.hotels;
       }
-      console.log(this.state.filteredHotels)
-      
+      console.log(this.state.filteredHotels);
     },
     setLoggedInUser(state, user) {
-      state.loggedInUser = user
+      state.loggedInUser = user;
     },
   },
   actions: {
     async fetchHotelById() {
-      console.log("Fetch programById running")
-      const url = "/rest/hotels/id/" + this.state.hotelId
-      await axios.get(url)
-      .then(response =>(
-        this.commit("setHotelById", response.data)
-      ))
+      console.log("Fetch programById running");
+      const url = "/rest/hotels/id/" + this.state.hotelId;
+      await axios
+        .get(url)
+        .then((response) => this.commit("setHotelById", response.data));
     },
     // actions får tillgång till context objektet
     async fetchAllHotels(context) {
-    // fetch alla hotel från backend och lägg i response-variabeln  
+      // fetch alla hotel från backend och lägg i response-variabeln
       let response = await fetch("/rest/hotels/all-hotels");
-    // gör om response till json objekt
+      // gör om response till json objekt
       let json = await response.json();
       console.log("Response:");
       console.log(json);
-    // objektet context gör så att vi kan commita alla hotels, json??
+      // objektet context gör så att vi kan commita alla hotels, json??
       context.commit("setAllHotels", json);
     },
     async fetchHotelRoomsByHotel() {
@@ -116,7 +116,7 @@ export default createStore({
       await axios.get(url).then((response) => {
         this.commit("setLoggedInUser", response.data);
       });
-    }
+    },
   },
   getters: {
     getAllHotels(state) {
@@ -136,6 +136,6 @@ export default createStore({
     },
     getLoggedInUser(state) {
       return state.loggedInUser;
-    }
+    },
   },
 });
