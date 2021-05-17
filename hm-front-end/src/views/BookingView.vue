@@ -6,10 +6,18 @@
 4. Payment-component
 5. Price / confirm-booking-button
 
+<Hotelinfo />
+<Login />
+<Register />
+<BookingRoomList />
+<Payment />
+price etc
+
 -->
 
 <template>
-  
+ 
+
 </template>
 
 <script>
