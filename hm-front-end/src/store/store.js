@@ -74,15 +74,14 @@ export default createStore({
         });
         // Hämta ut de filtrerade hotelen utifrån sökning
         this.state.filteredHotels = myHotels;
-      } else {
-        // Om inget skrivs i sökningsfältet och en trycker på button
-        // Lista ut alla hotel från hotels[] ifrån state
-        this.state.filteredHotels = this.state.hotels;
-      }
+      } 
       console.log(this.state.filteredHotels);
     },
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
+    },
+    setAllHotelsInFilteredHotels(state, payload) {
+      state.filteredHotels = payload;
     },
   },
   actions: {
@@ -103,6 +102,12 @@ export default createStore({
       console.log(json);
       // objektet context gör så att vi kan commita alla hotels, json??
       context.commit("setAllHotels", json);
+      // Om sökfältet är tomt så läggs listan på alla hotell i listan filteredHotels
+      if (!this.state.searchHotelFilter.searchText) {
+        context.commit("setAllHotelsInFilteredHotels", json);  
+      } else {
+        context.commit("setFilteredHotels")
+      }
     },
     async fetchHotelRoomsByHotel() {
       console.log("hotel id: " + this.state.hotelId);

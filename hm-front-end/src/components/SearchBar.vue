@@ -32,8 +32,8 @@ export default {
   methods: {
     filterHotels() {
         // Sök efter hotel i searchfältet (filtrerar hotelen) click--> push till result-page
+        this.$store.dispatch("fetchAllHotels");
         this.$router.push({path: "/result-page"})
-        this.$store.commit("setFilteredHotels")
       }
   },
 };

@@ -39,13 +39,9 @@ export default {
   },
 
   // Aktiverar kopplingen till backend
-  mounted() {
-      return this.$store.dispatch("fetchAllHotels");
-
-
-   
-
-  },
+  //mounted() {
+  //    return this.$store.dispatch("fetchAllHotels");
+  //},
 };
 </script>
 
