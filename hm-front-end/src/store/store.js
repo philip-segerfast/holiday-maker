@@ -63,12 +63,12 @@ export default createStore({
 
       // Hämta ut searchText ifrån objektet searchHotelFilter ur state
       if (this.state.searchHotelFilter.searchText) {
-        // Filtrera hotelen inuti hotels[] i state samt skapar filtervariabel(item). Lagra resultat i myHotels.
-        myHotels = this.state.hotels.filter((item) => {
-          // "peka på city" med den skapade filtreringsvariabeln (item.city (små bokstäver))
-          item.city = item.city.toLowerCase();
+        // Filtrera hotelen inuti hotels[] i state samt skapar filtervariabel(hotelObject). Lagra resultat i myHotels.
+        myHotels = this.state.hotels.filter((hotelObject) => {
+          // "peka på city" med den skapade filtreringsvariabeln (hotelObject.city (små bokstäver))
+          hotelObject.city = hotelObject.city.toLowerCase();
           // Returnera filtrerings variabeln som matchar sökningsresultatet från state.
-          return item.city.includes(
+          return hotelObject.city.includes(
             this.state.searchHotelFilter.searchText.toLowerCase()
           );
         });

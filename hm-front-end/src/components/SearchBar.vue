@@ -32,7 +32,6 @@ export default {
   methods: {
     filterHotels() {
         // Sök efter hotel i searchfältet (filtrerar hotelen) click--> push till result-page
-        console.log("klicked")
         this.$router.push({path: "/result-page"})
         this.$store.commit("setFilteredHotels")
       }
