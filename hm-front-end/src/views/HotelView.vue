@@ -1,4 +1,5 @@
 <template>
+  <body>
   <h1>Hotel</h1>
  
   <div class="hotel-information">
@@ -22,7 +23,7 @@
         :hotelRoom="room"
       />
   </li>
-  
+  </body>
 
 </template>
 
@@ -52,17 +53,29 @@ export default {
 };
 </script>
 
-<style>
-  .image-list {
-    align-content: center;
-    position: relative;
-   
+<style scoped lang="scss">
+  body {
+    background-color: #45C3D1;
   }
+
+
+  .image-list {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 80%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0%;
+   }
     img {
-      
-      width: 300px;
-      height: auto;
+      display: center;
+      border-radius: 20px;
+      width: 200px;
+      height: 200px;
     
     }
+  .room-list{
+
+  }
 
 </style>
