@@ -5,10 +5,16 @@
     <AmountOfPeople />
   </form>
   <div id="sort-bar">
+
+    <!-- v-model ="sortBy" koppla till sökning -->
     <select name="sortBy" id="select" v-model="sortBy">
       <option value="city">City</option>
       <option value="hotel-name">Hotel Name</option>
+      <option value="price">Price</option>
+      <option value="date">Date</option>
     </select>
+
+    <!-- drop down button -->
     <button v-on:click="ascending = !ascending" class="sort-button">
       <i v-if="ascending" class="fa fa-sort-up"></i>
       <i v-else class="fa fa-sort-down"></i>
