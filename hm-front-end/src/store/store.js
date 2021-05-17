@@ -23,6 +23,8 @@ export default createStore({
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
+    sortBy: 'alphabetically',
+    ascending: true,
     loggedInUser: null,
   },
   // "Setters"
@@ -35,6 +37,16 @@ export default createStore({
     },
     setAllHotels(state, payload) {
       state.hotels = payload;
+
+      // Sorterar hotels arrayen för att sortera bland alla våra hotel
+      state.hotels.sort((a, b) => {
+        if(a.city < b.city) {
+          // om a.city är mindre än b.city --> Ta ett steg tillbaks i arrayen (-1)
+          return -1
+          // Ta ett steg fram i arrayen (+1)
+        } else return 1
+      })
+
     },
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
@@ -80,6 +92,32 @@ export default createStore({
         this.state.filteredHotels = this.state.hotels;
       }
       console.log(this.state.filteredHotels);
+
+      // Sortera utifrån stad
+      // Behöver sortera hotels variabel på city inne i mutation där en sätter denna variabel
+      // setAllHotels 
+      myHotels = myHotels.sort((a, b) => {
+        if (this.sortBy == 'alphabetically') {
+          let sortA = a.city.toLowerCase(), sortB = b.city.toLowerCase()
+
+          if(sortA < sortB){
+            return -1
+          }
+          if(sortA > sortB) {
+            return 1
+          }
+            return 0
+        } // else if (Sortera på annat än stad)
+          // return (-''-)
+      })
+
+       // Show sorted array in descending or ascending order
+       if (!this.ascending) {
+        myHotels.reverse()
+      }
+      
+      return myHotels
+
     },
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
