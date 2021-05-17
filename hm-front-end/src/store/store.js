@@ -23,7 +23,7 @@ export default createStore({
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
-    sortBy: 'alphabetically',
+    sortBy: 'city',
     ascending: true,
     loggedInUser: null,
   },
@@ -38,13 +38,22 @@ export default createStore({
     setAllHotels(state, payload) {
       state.hotels = payload;
 
-      // Sorterar hotels arrayen för att sortera bland alla våra hotel
+      // Sorterar hotels[] 
       state.hotels.sort((a, b) => {
         if(a.city < b.city) {
+          
           // om a.city är mindre än b.city --> Ta ett steg tillbaks i arrayen (-1)
-          return -1
+          return -1 
+          
           // Ta ett steg fram i arrayen (+1)
         } else return 1
+      })
+      state.hotels.sort((a, b) => {
+        if(a.name < b.name && a.city < b.city) {
+            return -1        
+        } else {
+          return 1
+        }
       })
 
     },
