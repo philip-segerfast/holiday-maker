@@ -73,8 +73,8 @@ export default createStore({
           );
         });
         // Hämta ut de filtrerade hotelen utifrån sökning
-        this.state.filteredHotels = myHotels;
       } 
+      this.state.filteredHotels = myHotels;
       console.log(this.state.filteredHotels);
     },
     setLoggedInUser(state, user) {
