@@ -1,6 +1,7 @@
 package newton.grupp2.holidaymaker.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,7 +33,7 @@ public class HotelRoom {
     private Hotel hotel;
 
     @ManyToMany(mappedBy = "hotelRooms")
-    @JsonIgnore
+    @JsonIgnoreProperties("hotelRooms")
     private List<Booking> bookings = new ArrayList<>();
 
     @Override

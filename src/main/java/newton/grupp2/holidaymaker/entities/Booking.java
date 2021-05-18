@@ -27,6 +27,7 @@ public class Booking {
             joinColumns = @JoinColumn(name = "BOOKING_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROOM_ID")
     )
+    @JsonIgnoreProperties("bookings")
     private List<HotelRoom> hotelRooms;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "booking")
