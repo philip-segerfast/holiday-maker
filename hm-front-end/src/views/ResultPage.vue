@@ -37,8 +37,9 @@ export default {
       return this.$store.state.filteredHotels
     },
     sortBy() {
-      return this.$$store.state.sortBy
+      return this.$store.state.sortBy
     }
+    
   },
 
   // Aktiverar kopplingen till backend

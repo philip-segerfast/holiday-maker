@@ -23,7 +23,8 @@ export default createStore({
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
-    sortBy: 'city',
+    sortBy: '',
+    maxPrice: null,
     ascending: true,
     loggedInUser: null,
   },
@@ -46,19 +47,26 @@ export default createStore({
           return -1 
           
           // Ta ett steg fram i arrayen (+1)
-        } else return 1
-      })
-      state.hotels.sort((a, b) => {
-        if(a.name < b.name && a.city < b.city) {
-            return -1        
-        } else {
+        } 
+        if(a.city > b.city){
           return 1
         }
+        return 0
       })
 
     },
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
+
+      state.hotelRooms.sort((a, b) => {
+        if(a.baseNightPrice < b.baseNightPrice) {
+          return -1
+        }
+        if(a.baseNightPrice > b.baseNightPrice) {
+          return 1
+        }
+        return 0
+      })
     },
     setTempHotelName(state, payload) {
       state.tempHotelName = payload;
@@ -81,18 +89,21 @@ export default createStore({
     setFilteredHotels() {
       // Skapa en myHotels variabel utan att tillge ett värde.
       let myHotels;
+      myHotels = this.state.hotels;
 
       // Hämta ut searchText ifrån objektet searchHotelFilter ur state
       if (this.state.searchHotelFilter.searchText) {
+
         // Filtrera hotelen inuti hotels[] i state samt skapar filtervariabel(item). Lagra resultat i myHotels.
         myHotels = this.state.hotels.filter((item) => {
+
           // "peka på city" med den skapade filtreringsvariabeln (item.city (små bokstäver))
           item.city = item.city.toLowerCase();
+
           // Returnera filtrerings variabeln som matchar sökningsresultatet från state.
           return item.city.includes(
-            this.state.searchHotelFilter.searchText.toLowerCase()
-          );
-        });
+            this.state.searchHotelFilter.searchText.toLowerCase())
+        })
         // Hämta ut de filtrerade hotelen utifrån sökning
         this.state.filteredHotels = myHotels;
       } else {
@@ -102,32 +113,14 @@ export default createStore({
       }
       console.log(this.state.filteredHotels);
 
-      // Sortera utifrån stad
+    
       // Behöver sortera hotels variabel på city inne i mutation där en sätter denna variabel
       // setAllHotels 
-      myHotels = myHotels.sort((a, b) => {
-        if (this.sortBy == 'alphabetically') {
-          let sortA = a.city.toLowerCase(), sortB = b.city.toLowerCase()
-
-          if(sortA < sortB){
-            return -1
-          }
-          if(sortA > sortB) {
-            return 1
-          }
-            return 0
-        } // else if (Sortera på annat än stad)
-          // return (-''-)
-      })
-
-       // Show sorted array in descending or ascending order
-       if (!this.ascending) {
-        myHotels.reverse()
-      }
-      
+     
       return myHotels
 
     },
+
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
     },
