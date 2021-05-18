@@ -36,6 +36,9 @@ export default {
         this.$router.push({path: "/result-page"})
       }
   },
+  mounted() {
+     this.$store.commit("updateSearchText", "");
+  },
 };
 </script>
 
