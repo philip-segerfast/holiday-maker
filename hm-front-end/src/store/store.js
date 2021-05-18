@@ -106,6 +106,7 @@ export default createStore({
     },
   },
   actions: {
+    // actions får tillgång till context objektet
     async fetchHotelById() {
       console.log("Fetch programById running");
       const url = "/rest/hotels/id/" + this.state.hotelId;
@@ -143,6 +144,9 @@ export default createStore({
         this.commit("setLoggedInUser", response.data);
       });
     },
+  },
+  mounted() {
+    console.log("Hello");
   },
   getters: {
     getAllHotels(state) {

@@ -1,6 +1,9 @@
 package newton.grupp2.holidaymaker.entities;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import newton.grupp2.holidaymaker.utils.HmUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -40,23 +43,6 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return "Hotel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", city='" + city + '\'' +
-                ", address='" + address + '\'' +
-                ", extraBedPrice=" + extraBedPrice +
-                ", coordinates='" + coordinates + '\'' +
-                ", beachDistance=" + beachDistance +
-                ", centerDistance=" + centerDistance +
-                ", allInclusivePrice=" + allInclusivePrice +
-                ", fullBoardPrice=" + fullBoardPrice +
-                ", selfCateringPrice=" + selfCateringPrice +
-                ", halfPensionPrice=" + halfPensionPrice +
-                ", images=" + images +
-                ", hotelTags=" + hotelTags +
-                ", hotelRooms=" + hotelRooms +
-                '}';
+        return HmUtils.getPrettyToString(this);
     }
 }
