@@ -106,7 +106,7 @@ img {
   .room-list{
   left: 0;
   position:absolute;
-  top:45%;
+  top:38%;
   width: 100%;
   background-color: cadetblue;
 
