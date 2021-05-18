@@ -1,7 +1,6 @@
 <template>
   <div class="result-page">
     <div>
-      <SearchBar />
     </div>
     <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
     <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
@@ -14,17 +13,12 @@
 <script>
 /* eslint-disable */
 // Import HotelCard to use in ResultPage
-// Import SearchBar -''-
 import HotelCard from "../components/HotelCard.vue";
-import SearchBar from "../components/SearchBar.vue";
 
 export default {
-  // declare SearchBar from import
   components: {
   // declare HotelCard from import  
     HotelCard,
-  // declare SearchBar from import  
-    SearchBar,
   },
 
   computed: {
@@ -37,15 +31,7 @@ export default {
       return this.$store.state.filteredHotels
     },
   },
-
-  // Aktiverar kopplingen till backend
-  mounted() {
-      return this.$store.dispatch("fetchAllHotels");
-
-
-   
-
-  },
+ 
 };
 </script>
 
