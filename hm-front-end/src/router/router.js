@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import Register from "../views/Register.vue";
 import ResultPage from "../views/ResultPage.vue";
 import HotelView from "@/views/HotelView.vue";
+import NewHotelCardTestView from "@/views/HotelCardTestView.vue";
 
 const routes = [
   {
@@ -42,6 +43,10 @@ const routes = [
   {
     path: "/hotelView/:id",
     component: HotelView,
+  },
+  {
+    path: "/newHotelCard",
+    component: NewHotelCardTestView,
   },
 ];
 
