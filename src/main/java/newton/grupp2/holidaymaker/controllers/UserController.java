@@ -17,6 +17,7 @@ public class UserController {
 
     @PostMapping("/auth/register")
     public User register(@RequestBody User user) {
+        System.out.println("REGISTER");
         return userService.register(user);
     }
     //get logged in user (C2)
