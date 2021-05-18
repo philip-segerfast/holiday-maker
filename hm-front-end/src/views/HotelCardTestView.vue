@@ -1,6 +1,8 @@
 <template>
-  <div class="container">
-    <NewHotelCard v-for="hotel in hotels" :key="hotel.id" :hotel="hotel" />
+  <div class="main-container">
+    <div v-for="hotel in hotels" :key="hotel.id" class="container">
+      <NewHotelCard :hotel="hotel" />
+    </div>
   </div>
 </template>
 
@@ -20,9 +22,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container {
+.main-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
+}
+.container {
+  margin: 10px;
 }
 </style>
