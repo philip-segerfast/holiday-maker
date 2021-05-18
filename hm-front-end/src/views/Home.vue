@@ -7,12 +7,11 @@
 </template>
 
 <script>
-import SearchBar from "../components/SearchBar.vue";
 import BookingList from "../components/BookingList";
 
 export default {
   name: "Home",
-  components: { SearchBar, BookingList }, 
+  components: { BookingList }, 
   computed: {
     loggedInUser() {
       return this.$store.state.loggedInUser
