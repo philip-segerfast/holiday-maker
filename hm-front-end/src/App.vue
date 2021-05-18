@@ -12,13 +12,12 @@ export default {
     Navbar,
   },
   mounted() {
+    this.$store.dispatch("fetchLoggedInUser");
     this.$store.dispatch("fetchAllHotels");
   },
-};
+}
 </script>
-
 <style lang="scss" src="./style.scss"></style>
-
 <style scoped lang="scss">
 #app {
   text-align: center;

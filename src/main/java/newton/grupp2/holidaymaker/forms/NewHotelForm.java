@@ -1,6 +1,7 @@
 package newton.grupp2.holidaymaker.forms;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import newton.grupp2.holidaymaker.entities.HotelRoom;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class NewHotelForm {
 
     private String name;
@@ -27,7 +29,5 @@ public class NewHotelForm {
     private MultipartFile[] images;
     private HotelTag[] hotelTags;
     private HotelRoom[] hotelRooms;
-
-    public NewHotelForm() {}
 
 }

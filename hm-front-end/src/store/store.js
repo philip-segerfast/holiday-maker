@@ -6,6 +6,7 @@ export default createStore({
     hotels: [],
     HotelSearch: {},
     hotelRooms: [],
+    hotelImages: [],
     hotel: {},
     hotelId: 1,
     tempHotelName: String,
@@ -21,17 +22,10 @@ export default createStore({
       },
     },
     hotelById: {}, // Använd this.$route.params.programId istället
-    loggedInUser: {
-      //Hårdkodad inloggad användera tills vi har en login-funktion för att se om logout fungerar
-      email: "Bob@gmail.com",
-    },
+    filteredHotels: [],
+    loggedInUser: null,
   },
-  created: () => {
-    // eslint-disable-next-line
-    while (true) {
-      console.log("Hello");
-    }
-  },
+  // "Setters"
   mutations: {
     setHotelById(state, payload) {
       state.hotelById = payload;
@@ -63,13 +57,36 @@ export default createStore({
     updateAdultsAmount(state, adultsAmount) {
       state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
     },
+    setFilteredHotels() {
+      // Skapa en myHotels variabel utan att tillge ett värde.
+      let myHotels;
+
+      // Hämta ut searchText ifrån objektet searchHotelFilter ur state
+      if (this.state.searchHotelFilter.searchText) {
+        // Filtrera hotelen inuti hotels[] i state samt skapar filtervariabel(item). Lagra resultat i myHotels.
+        myHotels = this.state.hotels.filter((item) => {
+          // "peka på city" med den skapade filtreringsvariabeln (item.city (små bokstäver))
+          item.city = item.city.toLowerCase();
+          // Returnera filtrerings variabeln som matchar sökningsresultatet från state.
+          return item.city.includes(
+            this.state.searchHotelFilter.searchText.toLowerCase()
+          );
+        });
+        // Hämta ut de filtrerade hotelen utifrån sökning
+        this.state.filteredHotels = myHotels;
+      } else {
+        // Om inget skrivs i sökningsfältet och en trycker på button
+        // Lista ut alla hotel från hotels[] ifrån state
+        this.state.filteredHotels = this.state.hotels;
+      }
+      console.log(this.state.filteredHotels);
+    },
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
     },
   },
   actions: {
     // actions får tillgång till context objektet
-
     async fetchHotelById() {
       console.log("Fetch programById running");
       const url = "/rest/hotels/id/" + this.state.hotelId;
@@ -77,11 +94,15 @@ export default createStore({
         .get(url)
         .then((response) => this.commit("setHotelById", response.data));
     },
+    // actions får tillgång till context objektet
     async fetchAllHotels(context) {
+      // fetch alla hotel från backend och lägg i response-variabeln
       let response = await fetch("/rest/hotels/all-hotels");
+      // gör om response till json objekt
       let json = await response.json();
       console.log("Response:");
       console.log(json);
+      // objektet context gör så att vi kan commita alla hotels, json??
       context.commit("setAllHotels", json);
     },
     async fetchHotelRoomsByHotel() {
@@ -89,6 +110,12 @@ export default createStore({
       const url = "/rest/hotels/get-rooms/" + this.state.hotelId;
       await axios.get(url).then((response) => {
         this.commit("setHotelRooms", response.data);
+      });
+    },
+    async fetchLoggedInUser() {
+      const url = "/auth/whoami";
+      await axios.get(url).then((response) => {
+        this.commit("setLoggedInUser", response.data);
       });
     },
   },
@@ -110,6 +137,9 @@ export default createStore({
     },
     getSearchHotelFilter(state) {
       return state.searchHotelFilter;
+    },
+    getLoggedInUser(state) {
+      return state.loggedInUser;
     },
   },
 });
