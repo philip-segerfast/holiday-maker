@@ -13,6 +13,10 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 import javax.sql.DataSource;
 import java.io.IOException;
 
+/**
+ * Fixar SQLite stuff och ställer in "resource location" (rad 26) bl.a
+ */
+
 @Configuration
 class MyWebMvcConfigurer implements WebMvcConfigurer {
 

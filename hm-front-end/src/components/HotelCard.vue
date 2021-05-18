@@ -23,7 +23,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .hotel-card {
   background-color: lightgray;
   margin-bottom: 20px;

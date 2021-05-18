@@ -30,17 +30,14 @@
   </span>
   </div>
   </body>
-
 </template>
 
 <script>
-import HotelRoomCard from "../components/HotelRoomCard.vue"; 
-
+import HotelRoomCard from "../components/HotelRoomCard.vue";
 
 export default {
-  
   components: {
-   HotelRoomCard,  
+    HotelRoomCard,
   },
 
   computed: {

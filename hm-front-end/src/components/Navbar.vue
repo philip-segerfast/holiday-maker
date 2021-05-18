@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss" src="../style.scss"></style>
 
-<style lang="scss">
+<style scoped lang="scss">
 
   #nav {
     padding: 30px;

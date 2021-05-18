@@ -13,9 +13,6 @@ import CheckInRange from "../components/CheckInRange.vue";
 import AmountOfPeople from "../components/AmountOfPeople.vue";
 
 export default {
-  data() {
-    return {};
-  },
   components: {
     CheckInRange,
     SearchBox,
@@ -32,10 +29,13 @@ export default {
   methods: {
     filterHotels() {
         // Sök efter hotel i searchfältet (filtrerar hotelen) click--> push till result-page
-        console.log("klicked")
-        this.$router.push({path: "/result-page"})
-        this.$store.commit("setFilteredHotels")
+        //this.$store.dispatch("fetchAllHotels")
+        this.$store.commit("setFilteredHotels");
+        this.$router.push({path: "/result-page"});
       }
+  },
+  mounted() {
+     this.$store.commit("updateSearchText", "");
   },
 };
 </script>
