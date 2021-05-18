@@ -60,29 +60,49 @@ export default createStore({
     setFilteredHotels() {
       // Skapa en myHotels variabel utan att tillge ett värde.
       let myHotels;
+      myHotels = this.state.hotels;
+      //let maxNumOfPeople;
+      let listOfRooms;
 
       // Hämta ut searchText ifrån objektet searchHotelFilter ur state
+      // Aktiverar filtrering om searchText har ett innehåll
       if (this.state.searchHotelFilter.searchText) {
-        // Filtrera hotelen inuti hotels[] i state samt skapar filtervariabel(item). Lagra resultat i myHotels.
-        myHotels = this.state.hotels.filter((item) => {
-          // "peka på city" med den skapade filtreringsvariabeln (item.city (små bokstäver))
-          item.city = item.city.toLowerCase();
-          // Returnera filtrerings variabeln som matchar sökningsresultatet från state.
-          return item.city.includes(
+        console.log("Running searchText filter")
+        // Filtrera hotellen inuti hotels[] i state samt skapar filtervariabel(hotelObject). Lagra resultat i myHotels.
+        myHotels = this.state.hotels.filter((hotelObject) => {
+          // Gör tillfälligt om hotellobjektets stad till små bokstäver
+          hotelObject.city = hotelObject.city.toLowerCase();
+          // Returnerar en lista av hotell vars namn på stad matchar söktermen.
+          return hotelObject.city.includes(
             this.state.searchHotelFilter.searchText.toLowerCase()
           );
         });
-        // Hämta ut de filtrerade hotelen utifrån sökning
-        this.state.filteredHotels = myHotels;
-      } else {
-        // Om inget skrivs i sökningsfältet och en trycker på button
-        // Lista ut alla hotel från hotels[] ifrån state
-        this.state.filteredHotels = this.state.hotels;
+        console.log("Searchbox filtered list: " + myHotels.length)
       }
+      
+      let adultsAmount = this.state.searchHotelFilter.peopleAmount.adultsAmount;
+      // Filtrerar baserat på antal vuxna
+      if (adultsAmount != 0) {
+        console.log("Running amount of Adults filter")
+        myHotels = myHotels.filter((hotelObject) => {
+          listOfRooms = hotelObject.hotelRooms.filter(roomObject => roomObject.singleBedsAmount >= adultsAmount);
+          console.log("Number of rooms: " + listOfRooms.length); 
+
+          //maxNumOfPeople = hotelObject.hotelRooms
+          return (listOfRooms.length > 0);
+        });
+      
+        console.log("Adults amount filtered list: " + myHotels.length)
+      }
+      // Hämta ut de filtrerade hotelen utifrån sökning
+      this.state.filteredHotels = myHotels;
       console.log(this.state.filteredHotels);
     },
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
+    },
+    setAllHotelsInFilteredHotels(state, payload) {
+      state.filteredHotels = payload;
     },
   },
   actions: {
@@ -104,6 +124,12 @@ export default createStore({
       console.log(json);
       // objektet context gör så att vi kan commita alla hotels, json??
       context.commit("setAllHotels", json);
+      // Om sökfältet är tomt så läggs listan på alla hotell i listan filteredHotels
+      /*if (!this.state.searchHotelFilter.searchText) {
+        context.commit("setAllHotelsInFilteredHotels", json);  
+      } else {
+        context.commit("setFilteredHotels")
+      }*/
     },
     async fetchHotelRoomsByHotel() {
       console.log("hotel id: " + this.state.hotelId);

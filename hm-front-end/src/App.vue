@@ -2,14 +2,19 @@
   <div id="nav">
     <Navbar />
   </div>
+  <div id="appSearchBar">
+    <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
+    </div>
   <router-view />
 </template>
 
 <script>
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar"
+import SearchBar from "./components/SearchBar.vue"
 export default {
-  components: {
+  components:{
     Navbar,
+    SearchBar
   },
   mounted() {
     this.$store.dispatch("fetchLoggedInUser");

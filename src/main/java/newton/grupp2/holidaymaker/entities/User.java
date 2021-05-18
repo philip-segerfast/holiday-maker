@@ -2,6 +2,7 @@ package newton.grupp2.holidaymaker.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,7 +23,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(unique=true)                    private String email;
-    @Column(nullable = false) @JsonIgnore   private String password;
+    @Column(nullable = false)               private String password;
     @Column(nullable = false)               private String first_name;
     @Column(nullable = false)               private String last_name;
 
@@ -45,5 +46,15 @@ public class User {
     @Override
     public String toString() {
         return HmUtils.getPrettyToString(this);
+    }
+
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
