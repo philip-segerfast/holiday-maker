@@ -61,7 +61,7 @@ export default createStore({
       const allHotels = this.state.hotels;
       let filteredHotels = filterHotelsByCity.call(this, allHotels);
       filteredHotels = filterHotelsByAmountOfPeople.call(this, filteredHotels);
-      filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
+      // filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
 
       // Hämta ut de filtrerade hotelen utifrån sökning
       this.state.filteredHotels = filteredHotels;
@@ -226,9 +226,6 @@ export default createStore({
         this.commit("setLoggedInUser", response.data);
       });
     },
-  },
-  mounted() {
-    console.log("Hello");
   },
   getters: {
     getAllHotels(state) {
