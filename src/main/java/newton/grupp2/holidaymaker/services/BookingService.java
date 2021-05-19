@@ -1,7 +1,9 @@
 package newton.grupp2.holidaymaker.services;
 
 import newton.grupp2.holidaymaker.entities.Booking;
+import newton.grupp2.holidaymaker.entities.User;
 import newton.grupp2.holidaymaker.repositories.BookingRepository;
+import newton.grupp2.holidaymaker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ public class BookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    private UserService userService;
 
     public boolean addBooking(Booking booking) throws Exception {
         // Connects the children to this booking. This is not done automatically.
@@ -24,4 +28,10 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
+    public List<Booking> getUserBookings() {
+        User user = userService.whoAmI();
+        List<Booking> bookings = user.getBookings();
+
+        return bookings;
+    }
 }

@@ -23,4 +23,8 @@ public class BookingController {
         return bookingService.getBookings();
     }
 
+    @GetMapping("/rest/bookings/userbookings")
+    public List<Booking> getUserBookings() {
+        return bookingService.getUserBookings();
+    }
 }
