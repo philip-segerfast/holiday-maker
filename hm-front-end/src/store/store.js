@@ -68,8 +68,7 @@ export default createStore({
       console.log(this.state.filteredHotels);
 
       function filterHotelsByCity(listToFilter) {
-        let searchPhraseLower =
-          this.state.searchHotelFilter.searchText.toLowerCase();
+        let searchPhraseLower = this.state.searchHotelFilter.searchText.toLowerCase();
 
         if (searchPhraseLower != "") {
           console.log("Filtering on search-phrase: ", searchPhraseLower);
@@ -123,10 +122,7 @@ export default createStore({
                 2. OCH bokningens startdatum är efter filtreringens startdatum
                 */
 
-                if (
-                  bookingStartDate >= filterStartDate &&
-                  bookingEndDate >= filterEndDate
-                ) {
+                if (bookingStartDate >= filterStartDate && bookingEndDate >= filterEndDate) {
                   // Collision?
                   console.log("Booking found withing searched period.");
                   console.log("filterStartDate: ", filterStartDate);
@@ -153,9 +149,7 @@ export default createStore({
         const totalAmountOfPeople = adultsAmount + childrenAmount;
 
         if (adultsAmount <= 0) {
-          console.log(
-            "No adults specified. You need to have at least one adult in the company."
-          );
+          console.log("No adults specified. You need to have at least one adult in the company.");
           return listToFilter;
         }
 
@@ -167,8 +161,7 @@ export default createStore({
             const singleBedsAmount = room.singleBedsAmount;
             const doubleBedsAmount = room.doubleBedsAmount;
             const extraBeds = room.maxAmountOfExtraBeds;
-            const totalAmountOfSpaces =
-              singleBedsAmount + doubleBedsAmount * 2 + extraBeds;
+            const totalAmountOfSpaces = singleBedsAmount + doubleBedsAmount * 2 + extraBeds;
 
             if (totalAmountOfSpaces >= totalAmountOfPeople) {
               return true;
@@ -199,9 +192,7 @@ export default createStore({
     async fetchHotelById() {
       console.log("Fetch programById running");
       const url = "/rest/hotels/id/" + this.state.hotelId;
-      await axios
-        .get(url)
-        .then((response) => this.commit("setHotelById", response.data));
+      await axios.get(url).then((response) => this.commit("setHotelById", response.data));
     },
     // actions får tillgång till context objektet
     async fetchAllHotels(context) {

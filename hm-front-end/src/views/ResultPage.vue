@@ -3,11 +3,7 @@
     <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
     <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
     <div v-if="filteredHotels.length > 0">
-      <HotelCard
-        v-for="(hotel, i) in filteredHotels"
-        :key="hotel + i"
-        :hotel="hotel"
-      />
+      <HotelCard v-for="(hotel, i) in filteredHotels" :key="hotel + i" :hotel="hotel" />
     </div>
   </div>
 </template>

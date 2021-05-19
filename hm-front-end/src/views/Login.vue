@@ -1,24 +1,11 @@
 <template>
   <div>
     <form @submit.prevent="login">
-      <input
-        v-model="email"
-        name="email"
-        type="email"
-        placeholder="email"
-        required
-      />
-      <input
-        v-model="password"
-        type="password"
-        placeholder="password"
-        required
-      />
+      <input v-model="email" name="email" type="email" placeholder="email" required />
+      <input v-model="password" type="password" placeholder="password" required />
       <button type="submit">Login</button>
     </form>
-    <router-link to="/Register"
-      >if you dont have account click here
-    </router-link>
+    <router-link to="/Register">if you dont have account click here </router-link>
     <span v-if="$store.getters.getLoggedInUser != null">
       Logged in as: {{ $store.getters.getLoggedInUser.email }}
     </span>

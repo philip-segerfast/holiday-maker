@@ -1,19 +1,15 @@
 <template>
-  <h1>Register page</h1>
-  <!--skapar form så användaren kan mata in sina uppgifter -->
-  <form @submit.prevent="register">
-    <input
-      v-model="email"
-      name="email"
-      type="email"
-      placeholder="email"
-      required
-    />
-    <input v-model="password" type="password" placeholder="Password" required />
-    <input v-model="first_name" type="text" placeholder="First name" required />
-    <input v-model="last_name" type="text" placeholder="Last name" required />
-    <button type="submit">Register</button>
-  </form>
+  <div>
+    <h1>Register page</h1>
+    <!--skapar form så användaren kan mata in sina uppgifter -->
+    <form @submit.prevent="register">
+      <input v-model="email" name="email" type="email" placeholder="email" required />
+      <input v-model="password" type="password" placeholder="Password" required />
+      <input v-model="first_name" type="text" placeholder="First name" required />
+      <input v-model="last_name" type="text" placeholder="Last name" required />
+      <button type="submit">Register</button>
+    </form>
+  </div>
 </template>
 <script>
 export default {

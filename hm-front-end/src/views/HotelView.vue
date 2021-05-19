@@ -17,11 +17,7 @@
 
     <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
     <li class="room-list" v-if="rooms.length > 0">
-      <hotel-room-card
-        v-for="(room, i) in rooms"
-        :key="room + i"
-        :hotelRoom="room"
-      />
+      <hotel-room-card v-for="(room, i) in rooms" :key="room + i" :hotelRoom="room" />
     </li>
   </body>
 </template>
