@@ -12,6 +12,9 @@ export default {
   components: { BookingList }, 
   computed: {},
   methods: {},
+   mounted() {
+    this.$store.dispatch("fetchUserBookings");
+  },
 };
 </script>
 

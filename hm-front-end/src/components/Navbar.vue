@@ -24,6 +24,7 @@ export default {
             
             //removes user from store.js
             this.$store.commit("setLoggedInUser", null)
+            this.$store.commit("setUserBookings", [])
 
             //Shows page Home after pressing logout
             this.$router.push({path: "/"})

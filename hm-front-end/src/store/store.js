@@ -141,7 +141,11 @@ export default createStore({
     async fetchLoggedInUser() {
       const url = "/auth/whoami";
       await axios.get(url).then((response) => {
-        this.commit("setLoggedInUser", response.data);
+        if (!response.data) {
+          this.commit("setLoggedInUser", null);
+        } else {
+          this.commit("setLoggedInUser", response.data);
+        }
       });
     },
     async fetchUserBookings(context) {
