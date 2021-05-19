@@ -35,7 +35,7 @@ public class Hotel {
     @OneToMany(cascade = CascadeType.ALL)
     private List<HotelImage> images = new ArrayList<>();
 
-    @OneToMany
+    @ManyToMany(mappedBy = "hotels")
     private List<HotelTag> hotelTags = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "hotel")
@@ -46,3 +46,12 @@ public class Hotel {
         return HmUtils.getPrettyToString(this);
     }
 }
+
+
+
+
+
+
+
+
+
