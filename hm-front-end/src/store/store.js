@@ -24,6 +24,7 @@ export default createStore({
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
     loggedInUser: null,
+    userBookings: [],
   },
   // "Setters"
   mutations: {
@@ -120,16 +121,10 @@ export default createStore({
       let response = await fetch("/rest/hotels/all-hotels");
       // gör om response till json objekt
       let json = await response.json();
-      console.log("Response:");
+      console.log("Running fetchAllHotels. List of all hotels: ");
       console.log(json);
       // objektet context gör så att vi kan commita alla hotels, json??
       context.commit("setAllHotels", json);
-      // Om sökfältet är tomt så läggs listan på alla hotell i listan filteredHotels
-      /*if (!this.state.searchHotelFilter.searchText) {
-        context.commit("setAllHotelsInFilteredHotels", json);  
-      } else {
-        context.commit("setFilteredHotels")
-      }*/
     },
     async fetchHotelRoomsByHotel() {
       console.log("hotel id: " + this.state.hotelId);
