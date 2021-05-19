@@ -68,7 +68,7 @@ export default createStore({
       // Hämta ut searchText ifrån objektet searchHotelFilter ur state
       // Aktiverar filtrering om searchText har ett innehåll
       if (this.state.searchHotelFilter.searchText) {
-        console.log("Running searchText filter")
+        console.log("Running searchText filter");
         // Filtrera hotellen inuti hotels[] i state samt skapar filtervariabel(hotelObject). Lagra resultat i myHotels.
         myHotels = this.state.hotels.filter((hotelObject) => {
           // Gör tillfälligt om hotellobjektets stad till små bokstäver
@@ -78,22 +78,24 @@ export default createStore({
             this.state.searchHotelFilter.searchText.toLowerCase()
           );
         });
-        console.log("Searchbox filtered list: " + myHotels.length)
+        console.log("Searchbox filtered list: " + myHotels.length);
       }
-      
+
       let adultsAmount = this.state.searchHotelFilter.peopleAmount.adultsAmount;
       // Filtrerar baserat på antal vuxna
       if (adultsAmount != 0) {
-        console.log("Running amount of Adults filter")
+        console.log("Running amount of Adults filter");
         myHotels = myHotels.filter((hotelObject) => {
-          listOfRooms = hotelObject.hotelRooms.filter(roomObject => roomObject.singleBedsAmount >= adultsAmount);
-          console.log("Number of rooms: " + listOfRooms.length); 
+          listOfRooms = hotelObject.hotelRooms.filter(
+            (roomObject) => roomObject.singleBedsAmount >= adultsAmount
+          );
+          console.log("Number of rooms: " + listOfRooms.length);
 
           //maxNumOfPeople = hotelObject.hotelRooms
-          return (listOfRooms.length > 0);
+          return listOfRooms.length > 0;
         });
-      
-        console.log("Adults amount filtered list: " + myHotels.length)
+
+        console.log("Adults amount filtered list: " + myHotels.length);
       }
       // Hämta ut de filtrerade hotelen utifrån sökning
       this.state.filteredHotels = myHotels;
@@ -104,6 +106,9 @@ export default createStore({
     },
     setAllHotelsInFilteredHotels(state, payload) {
       state.filteredHotels = payload;
+    },
+    setUserBookings(state, payload) {
+      state.userBookings = payload;
     },
   },
   actions: {
@@ -138,6 +143,13 @@ export default createStore({
       await axios.get(url).then((response) => {
         this.commit("setLoggedInUser", response.data);
       });
+    },
+    async fetchUserBookings(context) {
+      let response = await fetch("/rest/bookings/userbookings");
+      let json = await response.json();
+      console.log("Running fetchUserBookings. List of user bookings: ");
+      console.log(json);
+      context.commit("setUserBookings", json);
     },
   },
   mounted() {

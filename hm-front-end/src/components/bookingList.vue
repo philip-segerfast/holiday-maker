@@ -2,6 +2,7 @@
   
   <div v-if="isLoggedIn">
   <h2>List of bookings</h2>
+  <h4>{{ loggedInUser.email }}, you have {{ userBookings.length }} booking(s)</h4>
   <BookingCard />
   </div>
   <div v-if ="!isLoggedIn">
@@ -20,7 +21,10 @@ computed: {
     },
     isLoggedIn() {
       return this.loggedInUser != null
-    }
+    },
+    userBookings() {
+      return this.$store.state.userBookings
+    },
   },
 }
 </script>
