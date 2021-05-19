@@ -25,7 +25,7 @@ export default {
 
 <style scoped lang="scss">
 .hotelRoom-card {
-  background-color: #2EA4B1;
+  background-color: #2ea4b1;
   margin: auto;
   padding: 10px;
   font-family: "Arial";

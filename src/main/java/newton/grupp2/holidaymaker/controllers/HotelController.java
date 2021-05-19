@@ -24,8 +24,8 @@ public class HotelController {
 
     @GetMapping("/rest/hotels/id/{id}")
     public Hotel getHotelById(@PathVariable long id) {
-            return hotelService.getHotelById(id);
-        }
+        return hotelService.getHotelById(id);
+    }
 
     @PostMapping("/rest/hotels/save")
     public Hotel saveHotel(@ModelAttribute NewHotelForm newHotelForm) {

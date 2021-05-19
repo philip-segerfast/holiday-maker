@@ -1,6 +1,11 @@
 <template>
   <!-- eslint-disable-next-line -->
-  <input type="text" id="search" placeholder="Where do you want to travel?" @input="updateSearchText" />
+  <input
+    type="text"
+    id="search"
+    placeholder="Where do you want to travel?"
+    @input="updateSearchText"
+  />
 </template>
 
 <script>

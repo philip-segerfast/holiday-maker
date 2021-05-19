@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1 v-if ="!isLoggedIn">Welcome!</h1>
+    <h1 v-if="!isLoggedIn">Welcome!</h1>
     <h1 v-if="isLoggedIn">Welcome {{ loggedInUser.email }}!</h1>
   </div>
 </template>
@@ -13,11 +13,11 @@ export default {
   //components: { SearchBar },
   computed: {
     loggedInUser() {
-      return this.$store.state.loggedInUser
+      return this.$store.state.loggedInUser;
     },
     isLoggedIn() {
-      return this.loggedInUser != null
-    }
+      return this.loggedInUser != null;
+    },
   },
   methods: {
     search() {
