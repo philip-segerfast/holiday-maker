@@ -56,7 +56,19 @@ public class HotelService {
     }
 
     public List<Hotel> getAllHotels() {
-        return hotelRepository.findAll();
+        List<Hotel> hotels = hotelRepository.findAll();
+        for(Hotel hotel : hotels) {
+            List<HotelRoom> rooms = hotel.getHotelRooms();
+            double cheapestRoomPrice = Double.MAX_VALUE;
+            for(HotelRoom room : rooms) {
+                double roomPrice = room.getBaseNightPrice();
+                if(roomPrice <= cheapestRoomPrice) {
+                    cheapestRoomPrice = roomPrice;
+                }
+            }
+            hotel.setMinRoomPrice(cheapestRoomPrice);
+        }
+        return hotels;
     }
 
     public Hotel getHotelById(long id) {

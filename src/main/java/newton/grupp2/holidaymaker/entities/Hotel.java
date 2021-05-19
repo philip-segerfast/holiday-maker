@@ -32,6 +32,8 @@ public class Hotel {
     private double fullBoardPrice;
     private double selfCateringPrice;
     private double halfPensionPrice;
+    @Transient
+    private double minRoomPrice;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<HotelImage> images = new ArrayList<>();
@@ -46,6 +48,14 @@ public class Hotel {
     @Override
     public String toString() {
         return HmUtils.getPrettyToString(this);
+    }
+
+    public double getMinRoomPrice() {
+        return minRoomPrice;
+    }
+
+    public void setMinRoomPrice(double minRoomPrice) {
+        this.minRoomPrice = minRoomPrice;
     }
 }
 
