@@ -7,20 +7,10 @@
   <div id="sort-bar">
 
     <!-- v-model ="sortBy" -->
-    <select name="sortBy" id="select" v-model="sortBy">
-      <option value="city">City</option>
-      <option value="hotel-name">Hotel Name</option>
-      <option value="max-price">Max price</option>
-      <option value="lowest-price">Min price</option>
-      <option value="top-review">Top review</option>
-      <option value="date">Date</option>
-    </select>
+    
 
     <!-- drop down button -->
-    <button @click="sortHotelsByPrice" v-on:click="ascending = !ascending" class="sort-button">Sort
-      <i v-if="ascending" class="fa fa-sort-up"></i>
-      <i v-else class="fa fa-sort-down"></i>
-    </button>
+    <button @click="sortHotelsByPrice" class="sort-button">Sort price</button>
   </div>
   <hr>
   <button @click="filterHotels">Search</button>
@@ -55,7 +45,7 @@ export default {
         this.$router.push({path: "/result-page"})
         this.$store.commit("setFilteredHotels")
       },
-    sortHotels() {
+    sortHotelsByPrice() {
       console.log("sorting: ")
       this.$router.push({path: "/result-page"})
       this.$store.commit("setAllHotels")

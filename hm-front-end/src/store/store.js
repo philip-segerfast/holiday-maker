@@ -23,8 +23,6 @@ export default createStore({
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
-    sortBy: '',
-    maxPrice: null,
     ascending: true,
     loggedInUser: null,
   },
@@ -54,11 +52,23 @@ export default createStore({
         return 0
       })
 
+      let sortedByPrice = state.hotels.sort((price1, price2) => {
+        if(price1.minPrice < price2.minPrice){
+          return -1
+        }
+        if(price1.minPrice > price2.minPrice){
+          return 1
+        }
+        return 0
+      })
+      console.log(sortedByPrice)
+
     },
+
+    // Sorterar alla hotelrum utifrån lägst --> högst
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
-
-      state.hotelRooms.sort((a, b) => {
+      this.state.hotelRooms.sort((a, b) => {
         if(a.baseNightPrice < b.baseNightPrice) {
           return -1
         }
@@ -67,6 +77,7 @@ export default createStore({
         }
         return 0
       })
+
     },
     setTempHotelName(state, payload) {
       state.tempHotelName = payload;
