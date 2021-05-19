@@ -16,36 +16,32 @@
 
 <script>
 export default {
-   
   methods: {
     logout() {
-            //logout from backend
-            fetch('/logout', {mode: 'no-cors'})
-            
-            //removes user from store.js
-            this.$store.commit("setLoggedInUser", null)
+      //logout from backend
+      fetch("/logout", { mode: "no-cors" });
 
-            //Shows page Home after pressing logout
-            this.$router.push({path: "/"})
-            },
+      //removes user from store.js
+      this.$store.commit("setLoggedInUser", null);
 
-          }
-}
+      //Shows page Home after pressing logout
+      this.$router.push({ path: "/" });
+    },
+  },
+};
 </script>
 
 <style lang="scss" src="../style.scss"></style>
 
 <style scoped lang="scss">
-
-  #nav {
-    padding: 30px;
-    a {
-      font-weight: bold;
-      color: #2c3e50;
-      &.router-link-exact-active {
-        color: #42b983;
-      }
+#nav {
+  padding: 30px;
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+    &.router-link-exact-active {
+      color: #42b983;
     }
   }
-
+}
 </style>

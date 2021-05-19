@@ -1,11 +1,13 @@
 <template>
   <div class="result-page">
-    <div>
-    </div>
     <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
     <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
     <div v-if="filteredHotels.length > 0">
-      <HotelCard v-for="(hotel, i) in filteredHotels" :key="hotel + i" :hotel="hotel" />
+      <HotelCard
+        v-for="(hotel, i) in filteredHotels"
+        :key="hotel + i"
+        :hotel="hotel"
+      />
     </div>
   </div>
 </template>
@@ -17,7 +19,7 @@ import HotelCard from "../components/HotelCard.vue";
 
 export default {
   components: {
-  // declare HotelCard from import  
+    // declare HotelCard from import
     HotelCard,
   },
 
@@ -28,10 +30,9 @@ export default {
     },
     // Hämtar filteredHotels från store
     filteredHotels() {
-      return this.$store.state.filteredHotels
+      return this.$store.state.filteredHotels;
     },
   },
- 
 };
 </script>
 

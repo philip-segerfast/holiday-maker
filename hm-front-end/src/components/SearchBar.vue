@@ -1,10 +1,12 @@
 <template>
-  <form id="search-bar-container" @submit.prevent="searchMethod">
-    <SearchBox />
-    <CheckInRange />
-    <AmountOfPeople />
-  </form>
-  <button @click="filterHotels">Search</button>
+  <div>
+    <form id="search-bar-container" @submit.prevent="searchMethod">
+      <SearchBox />
+      <CheckInRange />
+      <AmountOfPeople />
+    </form>
+    <button @click="filterHotels">Search</button>
+  </div>
 </template>
 
 <script>
@@ -28,14 +30,14 @@ export default {
   },
   methods: {
     filterHotels() {
-        // Sök efter hotel i searchfältet (filtrerar hotelen) click--> push till result-page
-        //this.$store.dispatch("fetchAllHotels")
-        this.$store.commit("setFilteredHotels");
-        this.$router.push({path: "/result-page"});
-      }
+      // Sök efter hotel i searchfältet (filtrerar hotelen) click--> push till result-page
+      //this.$store.dispatch("fetchAllHotels")
+      this.$store.commit("setFilteredHotels");
+      this.$router.push({ path: "/result-page" });
+    },
   },
   mounted() {
-     this.$store.commit("updateSearchText", "");
+    this.$store.commit("updateSearchText", "");
   },
 };
 </script>
