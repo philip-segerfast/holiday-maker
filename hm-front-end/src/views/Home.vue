@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import BookingList from "../components/BookingList";
+import BookingList from "../components/bookingList";
 
 export default {
   name: "Home",
