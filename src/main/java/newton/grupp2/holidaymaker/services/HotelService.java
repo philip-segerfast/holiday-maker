@@ -1,11 +1,10 @@
 package newton.grupp2.holidaymaker.services;
 
-import newton.grupp2.holidaymaker.entities.Hotel;
-import newton.grupp2.holidaymaker.entities.HotelImage;
-import newton.grupp2.holidaymaker.entities.HotelRoom;
+import newton.grupp2.holidaymaker.entities.*;
 import newton.grupp2.holidaymaker.forms.NewHotelForm;
 import newton.grupp2.holidaymaker.forms.NewHotelImagesForm;
 import newton.grupp2.holidaymaker.repositories.HotelRepository;
+import newton.grupp2.holidaymaker.repositories.HotelReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +20,12 @@ public class HotelService {
 
     @Autowired
     private HotelImageService hotelImageService;
+
+    @Autowired
+    private HotelReviewRepository hotelReviewRepository;
+
+    @Autowired
+    private UserService userService;
 
     public Hotel saveHotelWithForm(NewHotelForm form) throws Exception {
         Hotel hotel = new Hotel();
@@ -94,8 +99,17 @@ public class HotelService {
         }
         return null;
     }
-}
 
+    public HotelReview postReview(HotelReview review) {
+        User author = userService.getById(review.getAuthor().getId());
+        System.out.println("============================================");
+        System.out.println("AUTHOR");
+        System.out.println(author);
+        System.out.println("============================================");
+        return hotelReviewRepository.save(review);
+    }
+
+}
 
 
 
