@@ -1,19 +1,15 @@
 <template>
-  <form @submit.prevent="login">
-    <input
-      v-model="email"
-      name="email"
-      type="email"
-      placeholder="email"
-      required
-    />
-    <input v-model="password" type="password" placeholder="password" required />
-    <button type="submit">Login</button>
-  </form>
-  <router-link to="/Register">if you dont have account click here </router-link>
-  <span v-if="$store.getters.getLoggedInUser != null">
-    Logged in as: {{ $store.getters.getLoggedInUser.email }}
-  </span>
+  <div>
+    <form @submit.prevent="login">
+      <input v-model="email" name="email" type="email" placeholder="email" required />
+      <input v-model="password" type="password" placeholder="password" required />
+      <button type="submit">Login</button>
+    </form>
+    <router-link to="/Register">if you dont have account click here </router-link>
+    <span v-if="$store.getters.getLoggedInUser != null">
+      Logged in as: {{ $store.getters.getLoggedInUser.email }}
+    </span>
+  </div>
 </template>
 
 <script>
@@ -50,7 +46,7 @@ export default {
         //save user in store using setLoggedInUser mutation
         this.$store.commit("setLoggedInUser", user);
         console.log(user.email + " is logged in");
-      } catch {
+      } catch (err) {
         alert("Wrong username/password");
       }
 

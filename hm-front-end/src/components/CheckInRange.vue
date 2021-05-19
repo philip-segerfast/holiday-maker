@@ -3,20 +3,14 @@
     <div id="date-range">
       <span style="padding-left: 0">from:</span>
       <input
+        v-model="startDate"
         class="date-picker"
         type="date"
         name="start"
-        v-model="startDate"
         @input="updateStartDate"
       />
       <span>to:</span>
-      <input
-        class="date-picker"
-        type="date"
-        name="end"
-        v-model="endDate"
-        @input="updateEndDate"
-      />
+      <input v-model="endDate" class="date-picker" type="date" name="end" @input="updateEndDate" />
     </div>
   </div>
 </template>
@@ -31,10 +25,13 @@ export default {
   },
   methods: {
     updateStartDate() {
-      this.$store.commit("updateStartDate", this.startDate);
+      this.$store.commit("updateStartDate", this.dateStringToUnixSeconds(this.startDate));
     },
     updateEndDate() {
-      this.$store.commit("updateEndDate", this.endDate);
+      this.$store.commit("updateEndDate", this.dateStringToUnixSeconds(this.endDate));
+    },
+    dateStringToUnixSeconds(dateString) {
+      return Date.parse(dateString) / 1000;
     },
   },
 };

@@ -1,29 +1,31 @@
 <template>
-  <div id="nav">
-    <Navbar />
-  </div>
-  <div id="appSearchBar">
-    <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
+  <div>
+    <div id="nav">
+      <Navbar />
     </div>
-  <router-view />
+    <div id="appSearchBar">
+      <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
+    </div>
+    <router-view />
+  </div>
 </template>
 
 <script>
-import Navbar from "./components/Navbar"
-import SearchBar from "./components/SearchBar.vue"
+import Navbar from "./components/Navbar";
+import SearchBar from "./components/SearchBar.vue";
 export default {
-  components:{
+  components: {
     Navbar,
-    SearchBar
+    SearchBar,
   },
   mounted() {
     this.$store.dispatch("fetchLoggedInUser");
     this.$store.dispatch("fetchAllHotels");
   },
-}
+};
 </script>
 <style lang="scss" src="./style.scss"></style>
-<style scoped lang="scss">
+<style lang="scss">
 #app {
   text-align: center;
   color: #2c3e50;

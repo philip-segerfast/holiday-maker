@@ -1,5 +1,6 @@
 package newton.grupp2.holidaymaker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,7 +36,8 @@ public class Hotel {
     @OneToMany(cascade = CascadeType.ALL)
     private List<HotelImage> images = new ArrayList<>();
 
-    @OneToMany
+    @ManyToMany(mappedBy = "hotels")
+    @JsonIgnoreProperties("hotels")
     private List<HotelTag> hotelTags = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "hotel")
@@ -46,3 +48,12 @@ public class Hotel {
         return HmUtils.getPrettyToString(this);
     }
 }
+
+
+
+
+
+
+
+
+
