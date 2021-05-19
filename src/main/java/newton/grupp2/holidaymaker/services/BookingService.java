@@ -7,6 +7,7 @@ import newton.grupp2.holidaymaker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,8 +31,10 @@ public class BookingService {
 
     public List<Booking> getUserBookings() {
         User user = userService.whoAmI();
-        List<Booking> bookings = user.getBookings();
-
+        List<Booking> bookings = new ArrayList<>();
+        if (user != null) {
+            bookings = user.getBookings();
+        }
         return bookings;
     }
 }
