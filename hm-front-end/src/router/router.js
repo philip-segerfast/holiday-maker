@@ -6,6 +6,7 @@ import HotelView from "@/views/HotelView.vue";
 import NewHotelCardTestView from "@/views/HotelCardTestView.vue";
 import AboutView from "../views/About.vue";
 import LoginView from "../views/Login.vue";
+import BookingView from "@/views/BookingView.vue";
 
 const routes = [
   {

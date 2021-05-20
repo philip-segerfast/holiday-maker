@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     redirectToBookingView() {
+      // this.$store.commit("setHotelToBook", this.hotelInfo);
       const routerUrl = "/bookingView";
       this.$router.push({ path: routerUrl });
     },

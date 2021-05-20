@@ -13,20 +13,12 @@
       description
     </h4>
     <h2>Price:{{ hotelRoom.baseNightPrice }}</h2>
-
-    <button class="add" @click="addRoomsToBooking">Add room</button>
   </div>
 </template>
 
 <script>
 export default {
   props: ["hotelRoom"],
-  methods: {
-    addRoomsToBooking() {
-      this.$store.commit("addRoomToBooking", this.hotelRoom);
-      console.log(this.hotelRoom);
-    },
-  },
 };
 </script>
 
@@ -40,16 +32,5 @@ export default {
   border-radius: 30px;
   border: 5px solid #5c8791;
   width: 50%;
-}
-button {
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
 }
 </style>
