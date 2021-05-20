@@ -8,7 +8,8 @@
     <div id="sort-bar">
       <h3>
         Sort by :
-        <button @click="sortHotelsByPrice">Price</button>
+        <button @click="sortHotelRoomsByPrice">Sort Rooms</button>
+        <button @click="sortHotelsByPrice">Sort Hotels</button>
       </h3>
     </div>
     <hr />
@@ -46,6 +47,10 @@ export default {
       this.$router.push({ path: "/result-page" });
     },
     sortHotelsByPrice() {
+      this.$store.commit("setSortedHotels");
+      this.$router.push({ path: "/result-page" });
+    },
+    sortHotelRoomsByPrice() {
       console.log("sorting: ");
       this.$router.push({ path: "/hotelView" });
       this.$store.commit("setSortedRooms");

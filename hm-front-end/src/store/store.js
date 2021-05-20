@@ -23,6 +23,7 @@ export default createStore({
     },
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
+    sortedHotels: [],
     sortedRooms: [],
     ascending: true,
     loggedInUser: null,
@@ -47,6 +48,19 @@ export default createStore({
           // Ta ett steg fram i arrayen (+1)
         }
         if (a.city > b.city) {
+          return 1;
+        }
+        return 0;
+      });
+    },
+
+    setSortedHotels() {
+      let sortedByPrice;
+      sortedByPrice = this.state.hotels.sort((price1, price2) => {
+        if (price1.minRoomPrice < price2.minRoomPrice) {
+          return -1;
+        }
+        if (price1.minRoomPrice > price2.minRoomPrice) {
           return 1;
         }
         return 0;
@@ -268,8 +282,14 @@ export default createStore({
     getHotelRooms(state) {
       return state.hotelRooms;
     },
+    getSortedHotels(state) {
+      return state.sortedHotels;
+    },
     getSortedRooms(state) {
       return state.sortedRooms;
+    },
+    getSortedHotels(state) {
+      return state.sortedHotels;
     },
     getHotelById(state) {
       return state.hotelById;
