@@ -1,11 +1,19 @@
 <template>
-  <div>
-    <form id="search-bar-container" @submit.prevent="searchMethod">
-      <SearchBox />
-      <CheckInRange />
-      <AmountOfPeople />
-    </form>
-    <button @click="filterHotels">Search</button>
+  <div class="big-container">
+    <div id="search-bar-container">
+      <div class="search-bar-item">
+        <SearchBox />
+      </div>
+      <div class="search-bar-item">
+        <CheckInRange />
+      </div>
+      <div class="search-bar-item">
+        <AmountOfPeople />
+      </div>
+      <div class="search-bar-item">
+        <button class="search-button" @click="filterHotels">Search</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -43,11 +51,39 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#search-bar-container {
+.big-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: row;
-  width: 100%;
+  #search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    width: fit-content;
+    border: 1px solid black;
+    padding: 0 10px 0 10px;
+    height: --search-bar-height;
+    border-radius: 52px;
+    background-color: #00ffff;
+    .search-bar-item {
+      padding: 10px;
+    }
+    .search-button {
+      display: inline-block;
+      outline: 1px solid var(--component-border-color);
+      border: none;
+      border-radius: 20px;
+      background-color: var(--component-color);
+      padding: 20px 18px;
+      padding: var(--component-input-inner-padding);
+      cursor: pointer;
+      &:hover {
+        background-color: var(--component-color-hover);
+      }
+      &:active {
+        background-color: var(--component-color-active);
+      }
+    }
+  }
 }
 </style>
