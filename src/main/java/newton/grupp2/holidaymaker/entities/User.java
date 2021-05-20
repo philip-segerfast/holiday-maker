@@ -31,6 +31,13 @@ public class User {
     @JsonIgnoreProperties("user")
     private List<Booking> bookings;
 
+    @OneToMany(mappedBy = "author")
+    // Vi kommer ändå antagligen aldrig hämta reviews
+    // direkt från en användare, utan snarare via hotellet.
+    // Bli så stor JSON annars.
+    @JsonIgnore
+    private List<HotelReview> reviews;
+
     public User(String email, String password, String firstName, String lastName) {
         this(email, password, firstName, lastName, new ArrayList<>());
     }
