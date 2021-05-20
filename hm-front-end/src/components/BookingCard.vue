@@ -15,7 +15,6 @@
 export default {
   props: ["userBooking"],
   computed: {
-    
     // Changes epoch time format to normal date format
     bookedFromDate() {
       return new Date(this.userBooking.fromTime).toLocaleString();
