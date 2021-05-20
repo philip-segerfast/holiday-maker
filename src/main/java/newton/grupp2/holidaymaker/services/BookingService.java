@@ -35,6 +35,6 @@ public class BookingService {
         if (user != null) {
             bookings = user.getBookings();
         }
-        return bookings;
+        return bookings; // Returns empty list of bookings if no user is logged in
     }
 }

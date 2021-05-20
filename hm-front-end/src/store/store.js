@@ -221,6 +221,8 @@ export default createStore({
     async fetchLoggedInUser() {
       const url = "/auth/whoami";
       await axios.get(url).then((response) => {
+
+        // If no user is logged it sets LoggedInUser to null instead of empty object.
         if (!response.data) {
           this.commit("setLoggedInUser", null);
         } else {
