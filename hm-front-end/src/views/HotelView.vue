@@ -1,5 +1,6 @@
 <template>
   <h1>Hotel</h1>
+  <SearchBar/>
  
   <div class="hotel-information">
     <h2>{{ hotelInfo.name }}</h2>
@@ -28,12 +29,14 @@
 
 <script>
 import HotelRoomCard from "../components/HotelRoomCard.vue"; 
+import SearchBar from "../components/SearchBar.vue";
 
 
 export default {
   
   components: {
-   HotelRoomCard,  
+   HotelRoomCard, 
+   SearchBar, 
   },
 
   computed: {
@@ -44,6 +47,9 @@ export default {
     hotelInfo() {
       return this.$store.getters.getHotelById;
     },
+    roomsByPrice() {
+      return this.$store.getters.sortedRooms;
+    }
   },
   mounted() {
     this.$store.dispatch("fetchHotelRoomsByHotel");

@@ -5,12 +5,9 @@
     <AmountOfPeople />
   </form>
   <div id="sort-bar">
-
-    <!-- v-model ="sortBy" -->
-    
-
-    <!-- drop down button -->
-    <button @click="sortHotelsByPrice" class="sort-button">Sort price</button>
+    <h3>Sort by :
+      <button @click="sortHotelsByPrice">Sort price</button>
+    </h3>
   </div>
   <hr>
   <button @click="filterHotels">Search</button>
@@ -37,6 +34,9 @@ export default {
     searchValue() {
       return this.$store.getters.getSearchText;
     },
+    hotelRooms() {
+      return this.$store.getters.getHotelRooms;
+    }
   },
   methods: {
     filterHotels() {
@@ -47,8 +47,8 @@ export default {
       },
     sortHotelsByPrice() {
       console.log("sorting: ")
-      this.$router.push({path: "/result-page"})
-      this.$store.commit("setAllHotels")
+      this.$router.push({path: "/hotelView"})
+      this.$store.commit("setSortedRooms")
     }
 
   
@@ -79,7 +79,7 @@ export default {
   border: none;
   // height: 50px;
   height: 100%;
-  width: 50px;
+  width: 100px;
   &:hover {
     background-color: rgba(0,0,0, 0.2);
     cursor: pointer;
