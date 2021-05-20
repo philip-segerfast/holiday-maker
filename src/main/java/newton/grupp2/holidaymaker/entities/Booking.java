@@ -25,6 +25,7 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "ROOM_BOOKINGS",
@@ -34,13 +35,15 @@ public class Booking {
     @JsonIgnoreProperties("bookings")
     private List<HotelRoom> hotelRooms;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "booking")
     private List<Child> children = new ArrayList<>();
 
+
     @ManyToOne
-    @JsonIgnoreProperties("bookings")
-    // @JsonIgnore
+    @JsonIgnoreProperties({"bookings", "reviews"})
     private User user;
+
 
     // Date and time stored as Unix time (google it)
     @Column(nullable = false)   private long fromTime;
@@ -52,13 +55,21 @@ public class Booking {
     @Column(nullable = false, insertable = false, columnDefinition = "boolean default false")
     private boolean isPaid;
 
+
     @Transient
-    @JsonIgnoreProperties("hotelRooms")
+    @JsonIgnoreProperties({"hotelRooms", "reviews"})
     // There will be no setter.
     @Setter(AccessLevel.NONE)
     private Hotel hotel;
 
+
     @JsonProperty
+    /*
+        Det går även att använda en annotation istället för getter.
+        https://stackoverflow.com/questions/2986318/how-to-map-calculated-properties-with-jpa-and-hibernate
+        @Formula("(select min(o.creation_date) from Orders o where o.customer_id = id)")
+        private Date firstOrderDate;
+    */
     public Hotel getHotel() {
         // Returns the first hotel room in the hotels list.
         HotelRoom aHotelRoom = hotelRooms.stream().findFirst().orElse(null);
@@ -75,6 +86,7 @@ public class Booking {
             return null;
         }
     }
+
 
     @Override
     public String toString() {
