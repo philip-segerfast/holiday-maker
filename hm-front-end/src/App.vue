@@ -33,6 +33,7 @@ export default {
   display: flex;
   flex-direction: column;
 
+  /*
   #nav {
     padding: 30px;
     position: fixed;
@@ -45,5 +46,6 @@ export default {
       }
     }
   }
+  */
 }
 </style>

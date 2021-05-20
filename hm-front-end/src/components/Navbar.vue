@@ -31,8 +31,6 @@ export default {
 };
 </script>
 
-<style lang="scss" src="../style.scss"></style>
-
 <style scoped lang="scss">
 #nav {
   padding: 30px;
