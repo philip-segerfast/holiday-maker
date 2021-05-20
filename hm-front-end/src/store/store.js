@@ -25,6 +25,8 @@ export default createStore({
     filteredHotels: [],
     loggedInUser: null,
     userBookings: [],
+    bookingId: "",
+    bookingById: {},
   },
   // "Setters"
   mutations: {
@@ -190,6 +192,12 @@ export default createStore({
     setUserBookings(state, payload) {
       state.userBookings = payload;
     },
+    setbookingId(state, payload) {
+      state.bookingId = payload;
+    },
+    setbookingById(state, payload) {
+      state.bookingById = payload;
+    },
   },
   actions: {
     // actions får tillgång till context objektet
@@ -235,6 +243,15 @@ export default createStore({
       console.log("Running fetchUserBookings. List of user bookings: ");
       console.log(json);
       context.commit("setUserBookings", json);
+    },
+    async fetchBookingById(context) {
+      const url = "/rest/bookings/id/" + this.state.bookingId;
+      console.log(url);
+      let response = await fetch(url);
+      let json = await response.json();
+      console.log("Running fetchBookingById: ");
+      console.log(json);
+      context.commit("setbookingById", json);
     },
   },
   getters: {
