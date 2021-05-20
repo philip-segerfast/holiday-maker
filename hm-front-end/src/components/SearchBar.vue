@@ -1,16 +1,19 @@
 <template>
-  <form id="search-bar-container" @submit.prevent="searchMethod">
-    <SearchBox />
-    <CheckInRange />
-    <AmountOfPeople />
-  </form>
-  <div id="sort-bar">
-    <h3>Sort by :
-      <button @click="sortHotelsByPrice">Price</button>
-    </h3>
+  <div>
+    <form id="search-bar-container" @submit.prevent="searchMethod">
+      <SearchBox />
+      <CheckInRange />
+      <AmountOfPeople />
+    </form>
+    <div id="sort-bar">
+      <h3>
+        Sort by :
+        <button @click="sortHotelsByPrice">Price</button>
+      </h3>
+    </div>
+    <hr />
+    <button @click="filterHotels">Search</button>
   </div>
-  <hr>
-  <button @click="filterHotels">Search</button>
 </template>
 
 <script>
@@ -33,7 +36,7 @@ export default {
     },
     hotelRooms() {
       return this.$store.getters.getHotelRooms;
-    }
+    },
   },
   methods: {
     filterHotels() {
@@ -43,10 +46,10 @@ export default {
       this.$router.push({ path: "/result-page" });
     },
     sortHotelsByPrice() {
-      console.log("sorting: ")
-      this.$router.push({path: "/hotelView"})
-      this.$store.commit("setSortedRooms")
-    }
+      console.log("sorting: ");
+      this.$router.push({ path: "/hotelView" });
+      this.$store.commit("setSortedRooms");
+    },
   },
   mounted() {
     this.$store.commit("updateSearchText", "");
@@ -73,13 +76,13 @@ export default {
 }
 
 .sort-button {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   border: none;
   // height: 50px;
   height: 100%;
   width: 100px;
   &:hover {
-    background-color: rgba(0,0,0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     cursor: pointer;
   }
 }

@@ -38,21 +38,19 @@ export default createStore({
     setAllHotels(state, payload) {
       state.hotels = payload;
 
-      // Sorterar hotels[] 
+      // Sorterar hotels[]
       state.hotels.sort((a, b) => {
-        if(a.city < b.city) {
-          
+        if (a.city < b.city) {
           // om a.city är mindre än b.city --> Ta ett steg tillbaks i arrayen (-1)
-          return -1 
-          
-          // Ta ett steg fram i arrayen (+1)
-        } 
-        if(a.city > b.city){
-          return 1
-        }
-        return 0
-      })
+          return -1;
 
+          // Ta ett steg fram i arrayen (+1)
+        }
+        if (a.city > b.city) {
+          return 1;
+        }
+        return 0;
+      });
     },
 
     // Sorterar alla hotelrum utifrån lägst --> högst
@@ -62,19 +60,17 @@ export default createStore({
     setSortedRooms() {
       let sortedByPrice;
       sortedByPrice = this.state.hotelRooms.sort((price1, price2) => {
-        if(price1.baseNightPrice < price2.baseNightPrice) {
-          return -1
+        if (price1.baseNightPrice < price2.baseNightPrice) {
+          return -1;
         }
-        if(price1.baseNightPrice > price2.baseNightPrice) {
-          return 1
+        if (price1.baseNightPrice > price2.baseNightPrice) {
+          return 1;
         }
-          return 0
-      })
+        return 0;
+      });
 
       this.state.sortedRooms = sortedByPrice;
-      return sortedByPrice
-
-        
+      return sortedByPrice;
     },
     setTempHotelName(state, payload) {
       state.tempHotelName = payload;

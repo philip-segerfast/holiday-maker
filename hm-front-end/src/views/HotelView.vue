@@ -44,7 +44,7 @@ export default {
     },
     roomsByPrice() {
       return this.$store.getters.sortedRooms;
-    }
+    },
   },
   mounted() {
     this.$store.dispatch("fetchHotelRoomsByHotel");
