@@ -34,8 +34,8 @@ export default {
 
   #nav {
     padding: 30px;
-    position:fixed;
-    
+    position: fixed;
+
     a {
       font-weight: bold;
       color: #2c3e50;
