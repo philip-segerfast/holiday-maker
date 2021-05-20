@@ -9,10 +9,10 @@ import BookingList from "../components/bookingList";
 
 export default {
   name: "Home",
-  components: { BookingList }, 
+  components: { BookingList },
   computed: {},
   methods: {},
-   mounted() {
+  mounted() {
     this.$store.dispatch("fetchUserBookings");
   },
 };
