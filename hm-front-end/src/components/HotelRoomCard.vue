@@ -3,23 +3,29 @@
     <h3>Room:{{ hotelRoom.name }}</h3>
     <h3>{{ hotelRoom.size }} m^2</h3>
     <h3 class="single-beds" v-if="hotelRoom.singleBedsAmount > 0">
-      Number of single beds:{{ hotelRoom.singleBedsAmount }}
+      Single beds: {{ hotelRoom.singleBedsAmount }}
     </h3>
     <h3 class="double-beds" v-if="hotelRoom.doubleBedsAmount > 0">
-      Number of double beds:{{ hotelRoom.doubleBedsAmount }}
+      Double beds: {{ hotelRoom.doubleBedsAmount }}
     </h3>
-    <h3>Number of extra beds allowed:{{ hotelRoom.maxAmountOfExtraBeds }}</h3>
+    <h4>
+      Number of extra beds allowed:{{ hotelRoom.maxAmountOfExtraBeds }} -Additional cost: See hotel
+      description
+    </h4>
     <h2>Price:{{ hotelRoom.baseNightPrice }}</h2>
 
-    <button>Add room</button>
+    <button class="add" @click="addRoomsToBooking">Add room</button>
   </div>
 </template>
 
 <script>
 export default {
   props: ["hotelRoom"],
-
-  computed: {},
+  methods: {
+    addRoomsToBooking() {
+      this.$store.commit("addedHotelRooms", this.hotelRoom);
+    },
+  },
 };
 </script>
 

@@ -15,7 +15,11 @@ price etc
 
 -->
 
-<template><div></div></template>
+<template>
+  <div>
+    <h1>you are in booking Wiew</h1>
+  </div>
+</template>
 
 <script>
 export default {};

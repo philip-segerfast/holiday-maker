@@ -6,6 +6,7 @@ export default createStore({
     hotels: [],
     HotelSearch: {},
     hotelRooms: [],
+    addedHotelRooms: [],
     hotelImages: [],
     hotel: {},
     hotelId: 1,
@@ -233,6 +234,9 @@ export default createStore({
     },
     getHotelRooms(state) {
       return state.hotelRooms;
+    },
+    getBookedRooms(state) {
+      return state.addedHotelRooms;
     },
     getHotelById(state) {
       return state.hotelById;

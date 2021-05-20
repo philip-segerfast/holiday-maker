@@ -1,13 +1,15 @@
 <template>
   <body>
     <div class="split right">
-      <h2>{{ hotelInfo.name }}</h2>
-      <h3>Description: {{ hotelInfo.description }}</h3>
-      <Address>Location: {{ hotelInfo.address }}</Address>
+      <h1>{{ hotelInfo.name }}</h1>
+      <h3>{{ hotelInfo.description }}</h3>
+      <h3>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h3>
       <!--Visar alla taggar som är kopplade till ett hotell  -->
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h3>{{ tag.label }}</h3>
       </span>
+      <h3>Add rooms and press book</h3>
+      <button class="booking" @click="redirectToBookingView">Book</button>
     </div>
 
     <!--Visar alla bilder som är kopplade till ett hotell -->
@@ -32,6 +34,12 @@ import HotelRoomCard from "../components/HotelRoomCard.vue";
 export default {
   components: {
     HotelRoomCard,
+  },
+  methods: {
+    redirectToBookingView() {
+      const routerUrl = "/bookingView";
+      this.$router.push({ path: routerUrl });
+    },
   },
 
   computed: {
@@ -66,12 +74,12 @@ body {
 }
 .tag-list span {
   display: inline-block;
-  font-size: 16px;
+  font-size: 10px;
   padding: 5px;
 }
 
 .split {
-  height: 280px;
+  height: 320px;
   width: 50%;
   position: fixed;
   z-index: 1;
@@ -98,8 +106,19 @@ img {
 .room-list {
   left: 0;
   position: absolute;
-  top: 38%;
+  top: 45%;
   width: 100%;
   background-color: cadetblue;
+}
+.booking {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 </style>
