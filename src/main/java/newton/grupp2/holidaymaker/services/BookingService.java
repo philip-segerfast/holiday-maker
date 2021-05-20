@@ -3,12 +3,12 @@ package newton.grupp2.holidaymaker.services;
 import newton.grupp2.holidaymaker.entities.Booking;
 import newton.grupp2.holidaymaker.entities.User;
 import newton.grupp2.holidaymaker.repositories.BookingRepository;
-import newton.grupp2.holidaymaker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingService {
@@ -36,5 +36,14 @@ public class BookingService {
             bookings = user.getBookings();
         }
         return bookings; // Returns empty list of bookings if no user is logged in
+    }
+
+    public Booking getBookingById(long id) {
+        Optional<Booking> booking = bookingRepository.findById(id);
+
+        if (booking.isPresent()) {
+            return booking.get();
+        }
+        return null;
     }
 }
