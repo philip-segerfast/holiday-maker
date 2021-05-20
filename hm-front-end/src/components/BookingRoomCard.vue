@@ -1,7 +1,7 @@
 <template>
   <div class="hotelRoom-card">
-    <h3>Room:{{ hotelRoom.name }}</h3>
-    <h3>{{ hotelRoom.size }} m^2</h3>
+    <h4>Room:{{ hotelRoom.name }}</h4>
+    <h4>{{ hotelRoom.size }} m^2</h4>
     <h3 class="single-beds" v-if="hotelRoom.singleBedsAmount > 0">
       Single beds: {{ hotelRoom.singleBedsAmount }}
     </h3>
@@ -31,6 +31,6 @@ export default {
   text-align: left;
   border-radius: 30px;
   border: 5px solid #5c8791;
-  width: 50%;
+  width: 40%;
 }
 </style>

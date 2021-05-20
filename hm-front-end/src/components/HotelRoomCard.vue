@@ -1,6 +1,6 @@
 <template>
   <div class="hotelRoom-card">
-    <h3>Room:{{ hotelRoom.name }}</h3>
+    <h4>Room:{{ hotelRoom.name }}</h4>
     <h3>{{ hotelRoom.size }} m^2</h3>
     <h3 class="single-beds" v-if="hotelRoom.singleBedsAmount > 0">
       Single beds: {{ hotelRoom.singleBedsAmount }}

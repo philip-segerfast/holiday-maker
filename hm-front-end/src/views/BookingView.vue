@@ -17,15 +17,25 @@ price etc
 
 <template>
   <body>
-    <div class="split right">
-      <h1>bookingView</h1>
-      <h2>Rumslista{{ addedHotelRooms }}</h2>
+    <div class="hotel">
+      <h1>{{ hotelInfo.name }}</h1>
+      <h2>{{ hotelInfo.description }}</h2>
+      <div id="v-image" class="split left">
+        <span v-for="image in hotelInfo.images" :key="image">
+          <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
+        </span>
+      </div>
+      <h3>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h3>
+      <!--Visar alla taggar som är kopplade till ett hotell  -->
+      <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
+        <h3>{{ tag.label }}</h3>
+      </span>
     </div>
 
     <!--Lägger in och visar alla rum som finns i addedRooms -->
     <div id="rooms-container">
-      <span class="room-list" v-if="addedHotelRooms.length > 0">
-        <booking-room-card v-for="(room, i) in addedRooms" :key="room + i" :hotelRoom="room" />
+      <span class="room-list">
+        <Booking-room-card v-for="(room, i) in addedHotelRooms" :key="room + i" :hotelRoom="room" />
       </span>
     </div>
   </body>
@@ -44,9 +54,9 @@ export default {
       return this.$store.getters.getAddedHotelRooms;
     },
 
-    //hotelInfo() {
-    //return this.$store.getters.getHotelById;
-    //},
+    hotelInfo() {
+      return this.$store.getters.getHotelToBook;
+    },
   },
 };
 </script>
@@ -63,7 +73,7 @@ body {
   background-color: #2ea4b1;
   border-radius: 30px;
   border: 5px solid #5c8791;
-  width: 20%;
+  width: 200px;
 }
 .tag-list span {
   display: inline-block;
@@ -71,23 +81,6 @@ body {
   padding: 5px;
 }
 
-.split {
-  height: 320px;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 100px;
-  overflow-x: hidden;
-  padding-left: 20px;
-}
-.left {
-  left: 0;
-  background-color: #5c8791;
-}
-.right {
-  right: 0;
-  background-color: #5c8791;
-}
 img {
   display: center;
   border-radius: 20px;
@@ -97,21 +90,8 @@ img {
 }
 
 .room-list {
-  left: 0;
-  position: absolute;
-  top: 45%;
-  width: 100%;
-  background-color: cadetblue;
-}
-.booking {
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: 20px;
-  margin: 4px 2px;
-  cursor: pointer;
+  width: 100%;
+  background-color: rgba(95, 158, 160, 0.24);
 }
 </style>

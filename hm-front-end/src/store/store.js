@@ -23,7 +23,7 @@ export default createStore({
         childrenAmount: 0,
       },
     },
-    hotelById: {}, // Använd this.$route.params.programId istället
+    hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
     loggedInUser: null,
   },
@@ -65,8 +65,8 @@ export default createStore({
     addRoomToBooking(state, room) {
       state.addedHotelRooms.push(room);
     },
-    setHotelToBook(state, hotel) {
-      state.hotelToBook.push(hotel);
+    setHotelToBook(state, payload) {
+      state.hotelToBook = payload;
     },
     setFilteredHotels() {
       const allHotels = this.state.hotels;
@@ -247,6 +247,9 @@ export default createStore({
     },
     getAddedHotelRooms(state) {
       return state.addedHotelRooms;
+    },
+    getHotelToBook(state) {
+      return state.hotelToBook;
     },
     getHotelById(state) {
       return state.hotelById;
