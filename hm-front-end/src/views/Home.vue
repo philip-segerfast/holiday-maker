@@ -1,28 +1,19 @@
 <template>
   <div class="home">
-    <h1 v-if="!isLoggedIn">Welcome!</h1>
-    <h1 v-if="isLoggedIn">Welcome {{ loggedInUser.email }}!</h1>
+    <BookingList />
   </div>
 </template>
 
 <script>
-//import SearchBar from "../components/SearchBar.vue";
+import BookingList from "../components/bookingList";
 
 export default {
   name: "Home",
-  //components: { SearchBar },
-  computed: {
-    loggedInUser() {
-      return this.$store.state.loggedInUser;
-    },
-    isLoggedIn() {
-      return this.loggedInUser != null;
-    },
-  },
-  methods: {
-    search() {
-      console.log();
-    },
+  components: { BookingList }, 
+  computed: {},
+  methods: {},
+   mounted() {
+    this.$store.dispatch("fetchUserBookings");
   },
 };
 </script>
