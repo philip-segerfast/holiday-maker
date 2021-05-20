@@ -5,7 +5,7 @@ import ResultPage from "../views/ResultPage.vue";
 import HotelView from "@/views/HotelView.vue";
 import NewHotelCardTestView from "@/views/HotelCardTestView.vue";
 import AboutView from "../views/About.vue";
-import LoginView from "../views/Login.vue";
+import LoginView from "../views/LoginView.vue";
 
 const routes = [
   {
@@ -34,7 +34,7 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    LoginView,
+    component: LoginView,
   },
   {
     path: "/hotelView",
