@@ -1,25 +1,23 @@
 <template>
   <div class="home">
-    <SearchBar />
-    -
-    <h1 v-if ="!isLoggedIn">Welcome!</h1>
+    <h1 v-if="!isLoggedIn">Welcome!</h1>
     <h1 v-if="isLoggedIn">Welcome {{ loggedInUser.email }}!</h1>
   </div>
 </template>
 
 <script>
-import SearchBar from "../components/SearchBar.vue";
+//import SearchBar from "../components/SearchBar.vue";
 
 export default {
   name: "Home",
-  components: { SearchBar },
+  //components: { SearchBar },
   computed: {
     loggedInUser() {
-      return this.$store.state.loggedInUser
+      return this.$store.state.loggedInUser;
     },
     isLoggedIn() {
-      return this.loggedInUser != null
-    }
+      return this.loggedInUser != null;
+    },
   },
   methods: {
     search() {

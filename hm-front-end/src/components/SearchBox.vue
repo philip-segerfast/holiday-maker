@@ -1,6 +1,11 @@
 <template>
   <!-- eslint-disable-next-line -->
-  <input type="text" id="search" placeholder="Where do you want to travel?" @input="updateSearchText" />
+  <input
+    type="text"
+    id="search"
+    placeholder="Where do you want to travel?"
+    @input="updateSearchText"
+  />
 </template>
 
 <script>
@@ -13,7 +18,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 #search {
   width: 190px;
 }
