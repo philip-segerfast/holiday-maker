@@ -43,15 +43,16 @@ public class Hotel {
     private List<HotelTag> hotelTags = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "hotel")
+    @JsonIgnoreProperties({"hotel"})
     private List<HotelRoom> hotelRooms = new ArrayList<>();
+
+    @OneToMany(mappedBy = "hotel")
+    @JsonIgnoreProperties("hotel")
+    private List<HotelReview> reviews;
 
     @Override
     public String toString() {
         return HmUtils.getPrettyToString(this);
-    }
-
-    public double getMinRoomPrice() {
-        return minRoomPrice;
     }
 
     public void setMinRoomPrice(double minRoomPrice) {
