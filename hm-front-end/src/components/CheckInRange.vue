@@ -9,13 +9,7 @@
       @input="updateStartDate"
     />
     <span>to:</span>
-    <input
-      class="date-picker"
-      type="date"
-      name="end"
-      v-model="endDate"
-      @input="updateEndDate"
-    />
+    <input class="date-picker" type="date" name="end" v-model="endDate" @input="updateEndDate" />
   </div>
 </template>
 
