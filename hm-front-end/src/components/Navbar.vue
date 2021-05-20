@@ -21,6 +21,8 @@ export default {
       //logout from backend
       fetch("/logout", { mode: "no-cors" });
 
+      this.$store.commit("setUserBookings", []);
+
       //removes user from store.js
       this.$store.commit("setLoggedInUser", null);
 
