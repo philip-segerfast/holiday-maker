@@ -31,7 +31,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 
+  /*
   #nav {
     padding: 30px;
     position: fixed;
@@ -44,5 +47,6 @@ export default {
       }
     }
   }
+  */
 }
 </style>
