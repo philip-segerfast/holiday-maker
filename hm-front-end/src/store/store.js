@@ -192,10 +192,10 @@ export default createStore({
     setUserBookings(state, payload) {
       state.userBookings = payload;
     },
-    setbookingId(state, payload) {
+    setBookingId(state, payload) {
       state.bookingId = payload;
     },
-    setbookingById(state, payload) {
+    setBookingById(state, payload) {
       state.bookingById = payload;
     },
   },
@@ -251,7 +251,7 @@ export default createStore({
       let json = await response.json();
       console.log("Running fetchBookingById: ");
       console.log(json);
-      context.commit("setbookingById", json);
+      context.commit("setBookingById", json);
     },
   },
   getters: {
