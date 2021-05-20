@@ -1,5 +1,5 @@
 <template>
-  <div class="booking-card">
+  <div class="booking-card" @click="redirectToBookingDetailsView">
     <h3>{{ userBooking.hotel.name }}</h3>
 
     <!-- Shows first image in list of images in hotel object -->
@@ -21,6 +21,12 @@ export default {
     },
     bookedToDate() {
       return new Date(this.userBooking.toTime).toLocaleString();
+    },
+  },
+  methods: {
+    redirectToBookingDetailsView() {
+      const routerUrl = "/bookingdetailsview/" + this.userBooking.id;
+      this.$router.push({ path: routerUrl });
     },
   },
 };
