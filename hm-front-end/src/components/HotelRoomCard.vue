@@ -25,14 +25,13 @@ export default {
 
 <style scoped lang="scss">
 .hotelRoom-card {
-  background-color: rgb(187, 202, 202);
-  margin-bottom: 20px;
+  background-color: #2ea4b1;
   margin: auto;
   padding: 10px;
   font-family: "Arial";
   text-align: left;
   border-radius: 30px;
-  border: 5px solid whitesmoke;
+  border: 5px solid #5c8791;
   width: 50%;
 }
 button {

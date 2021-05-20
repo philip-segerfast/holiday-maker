@@ -1,0 +1,3 @@
+If you change something in an entity and the program won't compile, then
+drop the related table and let hibernate create it again for you. Also,
+check the tables if something looks suspicious...

@@ -1,6 +1,5 @@
 <template>
- 
-  <div class="hotel-card" @click="redirectToHotelView" >
+  <div class="hotel-card" @click="redirectToHotelView">
     <span>{{ hotel.name }}</span>
     -
     <span>{{ hotel.city }}</span>
@@ -11,19 +10,17 @@
 export default {
   props: ["hotel"],
 
-    methods: {
-        redirectToHotelView() {
-            this.$store.commit("setHotelId", this.hotel.id)
-            let routerUrl = '/hotelView/' + this.hotel.id
-            this.$router.push({path: routerUrl})
-
-        }
-    }
-    
+  methods: {
+    redirectToHotelView() {
+      this.$store.commit("setHotelId", this.hotel.id);
+      const routerUrl = "/hotelView/" + this.hotel.id;
+      this.$router.push({ path: routerUrl });
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .hotel-card {
   background-color: lightgray;
   margin-bottom: 20px;

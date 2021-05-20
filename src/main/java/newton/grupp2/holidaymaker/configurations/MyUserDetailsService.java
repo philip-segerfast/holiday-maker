@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @PostConstruct
     private void createDefaultUsers(){
-        if (userRepo.findByEmail("Lasse74@example.com") == null) {
+        if (userRepo.findByEmail("lasse74@example.com") == null) {
             registerUser(new User("lasse74@example.com", "abc123", "Lasse", "Larsson"));
         }
     }
