@@ -6,7 +6,7 @@
   </form>
   <div id="sort-bar">
     <h3>Sort by :
-      <button @click="sortHotelsByPrice">Sort price</button>
+      <button @click="sortHotelsByPrice">Price</button>
     </h3>
   </div>
   <hr>
