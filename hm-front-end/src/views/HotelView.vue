@@ -2,6 +2,7 @@
   <body>
     <div class="split right">
       <h1>{{ hotelInfo.name }}</h1>
+      <h2>check-in date: {{ startDate }} - check-out date: {{ endDate }}</h2>
       <h4>{{ hotelInfo.description }}</h4>
       <h4>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h4>
       <!--Visar alla taggar som är kopplade till ett hotell  -->
@@ -32,6 +33,7 @@
 
 <script>
 import HotelRoomCard from "../components/HotelRoomCard.vue";
+import moment from "moment";
 
 export default {
   components: {
@@ -52,6 +54,14 @@ export default {
 
     hotelInfo() {
       return this.$store.getters.getHotelById;
+    },
+    startDate() {
+      var date = new Date(this.$store.getters.getStartDate * 1000);
+      return moment(date).format("YYYY-MM-DD");
+    },
+    endDate() {
+      var date = new Date(this.$store.getters.getEndDate * 1000);
+      return moment(date).format("YYYY-MM-DD");
     },
   },
   mounted() {
