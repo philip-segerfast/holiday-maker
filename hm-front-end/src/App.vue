@@ -21,6 +21,7 @@ export default {
   mounted() {
     this.$store.dispatch("fetchLoggedInUser");
     this.$store.dispatch("fetchAllHotels");
+    this.$store.dispatch("fetchUserBookings");
   },
 };
 </script>
@@ -30,11 +31,14 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 
+  /*
   #nav {
     padding: 30px;
-    position:fixed;
-    
+    position: fixed;
+
     a {
       font-weight: bold;
       color: #2c3e50;
@@ -43,5 +47,6 @@ export default {
       }
     }
   }
+  */
 }
 </style>

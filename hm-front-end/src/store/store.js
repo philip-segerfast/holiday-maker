@@ -26,6 +26,7 @@ export default createStore({
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
     loggedInUser: null,
+    userBookings: [],
   },
   // "Setters"
   mutations: {
@@ -197,6 +198,9 @@ export default createStore({
     setAllHotelsInFilteredHotels(state, payload) {
       state.filteredHotels = payload;
     },
+    setUserBookings(state, payload) {
+      state.userBookings = payload;
+    },
   },
   actions: {
     // actions får tillgång till context objektet
@@ -217,12 +221,6 @@ export default createStore({
 
       // objektet context gör så att vi kan commita alla hotels, json??
       context.commit("setAllHotels", json);
-      // Om sökfältet är tomt så läggs listan på alla hotell i listan filteredHotels
-      /*if (!this.state.searchHotelFilter.searchText) {
-        context.commit("setAllHotelsInFilteredHotels", json);  
-      } else {
-        context.commit("setFilteredHotels")
-      }*/
     },
     async fetchHotelRoomsByHotel() {
       console.log("hotel id: " + this.state.hotelId);
@@ -234,8 +232,20 @@ export default createStore({
     async fetchLoggedInUser() {
       const url = "/auth/whoami";
       await axios.get(url).then((response) => {
-        this.commit("setLoggedInUser", response.data);
+        // If no user is logged it sets LoggedInUser to null instead of empty object.
+        if (!response.data) {
+          this.commit("setLoggedInUser", null);
+        } else {
+          this.commit("setLoggedInUser", response.data);
+        }
       });
+    },
+    async fetchUserBookings(context) {
+      let response = await fetch("/rest/bookings/userbookings");
+      let json = await response.json();
+      console.log("Running fetchUserBookings. List of user bookings: ");
+      console.log(json);
+      context.commit("setUserBookings", json);
     },
   },
   getters: {

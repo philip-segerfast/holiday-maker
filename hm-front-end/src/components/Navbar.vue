@@ -21,6 +21,8 @@ export default {
       //logout from backend
       fetch("/logout", { mode: "no-cors" });
 
+      this.$store.commit("setUserBookings", []);
+
       //removes user from store.js
       this.$store.commit("setLoggedInUser", null);
 
@@ -30,8 +32,6 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" src="../style.scss"></style>
 
 <style scoped lang="scss">
 #nav {
