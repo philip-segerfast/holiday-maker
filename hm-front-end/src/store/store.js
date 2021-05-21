@@ -246,7 +246,6 @@ export default createStore({
     },
     async fetchBookingById(context) {
       const url = "/rest/bookings/id/" + this.state.bookingId;
-      console.log(url);
       let response = await fetch(url);
       let json = await response.json();
       console.log("Running fetchBookingById: ");

@@ -25,6 +25,8 @@ export default {
   },
   methods: {
     redirectToBookingDetailsView() {
+      // this.$store.commit("setBookingId", this.userBooking.id);
+      // this.$store.dispatch("fetchBookingById");
       const routerUrl = "/bookingdetailsview/" + this.userBooking.id;
       this.$router.push({ path: routerUrl });
     },
