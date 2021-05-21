@@ -1,7 +1,10 @@
 <template>
   <div>
     <h3>BookingDetailsView</h3>
-    <h3>Booking id: {{ booking.id }}</h3>
+    <h3>Booking id: {{ booking }}</h3>
+    <h4>Rooms: {{ bookedRooms }}</h4>
+    <h4>Hotel: {{ hotel }}</h4>
+    <h4>User: {{ user }}</h4>
     <!--Visar alla bilder som är kopplade till ett hotell -->
     <!--
     <h2>{{ booking.hotel.name }}</h2>
@@ -39,8 +42,14 @@ export default {
     booking() {
       return this.$store.state.bookingById;
     },
+    bookedHotel() {
+      return this.$store.state.bookingById.hotel;
+    },
     bookedRooms() {
       return this.$store.state.bookingById.hotelRooms;
+    },
+    user() {
+      return this.$store.state.bookingById.user;
     },
     // Changes epoch time format to normal date format
     bookedFromDate() {
