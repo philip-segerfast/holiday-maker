@@ -1,5 +1,11 @@
 <template>
   <body>
+    <div id="sort-bar">
+      <h3>
+        Sort by :
+        <button @click="sortHotelRoomsByPrice">Sort Rooms</button>
+      </h3>
+    </div>
     <div class="split right">
       <h1>{{ hotelInfo.name }}</h1>
       <h4>{{ hotelInfo.description }}</h4>
@@ -42,6 +48,11 @@ export default {
       this.$store.commit("setHotelToBook", this.hotelInfo);
       const routerUrl = "/bookingView";
       this.$router.push({ path: routerUrl });
+    },
+    sortHotelRoomsByPrice() {
+      console.log("sorting: ");
+      this.$router.push({ path: "/hotelView" });
+      this.$store.commit("setSortedRooms");
     },
   },
 

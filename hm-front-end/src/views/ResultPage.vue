@@ -1,5 +1,11 @@
 <template>
   <div class="result-page">
+    <div id="sort-bar">
+      <h3>
+        Sort by :
+        <button @click="sortHotelsByPrice">Sort Hotels</button>
+      </h3>
+    </div>
     <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
     <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
     <div v-if="filteredHotels.length > 0">
@@ -17,6 +23,13 @@ export default {
   components: {
     // declare HotelCard from import
     HotelCard,
+  },
+
+  methods: {
+    sortHotelsByPrice() {
+      this.$store.commit("setSortedHotels");
+      this.$router.push({ path: "/result-page" });
+    },
   },
 
   computed: {
