@@ -2,6 +2,10 @@
   <body>
     <div class="split right">
       <h1>{{ hotelInfo.name }}</h1>
+      <!--Visar alla bilder som är kopplade till ett hotell -->
+      <span v-for="image in hotelInfo.images" :key="image">
+        <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
+      </span>
       <h2>check-in date: {{ startDate }} - check-out date: {{ endDate }}</h2>
       <h4>{{ hotelInfo.description }}</h4>
       <h4>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h4>
@@ -13,13 +17,6 @@
         Add rooms and press book
         <button class="booking" @click="redirectToBookingView">Book</button>
       </h3>
-    </div>
-
-    <!--Visar alla bilder som är kopplade till ett hotell -->
-    <div id="v-image" class="split left">
-      <span v-for="image in hotelInfo.images" :key="image">
-        <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
-      </span>
     </div>
 
     <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
@@ -72,32 +69,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
-  background-color: #45c3d1;
-  margin: 5%;
-  display: inline;
-  line-height: 6px;
-}
-
-.tag-list {
-  display: inline-block;
-  background-color: #2ea4b1;
-  border-radius: 20px;
-  border: 2px solid #5c8791;
-  width: 20%;
-}
-.tag-list span {
-  display: inline-block;
-  font-size: 8px;
-  padding: 2px;
-}
-
 .split {
-  height: 250px;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 150px;
+  width: 100%;
   overflow-x: hidden;
   padding-left: 20px;
 }
@@ -109,6 +82,18 @@ body {
   right: 0;
   background-color: #5c8791;
 }
+.tag-list {
+  display: inline-block;
+  background-color: #2ea4b1;
+  border-radius: 15px;
+  border: 2px solid #5c8791;
+  width: 150px;
+}
+.tag-list span {
+  display: inline-block;
+  font-size: 8px;
+  padding: 2px;
+}
 img {
   display: center;
   border-radius: 20px;
@@ -118,9 +103,6 @@ img {
 }
 
 .room-list {
-  left: 0;
-  position: absolute;
-  top: 50%;
   width: 100%;
   background-color: cadetblue;
 }
@@ -129,10 +111,12 @@ img {
   border: none;
   color: white;
   text-align: center;
-  text-decoration: none;
+  font-family: "Arial";
   display: inline-block;
-  font-size: 20px;
+  font-size: 30px;
   margin: 4px 2px;
+  width: 200px;
+  border-radius: 15px;
   cursor: pointer;
 }
 </style>
