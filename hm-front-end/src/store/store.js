@@ -273,5 +273,11 @@ export default createStore({
     getLoggedInUser(state) {
       return state.loggedInUser;
     },
+    getStartDate(state) {
+      return state.searchHotelFilter.checkInDates.startDate;
+    },
+    getEndDate(state) {
+      return state.searchHotelFilter.checkInDates.endDate;
+    },
   },
 });
