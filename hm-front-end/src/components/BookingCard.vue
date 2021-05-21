@@ -30,7 +30,9 @@ export default {
   },
   methods: {
     async cancelBooking() {
+      // async/await makes fetchDeleteBooking finish before reloading page
       await this.$store.dispatch("fetchDeleteBooking", { id: this.userBooking.id });
+      // Reloads page to show updated list of bookings
       this.$router.go();
     },
   },
