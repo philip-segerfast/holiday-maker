@@ -236,6 +236,15 @@ export default createStore({
       console.log(json);
       context.commit("setUserBookings", json);
     },
+    async fetchDeleteBooking({ context }, payload) {
+      const url = "/rest/bookings/" + payload.id;
+      console.log("Running fetchDeleteBooking. URL is: " + url);
+      let response = await fetch(url, {
+        method: "DELETE",
+      });
+      await response.text();
+      alert("Booking canceled");
+    },
   },
   getters: {
     getAllHotels(state) {
