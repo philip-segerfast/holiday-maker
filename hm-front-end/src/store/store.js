@@ -6,6 +6,8 @@ export default createStore({
     hotels: [],
     HotelSearch: {},
     hotelRooms: [],
+    addedHotelRooms: [],
+    hotelToBook: {},
     hotelImages: [],
     hotel: {},
     hotelId: 1,
@@ -21,7 +23,7 @@ export default createStore({
         childrenAmount: 0,
       },
     },
-    hotelById: {}, // Använd this.$route.params.programId istället
+    hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
     loggedInUser: null,
     userBookings: [],
@@ -40,6 +42,9 @@ export default createStore({
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
     },
+    setaddedHotelRooms(state, payload) {
+      state.addedHotelRooms = payload;
+    },
     setTempHotelName(state, payload) {
       state.tempHotelName = payload;
     },
@@ -57,6 +62,12 @@ export default createStore({
     },
     updateAdultsAmount(state, adultsAmount) {
       state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
+    },
+    addRoomToBooking(state, room) {
+      state.addedHotelRooms.push(room);
+    },
+    setHotelToBook(state, payload) {
+      state.hotelToBook = payload;
     },
     setFilteredHotels() {
       const allHotels = this.state.hotels;
@@ -243,6 +254,12 @@ export default createStore({
     },
     getHotelRooms(state) {
       return state.hotelRooms;
+    },
+    getAddedHotelRooms(state) {
+      return state.addedHotelRooms;
+    },
+    getHotelToBook(state) {
+      return state.hotelToBook;
     },
     getHotelById(state) {
       return state.hotelById;

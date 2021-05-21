@@ -1,7 +1,7 @@
 <template>
   <div class="hotelRoom-card">
     <h4>Room:{{ hotelRoom.name }}</h4>
-    <h3>{{ hotelRoom.size }} m^2</h3>
+    <h4>{{ hotelRoom.size }} m^2</h4>
     <h3 class="single-beds" v-if="hotelRoom.singleBedsAmount > 0">
       Single beds: {{ hotelRoom.singleBedsAmount }}
     </h3>
@@ -13,20 +13,12 @@
       description
     </h4>
     <h2>Price:{{ hotelRoom.baseNightPrice }}</h2>
-
-    <button class="add" @click="addRoomsToBooking">Add room</button>
   </div>
 </template>
 
 <script>
 export default {
   props: ["hotelRoom"],
-  methods: {
-    addRoomsToBooking() {
-      this.$store.commit("addRoomToBooking", this.hotelRoom);
-      console.log(this.hotelRoom);
-    },
-  },
 };
 </script>
 
@@ -39,17 +31,6 @@ export default {
   text-align: left;
   border-radius: 30px;
   border: 5px solid #5c8791;
-  width: 50%;
-}
-button {
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
+  width: 40%;
 }
 </style>
