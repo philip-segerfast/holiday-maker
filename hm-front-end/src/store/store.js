@@ -30,6 +30,16 @@ export default createStore({
     ascending: true,
     loggedInUser: null,
     userBookings: [],
+    paymentCards: [
+      {
+        name: "Visa",
+        bank: "Nordea",
+      },
+      {
+        name: "Mastercard",
+        bank: "Swedbank",
+      },
+    ],
   },
   // "Setters"
   mutations: {
@@ -248,6 +258,9 @@ export default createStore({
     },
     setUserBookings(state, payload) {
       state.userBookings = payload;
+    },
+    setPaymentCards(state, payload) {
+      state.paymentCards = payload;
     },
   },
   actions: {

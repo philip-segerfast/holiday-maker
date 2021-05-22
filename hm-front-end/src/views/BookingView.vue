@@ -38,15 +38,22 @@ price etc
         <Booking-room-card v-for="(room, i) in addedHotelRooms" :key="room + i" :hotelRoom="room" />
       </span>
     </div>
+    <div id="payment-cotainer">
+      <span class="payment-cards">
+        <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
+      </span>
+    </div>
   </body>
 </template>
 
 <script>
 import BookingRoomCard from "../components/BookingRoomCard.vue";
+import PaymentCard from "../components/PaymentCard.vue";
 
 export default {
   components: {
     BookingRoomCard,
+    PaymentCard,
   },
 
   computed: {
@@ -56,6 +63,9 @@ export default {
 
     hotelInfo() {
       return this.$store.getters.getHotelToBook;
+    },
+    paymentCards() {
+      return this.$store.state.paymentCards;
     },
   },
 };
@@ -90,6 +100,11 @@ img {
 }
 
 .room-list {
+  display: inline-block;
+  width: 100%;
+  background-color: rgba(95, 158, 160, 0.24);
+}
+.payment-container {
   display: inline-block;
   width: 100%;
   background-color: rgba(95, 158, 160, 0.24);
