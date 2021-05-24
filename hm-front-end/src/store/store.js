@@ -35,10 +35,6 @@ export default createStore({
         name: "Visa",
         bank: "Nordea",
       },
-      {
-        name: "Mastercard",
-        bank: "Swedbank",
-      },
     ],
   },
   // "Setters"

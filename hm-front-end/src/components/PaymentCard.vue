@@ -5,6 +5,7 @@
         <form>
           <div class="row">
             <div class="col-50">
+              <!-- Register som egen sida? -->
               <h3>Register</h3>
               <label for="fname"><i class="fa fa-user"></i> Full Name</label>
               <input type="text" id="fname" name="firstname" placeholder="Lasse Lasseson" />
@@ -28,6 +29,7 @@
             </div>
 
             <div class="col-50">
+              <h3>Payment</h3>
               <label for="fname">Accepted Cards</label>
               <h3 class="payment-card">Card name: {{ paymentCards }}</h3>
               <span>{{ card.name }}</span>
@@ -52,6 +54,8 @@
               <input type="text" id="cvv" name="cvv" placeholder="352" />
             </div>
           </div>
+
+          <input type="submit" value="Continue to checkout" class="btn" />
         </form>
       </div>
     </div>
