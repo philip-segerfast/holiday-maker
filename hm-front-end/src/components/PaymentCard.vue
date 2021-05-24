@@ -7,23 +7,14 @@
             <div class="col-50">
               <!-- Register som egen sida? -->
               <h3>Register</h3>
-              <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-              <input type="text" id="fname" name="firstname" placeholder="Lasse Lasseson" />
-              <label for="email"><i class="fa fa-envelope"></i> Email</label>
-              <input type="text" id="email" name="email" placeholder="Lasse47@example.com" />
-              <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-              <input type="text" id="adr" name="address" placeholder="Malmögatan 43" />
-              <label for="city"><i class="fa fa-institution"></i> City</label>
-              <input type="text" id="city" name="city" placeholder="Malmö" />
-
               <div class="row">
                 <div class="col-50">
-                  <label for="state">State</label>
-                  <input type="text" id="state" name="state" placeholder="Skåne" />
+                  <label for="bank">Bank</label>
+                  <input type="text" id="bank" name="bank" placeholder="Nordea" />
                 </div>
                 <div class="col-50">
-                  <label for="zip">Zip</label>
-                  <input type="text" id="zip" name="zip" placeholder="040" />
+                  <label for="card">Card</label>
+                  <input type="text" id="card" name="card" placeholder="Visa" />
                 </div>
               </div>
             </div>
@@ -55,7 +46,7 @@
             </div>
           </div>
 
-          <input type="submit" value="Continue to checkout" class="btn" />
+          <input type="submit" value="Purchase" class="btn" />
         </form>
       </div>
     </div>
