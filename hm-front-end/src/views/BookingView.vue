@@ -31,6 +31,7 @@ price etc
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h3>{{ tag.label }}</h3>
       </span>
+      <h2>Number of adult: {{ amountAdult }}</h2>
       <h1>Total Price for Booking {{ totalCost }}kr</h1>
     </div>
 
@@ -69,6 +70,9 @@ export default {
     },
     totalCost() {
       return this.$store.getters.getTotalCost;
+    },
+    amountAdult() {
+      return this.$store.getters.getAdultAmount;
     },
   },
 };

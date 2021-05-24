@@ -299,6 +299,9 @@ export default createStore({
     getLoggedInUser(state) {
       return state.loggedInUser;
     },
+    getAdultAmount(state) {
+      return state.searchHotelFilter.peopleAmount.adultsAmount;
+    },
     getStartDate(state) {
       return state.searchHotelFilter.checkInDates.startDate;
     },
