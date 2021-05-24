@@ -21,7 +21,7 @@
 
             <div class="col-50">
               <h3>Payment</h3>
-              <label for="fname">Accepted Cards</label>
+              <label for="fname">Debit Card</label>
               <h3 class="payment-card">Card name: {{ paymentCards }}</h3>
               <span>{{ card.name }}</span>
               -
@@ -82,7 +82,7 @@ export default {
 }
 .col-50,
 .col-75 {
-  padding: 0 16px;
+  padding: 0 40px;
 }
 
 .container {
@@ -90,6 +90,7 @@ export default {
   padding: 5px 20px 15px 20px;
   border: 1px solid lightgrey;
   border-radius: 3px;
+  margin: 10%;
 }
 
 input[type="text"] {
