@@ -6,9 +6,12 @@ export default createStore({
     hotels: [],
     HotelSearch: {},
     hotelRooms: [],
+    addedHotelRooms: [],
+    hotelToBook: {},
     hotelImages: [],
     hotel: {},
     hotelId: 1,
+    totalCost: 0,
     tempHotelName: String,
     searchHotelFilter: {
       searchText: "",
@@ -21,9 +24,10 @@ export default createStore({
         childrenAmount: 0,
       },
     },
-    hotelById: {}, // Använd this.$route.params.programId istället
+    hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
     loggedInUser: null,
+    userBookings: [],
   },
   // "Setters"
   mutations: {
@@ -38,6 +42,9 @@ export default createStore({
     },
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
+    },
+    setaddedHotelRooms(state, payload) {
+      state.addedHotelRooms = payload;
     },
     setTempHotelName(state, payload) {
       state.tempHotelName = payload;
@@ -57,11 +64,34 @@ export default createStore({
     updateAdultsAmount(state, adultsAmount) {
       state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
     },
+    addRoomToBooking(state, room) {
+      state.addedHotelRooms.push(room);
+    },
+    setHotelToBook(state, payload) {
+      state.hotelToBook = payload;
+    },
+    updateTotalCost(state, payload) {
+      state.totalCost = this.state.totalCost + payload;
+    },
+    /* updateTotalCost() {
+      let totalCost = calculateTotalRoomCost.call(this, addedHotelRooms);
+      function calculateTotalRoomCost(listOfRooms) {
+        // Loopar igenom rummen med en vanlig for-loop för for-each-loop
+
+        for (let i = 0; i < listOfRooms.length; i++) {
+          totalCost = totalCost + listOfRooms[i][6];
+          console.log(totalCost);
+        }
+      }
+    },*/
     setFilteredHotels() {
       const allHotels = this.state.hotels;
+      // .call används för att bestämma vad "this" ska referera till när man använder det i den följande metoden.
+      // Annars refererar det till webbläsarfönstret, vilket inte är önskvärt.
+      // Detta för att bland annat kunna referera till this.state.
       let filteredHotels = filterHotelsByCity.call(this, allHotels);
       filteredHotels = filterHotelsByAmountOfPeople.call(this, filteredHotels);
-      filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
+      // filteredHotels = filterHotelsByCheckin.call(this, filteredHotels); // funkar ej än.
 
       // Hämta ut de filtrerade hotelen utifrån sökning
       this.state.filteredHotels = filteredHotels;
@@ -186,6 +216,9 @@ export default createStore({
     setAllHotelsInFilteredHotels(state, payload) {
       state.filteredHotels = payload;
     },
+    setUserBookings(state, payload) {
+      state.userBookings = payload;
+    },
   },
   actions: {
     // actions får tillgång till context objektet
@@ -206,12 +239,6 @@ export default createStore({
 
       // objektet context gör så att vi kan commita alla hotels, json??
       context.commit("setAllHotels", json);
-      // Om sökfältet är tomt så läggs listan på alla hotell i listan filteredHotels
-      /*if (!this.state.searchHotelFilter.searchText) {
-        context.commit("setAllHotelsInFilteredHotels", json);  
-      } else {
-        context.commit("setFilteredHotels")
-      }*/
     },
     async fetchHotelRoomsByHotel() {
       console.log("hotel id: " + this.state.hotelId);
@@ -223,12 +250,29 @@ export default createStore({
     async fetchLoggedInUser() {
       const url = "/auth/whoami";
       await axios.get(url).then((response) => {
-        this.commit("setLoggedInUser", response.data);
+        // If no user is logged it sets LoggedInUser to null instead of empty object.
+        if (!response.data) {
+          this.commit("setLoggedInUser", null);
+        } else {
+          this.commit("setLoggedInUser", response.data);
+        }
       });
     },
-  },
-  mounted() {
-    console.log("Hello");
+    async fetchUserBookings(context) {
+      let response = await fetch("/rest/bookings/userbookings");
+      let json = await response.json();
+      console.log("Running fetchUserBookings. List of user bookings: ");
+      console.log(json);
+      context.commit("setUserBookings", json);
+    },
+    async fetchDeleteBooking({ context }, payload) {
+      const url = "/rest/bookings/" + payload.id;
+      let response = await fetch(url, {
+        method: "DELETE",
+      });
+      await response.text();
+      alert("Booking cancelled");
+    },
   },
   getters: {
     getAllHotels(state) {
@@ -236,6 +280,15 @@ export default createStore({
     },
     getHotelRooms(state) {
       return state.hotelRooms;
+    },
+    getAddedHotelRooms(state) {
+      return state.addedHotelRooms;
+    },
+    getHotelToBook(state) {
+      return state.hotelToBook;
+    },
+    getTotalCost(state) {
+      return state.totalCost;
     },
     getHotelById(state) {
       return state.hotelById;
@@ -248,6 +301,15 @@ export default createStore({
     },
     getLoggedInUser(state) {
       return state.loggedInUser;
+    },
+    getAdultAmount(state) {
+      return state.searchHotelFilter.peopleAmount.adultsAmount;
+    },
+    getStartDate(state) {
+      return state.searchHotelFilter.checkInDates.startDate;
+    },
+    getEndDate(state) {
+      return state.searchHotelFilter.checkInDates.endDate;
     },
   },
 });

@@ -2,7 +2,11 @@
 <template>
   <div id="container" class="unselectable" v-click-away="onClickAway">
     <!-- eslint-disable-next-line -->
-    <div v-bind:class="{ open: !isDropdownHidden }" id="info-box" v-on:click="toggleShowDropdown">
+    <div
+      v-bind:class="{ open: !isDropdownHidden }"
+      id="info-box"
+      v-on:click="toggleShowDropdown"
+    >
       <span id="adults">Adults: {{ adultsAmount }}</span>
       &nbsp;&middot;&nbsp;
       <span id="children">Children: {{ childrenAmount }}</span>
@@ -72,38 +76,40 @@ export default {
 .open {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  outline: black solid 1px;
+  outline: var(--component-border-color) solid 1px;
   border-bottom: none;
 }
 
 #container {
   display: block;
-  height: 100%;
   width: 200px;
   #info-box {
-    padding: 10px;
-    background-color: rgb(119, 233, 179);
-    border-radius: 10px;
-    outline: black solid 1px;
+    padding: var(--component-input-inner-padding);
+    background-color: var(--component-color);
+    border-radius: var(--component-border-radius);
+    outline: var(--component-border-color) solid 1px;
     &:hover {
       cursor: pointer;
-      background-color: rgb(106, 207, 160);
+      background-color: var(--component-color-hover);
+    }
+    &:active {
+      background-color: var(--component-color-active);
     }
   }
   #dropdown {
     position: absolute;
     width: inherit;
     height: fit-content;
-    outline: black solid 1px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    outline: var(--component-border-color) solid 1px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     .dropdown-info {
       display: flex;
       height: fit-content;
       align-items: left;
       justify-content: left;
       padding: 10px;
-      background-color: rgb(119, 233, 179);
+      background-color: var(--component-color);
       input {
         padding-left: auto;
         height: min-content;

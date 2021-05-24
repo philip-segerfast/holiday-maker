@@ -28,7 +28,7 @@ public class HotelRoom {
     private double baseNightPrice;
     private int maxAmountOfExtraBeds;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JsonIgnore
     private Hotel hotel;
 

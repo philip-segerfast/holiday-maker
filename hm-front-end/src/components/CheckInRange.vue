@@ -1,17 +1,15 @@
 <template>
-  <div id="container">
-    <div id="date-range">
-      <span style="padding-left: 0">from:</span>
-      <input
-        v-model="startDate"
-        class="date-picker"
-        type="date"
-        name="start"
-        @input="updateStartDate"
-      />
-      <span>to:</span>
-      <input v-model="endDate" class="date-picker" type="date" name="end" @input="updateEndDate" />
-    </div>
+  <div id="date-range">
+    <span style="padding-left: 0">from:</span>
+    <input
+      class="date-picker"
+      type="date"
+      name="start"
+      v-model="startDate"
+      @input="updateStartDate"
+    />
+    <span>to:</span>
+    <input class="date-picker" type="date" name="end" v-model="endDate" @input="updateEndDate" />
   </div>
 </template>
 
@@ -38,14 +36,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#container {
-  #date-range {
-    display: flex;
-    flex-direction: row;
-
-    span {
-      padding: 0 10px;
+#date-range {
+  outline: 1px solid var(--component-border-color);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--component-color);
+  padding: 0 18px;
+  .date-picker {
+    padding: var(--component-input-inner-padding);
+    background-color: inherit;
+    border: none;
+    &:hover {
+      background-color: var(--component-color-hover);
+      cursor: pointer;
     }
+  }
+  span {
+    padding: var(--component-input-inner-padding) 10px;
   }
 }
 </style>
