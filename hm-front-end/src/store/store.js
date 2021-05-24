@@ -11,6 +11,7 @@ export default createStore({
     hotelImages: [],
     hotel: {},
     hotelId: 1,
+    totalCost: 0,
     tempHotelName: String,
     searchHotelFilter: {
       searchText: "",
@@ -69,6 +70,20 @@ export default createStore({
     setHotelToBook(state, payload) {
       state.hotelToBook = payload;
     },
+    updateTotalCost(state, payload) {
+      state.totalCost = this.state.totalCost + payload;
+    },
+    /* updateTotalCost() {
+      let totalCost = calculateTotalRoomCost.call(this, addedHotelRooms);
+      function calculateTotalRoomCost(listOfRooms) {
+        // Loopar igenom rummen med en vanlig for-loop för for-each-loop
+
+        for (let i = 0; i < listOfRooms.length; i++) {
+          totalCost = totalCost + listOfRooms[i][6];
+          console.log(totalCost);
+        }
+      }
+    },*/
     setFilteredHotels() {
       const allHotels = this.state.hotels;
       let filteredHotels = filterHotelsByCity.call(this, allHotels);
@@ -269,6 +284,9 @@ export default createStore({
     getHotelToBook(state) {
       return state.hotelToBook;
     },
+    getTotalCost(state) {
+      return state.totalCost;
+    },
     getHotelById(state) {
       return state.hotelById;
     },
@@ -280,6 +298,9 @@ export default createStore({
     },
     getLoggedInUser(state) {
       return state.loggedInUser;
+    },
+    getAdultAmount(state) {
+      return state.searchHotelFilter.peopleAmount.adultsAmount;
     },
     getStartDate(state) {
       return state.searchHotelFilter.checkInDates.startDate;

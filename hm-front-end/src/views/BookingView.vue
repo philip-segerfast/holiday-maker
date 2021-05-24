@@ -31,6 +31,8 @@ price etc
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h3>{{ tag.label }}</h3>
       </span>
+      <h2>Number of adult: {{ amountAdult }}</h2>
+      <h1>Total Price for Booking {{ totalCost }}kr</h1>
     </div>
 
     <!--Lägger in och visar alla rum som finns i addedRooms -->
@@ -50,7 +52,6 @@ export default {
   components: {
     BookingRoomCard,
   },
-
   computed: {
     addedHotelRooms() {
       return this.$store.getters.getAddedHotelRooms;
@@ -66,6 +67,12 @@ export default {
     endDate() {
       var date = new Date(this.$store.getters.getEndDate * 1000);
       return moment(date).format("YYYY-MM-DD");
+    },
+    totalCost() {
+      return this.$store.getters.getTotalCost;
+    },
+    amountAdult() {
+      return this.$store.getters.getAdultAmount;
     },
   },
 };
