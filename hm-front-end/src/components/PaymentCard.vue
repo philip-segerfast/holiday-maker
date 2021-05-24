@@ -1,9 +1,136 @@
 <template>
-  <div>Payment Component</div>
+  <div class="row">
+    <div class="col-75">
+      <div class="container">
+        <form>
+          <div class="row">
+            <div class="col-50">
+              <!-- Register som egen sida? -->
+              <h3>Register</h3>
+              <div class="row">
+                <div class="col-50">
+                  <label for="bank">Bank</label>
+                  <input type="text" id="bank" name="bank" placeholder="Nordea" />
+                </div>
+                <div class="col-50">
+                  <label for="card">Card</label>
+                  <input type="text" id="card" name="card" placeholder="Visa" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-50">
+              <h3>Payment</h3>
+              <label for="fname">Debit Card</label>
+              <h3 class="payment-card">Card name: {{ paymentCards }}</h3>
+              <span>{{ card.name }}</span>
+              -
+              <span>{{ card.bank }}</span>
+            </div>
+          </div>
+          <label for="cname">Name on Card</label>
+          <input type="text" id="cname" name="cardname" placeholder="Lasse Lasseson" />
+          <label for="ccnum">Credit card number</label>
+          <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" />
+          <label for="expmonth">Exp Month</label>
+          <input type="text" id="expmonth" name="expmonth" placeholder="September" />
+
+          <div class="row">
+            <div class="col-50">
+              <label for="expyear">Exp Year</label>
+              <input type="text" id="expyear" name="expyear" placeholder="2018" />
+            </div>
+            <div class="col-50">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" name="cvv" placeholder="352" />
+            </div>
+          </div>
+
+          <input type="submit" value="Purchase" class="btn" />
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["card"],
+};
 </script>
 
-<style></style>
+<style>
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-50 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+}
+
+.col-50 {
+  padding: 0 16px;
+}
+.col-75 {
+  -ms-flex: 75%; /* IE10 */
+  flex: 75%;
+}
+.col-50,
+.col-75 {
+  padding: 0 40px;
+}
+
+.container {
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  margin: 10%;
+}
+
+input[type="text"] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+.btn {
+  background-color: #04aa6d;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}
+</style>

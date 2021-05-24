@@ -27,4 +27,9 @@ public class BookingController {
     public List<Booking> getUserBookings() {
         return bookingService.getUserBookings();
     }
+
+    @DeleteMapping("/rest/bookings/{id}")
+    public void deleteBookingById(@PathVariable long id) {
+        bookingService.deleteBookingById(id);
+    }
 }
