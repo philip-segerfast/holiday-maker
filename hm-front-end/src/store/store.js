@@ -86,9 +86,12 @@ export default createStore({
     },*/
     setFilteredHotels() {
       const allHotels = this.state.hotels;
+      // .call används för att bestämma vad "this" ska referera till när man använder det i den följande metoden.
+      // Annars refererar det till webbläsarfönstret, vilket inte är önskvärt.
+      // Detta för att bland annat kunna referera till this.state.
       let filteredHotels = filterHotelsByCity.call(this, allHotels);
       filteredHotels = filterHotelsByAmountOfPeople.call(this, filteredHotels);
-      // filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
+      // filteredHotels = filterHotelsByCheckin.call(this, filteredHotels); // funkar ej än.
 
       // Hämta ut de filtrerade hotelen utifrån sökning
       this.state.filteredHotels = filteredHotels;
