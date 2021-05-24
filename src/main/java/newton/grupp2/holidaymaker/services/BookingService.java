@@ -37,4 +37,8 @@ public class BookingService {
         }
         return bookings; // Returns empty list of bookings if no user is logged in
     }
+
+    public void deleteBookingById(long id) {
+        bookingRepository.deleteById(id);
+    }
 }

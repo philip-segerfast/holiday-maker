@@ -11,6 +11,7 @@ export default createStore({
     hotelImages: [],
     hotel: {},
     hotelId: 1,
+    totalCost: 0,
     tempHotelName: String,
     searchHotelFilter: {
       searchText: "",
@@ -122,11 +123,28 @@ export default createStore({
     setHotelToBook(state, payload) {
       state.hotelToBook = payload;
     },
+    updateTotalCost(state, payload) {
+      state.totalCost = this.state.totalCost + payload;
+    },
+    /* updateTotalCost() {
+      let totalCost = calculateTotalRoomCost.call(this, addedHotelRooms);
+      function calculateTotalRoomCost(listOfRooms) {
+        // Loopar igenom rummen med en vanlig for-loop för for-each-loop
+
+        for (let i = 0; i < listOfRooms.length; i++) {
+          totalCost = totalCost + listOfRooms[i][6];
+          console.log(totalCost);
+        }
+      }
+    },*/
     setFilteredHotels() {
       const allHotels = this.state.hotels;
+      // .call används för att bestämma vad "this" ska referera till när man använder det i den följande metoden.
+      // Annars refererar det till webbläsarfönstret, vilket inte är önskvärt.
+      // Detta för att bland annat kunna referera till this.state.
       let filteredHotels = filterHotelsByCity.call(this, allHotels);
       filteredHotels = filterHotelsByAmountOfPeople.call(this, filteredHotels);
-      // filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
+      // filteredHotels = filterHotelsByCheckin.call(this, filteredHotels); // funkar ej än.
 
       // Hämta ut de filtrerade hotelen utifrån sökning
       this.state.filteredHotels = filteredHotels;
@@ -304,6 +322,14 @@ export default createStore({
       console.log(json);
       context.commit("setUserBookings", json);
     },
+    async fetchDeleteBooking({ context }, payload) {
+      const url = "/rest/bookings/" + payload.id;
+      let response = await fetch(url, {
+        method: "DELETE",
+      });
+      await response.text();
+      alert("Booking cancelled");
+    },
   },
   getters: {
     getAllHotels(state) {
@@ -327,6 +353,9 @@ export default createStore({
     getSortedHotels(state) {
       return state.sortedHotels;
     },
+    getTotalCost(state) {
+      return state.totalCost;
+    },
     getHotelById(state) {
       return state.hotelById;
     },
@@ -338,6 +367,15 @@ export default createStore({
     },
     getLoggedInUser(state) {
       return state.loggedInUser;
+    },
+    getAdultAmount(state) {
+      return state.searchHotelFilter.peopleAmount.adultsAmount;
+    },
+    getStartDate(state) {
+      return state.searchHotelFilter.checkInDates.startDate;
+    },
+    getEndDate(state) {
+      return state.searchHotelFilter.checkInDates.endDate;
     },
   },
 });

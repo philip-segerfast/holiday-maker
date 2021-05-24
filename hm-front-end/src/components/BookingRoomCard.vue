@@ -19,6 +19,11 @@
 <script>
 export default {
   props: ["hotelRoom"],
+  //mounted: {
+  //addRoomCost() {
+  //   this.$store.commit("setTotalCost", hotelRoom.baseNightPrice);
+  //},
+  //},
 };
 </script>
 

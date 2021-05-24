@@ -24,6 +24,7 @@ export default {
   methods: {
     addRoomsToBooking() {
       this.$store.commit("addRoomToBooking", this.hotelRoom);
+      this.$store.commit("updateTotalCost", this.hotelRoom.baseNightPrice);
       console.log(this.hotelRoom);
     },
   },
@@ -41,15 +42,20 @@ export default {
   border: 5px solid #5c8791;
   width: 50%;
 }
-button {
+
+.add {
   background-color: #4caf50; /* Green */
-  border: none;
   color: white;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 20px;
   margin: 4px 2px;
+  width: 100px;
+  border-radius: 15px;
   cursor: pointer;
+  padding: 10px;
+  font-family: "Arial";
+  border-radius: 30px;
+  border: 5px solid #5c8791;
 }
 </style>

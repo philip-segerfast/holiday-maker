@@ -19,6 +19,7 @@ price etc
   <body>
     <div class="hotel">
       <h1>{{ hotelInfo.name }}</h1>
+      <h2>check-in date: {{ startDate }} - check-out date: {{ endDate }}</h2>
       <h2>{{ hotelInfo.description }}</h2>
       <div id="v-image" class="split left">
         <span v-for="image in hotelInfo.images" :key="image">
@@ -30,6 +31,8 @@ price etc
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h3>{{ tag.label }}</h3>
       </span>
+      <h2>Number of adult: {{ amountAdult }}</h2>
+      <h1>Total Price for Booking {{ totalCost }}kr</h1>
     </div>
 
     <!--Lägger in och visar alla rum som finns i addedRooms -->
@@ -49,13 +52,13 @@ price etc
 <script>
 import BookingRoomCard from "../components/BookingRoomCard.vue";
 import PaymentCard from "../components/PaymentCard.vue";
+import moment from "moment";
 
 export default {
   components: {
     BookingRoomCard,
     PaymentCard,
   },
-
   computed: {
     addedHotelRooms() {
       return this.$store.getters.getAddedHotelRooms;
@@ -66,6 +69,20 @@ export default {
     },
     paymentCards() {
       return this.$store.state.paymentCards;
+    },
+    startDate() {
+      var date = new Date(this.$store.getters.getStartDate * 1000);
+      return moment(date).format("YYYY-MM-DD");
+    },
+    endDate() {
+      var date = new Date(this.$store.getters.getEndDate * 1000);
+      return moment(date).format("YYYY-MM-DD");
+    },
+    totalCost() {
+      return this.$store.getters.getTotalCost;
+    },
+    amountAdult() {
+      return this.$store.getters.getAdultAmount;
     },
   },
 };
