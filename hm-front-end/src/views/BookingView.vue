@@ -31,7 +31,13 @@ price etc
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h3>{{ tag.label }}</h3>
       </span>
-      <h2>Number of adult: {{ amountAdult }}</h2>
+      <h2>Adults: {{ amountAdult }}</h2>
+      <h2>How many extra beds do you want?</h2>
+      <input
+      type="number"
+      v-model="AmountOfExtraBeds" 
+      min="0"
+      @input=updateAmountOfExtraBeds;
       <h1>Total Price for Booking {{ totalCost }}kr</h1>
     </div>
 
