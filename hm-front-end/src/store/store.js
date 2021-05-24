@@ -28,6 +28,7 @@ export default createStore({
     filteredHotels: [],
     sortedHotels: [],
     sortedRooms: [],
+    sortedRatings: [],
     ascending: true,
     loggedInUser: null,
     userBookings: [],
@@ -95,6 +96,18 @@ export default createStore({
 
       this.state.sortedRooms = sortedByPrice;
       return sortedByPrice;
+    },
+    setSortedRatings() {
+      let sortedByRating;
+      sortedByRating = this.state.hotel.sort((rating1, rating2) => {
+        if (rating1.totalRating < rating2.totalRating) {
+          return -1;
+        }
+        if (rating1.totalRating > rating2.totalRating) {
+          return 1;
+        }
+        return 0;
+      });
     },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;
@@ -350,8 +363,8 @@ export default createStore({
     getSortedRooms(state) {
       return state.sortedRooms;
     },
-    getSortedHotels(state) {
-      return state.sortedHotels;
+    getSortedRatings() {
+      return state.sortedRatings;
     },
     getTotalCost(state) {
       return state.totalCost;

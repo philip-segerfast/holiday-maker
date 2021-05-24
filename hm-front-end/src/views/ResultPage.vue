@@ -3,6 +3,13 @@
     <div id="sort-bar">
       <h3>
         Sort by :
+        <button @click="sortHotelsByRatings">Sort Ratings</button>
+      </h3>
+    </div>
+
+    <div id="sort-bar">
+      <h3>
+        Sort by :
         <button @click="sortHotelsByPrice">Sort Hotels</button>
       </h3>
     </div>
@@ -30,6 +37,12 @@ export default {
       this.$store.commit("setSortedHotels");
       this.$router.push({ path: "/result-page" });
     },
+    sortHotelsByRatings() {
+      console.log("sorting ratings: ");
+      this.$router.push({ path: "/result-page" });
+      this.$store.commit("setSortedRatings")
+    }
+
   },
 
   computed: {
@@ -41,8 +54,6 @@ export default {
     filteredHotels() {
       return this.$store.state.filteredHotels;
     },
-    
-    
   },
 };
 </script>
