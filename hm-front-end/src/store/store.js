@@ -126,17 +126,6 @@ export default createStore({
     updateTotalCost(state, payload) {
       state.totalCost = this.state.totalCost + payload;
     },
-    /* updateTotalCost() {
-      let totalCost = calculateTotalRoomCost.call(this, addedHotelRooms);
-      function calculateTotalRoomCost(listOfRooms) {
-        // Loopar igenom rummen med en vanlig for-loop för for-each-loop
-
-        for (let i = 0; i < listOfRooms.length; i++) {
-          totalCost = totalCost + listOfRooms[i][6];
-          console.log(totalCost);
-        }
-      }
-    },*/
     setFilteredHotels() {
       const allHotels = this.state.hotels;
       // .call används för att bestämma vad "this" ska referera till när man använder det i den följande metoden.
@@ -228,11 +217,11 @@ export default createStore({
       function filterHotelsByAmountOfPeople(listToFilter) {
         const statePeopleAmount = this.state.searchHotelFilter.peopleAmount;
         const adultsAmount = parseInt(statePeopleAmount.adultsAmount);
-        const childrenAmount = statePeopleAmount.childrenAmount; // BEHÖVER ÄNDRAS SEN!!!
+        const childrenAmount = parseInt(statePeopleAmount.childrenAmount);
         const totalAmountOfPeople = adultsAmount + childrenAmount;
 
         if (adultsAmount <= 0) {
-          console.log("No adults specified. You need to have at least one adult in the company.");
+          console.log("No adults specified. You need to have at least one adult on the booking.");
           return listToFilter;
         }
 
