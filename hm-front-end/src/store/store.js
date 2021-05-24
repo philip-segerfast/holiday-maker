@@ -24,9 +24,9 @@ export default createStore({
     hotelById: {}, // Använd this.$route.params.programId istället
     filteredHotels: [],
     loggedInUser: null,
-    userBookings: [],
+    userBookingList: [],
     bookingId: "",
-    bookingById: {},
+    userBooking: {},
   },
   // "Setters"
   mutations: {
@@ -189,20 +189,19 @@ export default createStore({
     setAllHotelsInFilteredHotels(state, payload) {
       state.filteredHotels = payload;
     },
-    setUserBookings(state, payload) {
-      state.userBookings = payload;
+    setUserBookingList(state, payload) {
+      state.userBookingList = payload;
     },
     setBookingId(state, payload) {
       state.bookingId = payload;
     },
-    setBookingById(state, payload) {
-      state.bookingById = payload;
+    setUserBooking(state, payload) {
+      state.userBooking = payload;
     },
   },
   actions: {
     // actions får tillgång till context objektet
     async fetchHotelById() {
-      console.log("Fetch programById running");
       const url = "/rest/hotels/id/" + this.state.hotelId;
       await axios.get(url).then((response) => this.commit("setHotelById", response.data));
     },
@@ -237,20 +236,16 @@ export default createStore({
         }
       });
     },
-    async fetchUserBookings(context) {
+    async fetchUserBookingList(context) {
       let response = await fetch("/rest/bookings/userbookings");
       let json = await response.json();
-      console.log("Running fetchUserBookings. List of user bookings: ");
-      console.log(json);
-      context.commit("setUserBookings", json);
+      context.commit("setUserBookingList", json);
     },
-    async fetchBookingById(context) {
+    async fetchUserBooking(context) {
       const url = "/rest/bookings/id/" + this.state.bookingId;
       let response = await fetch(url);
       let json = await response.json();
-      console.log("Running fetchBookingById: ");
-      console.log(json);
-      context.commit("setBookingById", json);
+      context.commit("setUserBooking", json);
     },
   },
   getters: {

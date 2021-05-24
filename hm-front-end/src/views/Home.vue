@@ -13,7 +13,7 @@ export default {
   computed: {},
   methods: {},
   mounted() {
-    this.$store.dispatch("fetchUserBookings");
+    this.$store.dispatch("fetchUserBookingList");
   },
 };
 </script>

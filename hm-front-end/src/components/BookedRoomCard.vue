@@ -8,10 +8,7 @@
     <h3 class="double-beds" v-if="bookedRoom.doubleBedsAmount > 0">
       Number of double beds:{{ bookedRoom.doubleBedsAmount }}
     </h3>
-    <h3>Number of extra beds allowed:{{ bookedRoom.maxAmountOfExtraBeds }}</h3>
-    <h2>Price:{{ bookedRoom.baseNightPrice }}</h2>
-
-    <button>Add room</button>
+    <h2>Price: ??</h2>
   </div>
 </template>
 
