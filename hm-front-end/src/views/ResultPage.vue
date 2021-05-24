@@ -28,6 +28,8 @@ export default {
     filteredHotels() {
       return this.$store.state.filteredHotels;
     },
+    
+    
   },
 };
 </script>

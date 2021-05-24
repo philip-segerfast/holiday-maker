@@ -1,6 +1,7 @@
 package newton.grupp2.holidaymaker.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,7 +49,7 @@ public class Hotel {
 
     @OneToMany(mappedBy = "hotel")
     @JsonIgnoreProperties("hotel")
-    private List<HotelReview> reviews;
+    private List<HotelReview> reviews = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -57,6 +58,17 @@ public class Hotel {
 
     public void setMinRoomPrice(double minRoomPrice) {
         this.minRoomPrice = minRoomPrice;
+    }
+
+    @JsonProperty
+    public double getAverageRating() {
+        double totalRating = 0;
+        double amountOfRatings = 0;
+        for(HotelReview review : reviews) {
+            totalRating += review.getRating();
+            amountOfRatings++;
+        }
+        return totalRating / amountOfRatings;
     }
 }
 

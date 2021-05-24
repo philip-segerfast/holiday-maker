@@ -19,6 +19,7 @@ price etc
   <body>
     <div class="hotel">
       <h1>{{ hotelInfo.name }}</h1>
+      <h2>check-in date: {{ startDate }} - check-out date: {{ endDate }}</h2>
       <h2>{{ hotelInfo.description }}</h2>
       <div id="v-image" class="split left">
         <span v-for="image in hotelInfo.images" :key="image">
@@ -30,6 +31,8 @@ price etc
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h3>{{ tag.label }}</h3>
       </span>
+      <h2>Number of adult: {{ amountAdult }}</h2>
+      <h1>Total Price for Booking {{ totalCost }}kr</h1>
     </div>
 
     <!--Lägger in och visar alla rum som finns i addedRooms -->
@@ -38,17 +41,24 @@ price etc
         <Booking-room-card v-for="(room, i) in addedHotelRooms" :key="room + i" :hotelRoom="room" />
       </span>
     </div>
+    <div id="payment-cotainer">
+      <span class="payment-cards">
+        <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
+      </span>
+    </div>
   </body>
 </template>
 
 <script>
 import BookingRoomCard from "../components/BookingRoomCard.vue";
+import PaymentCard from "../components/PaymentCard.vue";
+import moment from "moment";
 
 export default {
   components: {
     BookingRoomCard,
+    PaymentCard,
   },
-
   computed: {
     addedHotelRooms() {
       return this.$store.getters.getAddedHotelRooms;
@@ -56,6 +66,23 @@ export default {
 
     hotelInfo() {
       return this.$store.getters.getHotelToBook;
+    },
+    paymentCards() {
+      return this.$store.state.paymentCards;
+    },
+    startDate() {
+      var date = new Date(this.$store.getters.getStartDate * 1000);
+      return moment(date).format("YYYY-MM-DD");
+    },
+    endDate() {
+      var date = new Date(this.$store.getters.getEndDate * 1000);
+      return moment(date).format("YYYY-MM-DD");
+    },
+    totalCost() {
+      return this.$store.getters.getTotalCost;
+    },
+    amountAdult() {
+      return this.$store.getters.getAdultAmount;
     },
   },
 };
@@ -90,6 +117,11 @@ img {
 }
 
 .room-list {
+  display: inline-block;
+  width: 100%;
+  background-color: rgba(95, 158, 160, 0.24);
+}
+.payment-container {
   display: inline-block;
   width: 100%;
   background-color: rgba(95, 158, 160, 0.24);
