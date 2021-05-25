@@ -1,6 +1,6 @@
 <!-- eslint-disable -->
 <template>
-  <div class="hotel-card-container">
+  <div class="hotel-card-container" @click="redirectToHotelView">
     <div class="image-container">
       <span class="material-icons like"> favorite_border </span>
       <img src="../assets/images/superhotel.jpg" />
@@ -21,7 +21,7 @@
           <span class="left">Price</span>
           <!-- eslint-disable-next-line -->
           <span class="right">
-            {{ hotel.selfCateringPrice }} 
+            {{ hotel.minRoomPrice }} 
             <!--FÅr Proxyerror om jag försöker ta minRoomPrice-->
             <span style="font-size: 75%">SEK/night</span>
           </span>
