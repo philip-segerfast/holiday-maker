@@ -30,7 +30,67 @@ export default createStore({
     sortedRooms: [],
     ascending: true,
     loggedInUser: null,
-    userBookings: [],
+    userBookingList: [],
+    userBooking: {
+      id: "",
+      hotelRooms: [
+        {
+          id: "",
+          name: "",
+          size: "",
+          singleBedsAmount: "",
+          doubleBedsAmount: "",
+          baseNightPrice: "",
+          maxAmountOfExtraBeds: "",
+        },
+      ],
+      children: [
+        {
+          id: "",
+          age: "",
+        },
+      ],
+      user: {
+        id: "",
+        email: "",
+        first_name: "",
+        last_name: "",
+      },
+      fromTime: "",
+      toTime: "",
+      adults: "",
+      extraBeds: "",
+      luxuryClass: "",
+      hotel: {
+        id: 1,
+        name: "",
+        description: "",
+        city: "",
+        address: "",
+        extraBedPrice: "",
+        coordinates: "",
+        beachDistance: "",
+        centerDistance: "",
+        allInclusivePrice: "",
+        fullBoardPrice: "",
+        selfCateringPrice: "",
+        halfPensionPrice: "",
+        minRoomPrice: "",
+        images: [
+          {
+            id: "",
+            fileName: "",
+          },
+        ],
+        hotelTags: [
+          {
+            id: "",
+            label: "",
+          },
+        ],
+      },
+      paid: "",
+    },
     paymentCards: [
       {
         name: "Visa",
@@ -265,8 +325,11 @@ export default createStore({
     setAllHotelsInFilteredHotels(state, payload) {
       state.filteredHotels = payload;
     },
-    setUserBookings(state, payload) {
-      state.userBookings = payload;
+    setUserBookingList(state, payload) {
+      state.userBookingList = payload;
+    },
+    setUserBooking(state, payload) {
+      state.userBooking = payload;
     },
     setPaymentCards(state, payload) {
       state.paymentCards = payload;
@@ -275,7 +338,6 @@ export default createStore({
   actions: {
     // actions får tillgång till context objektet
     async fetchHotelById() {
-      console.log("Fetch programById running");
       const url = "/rest/hotels/id/" + this.state.hotelId;
       await axios.get(url).then((response) => this.commit("setHotelById", response.data));
     },
@@ -310,12 +372,16 @@ export default createStore({
         }
       });
     },
-    async fetchUserBookings(context) {
+    async fetchUserBookingList(context) {
       let response = await fetch("/rest/bookings/userbookings");
       let json = await response.json();
-      console.log("Running fetchUserBookings. List of user bookings: ");
-      console.log(json);
-      context.commit("setUserBookings", json);
+      context.commit("setUserBookingList", json);
+    },
+    async fetchUserBooking(context, payload) {
+      const url = "/rest/bookings/id/" + payload;
+      let response = await fetch(url);
+      let json = await response.json();
+      context.commit("setUserBooking", json);
     },
     async fetchDeleteBooking({ context }, payload) {
       const url = "/rest/bookings/" + payload.id;
