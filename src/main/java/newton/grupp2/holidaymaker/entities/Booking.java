@@ -63,13 +63,13 @@ public class Booking {
     private Hotel hotel;
 
 
-    @JsonProperty
     /*
         Det går även att använda en annotation istället för getter.
         https://stackoverflow.com/questions/2986318/how-to-map-calculated-properties-with-jpa-and-hibernate
         @Formula("(select min(o.creation_date) from Orders o where o.customer_id = id)")
         private Date firstOrderDate;
     */
+    @JsonProperty
     public Hotel getHotel() {
         // Returns the first hotel room in the hotels list.
         HotelRoom aHotelRoom = hotelRooms.stream().findFirst().orElse(null);
