@@ -19,7 +19,7 @@ export default createStore({
         startDate: "",
         endDate: "",
       },
-      AmountOfExtraBeds:"0"
+      AmountOfExtraBeds: 0,
       peopleAmount: {
         adultsAmount: 0,
         childrenAmount: 0,

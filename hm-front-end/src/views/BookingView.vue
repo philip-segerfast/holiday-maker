@@ -32,12 +32,12 @@ price etc
         <h3>{{ tag.label }}</h3>
       </span>
       <h2>Adults: {{ amountAdult }}</h2>
-      <h2>How many extra beds do you want?</h2>
-      <input
-      type="number"
-      v-model="AmountOfExtraBeds" 
-      min="0"
-      @input=updateAmountOfExtraBeds;
+
+      <div id="extraBeds">
+        <h2>How many extra beds do you want?</h2>
+        <input type="number" min="0" @input="updateAmountOfExtraBeds" />
+      </div>
+
       <h1>Total Price for Booking {{ totalCost }}kr</h1>
     </div>
 
@@ -61,6 +61,11 @@ import PaymentCard from "../components/PaymentCard.vue";
 import moment from "moment";
 
 export default {
+  methods: {
+    updateAmountOfExtraBeds() {
+      alert("hej");
+    },
+  },
   components: {
     BookingRoomCard,
     PaymentCard,
