@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="top-page">
     <div id="nav">
       <Navbar />
     </div>
@@ -48,5 +48,8 @@ export default {
     }
   }
   */
+}
+.top-page {
+  background-color: #2d9ca8be;
 }
 </style>

@@ -84,7 +84,7 @@ export default {
     padding: 0 10px 0 10px;
     height: --search-bar-height;
     border-radius: 52px;
-    background-color: #00ffff;
+    background-color: #45c3d1;
     .search-bar-item {
       padding: 10px;
     }
@@ -110,7 +110,7 @@ export default {
   width: 80%;
   // height: 80px;
   margin-left: 10px;
-  background-color: #73d895;
+  background-color: #2babb9;
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
