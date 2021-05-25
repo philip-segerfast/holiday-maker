@@ -1,6 +1,7 @@
 <template>
   <div>
     <h4>Booking id: {{ userBooking.id }}</h4>
+    <!--
     <div>
       <h4>
         Number of adults: {{ userBooking.adults }}. Number of children:
@@ -9,9 +10,10 @@
       </h4>
     </div>
     <h4>Hotel: {{ bookedHotel.name }}</h4>
+    -->
 
     <!--Visar alla bilder som är kopplade till ett hotell -->
-
+    <!--
     <div id="v-image" class="split left">
       <span v-for="image in bookedHotel.images" :key="image">
         <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
@@ -30,32 +32,62 @@
         />
       </span>
     </div>
+    -->
   </div>
 </template>
 
 <script>
-import BookedRoomCard from "../components/BookedRoomCard.vue";
+//import BookedRoomCard from "../components/BookedRoomCard.vue";
 export default {
-  components: { BookedRoomCard },
+  //components: { BookedRoomCard },
   data() {
     return {
       id: "",
+      emptyBooking: {
+        id: 0,
+        adults: 0,
+        children: 0,
+        fromTime: 0,
+        toTime: 0,
+        hotel: {
+          name: 0,
+        },
+      },
     };
   },
   computed: {
     userBooking() {
       console.log("Booking object: ");
       console.log(this.$store.state.userBooking);
-      return this.$store.state.userBooking;
+      if (this.userBooking) {
+        return this.$store.state.userBooking;
+      } else {
+        return this.emptyBooking;
+      }
     },
     bookedHotel() {
-      return this.$store.state.userBooking.hotel;
+      if (this.userBooking) {
+        return this.$store.state.userBooking.hotel;
+      } else {
+        return null;
+      }
+      //return this.$store.state.userBooking.hotel;
     },
     bookedRooms() {
-      return this.$store.state.userBooking.hotelRooms;
+      if (this.userBooking) {
+        return this.$store.state.userBooking.hotelRooms;
+      } else {
+        return null;
+      }
+      //return this.$store.state.userBooking.hotelRooms;
     },
     user() {
-      return this.$store.state.userBooking.user;
+      if (this.userBooking) {
+        return this.$store.state.userBooking.user;
+      } else {
+        return null;
+      }
+      //return this.$store.state.userBooking.user;
     },
     // Changes epoch time format to normal date format
     bookedFromDate() {

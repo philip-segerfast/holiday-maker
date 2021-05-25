@@ -19,7 +19,7 @@ export default {
     SearchBar,
   },
   mounted() {
-    this.$router.push({ path: "/" });
+    //this.$router.push({ path: "/" });
     this.$store.dispatch("fetchLoggedInUser");
     this.$store.dispatch("fetchAllHotels");
   },
