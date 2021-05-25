@@ -61,21 +61,27 @@ export default {
     },
     // Changes epoch time format to normal date format
     bookedFromDate() {
-      return new Date(this.userBooking.fromTime).toLocaleString();
+      return new Date(this.userBooking.fromTime * 1000).toLocaleString();
     },
     bookedToDate() {
-      return new Date(this.userBooking.toTime).toLocaleString();
+      return new Date(this.userBooking.toTime * 1000).toLocaleString();
     },
     LuxuryClass() {
-      if (this.userBooking.luxuryClass == 1) return "Self-catering";
-      return "Problem";
+      if (this.userBooking.luxuryClass == 1) {
+        return "Self catering";
+      } else if (this.userBooking.luxuryClass == 2) {
+        return "Half pension";
+      } else if (this.userBooking.luxuryClass == 3) {
+        return "Full board";
+      } else if (this.userBooking.luxuryClass == 4) {
+        return "All inclusive";
+      }
+      return "Something went wrong. LuxuryClass: " + this.userBooking.luxuryClass;
     },
   },
   mounted() {
     this.id = this.$route.params.id;
-    console.log("Id of this booking: " + this.id);
-    this.$store.commit("setBookingId", this.id);
-    this.$store.dispatch("fetchUserBooking");
+    this.$store.dispatch("fetchUserBooking", this.id);
   },
 };
 </script>

@@ -300,8 +300,8 @@ export default createStore({
       let json = await response.json();
       context.commit("setUserBookingList", json);
     },
-    async fetchUserBooking(context) {
-      const url = "/rest/bookings/id/" + this.state.bookingId;
+    async fetchUserBooking(context, payload) {
+      const url = "/rest/bookings/id/" + payload;
       let response = await fetch(url);
       let json = await response.json();
       context.commit("setUserBooking", json);
