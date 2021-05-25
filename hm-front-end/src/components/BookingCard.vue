@@ -6,13 +6,14 @@
       <!-- Shows first image in list of images in hotel object -->
       <img v-bind:src="`http://localhost:5000/uploads/${userBooking.hotel.images[0].fileName}`" />
 
-    <h4>
-      Arrival: {{ bookedFromDate }}. <br />
-      Checkout: {{ bookedToDate }}.
-    </h4>
-    <div id="v-image" class="split left"></div>
-    <button @click="redirectToBookingDetailsView">Details</button>
+      <h4>
+        Arrival: {{ bookedFromDate }}. <br />
+        Checkout: {{ bookedToDate }}.
+      </h4>
+      <div id="v-image" class="split left"></div>
+      <button @click="redirectToBookingDetailsView">Details</button>
       <button @click="cancelBooking">Cancel booking</button>
+    </div>
   </div>
 </template>
 
