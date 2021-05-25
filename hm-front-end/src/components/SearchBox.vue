@@ -20,6 +20,18 @@ export default {
 
 <style scoped lang="scss">
 #search {
-  width: 190px;
+  outline: 1px solid var(--component-border-color);
+  border: none;
+  border-radius: 20px;
+  background-color: var(--component-color);
+  padding: 0 18px;
+  width: 200px;
+  padding: var(--component-input-inner-padding);
+  &:hover {
+    background-color: var(--component-color-hover);
+  }
+  &:focus {
+    background-color: var(--component-color-active);
+  }
 }
 </style>

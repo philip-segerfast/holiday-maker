@@ -1,9 +1,10 @@
 <template>
   <div class="booking-card">
-    <h3>{{ userBooking.hotel.name }}</h3>
+    <div>
+      <h3>{{ userBooking.hotel.name }}</h3>
 
-    <!-- Shows first image in list of images in hotel object -->
-    <img v-bind:src="`http://localhost:5000/uploads/${userBooking.hotel.images[0].fileName}`" />
+      <!-- Shows first image in list of images in hotel object -->
+      <img v-bind:src="`http://localhost:5000/uploads/${userBooking.hotel.images[0].fileName}`" />
 
     <h4>
       Arrival: {{ bookedFromDate }}. <br />
@@ -11,6 +12,7 @@
     </h4>
     <div id="v-image" class="split left"></div>
     <button @click="redirectToBookingDetailsView">Details</button>
+      <button @click="cancelBooking">Cancel booking</button>
   </div>
 </template>
 
@@ -30,6 +32,12 @@ export default {
     redirectToBookingDetailsView() {
       const routerUrl = "/bookingdetailsview/" + this.userBooking.id;
       this.$router.push({ path: routerUrl });
+    },
+    async cancelBooking() {
+      // async/await makes fetchDeleteBooking finish before reloading page
+      await this.$store.dispatch("fetchDeleteBooking", { id: this.userBooking.id });
+      // Reloads page to show updated list of bookings
+      this.$router.go();
     },
   },
 };
