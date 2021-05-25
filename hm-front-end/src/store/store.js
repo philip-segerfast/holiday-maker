@@ -99,15 +99,17 @@ export default createStore({
     },
     setSortedRatings() {
       let sortedByRating;
-      sortedByRating = this.state.hotel.sort((rating1, rating2) => {
-        if (rating1.totalRating < rating2.totalRating) {
+      sortedByRating = this.state.hotels.sort((rating1, rating2) => {
+        if (rating1.averageRating < rating2.averageRating) {
           return -1;
         }
-        if (rating1.totalRating > rating2.totalRating) {
+        if (rating1.averageRating > rating2.averageRating) {
           return 1;
         }
         return 0;
       });
+      this.state.sortedByRating = sortedByRating;
+      return sortedByRating;
     },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;

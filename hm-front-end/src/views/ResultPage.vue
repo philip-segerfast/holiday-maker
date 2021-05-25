@@ -39,8 +39,8 @@ export default {
     },
     sortHotelsByRatings() {
       console.log("sorting ratings: ");
-      this.$router.push({ path: "/result-page" });
       this.$store.commit("setSortedRatings")
+      this.$router.push({ path: "/result-page" });
     }
 
   },
