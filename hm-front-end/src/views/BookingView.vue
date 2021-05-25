@@ -42,7 +42,8 @@ price etc
         <Booking-room-card v-for="(room, i) in addedHotelRooms" :key="room + i" :hotelRoom="room" />
       </span>
     </div>
-    <h1>CONTINUE BOOKING AND PAY</h1>
+    <button class="confirm-booking">Confirm Booking</button>
+    <!--Mockup payment -->
     <div id="payment-cotainer">
       <span class="payment-cards">
         <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
@@ -130,5 +131,14 @@ img {
   display: inline-block;
   width: 100%;
   background-color: rgba(95, 158, 160, 0.24);
+}
+.confirm-booking {
+  display: inline-block;
+  border: 4px;
+  border-radius: 20px;
+  background-color: rgb(15, 192, 68);
+  padding: 20px 18px;
+  cursor: pointer;
+  font-size: 32px;
 }
 </style>
