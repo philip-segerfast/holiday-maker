@@ -26,7 +26,66 @@ export default createStore({
     loggedInUser: null,
     userBookingList: [],
     bookingId: "",
-    userBooking: {},
+    userBooking: {
+      id: "",
+      hotelRooms: [
+        {
+          id: "",
+          name: "",
+          size: "",
+          singleBedsAmount: "",
+          doubleBedsAmount: "",
+          baseNightPrice: "",
+          maxAmountOfExtraBeds: "",
+        },
+      ],
+      children: [
+        {
+          id: "",
+          age: "",
+        },
+      ],
+      user: {
+        id: "",
+        email: "",
+        first_name: "",
+        last_name: "",
+      },
+      fromTime: "",
+      toTime: "",
+      adults: "",
+      extraBeds: "",
+      luxuryClass: "",
+      hotel: {
+        id: 1,
+        name: "",
+        description: "",
+        city: "",
+        address: "",
+        extraBedPrice: "",
+        coordinates: "",
+        beachDistance: "",
+        centerDistance: "",
+        allInclusivePrice: "",
+        fullBoardPrice: "",
+        selfCateringPrice: "",
+        halfPensionPrice: "",
+        minRoomPrice: "",
+        images: [
+          {
+            id: "",
+            fileName: "",
+          },
+        ],
+        hotelTags: [
+          {
+            id: "",
+            label: "",
+          },
+        ],
+      },
+      paid: false,
+    },
   },
   // "Setters"
   mutations: {
