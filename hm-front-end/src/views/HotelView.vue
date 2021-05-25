@@ -70,9 +70,6 @@ export default {
     hotelInfo() {
       return this.$store.getters.getHotelById;
     },
-    roomsByPrice() {
-      return this.$store.getters.sortedRooms;
-    },
     startDate() {
       var date = new Date(this.$store.getters.getStartDate * 1000);
       return moment(date).format("YYYY-MM-DD");

@@ -26,9 +26,6 @@ export default createStore({
     },
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
-    sortedHotels: [],
-    sortedRooms: [],
-    sortedRatings: [],
     ascending: true,
     loggedInUser: null,
     userBookings: [],
@@ -88,7 +85,6 @@ export default createStore({
         }
         return 0;
       });
-      this.state.sortedRooms = maxHotelPrice;
       return maxHotelPrice.reverse();
     },
 
@@ -107,8 +103,6 @@ export default createStore({
         }
         return 0;
       });
-
-      this.state.sortedRooms = sortedByPrice;
       return sortedByPrice;
     },
     setSortedRoomsDescending() {
@@ -122,7 +116,6 @@ export default createStore({
         }
         return 0;
       });
-      this.state.sortedRooms = maxRoomPrice;
       return maxRoomPrice.reverse();
     },
     setSortedRatings() {
@@ -136,7 +129,6 @@ export default createStore({
         }
         return 0;
       });
-      this.state.sortedByRating = sortedByRating;
       return sortedByRating;
     },
     setaddedHotelRooms(state, payload) {
@@ -386,18 +378,6 @@ export default createStore({
     },
     getHotelToBook(state) {
       return state.hotelToBook;
-    },
-    getSortedHotelsAscending(state) {
-      return state.sortedHotels;
-    },
-    getSortedHotelsDescending(state) {
-      return state.sortedHotels;
-    },
-    getSortedRoomsDescending(state) {
-      return state.sortedRooms;
-    },
-    getSortedRatings() {
-      return state.sortedRatings;
     },
     getTotalCost(state) {
       return state.totalCost;
