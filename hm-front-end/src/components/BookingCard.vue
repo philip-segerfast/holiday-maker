@@ -1,5 +1,5 @@
 <template>
-  <div class="booking-card" @click="redirectToBookingDetailsView">
+  <div class="booking-card">
     <h3>{{ userBooking.hotel.name }}</h3>
 
     <!-- Shows first image in list of images in hotel object -->
@@ -8,6 +8,7 @@
     <h4>Booked between {{ bookedFromDate }} and {{ bookedToDate }}</h4>
     <h4>{{ userBooking.hotelRooms.length }} room(s) booked.</h4>
     <div id="v-image" class="split left"></div>
+    <button @click="redirectToBookingDetailsView">Details</button>
   </div>
 </template>
 
