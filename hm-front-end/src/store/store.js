@@ -26,8 +26,17 @@ export default createStore({
     },
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
+    sortedHotels: [],
+    sortedRooms: [],
+    ascending: true,
     loggedInUser: null,
     userBookings: [],
+    paymentCards: [
+      {
+        name: "Visa",
+        bank: "Nordea",
+      },
+    ],
   },
   // "Setters"
   mutations: {
@@ -39,9 +48,53 @@ export default createStore({
     },
     setAllHotels(state, payload) {
       state.hotels = payload;
+
+      // Sorterar hotels[]
+      state.hotels.sort((a, b) => {
+        if (a.city < b.city) {
+          // om a.city är mindre än b.city --> Ta ett steg tillbaks i arrayen (-1)
+          return -1;
+
+          // Ta ett steg fram i arrayen (+1)
+        }
+        if (a.city > b.city) {
+          return 1;
+        }
+        return 0;
+      });
     },
+
+    setSortedHotels() {
+      let sortedByPrice;
+      sortedByPrice = this.state.hotels.sort((price1, price2) => {
+        if (price1.minRoomPrice < price2.minRoomPrice) {
+          return -1;
+        }
+        if (price1.minRoomPrice > price2.minRoomPrice) {
+          return 1;
+        }
+        return 0;
+      });
+    },
+
+    // Sorterar alla hotelrum utifrån lägst --> högst
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
+    },
+    setSortedRooms() {
+      let sortedByPrice;
+      sortedByPrice = this.state.hotelRooms.sort((price1, price2) => {
+        if (price1.baseNightPrice < price2.baseNightPrice) {
+          return -1;
+        }
+        if (price1.baseNightPrice > price2.baseNightPrice) {
+          return 1;
+        }
+        return 0;
+      });
+
+      this.state.sortedRooms = sortedByPrice;
+      return sortedByPrice;
     },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;
@@ -73,17 +126,6 @@ export default createStore({
     updateTotalCost(state, payload) {
       state.totalCost = this.state.totalCost + payload;
     },
-    /* updateTotalCost() {
-      let totalCost = calculateTotalRoomCost.call(this, addedHotelRooms);
-      function calculateTotalRoomCost(listOfRooms) {
-        // Loopar igenom rummen med en vanlig for-loop för for-each-loop
-
-        for (let i = 0; i < listOfRooms.length; i++) {
-          totalCost = totalCost + listOfRooms[i][6];
-          console.log(totalCost);
-        }
-      }
-    },*/
     setFilteredHotels() {
       const allHotels = this.state.hotels;
       /* 
@@ -185,7 +227,7 @@ export default createStore({
         const totalAmountOfPeople = adultsAmount + childrenAmount;
 
         if (adultsAmount <= 0) {
-          console.log("No adults specified. You need to have at least one adult in the company.");
+          console.log("No adults specified. You need to have at least one adult on the booking.");
           return listToFilter;
         }
 
@@ -216,6 +258,7 @@ export default createStore({
         return qualifiedHotels;
       }
     },
+
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
     },
@@ -224,6 +267,9 @@ export default createStore({
     },
     setUserBookings(state, payload) {
       state.userBookings = payload;
+    },
+    setPaymentCards(state, payload) {
+      state.paymentCards = payload;
     },
   },
   actions: {
@@ -292,6 +338,15 @@ export default createStore({
     },
     getHotelToBook(state) {
       return state.hotelToBook;
+    },
+    getSortedHotels(state) {
+      return state.sortedHotels;
+    },
+    getSortedRooms(state) {
+      return state.sortedRooms;
+    },
+    getSortedHotels(state) {
+      return state.sortedHotels;
     },
     getTotalCost(state) {
       return state.totalCost;
