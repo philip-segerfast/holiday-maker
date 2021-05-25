@@ -5,8 +5,10 @@
     <!-- Shows first image in list of images in hotel object -->
     <img v-bind:src="`http://localhost:5000/uploads/${userBooking.hotel.images[0].fileName}`" />
 
-    <h4>Booked between {{ bookedFromDate }} and {{ bookedToDate }}</h4>
-    <h4>{{ userBooking.hotelRooms.length }} room(s) booked.</h4>
+    <h4>
+      Arrival: {{ bookedFromDate }}. <br />
+      Checkout: {{ bookedToDate }}.
+    </h4>
     <div id="v-image" class="split left"></div>
     <button @click="redirectToBookingDetailsView">Details</button>
   </div>
@@ -18,10 +20,10 @@ export default {
   computed: {
     // Changes epoch time format to normal date format
     bookedFromDate() {
-      return new Date(this.userBooking.fromTime).toLocaleString();
+      return new Date(this.userBooking.fromTime * 1000).toLocaleString();
     },
     bookedToDate() {
-      return new Date(this.userBooking.toTime).toLocaleString();
+      return new Date(this.userBooking.toTime * 1000).toLocaleString();
     },
   },
   methods: {

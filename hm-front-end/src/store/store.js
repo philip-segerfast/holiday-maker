@@ -25,7 +25,6 @@ export default createStore({
     filteredHotels: [],
     loggedInUser: null,
     userBookingList: [],
-    bookingId: "",
     userBooking: {
       id: "",
       hotelRooms: [
@@ -84,7 +83,7 @@ export default createStore({
           },
         ],
       },
-      paid: false,
+      paid: "",
     },
   },
   // "Setters"
@@ -250,9 +249,6 @@ export default createStore({
     },
     setUserBookingList(state, payload) {
       state.userBookingList = payload;
-    },
-    setBookingId(state, payload) {
-      state.bookingId = payload;
     },
     setUserBooking(state, payload) {
       state.userBooking = payload;

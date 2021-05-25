@@ -3,10 +3,11 @@
     <h4>Booking id: {{ userBooking.id }}</h4>
     <div>
       <h4>
-        Number of adults: {{ userBooking.adults }}. Number of children:
-        {{ userBooking.children.length }}.
+        Number of adults: {{ userBooking.adults }}. <br />
+        Number of children: {{ userBooking.children.length }}.
         <br />
-        Booked from: {{ bookedFromDate }} to {{ bookedToDate }}.
+        Arrival: {{ bookedFromDate }}.<br />
+        Checkout: {{ bookedToDate }}.
       </h4>
     </div>
     <h4>Hotel: {{ bookedHotel.name }}</h4>
