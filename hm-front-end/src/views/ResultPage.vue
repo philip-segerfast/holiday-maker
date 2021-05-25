@@ -3,14 +3,11 @@
     <div id="sort-bar">
       <h3>
         Sort by :
-        <button @click="sortHotelsByRatings">Sort Ratings</button>
-      </h3>
-    </div>
-
-    <div id="sort-bar">
-      <h3>
-        Sort by :
-        <button @click="sortHotelsByPrice">Sort Hotels</button>
+        <button @click="sortHotelsByRatings">Ratings</button>
+        - Sort by :
+        <button @click="sortHotelsByMinPrice">Min Price</button>
+        - Sort by :
+        <button @click="sortHotelsByMaxPrice">Max Price</button>
       </h3>
     </div>
     <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
@@ -33,16 +30,19 @@ export default {
   },
 
   methods: {
-    sortHotelsByPrice() {
-      this.$store.commit("setSortedHotels");
+    sortHotelsByMinPrice() {
+      this.$store.commit("setSortedHotelsAscending");
+      this.$router.push({ path: "/result-page" });
+    },
+    sortHotelsByMaxPrice() {
+      this.$store.commit("setSortedHotelsDescending");
       this.$router.push({ path: "/result-page" });
     },
     sortHotelsByRatings() {
       console.log("sorting ratings: ");
-      this.$store.commit("setSortedRatings")
+      this.$store.commit("setSortedRatings");
       this.$router.push({ path: "/result-page" });
-    }
-
+    },
   },
 
   computed: {
@@ -53,6 +53,9 @@ export default {
     // Hämtar filteredHotels från store
     filteredHotels() {
       return this.$store.state.filteredHotels;
+    },
+    hotelsByRatings() {
+      return this.$store.getters.getSortedRatings;
     },
   },
 };

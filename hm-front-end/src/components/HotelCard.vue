@@ -1,8 +1,10 @@
 <template>
   <div class="hotel-card" @click="redirectToHotelView">
-    <span>{{ hotel.name }}</span>
+    <span>{{ "Hotel: " + hotel.name }}</span>
     -
-    <span>{{ hotel.city }}</span>
+    <span>{{ "City: " + hotel.city }}</span>
+    -
+    <span>{{ "Prices from: " + hotel.minRoomPrice }}</span>
   </div>
 </template>
 

@@ -2,8 +2,9 @@
   <body>
     <div id="sort-bar">
       <h3>
-        Sort by :
-        <button @click="sortHotelRoomsByPrice">Sort Rooms</button>
+        Sort by:
+        <button @click="sortHotelRoomsByPrice">Min Price</button>
+        - Sort by: <button @click="sortHotelRoomsByMaxPrice">Max Price</button>
       </h3>
     </div>
     <div class="split right">
@@ -53,6 +54,11 @@ export default {
       console.log("sorting: ");
       this.$router.push({ path: "/hotelView" });
       this.$store.commit("setSortedRooms");
+    },
+    sortHotelRoomsByMaxPrice() {
+      console.log("sorting: ");
+      this.$router.push({ path: "/hotelView" });
+      this.$store.commit("setSortedRoomsDescending");
     },
   },
 

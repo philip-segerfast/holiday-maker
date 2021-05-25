@@ -65,7 +65,7 @@ export default createStore({
       });
     },
 
-    setSortedHotels() {
+    setSortedHotelsAscending() {
       let sortedByPrice;
       sortedByPrice = this.state.hotels.sort((price1, price2) => {
         if (price1.minRoomPrice < price2.minRoomPrice) {
@@ -76,6 +76,20 @@ export default createStore({
         }
         return 0;
       });
+    },
+    setSortedHotelsDescending() {
+      let maxHotelPrice;
+      maxHotelPrice = this.state.hotels.sort((price1, price2) => {
+        if (price1.minRoomPrice < price2.minRoomPrice) {
+          return -1;
+        }
+        if (price1.minRoomPrice > price2.minRoomPrice) {
+          return 1;
+        }
+        return 0;
+      });
+      this.state.sortedRooms = maxHotelPrice;
+      return maxHotelPrice.reverse();
     },
 
     // Sorterar alla hotelrum utifrån lägst --> högst
@@ -96,6 +110,20 @@ export default createStore({
 
       this.state.sortedRooms = sortedByPrice;
       return sortedByPrice;
+    },
+    setSortedRoomsDescending() {
+      let maxRoomPrice;
+      maxRoomPrice = this.state.hotelRooms.sort((maxPrice1, maxPrice2) => {
+        if (maxPrice1 > maxPrice2) {
+          return 1;
+        }
+        if (maxPrice1 < maxPrice2) {
+          return -1;
+        }
+        return 0;
+      });
+      this.state.sortedRooms = maxRoomPrice;
+      return maxRoomPrice.reverse();
     },
     setSortedRatings() {
       let sortedByRating;
@@ -359,10 +387,13 @@ export default createStore({
     getHotelToBook(state) {
       return state.hotelToBook;
     },
-    getSortedHotels(state) {
+    getSortedHotelsAscending(state) {
       return state.sortedHotels;
     },
-    getSortedRooms(state) {
+    getSortedHotelsDescending(state) {
+      return state.sortedHotels;
+    },
+    getSortedRoomsDescending(state) {
       return state.sortedRooms;
     },
     getSortedRatings() {
