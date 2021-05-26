@@ -123,11 +123,11 @@ export default {
     padding: var(--component-input-inner-padding);
     background-color: var(--component-color);
     border-radius: var(--component-border-radius);
-    box-shadow: var(--box-shadow-outline-border);
+    box-shadow: var(--box-shadow-navbar-outline-border);
     &:hover {
       cursor: pointer;
       background-color: var(--component-color-hover);
-      box-shadow: var(--box-shadow-outline-hard);
+      box-shadow: var(--box-shadow-navbar-outline-hard);
     }
     &:active {
       background-color: var(--component-color-active);
@@ -139,7 +139,7 @@ export default {
     height: fit-content;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    box-shadow: var(--box-shadow-outline-border);
+    box-shadow: var(--box-shadow-navbar-outline-border);
     .dropdown-info {
       display: flex;
       height: fit-content;
@@ -173,7 +173,7 @@ export default {
     }
     &:hover {
       cursor: pointer;
-      box-shadow: var(--box-shadow-outline-hard);
+      box-shadow: var(--box-shadow-navbar-outline-hard);
     }
 
     // style all children of dropdown
