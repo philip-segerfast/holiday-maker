@@ -2,11 +2,7 @@
 <template>
   <div id="container" class="unselectable" v-click-away="onClickAway">
     <!-- eslint-disable-next-line -->
-    <div
-      v-bind:class="{ open: !isDropdownHidden }"
-      id="info-box"
-      v-on:click="toggleShowDropdown"
-    >
+    <div v-bind:class="{ open: !isDropdownHidden }" id="info-box" v-on:click="toggleShowDropdown">
       <span id="adults">Adults: {{ adultsAmount }}</span>
       &nbsp;&middot;&nbsp;
       <span id="children">Children: {{ childrenAmount }}</span>
@@ -76,7 +72,6 @@ export default {
 .open {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  outline: var(--component-border-color) solid 1px;
   border-bottom: none;
 }
 
@@ -87,10 +82,11 @@ export default {
     padding: var(--component-input-inner-padding);
     background-color: var(--component-color);
     border-radius: var(--component-border-radius);
-    outline: var(--component-border-color) solid 1px;
+    box-shadow: var(--box-shadow-outline-border);
     &:hover {
       cursor: pointer;
       background-color: var(--component-color-hover);
+      box-shadow: var(--box-shadow-outline-hard);
     }
     &:active {
       background-color: var(--component-color-active);
@@ -100,9 +96,9 @@ export default {
     position: absolute;
     width: inherit;
     height: fit-content;
-    outline: var(--component-border-color) solid 1px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    box-shadow: var(--box-shadow-outline-border);
     .dropdown-info {
       display: flex;
       height: fit-content;
@@ -117,9 +113,17 @@ export default {
         margin-left: auto;
         text-align: center;
       }
+      &:hover {
+        background-color: var(--component-color-hover);
+      }
     }
     .dropdown-info:last-child {
       border-radius: inherit;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: var(--component-color-hover);
+      box-shadow: var(--box-shadow-outline-hard);
     }
   }
 }

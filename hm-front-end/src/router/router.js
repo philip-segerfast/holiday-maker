@@ -6,6 +6,7 @@ import HotelView from "@/views/HotelView.vue";
 import AboutView from "../views/About.vue";
 import LoginView from "../views/LoginView.vue";
 import BookingView from "@/views/BookingView.vue";
+import BookingDetailsView from "../views/BookingDetailsView.vue";
 
 const routes = [
   {
@@ -49,6 +50,12 @@ const routes = [
     path: "/bookingView",
     component: BookingView,
   },
+  {
+    path: "/bookingdetailsview/:id",
+    component: BookingDetailsView,
+  },
+
+  ,
 ];
 
 const router = createRouter({

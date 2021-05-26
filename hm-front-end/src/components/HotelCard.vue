@@ -3,12 +3,10 @@
   <div class="hotel-card-container" @click="redirectToHotelView">
     <div class="image-container">
       <span class="material-icons like"> favorite_border </span>
-      <!-- <img src="../assets/images/superhotel.jpg" /> -->
-
-      <img
-        v-if="hotel.images.length > 0"
-        v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`"
-      />
+      <img src="../assets/images/superhotel.jpg" />
+      <span v-for="image in hotel.images" :key="image">
+        <img v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`" />
+      </span>
     </div>
     <div class="info-container">
       <div class="header">{{ hotel.name }}</div>
@@ -23,8 +21,8 @@
           <span class="left">Price</span>
           <!-- eslint-disable-next-line -->
           <span class="right">
-            {{ hotel.minRoomPrice }}
-
+            {{ hotel.minRoomPrice }} 
+            <!--FÅr Proxyerror om jag försöker ta minRoomPrice-->
             <span style="font-size: 75%">SEK/night</span>
           </span>
         </div>
@@ -74,7 +72,7 @@ export default {
     border-top-right-radius: inherit;
     img {
       width: 100%;
-      height: 100px;
+      height: auto;
       border-top-left-radius: inherit;
       border-top-right-radius: inherit;
     }

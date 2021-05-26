@@ -84,21 +84,21 @@ export default {
     padding: 0 10px 0 10px;
     height: --search-bar-height;
     border-radius: 52px;
-    background-color: #45c3d15e;
+    background-color: #00ffff;
     .search-bar-item {
       padding: 10px;
     }
     .search-button {
       display: inline-block;
-      outline: 1px solid var(--component-border-color);
       border: none;
-      border-radius: 5px;
+      border-radius: 20px;
       background-color: var(--component-color);
-      padding: 20px 18px;
       padding: var(--component-input-inner-padding);
       cursor: pointer;
+      box-shadow: var(--box-shadow-outline-border);
       &:hover {
         background-color: var(--component-color-hover);
+        box-shadow: var(--box-shadow-outline-smooth);
       }
       &:active {
         background-color: var(--component-color-active);
@@ -110,7 +110,7 @@ export default {
   width: 80%;
   // height: 80px;
   margin-left: 10px;
-  background-color: #2babb9;
+  background-color: #73d895;
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
