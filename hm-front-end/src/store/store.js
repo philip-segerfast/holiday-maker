@@ -391,6 +391,17 @@ export default createStore({
       await response.text();
       alert("Booking cancelled");
     },
+    async fetchUpdateBooking(context) {
+      let booking = this.state.userBooking;
+      console.log("Running fetchUpdateBooking. Edited booking object:");
+      console.log(booking);
+      const url = "/rest/bookings/" + booking.id;
+      let response = await fetch(url, {
+        method: "PUT",
+        body: JSON.stringify(booking),
+      });
+      await response.text();
+    },
   },
   getters: {
     getAllHotels(state) {

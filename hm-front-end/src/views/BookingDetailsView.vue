@@ -33,6 +33,10 @@
         />
       </span>
     </div>
+    <div>
+      <form @submit.prevent="updateBooking"></form>
+      <button type="submit">Update booking</button>
+    </div>
   </div>
 </template>
 
@@ -78,6 +82,13 @@ export default {
         return "All inclusive";
       }
       return "Something went wrong. LuxuryClass: " + this.userBooking.luxuryClass;
+    },
+  },
+  methods: {
+    updateBooking() {
+      console.log("Edited booking object to send to backend: ");
+      console.log(this.$store.state.userBooking);
+      this.$store.dispatch("fetchUpdateBooking");
     },
   },
   mounted() {
