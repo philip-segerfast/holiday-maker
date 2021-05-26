@@ -8,6 +8,7 @@ import lombok.Setter;
 import newton.grupp2.holidaymaker.utils.HmUtils;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class Hotel {
     private double halfPensionPrice;
     @Transient
     private double minRoomPrice;
-
+    
     @OneToMany(cascade = CascadeType.ALL)
     private List<HotelImage> images = new ArrayList<>();
 
@@ -61,14 +62,14 @@ public class Hotel {
     }
 
     @JsonProperty
-    public double getAverageRating() {
+    public String getAverageRating() {
         double totalRating = 0;
         double amountOfRatings = 0;
         for(HotelReview review : reviews) {
             totalRating += review.getRating();
             amountOfRatings++;
         }
-        return totalRating / amountOfRatings;
+        return new DecimalFormat("#.#").format(totalRating / amountOfRatings);
     }
 }
 
