@@ -62,6 +62,7 @@ export default {
   width: 225px;
   height: 350px;
   max-height: 350px;
+  max-width: 225px;
   overflow: hidden;
   border-radius: 15px;
   cursor: pointer;

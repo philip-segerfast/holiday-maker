@@ -12,6 +12,8 @@
       <div id="appSearchBar">
         <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
       </div>
+    </div>
+    <div id="bottom">
       <router-view />
     </div>
   </div>
@@ -33,49 +35,57 @@ export default {
 </script>
 <style lang="scss" src="./style.scss"></style>
 <style lang="scss">
-#background {
-  background-color: lightgreen;
-}
-#toppage {
-  background-image: url("../mockup/assets/77e8e1d2154e4616199c6dc667cd0def.jpg");
-  height: 450px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 2vw;
-  #top {
-    display: flex;
-    #logo {
-      display: inline-block;
-      margin-left: 50px;
-      display: flex;
-      position: left;
-      width: fit-content;
-      margin-right: auto;
-    }
-    #nav {
-      width: fit-content;
-      display: flex;
-      margin: auto 20px;
-    }
-  }
-}
 #app {
   text-align: center;
   color: #2c3e50;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #ccece7;
   display: flex;
   padding: 2vh 0;
+  margin: 0;
+  padding: 0;
+  height: fit-content;
 
   #inner-app-container {
     width: 1400px;
     min-height: 100%;
     background-color: #45c3d1;
     margin: 0 auto;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
+    border-radius: 2vw 2vw 0 0;
+    display: flex;
+    flex-direction: column;
+
+    #toppage {
+      background-image: url("../mockup/assets/77e8e1d2154e4616199c6dc667cd0def.jpg");
+      height: fit-content;
+      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      border-radius: inherit;
+      #top {
+        display: flex;
+        #logo {
+          display: inline-block;
+          margin-left: 50px;
+          display: flex;
+          position: left;
+          width: fit-content;
+          margin-right: auto;
+          margin-bottom: 0;
+        }
+        #nav {
+          width: fit-content;
+          display: flex;
+          margin: auto 20px;
+        }
+      }
+    }
+
+    #bottom {
+      height: fit-content;
+    }
   }
 }
 .top-page {
