@@ -1,12 +1,17 @@
 <template>
-  <div>
-    <div id="nav">
-      <Navbar />
+  <div id="background">
+    <div id="toppage">
+      <div id="logo">
+        <h1>Holiday Maker</h1>
+      </div>
+      <div id="nav">
+        <Navbar />
+      </div>
+      <div id="appSearchBar">
+        <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
+      </div>
+      <router-view />
     </div>
-    <div id="appSearchBar">
-      <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
-    </div>
-    <router-view />
   </div>
 </template>
 
@@ -26,12 +31,24 @@ export default {
 </script>
 <style lang="scss" src="./style.scss"></style>
 <style lang="scss">
+#background {
+  background-color: lightgreen;
+}
+#toppage {
+  background-image: url("../mockup/assets/77e8e1d2154e4616199c6dc667cd0def.jpg");
+  height: 450px;
+}
 #app {
   text-align: center;
   color: #2c3e50;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  #logo {
+    margin-left: 50px;
+    display: flex;
+    position: left;
+  }
 
   /*
   #nav {
@@ -47,5 +64,8 @@ export default {
     }
   }
   */
+}
+.top-page {
+  background-color: #2d9ca8be;
 }
 </style>
