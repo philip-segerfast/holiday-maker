@@ -5,10 +5,10 @@
       <span class="material-icons like"> favorite_border </span>
       <!-- <img src="../assets/images/superhotel.jpg" /> -->
 
-      <img
-        v-if="hotel.images.length > 0"
-        v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`"
-      />
+      <img src="../assets/images/superhotel.jpg" />
+      <span v-for="image in hotel.images" :key="image">
+        <img v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`" />
+      </span>
     </div>
     <div class="info-container">
       <div class="header">{{ hotel.name }}</div>
