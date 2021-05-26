@@ -48,6 +48,7 @@ price etc
         <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
       </span>
     </div>
+    <button @click="createBooking" class="confirm-booking">Confirm Booking</button>
   </body>
 </template>
 
@@ -88,6 +89,12 @@ export default {
     },
     amountChildren() {
       return this.$store.getters.getAdultAmount;
+    },
+  },
+  methods: {
+    createBooking() {
+      console.log("cklick");
+      this.$store.dispatch("fetchCreateBooking");
     },
   },
 };
