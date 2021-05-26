@@ -417,12 +417,12 @@ export default createStore({
     },
     async fetchCreateBooking() {
       let booking = {
-        fromTime: state.searchHotelFilter.checkInDates.startDate,
-        toTime: state.searchHotelFilter.checkInDates.endDate,
-        children: state.searchHotelFilter.peopleAmount.childrenAmount,
-        adults: state.searchHotelFilter.peopleAmount.adultsAmount,
-        user: state.loggedInUser,
-        hotelRooms: state.addedHotelRooms,
+        fromTime: this.state.searchHotelFilter.checkInDates.startDate,
+        toTime: this.state.searchHotelFilter.checkInDates.endDate,
+        children: [{ age: 11 }], //this.state.searchHotelFilter.peopleAmount.childrenAmount,
+        adults: this.state.searchHotelFilter.peopleAmount.adultsAmount,
+        user: this.state.loggedInUser,
+        hotelRooms: this.state.addedHotelRooms,
       };
       //let booking = this.state.newBooking;
       console.log("Running fetchCreateBooking. New booking object:");
@@ -435,7 +435,8 @@ export default createStore({
         },
         body: JSON.stringify(booking),
       });
-      await response.json();
+      let answer = await response.json();
+      console.log(answer);
     },
   },
   getters: {
