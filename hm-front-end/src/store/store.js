@@ -23,6 +23,10 @@ export default createStore({
         adultsAmount: 0,
         childrenAmount: 0,
       },
+      people: {
+        adultsAmount: 0,
+        children: [],
+      },
     },
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
@@ -239,34 +243,31 @@ export default createStore({
 
       // Hämta ut de filtrerade hotelen utifrån sökning
       this.state.filteredHotels = filteredHotels;
-      console.log(this.state.filteredHotels);
+      // console.log(this.state.searchHotelFilter); // <-- SHOW FILTER DATA
 
       function filterHotelsByCity(listToFilter) {
         let searchPhraseLower = this.state.searchHotelFilter.searchText.toLowerCase();
 
         if (searchPhraseLower != "") {
-          console.log("Filtering on search-phrase: ", searchPhraseLower);
-
+          // console.log("Filtering on search-phrase: ", searchPhraseLower);
           let filteredOutput = listToFilter.filter((hotel) => {
             let hotelCityLower = hotel.city.toLowerCase();
             return hotelCityLower.includes(searchPhraseLower);
           });
           return filteredOutput;
         } else {
-          console.log("No search phrase to filter on.");
+          // console.log("No search phrase to filter on.");
           return listToFilter;
         }
       }
 
       function filterHotelsByCheckin(listToFilter) {
         const filter = this.state.searchHotelFilter;
-        // eslint-disable-next-line
         const filterStartDate = filter.checkInDates.startDate;
-        // eslint-disable-next-line
         const filterEndDate = filter.checkInDates.endDate;
 
         if (!filterStartDate || !filterEndDate) {
-          console.log("You need to specify a start and end date.");
+          // console.log("You need to specify a start and end date.");
           return listToFilter;
         }
 
@@ -327,7 +328,7 @@ export default createStore({
         const totalAmountOfPeople = adultsAmount + childrenAmount;
 
         if (adultsAmount <= 0) {
-          console.log("No adults specified. You need to have at least one adult on the booking.");
+          // console.log("No adults specified. You need to have at least one adult on the booking.");
           return listToFilter;
         }
 
@@ -358,7 +359,6 @@ export default createStore({
         return qualifiedHotels;
       }
     },
-
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
     },
@@ -373,6 +373,9 @@ export default createStore({
     },
     setPaymentCards(state, payload) {
       state.paymentCards = payload;
+    },
+    updateChildren(state, payload) {
+      state.searchHotelFilter.people.children = payload;
     },
   },
   actions: {
