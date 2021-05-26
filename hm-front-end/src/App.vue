@@ -1,19 +1,18 @@
 <template>
-  <div id="background">
+  <div id="inner-app-container">
     <div id="toppage">
-      <div id="logo">
-        <h1>Holiday Maker</h1>
-      </div>
-      <div id="nav">
-        <Navbar />
+      <div id="top">
+        <div id="logo">
+          <h1>Holiday Maker</h1>
+        </div>
+        <div id="nav">
+          <Navbar />
+        </div>
       </div>
       <div id="appSearchBar">
         <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
       </div>
       <router-view />
-  <div id="inner-app-container">
-    <div id="nav">
-      <Navbar />
     </div>
   </div>
 </template>
@@ -40,6 +39,25 @@ export default {
 #toppage {
   background-image: url("../mockup/assets/77e8e1d2154e4616199c6dc667cd0def.jpg");
   height: 450px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2vw;
+  #top {
+    display: flex;
+    #logo {
+      display: inline-block;
+      margin-left: 50px;
+      display: flex;
+      position: left;
+      width: fit-content;
+      margin-right: auto;
+    }
+    #nav {
+      width: fit-content;
+      display: flex;
+      margin: auto 20px;
+    }
+  }
 }
 #app {
   text-align: center;
@@ -50,11 +68,6 @@ export default {
   background-color: #ccece7;
   display: flex;
   padding: 2vh 0;
-  #logo {
-    margin-left: 50px;
-    display: flex;
-    position: left;
-  }
 
   #inner-app-container {
     width: 1400px;
@@ -64,21 +77,6 @@ export default {
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
   }
-
-  /*
-  #nav {
-    padding: 30px;
-    position: fixed;
-
-    a {
-      font-weight: bold;
-      color: #2c3e50;
-      &.router-link-exact-active {
-        color: #42b983;
-      }
-    }
-  }
-  */
 }
 .top-page {
   background-color: #2d9ca8be;

@@ -36,9 +36,7 @@ a {
     color: #42b983;
   }
 }
-#navbutton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.navbutton {
+  margin-left: 10px;
 }
 </style>
