@@ -11,6 +11,9 @@
         <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
       </div>
       <router-view />
+  <div id="inner-app-container">
+    <div id="nav">
+      <Navbar />
     </div>
   </div>
 </template>
@@ -41,13 +44,25 @@ export default {
 #app {
   text-align: center;
   color: #2c3e50;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: #ccece7;
+  display: flex;
+  padding: 2vh 0;
   #logo {
     margin-left: 50px;
     display: flex;
     position: left;
+  }
+
+  #inner-app-container {
+    width: 1400px;
+    min-height: 100%;
+    background-color: #45c3d1;
+    margin: 0 auto;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
   }
 
   /*

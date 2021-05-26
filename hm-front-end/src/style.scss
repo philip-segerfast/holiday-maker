@@ -2,7 +2,12 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100vh;
+}
+
 body {
+  min-height: 100%;
   margin: 0;
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,9 +24,14 @@ body {
   --component-border-radius: 20px;
   --search-bar-height: 60px;
 
-  --box-shadow-outline-border: 0 0 1px 1px var(--component-border-color);
-  --box-shadow-outline-smooth: 0 0 2pt 1px var(--component-border-color);
-  --box-shadow-outline-hard: 0 0 3pt 1px var(--component-border-color);
+  --box-shadow-navbar-outline-border: 0 0 1px 1px var(--component-border-color);
+  --box-shadow-navbar-outline-smooth: 0 0 2pt 1px var(--component-border-color);
+  --box-shadow-navbar-outline-hard: 0 0 3pt 1px var(--component-border-color);
+
+  --box-shadow-outline-color: black;
+  --box-shadow-outline-border: 0 0 1px 1px var(--box-shadow-outline-color);
+  --box-shadow-outline-smooth: 0 0 2pt 1px var(--box-shadow-outline-color);
+  --box-shadow-outline-hard: 0 0 3pt 1px var(--box-shadow-outline-color);
 }
 
 .unselectable {

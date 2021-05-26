@@ -14,7 +14,10 @@
         <button class="search-button" @click="filterHotels">Search</button>
       </div>
     </div>
-    <hr />
+    <div id="sort-bar">
+      <button @click="sortHotelRoomsByPrice" class="sort-button">Sort Rooms</button>
+      <button @click="sortHotelsByPrice" class="sort-button">Sort Hotels</button>
+    </div>
   </div>
 </template>
 
@@ -64,7 +67,7 @@ export default {
     justify-content: center;
     justify-self: center;
     width: fit-content;
-    box-shadow: var(--box-shadow-outline-border);
+    box-shadow: var(--box-shadow-navbar-outline-border);
     padding: 0 10px 0 10px;
     height: --search-bar-height;
     border-radius: 52px;
@@ -90,26 +93,28 @@ export default {
       }
     }
   }
-}
-#sort-bar {
-  width: 80%;
-  // height: 80px;
-  margin-left: 10px;
-  background-color: #2babb9;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-}
+  #sort-bar {
+    width: fit-content;
+    height: 40px;
+    // height: 80px;
+    margin-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-self: center;
 
-.sort-button {
-  background-color: rgba(0, 0, 0, 0);
-  border: none;
-  // height: 50px;
-  height: 100%;
-  width: 100px;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+    .sort-button {
+      box-shadow: var(--box-shadow-outline-border);
+      margin-right: 10px;
+      background-color: rgba(0, 0, 0, 0);
+      border: none;
+      // height: 50px;
+      height: 100%;
+      width: 100px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+    }
   }
 }
 </style>
