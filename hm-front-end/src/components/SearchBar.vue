@@ -68,16 +68,16 @@ export default {
     padding: 0 10px 0 10px;
     height: --search-bar-height;
     border-radius: 52px;
-    background-color: #00ffff;
+    background-color: #45c3d15e;
     .search-bar-item {
       padding: 10px;
     }
     .search-button {
       display: inline-block;
       border: none;
-      border-radius: 2px;
-      background-color: rgb(67, 88, 206);
-      color: white;
+      border-radius: 5px;
+      background-color: var(--component-color);
+      padding: 20px 18px;
       padding: var(--component-input-inner-padding);
       cursor: pointer;
       box-shadow: var(--box-shadow-outline-border);
@@ -89,6 +89,27 @@ export default {
         background-color: rgb(48, 69, 187);
       }
     }
+  }
+}
+#sort-bar {
+  width: 80%;
+  // height: 80px;
+  margin-left: 10px;
+  background-color: #2babb9;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.sort-button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  // height: 50px;
+  height: 100%;
+  width: 100px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
   }
 }
 </style>
