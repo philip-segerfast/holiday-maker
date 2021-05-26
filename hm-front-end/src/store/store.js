@@ -28,7 +28,67 @@ export default createStore({
     filteredHotels: [],
     ascending: true,
     loggedInUser: null,
-    userBookings: [],
+    userBookingList: [],
+    userBooking: {
+      id: "",
+      hotelRooms: [
+        {
+          id: "",
+          name: "",
+          size: "",
+          singleBedsAmount: "",
+          doubleBedsAmount: "",
+          baseNightPrice: "",
+          maxAmountOfExtraBeds: "",
+        },
+      ],
+      children: [
+        {
+          id: "",
+          age: "",
+        },
+      ],
+      user: {
+        id: "",
+        email: "",
+        first_name: "",
+        last_name: "",
+      },
+      fromTime: "",
+      toTime: "",
+      adults: "",
+      extraBeds: "",
+      luxuryClass: "",
+      hotel: {
+        id: 1,
+        name: "",
+        description: "",
+        city: "",
+        address: "",
+        extraBedPrice: "",
+        coordinates: "",
+        beachDistance: "",
+        centerDistance: "",
+        allInclusivePrice: "",
+        fullBoardPrice: "",
+        selfCateringPrice: "",
+        halfPensionPrice: "",
+        minRoomPrice: "",
+        images: [
+          {
+            id: "",
+            fileName: "",
+          },
+        ],
+        hotelTags: [
+          {
+            id: "",
+            label: "",
+          },
+        ],
+      },
+      paid: "",
+    },
     paymentCards: [
       {
         name: "Visa",
@@ -166,25 +226,16 @@ export default createStore({
     updateTotalCost(state, payload) {
       state.totalCost = this.state.totalCost + payload;
     },
-    /* updateTotalCost() {
-      let totalCost = calculateTotalRoomCost.call(this, addedHotelRooms);
-      function calculateTotalRoomCost(listOfRooms) {
-        // Loopar igenom rummen med en vanlig for-loop för for-each-loop
-
-        for (let i = 0; i < listOfRooms.length; i++) {
-          totalCost = totalCost + listOfRooms[i][6];
-          console.log(totalCost);
-        }
-      }
-    },*/
     setFilteredHotels() {
       const allHotels = this.state.hotels;
-      // .call används för att bestämma vad "this" ska referera till när man använder det i den följande metoden.
-      // Annars refererar det till webbläsarfönstret, vilket inte är önskvärt.
-      // Detta för att bland annat kunna referera till this.state.
+      /* 
+        .call används för att bestämma vad "this" ska referera till när man använder det i den följande metoden.
+        Annars refererar det till webbläsarfönstret, vilket inte är önskvärt.
+        Detta för att bland annat kunna referera till this.state. 
+      */
       let filteredHotels = filterHotelsByCity.call(this, allHotels);
       filteredHotels = filterHotelsByAmountOfPeople.call(this, filteredHotels);
-      // filteredHotels = filterHotelsByCheckin.call(this, filteredHotels); // funkar ej än.
+      filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
 
       // Hämta ut de filtrerade hotelen utifrån sökning
       this.state.filteredHotels = filteredHotels;
@@ -219,60 +270,64 @@ export default createStore({
           return listToFilter;
         }
 
-        console.log("START DATE", filterStartDate);
-        console.log("END DATE", filterEndDate);
-
-        // eslint-disable-next-line
         const filteredOutput = listToFilter.filter((hotel) => {
           const hotelRooms = hotel.hotelRooms;
-          // eslint-disable-next-line
-          const filteredRooms = hotelRooms.filter((room) => {
-            const bookings = room.bookings;
-            if (bookings.length > 0) {
-              // Loopar igenom bokningarna med en vanlig for-loop för for-each-loop
-              // funkar inte av någon konstig anledning...
-              for (let i = 0; i < bookings.length; i++) {
-                let booking = bookings[i];
+          if (hotelRooms.length > 0) {
+            // filteredRooms contains all Available rooms
+            const filteredRooms = hotelRooms.filter((room) => {
+              const bookings = room.bookings;
+              if (bookings.length > 0) {
+                // Loopar igenom bokningarna med en vanlig for-loop för for-each-loop
+                // funkar inte av någon konstig anledning...
+                for (let i = 0; i < bookings.length; i++) {
+                  let booking = bookings[i];
 
-                const bookingStartDate = booking.fromTime;
-                const bookingEndDate = booking.toTime;
+                  const bookingStartDate = booking.fromTime;
+                  const bookingEndDate = booking.toTime;
 
-                console.log("bookingStartDate", bookingStartDate);
-                console.log("bookingEndDate", bookingEndDate);
+                  /*
+                    Om datumfiltret slutar innan bokningen
+                      och
+                    Om datumfiltret börjar efter bokningens slutdatum
+                    - då är det ledigt.
+                  */
 
-                /*
-                1. Om bokingens slutdatum är innan filtreringens slutdatum
-                2. OCH bokningens startdatum är efter filtreringens startdatum
-                */
-
-                if (bookingStartDate >= filterStartDate && bookingEndDate >= filterEndDate) {
-                  // Collision?
-                  console.log("Booking found withing searched period.");
-                  console.log("filterStartDate: ", filterStartDate);
-                  console.log("filterEndDate: ", filterEndDate);
-                  console.log("bookingStartDate: ", bookingStartDate);
-                  console.log("bookingEndDate: ", bookingEndDate);
-                  return false;
-                } else {
-                  return true;
+                  if (filterEndDate < bookingStartDate || filterStartDate > bookingEndDate) {
+                    // Ledigt
+                    console.log("No booking found within searched period.");
+                    return true;
+                  } else {
+                    console.log("Booking found within searched period.");
+                    return false;
+                  }
                 }
+              } else {
+                return true;
               }
-
-              for (let booking in bookings) {
-              }
+            });
+            // returnera vilka hotell som har lediga rum...
+            if (filteredRooms.length > 0) {
+              return true;
+            } else {
+              return false;
             }
-          });
+          } else {
+            // Hotel didn't have any rooms at all.
+            return false;
+          }
         });
+
+        return filteredOutput;
       }
 
       function filterHotelsByAmountOfPeople(listToFilter) {
         const statePeopleAmount = this.state.searchHotelFilter.peopleAmount;
         const adultsAmount = parseInt(statePeopleAmount.adultsAmount);
-        const childrenAmount = statePeopleAmount.childrenAmount; // BEHÖVER ÄNDRAS SEN!!!
+        const childrenAmount = parseInt(statePeopleAmount.childrenAmount); // BEHÖVER ÄNDRAS SEN!!!
         const totalAmountOfPeople = adultsAmount + childrenAmount;
 
         if (adultsAmount <= 0) {
-          console.log("No adults specified. You need to have at least one adult in the company.");
+          console.log("No adults specified. You need to have at least one adult on the booking.");
           return listToFilter;
         }
 
@@ -310,8 +365,11 @@ export default createStore({
     setAllHotelsInFilteredHotels(state, payload) {
       state.filteredHotels = payload;
     },
-    setUserBookings(state, payload) {
-      state.userBookings = payload;
+    setUserBookingList(state, payload) {
+      state.userBookingList = payload;
+    },
+    setUserBooking(state, payload) {
+      state.userBooking = payload;
     },
     setPaymentCards(state, payload) {
       state.paymentCards = payload;
@@ -320,7 +378,6 @@ export default createStore({
   actions: {
     // actions får tillgång till context objektet
     async fetchHotelById() {
-      console.log("Fetch programById running");
       const url = "/rest/hotels/id/" + this.state.hotelId;
       await axios.get(url).then((response) => this.commit("setHotelById", response.data));
     },
@@ -355,12 +412,16 @@ export default createStore({
         }
       });
     },
-    async fetchUserBookings(context) {
+    async fetchUserBookingList(context) {
       let response = await fetch("/rest/bookings/userbookings");
       let json = await response.json();
-      console.log("Running fetchUserBookings. List of user bookings: ");
-      console.log(json);
-      context.commit("setUserBookings", json);
+      context.commit("setUserBookingList", json);
+    },
+    async fetchUserBooking(context, payload) {
+      const url = "/rest/bookings/id/" + payload;
+      let response = await fetch(url);
+      let json = await response.json();
+      context.commit("setUserBooking", json);
     },
     async fetchDeleteBooking({ context }, payload) {
       const url = "/rest/bookings/" + payload.id;

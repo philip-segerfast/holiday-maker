@@ -13,8 +13,8 @@
       <span v-for="image in hotelInfo.images" :key="image">
         <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
       </span>
-      <h2>check-in date: {{ startDate }} - check-out date: {{ endDate }}</h2>
-      <h2>Number of adult: {{ amountAdult }}</h2>
+      <h2>Check-in date: {{ startDate }} | Check-out date: {{ endDate }}</h2>
+      <h2>{{ amountAdult }} Adult and {{ amountChildren }} Child</h2>
       <h4>{{ hotelInfo.description }}</h4>
       <h4>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h4>
       <!--Visar alla taggar som är kopplade till ett hotell  -->
@@ -79,6 +79,9 @@ export default {
       return moment(date).format("YYYY-MM-DD");
     },
     amountAdult() {
+      return this.$store.getters.getAdultAmount;
+    },
+    amountChildren() {
       return this.$store.getters.getAdultAmount;
     },
   },

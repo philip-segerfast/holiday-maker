@@ -74,15 +74,15 @@ export default {
     }
     .search-button {
       display: inline-block;
-      outline: 1px solid var(--component-border-color);
       border: none;
       border-radius: 20px;
       background-color: var(--component-color);
-      padding: 20px 18px;
       padding: var(--component-input-inner-padding);
       cursor: pointer;
+      box-shadow: var(--box-shadow-outline-border);
       &:hover {
         background-color: var(--component-color-hover);
+        box-shadow: var(--box-shadow-outline-smooth);
       }
       &:active {
         background-color: var(--component-color-active);
