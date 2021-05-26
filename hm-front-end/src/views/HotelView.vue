@@ -1,30 +1,32 @@
 <template>
   <body>
-    <div class="split right">
-      <h1>{{ hotelInfo.name }}</h1>
-      <!--Visar alla bilder som är kopplade till ett hotell -->
-      <span v-for="image in hotelInfo.images" :key="image">
-        <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
-      </span>
-      <h2>Check-in date: {{ startDate }} | Check-out date: {{ endDate }}</h2>
-      <h2>{{ amountAdult }} Adult and {{ amountChildren }} Child</h2>
-      <h4>{{ hotelInfo.description }}</h4>
-      <h4>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h4>
-      <!--Visar alla taggar som är kopplade till ett hotell  -->
-      <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
-        <h4>{{ tag.label }}</h4>
-      </span>
-      <h3>
-        Add rooms and press book
-        <button class="booking" @click="redirectToBookingView">Book</button>
-      </h3>
-    </div>
+    <div class="total-info">
+      <div class="hotel-info">
+        <h1>{{ hotelInfo.name }}</h1>
+        <!--Visar alla bilder som är kopplade till ett hotell -->
+        <span v-for="image in hotelInfo.images" :key="image">
+          <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
+        </span>
+        <h2>Check-in date: {{ startDate }} | Check-out date: {{ endDate }}</h2>
+        <h2>{{ amountAdult }} Adult and {{ amountChildren }} Child</h2>
+        <h4>{{ hotelInfo.description }}</h4>
+        <h4>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h4>
+        <!--Visar alla taggar som är kopplade till ett hotell  -->
+        <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
+          <h4>{{ tag.label }}</h4>
+        </span>
+        <h3>
+          Add rooms and press book
+          <button class="booking" @click="redirectToBookingView">Book</button>
+        </h3>
+      </div>
 
-    <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
-    <div id="rooms-container">
-      <span class="room-list" v-if="rooms.length > 0">
-        <hotel-room-card v-for="(room, i) in rooms" :key="room + i" :hotelRoom="room" />
-      </span>
+      <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
+      <div id="rooms-container">
+        <span class="room-list" v-if="rooms.length > 0">
+          <hotel-room-card v-for="(room, i) in rooms" :key="room + i" :hotelRoom="room" />
+        </span>
+      </div>
     </div>
   </body>
 </template>
@@ -79,18 +81,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.split {
+.total-info {
+  position: absolute;
+  top: 450px;
   width: 100%;
-  overflow-x: hidden;
-  padding-left: 20px;
-}
-.left {
-  left: 0;
-  background-color: #5c8791;
-}
-.right {
-  right: 0;
-  background-color: #5c8791;
+  background-color: #7db5c1;
 }
 .tag-list {
   display: inline-block;
@@ -113,6 +108,7 @@ img {
 }
 
 .room-list {
+  display: inline;
   width: 100%;
   background-color: cadetblue;
 }

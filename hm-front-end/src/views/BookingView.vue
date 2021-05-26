@@ -21,7 +21,7 @@ price etc
       <h1>{{ hotelInfo.name }}</h1>
       <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
       <h2>{{ hotelInfo.description }}</h2>
-      <div id="v-image" class="split left">
+      <div id="v-image">
         <span v-for="image in hotelInfo.images" :key="image">
           <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
         </span>
@@ -31,8 +31,9 @@ price etc
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h3>{{ tag.label }}</h3>
       </span>
+
+      <h2>Number of adult: {{ amountAdult }}</h2>
       <h2>Number of children: {{ amountChildren }}</h2>
-      <h2>Adults: {{ amountAdult }}</h2>
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
@@ -40,20 +41,24 @@ price etc
       </div>
 
       <h1>Total Price for Booking {{ totalCost }}kr</h1>
-    </div>
 
-    <!--Lägger in och visar alla rum som finns i addedRooms -->
-    <div id="rooms-container">
-      <span class="room-list">
-        <Booking-room-card v-for="(room, i) in addedHotelRooms" :key="room + i" :hotelRoom="room" />
-      </span>
-    </div>
-    <button class="confirm-booking">Confirm Booking</button>
-    <!--Mockup payment -->
-    <div id="payment-cotainer">
-      <span class="payment-cards">
-        <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
-      </span>
+      <!--Lägger in och visar alla rum som finns i addedRooms -->
+      <div id="rooms-container">
+        <span class="room-list">
+          <Booking-room-card
+            v-for="(room, i) in addedHotelRooms"
+            :key="room + i"
+            :hotelRoom="room"
+          />
+        </span>
+      </div>
+      <button class="confirm-booking">Confirm Booking</button>
+      <!--Mockup payment -->
+      <div id="payment-cotainer">
+        <span class="payment-cards">
+          <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
+        </span>
+      </div>
     </div>
   </body>
 </template>
@@ -106,10 +111,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
-  background-color: #45c3d1;
-  margin: 5%;
-  display: inline;
+.hotel {
+  position: absolute;
+  top: 450px;
+  align-content: center;
 }
 
 .tag-list {

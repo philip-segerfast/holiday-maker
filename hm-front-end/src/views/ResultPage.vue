@@ -42,7 +42,9 @@ export default {
 
 <style scoped lang="scss">
 .main-container {
-  display: flex;
+  position: absolute;
+  top: 450px;
+  width: 100%;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
@@ -51,7 +53,7 @@ export default {
 .list-hotel {
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(6, calc(250px - 20px));
+  grid-template-columns: repeat(7, calc(250px - 20px));
   grid-template-rows: minmax(150px, 1fr);
 }
 .container {
