@@ -10,20 +10,21 @@
         <button @click="sortHotelsByMaxPrice">Max Price</button>
       </h3>
     </div>
-  <div class="main-container">
-    <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
-    <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
-    <ul class="list-hotel" v-if="filteredHotels.length > 0">
-      <HotelCard
-        v-for="(hotel, i) in filteredHotels"
-        :key="hotel + i"
-        :hotel="hotel"
-        class="container"
-      />
-    </ul>
-    <ul v-else>
-      <h2>No result on search - try again</h2>
-    </ul>
+    <div class="main-container">
+      <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
+      <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
+      <ul class="list-hotel" v-if="filteredHotels.length > 0">
+        <HotelCard
+          v-for="(hotel, i) in filteredHotels"
+          :key="hotel + i"
+          :hotel="hotel"
+          class="container"
+        />
+      </ul>
+      <ul v-else>
+        <h2>No result on search - try again</h2>
+      </ul>
+    </div>
   </div>
 </template>
 
