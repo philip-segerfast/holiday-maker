@@ -416,7 +416,15 @@ export default createStore({
       alert("Booking cancelled");
     },
     async fetchCreateBooking() {
-      let booking = this.state.newBooking;
+      let booking = {
+        fromTime: state.searchHotelFilter.checkInDates.startDate,
+        toTime: state.searchHotelFilter.checkInDates.endDate,
+        children: state.searchHotelFilter.peopleAmount.childrenAmount,
+        adults: state.searchHotelFilter.peopleAmount.adultsAmount,
+        user: state.loggedInUser,
+        hotelRooms: state.addedHotelRooms,
+      };
+      //let booking = this.state.newBooking;
       console.log("Running fetchCreateBooking. New booking object:");
       console.log(booking);
       const url = "/rest/bookings/add";
