@@ -1,14 +1,26 @@
 <template>
-  <div class="main-container">
-    <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
-    <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
-    <div v-if="filteredHotels.length > 0">
-      <HotelCard
-        v-for="(hotel, i) in filteredHotels"
-        :key="hotel + i"
-        :hotel="hotel"
-        class="container"
-      />
+  <div class="result-page">
+    <div id="sort-bar">
+      <h3>
+        Sort by :
+        <button @click="sortHotelsByRatings">Ratings</button>
+        -
+        <button @click="sortHotelsByMinPrice">Min Price</button>
+        -
+        <button @click="sortHotelsByMaxPrice">Max Price</button>
+      </h3>
+    </div>
+    <div class="main-container">
+      <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
+      <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
+      <div v-if="filteredHotels.length > 0">
+        <HotelCard
+          v-for="(hotel, i) in filteredHotels"
+          :key="hotel + i"
+          :hotel="hotel"
+          class="container"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -22,6 +34,22 @@ export default {
   components: {
     // declare HotelCard from import
     HotelCard,
+  },
+
+  methods: {
+    sortHotelsByMinPrice() {
+      this.$store.commit("setSortedHotelsAscending");
+      this.$router.push({ path: "/result-page" });
+    },
+    sortHotelsByMaxPrice() {
+      this.$store.commit("setSortedHotelsDescending");
+      this.$router.push({ path: "/result-page" });
+    },
+    sortHotelsByRatings() {
+      console.log("sorting ratings: ");
+      this.$store.commit("setSortedRatings");
+      this.$router.push({ path: "/result-page" });
+    },
   },
 
   computed: {
