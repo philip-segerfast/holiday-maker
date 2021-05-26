@@ -19,7 +19,7 @@ price etc
   <body>
     <div class="hotel">
       <h1>{{ hotelInfo.name }}</h1>
-      <h2>check-in date: {{ startDate }} - check-out date: {{ endDate }}</h2>
+      <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
       <h2>{{ hotelInfo.description }}</h2>
       <div id="v-image" class="split left">
         <span v-for="image in hotelInfo.images" :key="image">
