@@ -26,7 +26,6 @@ export default {
   mounted() {
     this.$store.dispatch("fetchLoggedInUser");
     this.$store.dispatch("fetchAllHotels");
-    this.$store.dispatch("fetchUserBookings");
   },
 };
 </script>

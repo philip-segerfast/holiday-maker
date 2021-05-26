@@ -2,10 +2,10 @@
   <div>
     <div v-if="isLoggedIn">
       <h2>List of bookings</h2>
-      <h4>{{ loggedInUser.email }}, you have {{ userBookings.length }} booking(s)</h4>
-      <div v-if="userBookings.length > 0">
+      <h4>{{ loggedInUser.email }}, you have {{ userBookingList.length }} booking(s)</h4>
+      <div v-if="userBookingList.length > 0">
         <BookingCard
-          v-for="(userBooking, i) in userBookings"
+          v-for="(userBooking, i) in userBookingList"
           :key="userBooking + i"
           :userBooking="userBooking"
         />
@@ -32,8 +32,8 @@ export default {
     isLoggedIn() {
       return this.loggedInUser != null;
     },
-    userBookings() {
-      return this.$store.state.userBookings;
+    userBookingList() {
+      return this.$store.state.userBookingList;
     },
   },
 };

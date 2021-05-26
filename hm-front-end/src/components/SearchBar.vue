@@ -14,13 +14,6 @@
         <button class="search-button" @click="filterHotels">Search</button>
       </div>
     </div>
-    <div id="sort-bar">
-      <h3>
-        Sort by :
-        <button @click="sortHotelRoomsByPrice">Sort Rooms</button>
-        <button @click="sortHotelsByPrice">Sort Hotels</button>
-      </h3>
-    </div>
     <hr />
   </div>
 </template>
@@ -54,15 +47,6 @@ export default {
       this.$store.commit("setFilteredHotels");
       this.$router.push({ path: "/result-page" });
     },
-    sortHotelsByPrice() {
-      this.$store.commit("setSortedHotels");
-      this.$router.push({ path: "/result-page" });
-    },
-    sortHotelRoomsByPrice() {
-      console.log("sorting: ");
-      this.$router.push({ path: "/hotelView" });
-      this.$store.commit("setSortedRooms");
-    },
   },
   mounted() {
     this.$store.commit("updateSearchText", "");
@@ -80,7 +64,7 @@ export default {
     justify-content: center;
     justify-self: center;
     width: fit-content;
-    border: 1px solid black;
+    box-shadow: var(--box-shadow-outline-border);
     padding: 0 10px 0 10px;
     height: --search-bar-height;
     border-radius: 52px;
@@ -90,18 +74,19 @@ export default {
     }
     .search-button {
       display: inline-block;
-      outline: 1px solid var(--component-border-color);
       border: none;
       border-radius: 5px;
       background-color: var(--component-color);
       padding: 20px 18px;
       padding: var(--component-input-inner-padding);
       cursor: pointer;
+      box-shadow: var(--box-shadow-outline-border);
       &:hover {
-        background-color: var(--component-color-hover);
+        background-color: rgb(57, 78, 195);
+        box-shadow: var(--box-shadow-outline-smooth);
       }
       &:active {
-        background-color: var(--component-color-active);
+        background-color: rgb(48, 69, 187);
       }
     }
   }

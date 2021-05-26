@@ -1,5 +1,12 @@
 <template>
   <body>
+    <div id="sort-bar">
+      <h3>
+        Sort by:
+        <button @click="sortHotelRoomsByPrice">Min Price</button>
+        - Sort by: <button @click="sortHotelRoomsByMaxPrice">Max Price</button>
+      </h3>
+    </div>
     <div class="total-info">
       <div class="hotel-info">
         <h1>{{ hotelInfo.name }}</h1>
@@ -45,6 +52,16 @@ export default {
       const routerUrl = "/bookingView";
       this.$router.push({ path: routerUrl });
     },
+    sortHotelRoomsByPrice() {
+      console.log("sorting: ");
+      this.$router.push({ path: "/hotelView" });
+      this.$store.commit("setSortedRooms");
+    },
+    sortHotelRoomsByMaxPrice() {
+      console.log("sorting: ");
+      this.$router.push({ path: "/hotelView" });
+      this.$store.commit("setSortedRoomsDescending");
+    },
   },
 
   computed: {
@@ -54,9 +71,6 @@ export default {
 
     hotelInfo() {
       return this.$store.getters.getHotelById;
-    },
-    roomsByPrice() {
-      return this.$store.getters.sortedRooms;
     },
     startDate() {
       var date = new Date(this.$store.getters.getStartDate * 1000);

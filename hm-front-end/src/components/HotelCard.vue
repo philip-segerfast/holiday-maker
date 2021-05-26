@@ -100,13 +100,6 @@ export default {
     .stars {
       text-align: center;
     }
-    .separator {
-      height: 2px;
-      border-radius: 1px;
-      width: 100%;
-      background-color: rgb(230, 230, 230);
-      justify-self: center;
-    }
     .imp-info-container {
       display: flex;
       .right {
