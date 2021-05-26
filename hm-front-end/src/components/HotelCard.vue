@@ -21,7 +21,7 @@
           <span class="left">Price</span>
           <!-- eslint-disable-next-line -->
           <span class="right">
-            {{ hotel.minRoomPrice }} 
+            {{ hotel.minRoomPrice }}
             <!--FÅr Proxyerror om jag försöker ta minRoomPrice-->
             <span style="font-size: 75%">SEK/night</span>
           </span>
@@ -97,13 +97,6 @@ export default {
     }
     .stars {
       text-align: center;
-    }
-    .separator {
-      height: 2px;
-      border-radius: 1px;
-      width: 100%;
-      background-color: rgb(230, 230, 230);
-      justify-self: center;
     }
     .imp-info-container {
       display: flex;

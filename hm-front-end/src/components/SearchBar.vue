@@ -80,7 +80,7 @@ export default {
     justify-content: center;
     justify-self: center;
     width: fit-content;
-    border: 1px solid black;
+    box-shadow: var(--box-shadow-outline-border);
     padding: 0 10px 0 10px;
     height: --search-bar-height;
     border-radius: 52px;
@@ -91,17 +91,18 @@ export default {
     .search-button {
       display: inline-block;
       border: none;
-      border-radius: 20px;
-      background-color: var(--component-color);
+      border-radius: 2px;
+      background-color: rgb(67, 88, 206);
+      color: white;
       padding: var(--component-input-inner-padding);
       cursor: pointer;
       box-shadow: var(--box-shadow-outline-border);
       &:hover {
-        background-color: var(--component-color-hover);
+        background-color: rgb(57, 78, 195);
         box-shadow: var(--box-shadow-outline-smooth);
       }
       &:active {
-        background-color: var(--component-color-active);
+        background-color: rgb(48, 69, 187);
       }
     }
   }
