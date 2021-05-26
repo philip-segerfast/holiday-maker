@@ -1,16 +1,7 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link>
-    -
-    <router-link to="/about">About</router-link>
-    -
-    <router-link to="/register">Register</router-link>
-    -
-    <router-link to="/login">Login</router-link>
-    -
-    <router-link to="/result-page">Result</router-link>
-    -
-    <button @click="logout">Logout</button>
+    <button class="navbutton" @click="$router.push('Register')">Register</button>
+    <button class="navbutton" @click="logout">Logout</button>
   </div>
 </template>
 
@@ -35,13 +26,19 @@ export default {
 
 <style scoped lang="scss">
 #nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  display: inline-block;
+}
+a {
+  position: right;
+  font-weight: bold;
+  color: #2c3e50;
+  &.router-link-exact-active {
+    color: #42b983;
   }
+}
+#navbutton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 </style>
