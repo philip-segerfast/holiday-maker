@@ -8,14 +8,58 @@
     <h3 class="double-beds" v-if="bookedRoom.doubleBedsAmount > 0">
       Number of double beds:{{ bookedRoom.doubleBedsAmount }}
     </h3>
+    <div>
+      <form @submit.prevent="cancelRoom">
+        <button type="submit">Remove room</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      localBookedrooms: [],
+      listWithEmptyRoom: [
+        {
+          id: "",
+          name: "",
+          size: "",
+          singleBedsAmount: "",
+          doubleBedsAmount: "",
+          baseNightPrice: "",
+          maxAmountOfExtraBeds: "",
+        },
+      ],
+    };
+  },
   props: ["bookedRoom"],
 
-  computed: {},
+  computed: {
+    bookedRooms() {
+      return this.$store.state.userBooking.hotelRooms;
+    },
+  },
+  methods: {
+    cancelRoom() {
+      console.log("Running CancelRoom");
+      if (this.$store.state.userBooking.hotelRooms.length > 1) {
+        var removeIndex = this.bookedRooms.map((item) => item.id).indexOf(this.bookedRoom.id);
+
+        ~removeIndex && this.localBookedrooms.splice(removeIndex, 1);
+
+        this.$store.commit("setUserBookingRooms", this.localBookedrooms);
+      } else {
+        alert("You can't have a booking without rooms");
+      }
+      console.log("new list of booked rooms in store: ");
+      console.log(this.$store.state.userBooking.hotelRooms);
+    },
+  },
+  mounted() {
+    this.localBookedrooms = this.bookedRooms;
+  },
 };
 </script>
 

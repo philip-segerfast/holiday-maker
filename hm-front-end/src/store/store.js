@@ -334,6 +334,9 @@ export default createStore({
     setPaymentCards(state, payload) {
       state.paymentCards = payload;
     },
+    setUserBookingRooms(state, payload) {
+      state.userBooking.hotelRooms = payload;
+    },
   },
   actions: {
     // actions får tillgång till context objektet
@@ -398,6 +401,9 @@ export default createStore({
       const url = "/rest/bookings/" + booking.id;
       let response = await fetch(url, {
         method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(booking),
       });
       await response.text();

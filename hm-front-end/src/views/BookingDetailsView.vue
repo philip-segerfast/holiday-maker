@@ -34,8 +34,9 @@
       </span>
     </div>
     <div>
-      <form @submit.prevent="updateBooking"></form>
-      <button type="submit">Update booking</button>
+      <form @submit.prevent="updateBooking">
+        <button type="submit">Update booking</button>
+      </form>
     </div>
   </div>
 </template>
@@ -86,6 +87,7 @@ export default {
   },
   methods: {
     updateBooking() {
+      //this.$store.commit("setUserBooking", null);
       console.log("Edited booking object to send to backend: ");
       console.log(this.$store.state.userBooking);
       this.$store.dispatch("fetchUpdateBooking");
