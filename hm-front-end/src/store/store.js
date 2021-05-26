@@ -108,10 +108,11 @@ export default createStore({
     setSortedRoomsDescending() {
       let maxRoomPrice;
       maxRoomPrice = this.state.hotelRooms.sort((maxPrice1, maxPrice2) => {
-        if (maxPrice1 > maxPrice2) {
+        console.log(maxPrice1.baseNightPrice);
+        if (maxPrice1.baseNightPrice > maxPrice2.baseNightPrice) {
           return 1;
         }
-        if (maxPrice1 < maxPrice2) {
+        if (maxPrice1.baseNightPrice < maxPrice2.baseNightPrice) {
           return -1;
         }
         return 0;

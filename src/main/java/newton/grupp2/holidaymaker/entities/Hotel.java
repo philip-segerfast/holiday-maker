@@ -36,7 +36,7 @@ public class Hotel {
     private double halfPensionPrice;
     @Transient
     private double minRoomPrice;
-    
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<HotelImage> images = new ArrayList<>();
 

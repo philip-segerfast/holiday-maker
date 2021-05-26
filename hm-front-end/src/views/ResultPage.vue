@@ -4,9 +4,9 @@
       <h3>
         Sort by :
         <button @click="sortHotelsByRatings">Ratings</button>
-        - Sort by :
+        -
         <button @click="sortHotelsByMinPrice">Min Price</button>
-        - Sort by :
+        -
         <button @click="sortHotelsByMaxPrice">Max Price</button>
       </h3>
     </div>
