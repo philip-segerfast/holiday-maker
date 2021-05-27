@@ -5,10 +5,10 @@
       <span class="material-icons like"> favorite_border </span>
       <!-- <img src="../assets/images/superhotel.jpg" /> -->
 
-      <img src="../assets/images/superhotel.jpg" />
-      <span v-for="image in hotel.images" :key="image">
-        <img v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`" />
-      </span>
+      <img
+        v-if="hotel.images.length > 0"
+        v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`"
+      />
     </div>
     <div class="info-container">
       <div class="header">{{ hotel.name }}</div>
@@ -62,7 +62,6 @@ export default {
   width: 225px;
   height: 350px;
   max-height: 350px;
-  max-width: 225px;
   overflow: hidden;
   border-radius: 15px;
   cursor: pointer;
