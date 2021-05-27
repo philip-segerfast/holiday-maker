@@ -3,12 +3,9 @@
   <div class="hotel-card-container" @click="redirectToHotelView">
     <div class="image-container">
       <span class="material-icons like"> favorite_border </span>
-      <!-- <img src="../assets/images/superhotel.jpg" /> -->
+      <!--v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`" -->
 
-      <img
-        v-if="hotel.images.length > 0"
-        v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`"
-      />
+      <img v-if="hotel.images.length > 0" src="../assets/images/superhotel.jpg" />
     </div>
     <div class="info-container">
       <div class="header">{{ hotel.name }}</div>
