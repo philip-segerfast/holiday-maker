@@ -1,12 +1,26 @@
 <template>
   <div class="result-page">
-    <div>
-      <SearchBar />
+    <div id="sort-bar">
+      <h3>
+        Sort by :
+        <button @click="sortHotelsByRatings">Ratings</button>
+        -
+        <button @click="sortHotelsByMinPrice">Min Price</button>
+        -
+        <button @click="sortHotelsByMaxPrice">Max Price</button>
+      </h3>
     </div>
-    <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
-    <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
-    <div v-if="filteredHotels.length > 0">
-      <HotelCard v-for="(hotel, i) in filteredHotels" :key="hotel + i" :hotel="hotel" />
+    <div class="main-container">
+      <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
+      <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
+      <div v-if="filteredHotels.length > 0">
+        <HotelCard
+          v-for="(hotel, i) in filteredHotels"
+          :key="hotel + i"
+          :hotel="hotel"
+          class="container"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -14,17 +28,28 @@
 <script>
 /* eslint-disable */
 // Import HotelCard to use in ResultPage
-// Import SearchBar -''-
 import HotelCard from "../components/HotelCard.vue";
-import SearchBar from "../components/SearchBar.vue";
 
 export default {
-  // declare SearchBar from import
   components: {
-  // declare HotelCard from import  
+    // declare HotelCard from import
     HotelCard,
-  // declare SearchBar from import  
-    SearchBar,
+  },
+
+  methods: {
+    sortHotelsByMinPrice() {
+      this.$store.commit("setSortedHotelsAscending");
+      this.$router.push({ path: "/result-page" });
+    },
+    sortHotelsByMaxPrice() {
+      this.$store.commit("setSortedHotelsDescending");
+      this.$router.push({ path: "/result-page" });
+    },
+    sortHotelsByRatings() {
+      console.log("sorting ratings: ");
+      this.$store.commit("setSortedRatings");
+      this.$router.push({ path: "/result-page" });
+    },
   },
 
   computed: {
@@ -34,19 +59,20 @@ export default {
     },
     // Hämtar filteredHotels från store
     filteredHotels() {
-      return this.$store.state.filteredHotels
+      return this.$store.state.filteredHotels;
     },
-  },
-
-  // Aktiverar kopplingen till backend
-  mounted() {
-      return this.$store.dispatch("fetchAllHotels");
-
-
-   
-
   },
 };
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.container {
+  margin: 10px;
+}
+</style>

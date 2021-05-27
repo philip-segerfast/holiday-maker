@@ -3,6 +3,10 @@ import Home from "../views/Home.vue";
 import Register from "../views/Register.vue";
 import ResultPage from "../views/ResultPage.vue";
 import HotelView from "@/views/HotelView.vue";
+import AboutView from "../views/About.vue";
+import LoginView from "../views/LoginView.vue";
+import BookingView from "@/views/BookingView.vue";
+import BookingDetailsView from "../views/BookingDetailsView.vue";
 
 const routes = [
   {
@@ -16,8 +20,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    component: AboutView,
   },
   {
     path: "/register",
@@ -32,7 +35,7 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/Login.vue"),
+    component: LoginView,
   },
   {
     path: "/hotelView",
@@ -43,6 +46,16 @@ const routes = [
     path: "/hotelView/:id",
     component: HotelView,
   },
+  {
+    path: "/bookingView",
+    component: BookingView,
+  },
+  {
+    path: "/bookingdetailsview/:id",
+    component: BookingDetailsView,
+  },
+
+  ,
 ];
 
 const router = createRouter({

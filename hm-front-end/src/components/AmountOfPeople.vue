@@ -13,12 +13,40 @@
       <div class="dropdown-info">
         <span>Adults</span>
         <!-- eslint-disable-next-line -->
-        <input type="number" name="adults-amt" min="0" v-model="adultsAmount" @input="updateAdultsAmount" />
+        <input
+          type="number"
+          name="adults-amt"
+          min="0"
+          v-model="adultsAmount"
+          @input="updateAdultsAmount"
+        />
       </div>
       <div class="dropdown-info">
         <span>Children</span>
         <!-- eslint-disable-next-line -->
-        <input type="number" name="children-amt" min="0" v-model="childrenAmount" @input="updateChildrenAmount" />
+        <input
+          type="number"
+          name="children-amt"
+          min="0"
+          max="10"
+          v-model="childrenAmount"
+          @input="updateChildren"
+        />
+      </div>
+      <!-- CHILDREN AGES -->
+      <div v-for="(child, index) in getSelectedChildren" :key="index" class="child-age">
+        <span>child {{ child.id + 1 }}</span>
+        <div class="right">
+          <span>age: </span>
+          <input
+            type="number"
+            name="child-age"
+            v-model="children[index].age"
+            @input="updateChild(child, index)"
+            min="0"
+            max="17"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -28,9 +56,22 @@ export default {
   data() {
     return {
       isDropdownHidden: true,
-      childrenAmount: 0,
       adultsAmount: 0,
+      childrenAmount: 0,
+      children: [],
+      childrenAges: [],
     };
+  },
+  computed: {
+    getChildrenAmount() {
+      return parseInt(this.childrenAmount);
+    },
+    getSelectedChildren() {
+      return this.children.filter((child) => {
+        if (child.id + 1 <= this.childrenAmount) return true;
+        else return false;
+      });
+    },
   },
   methods: {
     toggleShowDropdown() {
@@ -45,8 +86,20 @@ export default {
     updateAdultsAmount() {
       this.$store.commit("updateAdultsAmount", this.adultsAmount);
     },
-    updateChildrenAmount() {
-      this.$store.commit("updateChildrenAmount", this.childrenAmount);
+    updateChildren() {
+      let childrenAmount = this.childrenAmount;
+      let children = this.children;
+      if (children.length < childrenAmount) {
+        children.push({ id: childrenAmount - 1, age: 0 });
+      }
+      this.storeChildren();
+    },
+    updateChild(child, index) {
+      child.id = index;
+      this.storeChildren();
+    },
+    storeChildren() {
+      this.$store.commit("updateChildren", this.getSelectedChildren);
     },
   },
 };
@@ -60,38 +113,39 @@ export default {
 .open {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  outline: black solid 1px;
   border-bottom: none;
 }
 
 #container {
   display: block;
-  height: 100%;
   width: 200px;
   #info-box {
-    padding: 10px;
-    background-color: rgb(119, 233, 179);
-    border-radius: 10px;
-    outline: black solid 1px;
+    padding: var(--component-input-inner-padding);
+    background-color: var(--component-color);
+    border-radius: var(--component-border-radius);
+    box-shadow: var(--box-shadow-outline-border);
     &:hover {
       cursor: pointer;
-      background-color: rgb(106, 207, 160);
+      background-color: var(--component-color-hover);
+      box-shadow: var(--box-shadow-outline-hard);
+    }
+    &:active {
+      background-color: var(--component-color-active);
     }
   }
   #dropdown {
     position: absolute;
     width: inherit;
     height: fit-content;
-    outline: black solid 1px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: var(--box-shadow-outline-border);
     .dropdown-info {
       display: flex;
       height: fit-content;
       align-items: left;
       justify-content: left;
       padding: 10px;
-      background-color: rgb(119, 233, 179);
       input {
         padding-left: auto;
         height: min-content;
@@ -100,8 +154,38 @@ export default {
         text-align: center;
       }
     }
-    .dropdown-info:last-child {
-      border-radius: inherit;
+    .child-age {
+      display: flex;
+      padding: 5px 10px;
+      span {
+        padding-right: 10px;
+        margin-right: auto;
+      }
+      .right {
+        span {
+          padding: 0;
+          margin: 0;
+        }
+        input {
+          width: 40px;
+        }
+      }
+    }
+    &:hover {
+      cursor: pointer;
+      box-shadow: var(--box-shadow-outline-hard);
+    }
+
+    // style all children of dropdown
+    > * {
+      background-color: var(--component-color);
+      &:hover {
+        background-color: var(--component-color-hover);
+      }
+      &:last-child {
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
+      }
     }
   }
 }

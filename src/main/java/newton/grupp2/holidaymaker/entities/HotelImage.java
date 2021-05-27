@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import newton.grupp2.holidaymaker.utils.HmUtils;
 
 import javax.persistence.*;
 
@@ -25,5 +26,10 @@ public class HotelImage {
 
     public HotelImage(String fileName) {
         this.fileName = fileName;
+    }
+
+    @Override
+    public String toString() {
+        return HmUtils.getPrettyToString(this);
     }
 }

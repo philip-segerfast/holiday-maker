@@ -1,6 +1,11 @@
 <template>
   <!-- eslint-disable-next-line -->
-  <input type="text" id="search" placeholder="Where do you want to travel?" @input="updateSearchText" />
+  <input
+    type="text"
+    id="search"
+    placeholder="Where do you want to travel?"
+    @input="updateSearchText"
+  />
 </template>
 
 <script>
@@ -13,8 +18,22 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 #search {
-  width: 190px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  box-shadow: var(--box-shadow-outline-border);
+  background-color: var(--component-color);
+  width: 200px;
+  margin-bottom: 0;
+  &:hover {
+    background-color: var(--component-color-hover);
+    box-shadow: var(--box-shadow-outline-smooth);
+  }
+  &:focus {
+    background-color: var(--component-color-active);
+    box-shadow: var(--box-shadow-outline-hard);
+  }
 }
 </style>
