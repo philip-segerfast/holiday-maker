@@ -14,7 +14,10 @@
         <button class="search-button" @click="filterHotels">Search</button>
       </div>
     </div>
-    <hr />
+    <div id="sort-bar">
+      <button @click="sortHotelRoomsByPrice" class="sort-button">Sort Rooms</button>
+      <button @click="sortHotelsByPrice" class="sort-button">Sort Hotels</button>
+    </div>
   </div>
 </template>
 
@@ -64,20 +67,20 @@ export default {
     justify-content: center;
     justify-self: center;
     width: fit-content;
-    box-shadow: var(--box-shadow-outline-border);
+    box-shadow: var(--box-shadow-navbar-outline-border);
     padding: 0 10px 0 10px;
     height: --search-bar-height;
     border-radius: 52px;
-    background-color: #00ffff;
+    background-color: #45c3d15e;
     .search-bar-item {
       padding: 10px;
     }
     .search-button {
       display: inline-block;
       border: none;
-      border-radius: 2px;
-      background-color: rgb(67, 88, 206);
-      color: white;
+      border-radius: 5px;
+      background-color: var(--component-color);
+      padding: 20px 18px;
       padding: var(--component-input-inner-padding);
       cursor: pointer;
       box-shadow: var(--box-shadow-outline-border);
@@ -87,6 +90,29 @@ export default {
       }
       &:active {
         background-color: rgb(48, 69, 187);
+      }
+    }
+  }
+  #sort-bar {
+    width: fit-content;
+    height: 40px;
+    // height: 80px;
+    margin-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-self: center;
+
+    .sort-button {
+      box-shadow: var(--box-shadow-outline-border);
+      margin-right: 10px;
+      background-color: rgba(0, 0, 0, 0);
+      border: none;
+      // height: 50px;
+      height: 100%;
+      width: 100px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        cursor: pointer;
       }
     }
   }

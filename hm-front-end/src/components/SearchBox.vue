@@ -23,17 +23,17 @@ export default {
   border: none;
   outline: none;
   border-radius: 20px;
-  box-shadow: var(--box-shadow-outline-border);
+  box-shadow: var(--box-shadow-navbar-outline-border);
   background-color: var(--component-color);
   width: 200px;
   margin-bottom: 0;
   &:hover {
     background-color: var(--component-color-hover);
-    box-shadow: var(--box-shadow-outline-smooth);
+    box-shadow: var(--box-shadow-navbar-outline-smooth);
   }
   &:focus {
     background-color: var(--component-color-active);
-    box-shadow: var(--box-shadow-outline-hard);
+    box-shadow: var(--box-shadow-navbar-outline-hard);
   }
 }
 </style>
