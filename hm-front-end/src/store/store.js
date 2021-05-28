@@ -93,13 +93,37 @@ export default createStore({
         ],
       },
       paid: "",
+      paymentCards: [
+        {
+          name: "Visa",
+          bank: "Nordea",
+        },
+      ],
     },
-    paymentCards: [
-      {
-        name: "Visa",
-        bank: "Nordea",
+
+    newBooking: {
+      fromTime: "1615244400",
+      toTime: "1615503600",
+      children: [
+        {
+          age: 11,
+        },
+      ],
+      adults: 2,
+      extraBeds: 0,
+      luxuryClass: 4,
+      user: {
+        id: 1,
       },
-    ],
+      hotelRooms: [
+        {
+          id: 3,
+        },
+        {
+          id: 4,
+        },
+      ],
+    },
   },
   // "Setters"
   mutations: {
@@ -434,6 +458,29 @@ export default createStore({
       });
       await response.text();
       alert("Booking cancelled");
+    },
+    async fetchCreateBooking() {
+      let booking = {
+        fromTime: this.state.searchHotelFilter.checkInDates.startDate,
+        toTime: this.state.searchHotelFilter.checkInDates.endDate,
+        children: [{ age: 11 }], //this.state.searchHotelFilter.peopleAmount.childrenAmount,
+        adults: this.state.searchHotelFilter.peopleAmount.adultsAmount,
+        user: this.state.loggedInUser,
+        hotelRooms: this.state.addedHotelRooms,
+      };
+      //let booking = this.state.newBooking;
+      console.log("Running fetchCreateBooking. New booking object:");
+      console.log(booking);
+      const url = "/rest/bookings/add";
+      let response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(booking),
+      });
+      let answer = await response.json();
+      console.log(answer);
     },
   },
   getters: {

@@ -60,6 +60,7 @@ price etc
         </span>
       </div>
     </div>
+    <button @click="createBooking" class="confirm-booking">Confirm Booking</button>
   </body>
 </template>
 
@@ -105,6 +106,12 @@ export default {
     },
     amountChildren() {
       return this.$store.getters.getAdultAmount;
+    },
+  },
+  methods: {
+    createBooking() {
+      console.log("cklick");
+      this.$store.dispatch("fetchCreateBooking");
     },
   },
 };
