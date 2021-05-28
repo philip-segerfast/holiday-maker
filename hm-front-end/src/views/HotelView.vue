@@ -1,5 +1,11 @@
 <template>
   <body>
+    <div id="payment-cotainer">
+      <span class="payment-cards">
+        <LoginComponent />
+      </span>
+    </div>
+
     <div id="sort-bar">
       <h3>
         Sort by:
@@ -39,11 +45,13 @@
 </template>
 
 <script>
+import LoginComponent from "../components/LoginComponent.vue";
 import HotelRoomCard from "../components/HotelRoomCard.vue";
 import moment from "moment";
 
 export default {
   components: {
+    LoginComponent,
     HotelRoomCard,
   },
   methods: {
