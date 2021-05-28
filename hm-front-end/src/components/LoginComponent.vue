@@ -4,7 +4,7 @@
       <div v-show="inputs"></div>
       <input v-model="email" name="email" type="email" placeholder="email" required />
       <input v-model="password" type="password" placeholder="password" required />
-      <button @click="submit = !submit">Login</button>
+      <button @click="submit">Login</button>
       <div class="submit-button" v-if="submit"></div>
       <div class="submit-button" v-else>
         <router-link to="/Register">if you dont have account click here </router-link>
@@ -58,6 +58,15 @@ export default {
       if (response.url.includes("error")) {
         console.log("Wrong username/password");
       }
+    },
+    logout() {
+      //logout from backend
+      fetch("/logout", { mode: "no-cors" });
+
+      this.$store.commit("setUserBookingList", []);
+
+      //removes user from store.js
+      this.$store.commit("setLoggedInUser", null);
     },
   },
 };

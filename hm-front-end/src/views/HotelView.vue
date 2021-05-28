@@ -1,7 +1,7 @@
 <template>
   <body>
-    <div id="payment-cotainer">
-      <span class="payment-cards">
+    <div id="login-cotainer">
+      <span class="login-component">
         <LoginComponent />
       </span>
     </div>

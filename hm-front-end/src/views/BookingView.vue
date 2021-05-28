@@ -17,6 +17,11 @@ price etc
 
 <template>
   <body>
+    <div id="login-cotainer">
+      <span class="login-component">
+        <LoginComponent />
+      </span>
+    </div>
     <div class="hotel">
       <h1>{{ hotelInfo.name }}</h1>
       <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
@@ -65,6 +70,7 @@ price etc
 </template>
 
 <script>
+import LoginComponent from "../components/LoginComponent.vue";
 import BookingRoomCard from "../components/BookingRoomCard.vue";
 import PaymentCard from "../components/PaymentCard.vue";
 import moment from "moment";
@@ -76,6 +82,7 @@ export default {
     },
   },
   components: {
+    LoginComponent,
     BookingRoomCard,
     PaymentCard,
   },
