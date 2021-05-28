@@ -7,6 +7,7 @@
       <button @click="submit">Login</button>
       <div class="submit-button" v-if="submit"></div>
       <div class="submit-button" v-else>
+        <br />
         <router-link to="/Register">if you dont have account click here </router-link>
       </div>
     </div>

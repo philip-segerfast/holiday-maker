@@ -22,6 +22,7 @@ price etc
         <LoginComponent />
       </span>
     </div>
+    <br />
     <div class="hotel">
       <h1>{{ hotelInfo.name }}</h1>
       <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
