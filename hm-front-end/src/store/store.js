@@ -19,15 +19,18 @@ export default createStore({
         startDate: "",
         endDate: "",
       },
+      AmountOfExtraBeds: 0,
       peopleAmount: {
         adultsAmount: 0,
         childrenAmount: 0,
       },
+      people: {
+        adultsAmount: 0,
+        children: [],
+      },
     },
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
-    sortedHotels: [],
-    sortedRooms: [],
     ascending: true,
     loggedInUser: null,
     userBookingList: [],
@@ -148,7 +151,7 @@ export default createStore({
       });
     },
 
-    setSortedHotels() {
+    setSortedHotelsAscending() {
       let sortedByPrice;
       sortedByPrice = this.state.hotels.sort((price1, price2) => {
         if (price1.minRoomPrice < price2.minRoomPrice) {
@@ -159,6 +162,19 @@ export default createStore({
         }
         return 0;
       });
+    },
+    setSortedHotelsDescending() {
+      let maxHotelPrice;
+      maxHotelPrice = this.state.hotels.sort((price1, price2) => {
+        if (price1.minRoomPrice < price2.minRoomPrice) {
+          return -1;
+        }
+        if (price1.minRoomPrice > price2.minRoomPrice) {
+          return 1;
+        }
+        return 0;
+      });
+      return maxHotelPrice.reverse();
     },
 
     // Sorterar alla hotelrum utifrån lägst --> högst
@@ -176,9 +192,38 @@ export default createStore({
         }
         return 0;
       });
-
-      this.state.sortedRooms = sortedByPrice;
       return sortedByPrice;
+    },
+    setSortedRoomsDescending() {
+      let maxRoomPrice;
+      maxRoomPrice = this.state.hotelRooms.sort((maxPrice1, maxPrice2) => {
+        console.log(maxPrice1.baseNightPrice);
+        if (maxPrice1.baseNightPrice > maxPrice2.baseNightPrice) {
+          return 1;
+        }
+        if (maxPrice1.baseNightPrice < maxPrice2.baseNightPrice) {
+          return -1;
+        }
+        return 0;
+      });
+      return maxRoomPrice.reverse();
+    },
+    setSortedRatings() {
+      let sortedByRating;
+      let hotels = this.state.hotels;
+      console.log("Hotels: ", hotels);
+      sortedByRating = hotels.sort((hotel1, hotel2) => {
+        console.log(hotel1.averageRating);
+        if (hotel1.averageRating < hotel2.averageRating) {
+          return -1;
+        }
+        if (hotel1.averageRating > hotel2.averageRating) {
+          return 1;
+        }
+        return 0;
+      });
+      console.log("Sorted by rating: ", sortedByRating);
+      return sortedByRating;
     },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;
@@ -223,34 +268,31 @@ export default createStore({
 
       // Hämta ut de filtrerade hotelen utifrån sökning
       this.state.filteredHotels = filteredHotels;
-      console.log(this.state.filteredHotels);
+      // console.log(this.state.searchHotelFilter); // <-- SHOW FILTER DATA
 
       function filterHotelsByCity(listToFilter) {
         let searchPhraseLower = this.state.searchHotelFilter.searchText.toLowerCase();
 
         if (searchPhraseLower != "") {
-          console.log("Filtering on search-phrase: ", searchPhraseLower);
-
+          // console.log("Filtering on search-phrase: ", searchPhraseLower);
           let filteredOutput = listToFilter.filter((hotel) => {
             let hotelCityLower = hotel.city.toLowerCase();
             return hotelCityLower.includes(searchPhraseLower);
           });
           return filteredOutput;
         } else {
-          console.log("No search phrase to filter on.");
+          // console.log("No search phrase to filter on.");
           return listToFilter;
         }
       }
 
       function filterHotelsByCheckin(listToFilter) {
         const filter = this.state.searchHotelFilter;
-        // eslint-disable-next-line
         const filterStartDate = filter.checkInDates.startDate;
-        // eslint-disable-next-line
         const filterEndDate = filter.checkInDates.endDate;
 
         if (!filterStartDate || !filterEndDate) {
-          console.log("You need to specify a start and end date.");
+          // console.log("You need to specify a start and end date.");
           return listToFilter;
         }
 
@@ -311,7 +353,7 @@ export default createStore({
         const totalAmountOfPeople = adultsAmount + childrenAmount;
 
         if (adultsAmount <= 0) {
-          console.log("No adults specified. You need to have at least one adult on the booking.");
+          // console.log("No adults specified. You need to have at least one adult on the booking.");
           return listToFilter;
         }
 
@@ -342,7 +384,6 @@ export default createStore({
         return qualifiedHotels;
       }
     },
-
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
     },
@@ -357,6 +398,9 @@ export default createStore({
     },
     setPaymentCards(state, payload) {
       state.paymentCards = payload;
+    },
+    updateChildren(state, payload) {
+      state.searchHotelFilter.people.children = payload;
     },
   },
   actions: {
@@ -451,15 +495,6 @@ export default createStore({
     },
     getHotelToBook(state) {
       return state.hotelToBook;
-    },
-    getSortedHotels(state) {
-      return state.sortedHotels;
-    },
-    getSortedRooms(state) {
-      return state.sortedRooms;
-    },
-    getSortedHotels(state) {
-      return state.sortedHotels;
     },
     getTotalCost(state) {
       return state.totalCost;
