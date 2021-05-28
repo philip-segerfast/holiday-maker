@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     <BookingList />
   </div>
 </template>
@@ -18,8 +18,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.home {
-  height: 100%;
-}
-</style>
+<style lang="scss" scoped></style>
