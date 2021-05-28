@@ -9,12 +9,17 @@
           <Navbar />
         </div>
       </div>
-      <div id="appSearchBar">
-        <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
+      <div v-if="shouldShowFilteringStuff">
+        <SearchBar />
       </div>
     </div>
     <div id="bottom">
-      <router-view />
+      <div v-show="shouldShowFilteringStuff" id="sidebar">
+        <FilterComponent />
+      </div>
+      <div id="router-view">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -22,14 +27,21 @@
 <script>
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar.vue";
+import FilterComponent from "./components/FilterComponent.vue";
 export default {
   components: {
     Navbar,
     SearchBar,
+    FilterComponent,
   },
   mounted() {
     this.$store.dispatch("fetchLoggedInUser");
     this.$store.dispatch("fetchAllHotels");
+  },
+  computed: {
+    shouldShowFilteringStuff() {
+      return !["Login", "Register", "About"].includes(this.$route.name);
+    },
   },
 };
 </script>
@@ -43,17 +55,16 @@ export default {
   height: 450px;
 }
 #app {
-  text-align: center;
-  color: #2c3e50;
-  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-items: stretch;
+
+  text-align: center;
+  color: #2c3e50;
   background-color: #ccece7;
-  display: flex;
   padding: 2vh 0;
-  margin: 0;
-  padding: 0;
   height: fit-content;
+  min-height: 100vh;
   #logo {
     margin-left: 50px;
     display: flex;
@@ -61,20 +72,21 @@ export default {
   }
 
   #inner-app-container {
-    width: 1400px;
-    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    width: 1300px;
     background-color: #45c3d1;
     margin: 0 auto;
     border-radius: 2vw 2vw 0 0;
-    display: flex;
-    flex-direction: column;
 
     #toppage {
+      display: flex;
+      flex-direction: column;
       background-image: url("../mockup/assets/77e8e1d2154e4616199c6dc667cd0def.jpg");
       height: fit-content;
       padding-bottom: 20px;
-      display: flex;
-      flex-direction: column;
       border-radius: inherit;
       #top {
         display: flex;
@@ -96,11 +108,17 @@ export default {
     }
 
     #bottom {
-      height: fit-content;
+      display: flex;
+      margin: 20px;
+
+      #sidebar {
+        width: fit-content;
+      }
+
+      #router-view {
+        width: 100%;
+      }
     }
   }
-}
-.top-page {
-  background-color: #2d9ca8be;
 }
 </style>

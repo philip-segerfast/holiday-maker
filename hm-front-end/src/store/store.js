@@ -28,6 +28,8 @@ export default createStore({
         adultsAmount: 0,
         children: [],
       },
+      // fyll på med hotelTags
+      tags: [{}],
     },
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
