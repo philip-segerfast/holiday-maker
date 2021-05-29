@@ -1,21 +1,26 @@
 <template>
-  <form @submit.prevent="login">
-    <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
-      <div v-show="inputs"></div>
-      <input v-model="email" name="email" type="email" placeholder="email" required />
-      <input v-model="password" type="password" placeholder="password" required />
-      <button @click="submit">Login</button>
-      <div class="submit-button" v-if="submit"></div>
-      <div class="submit-button" v-else>
-        <br />
-        <router-link to="/Register">if you dont have account click here </router-link>
-      </div>
+  <div class="Sign-in">
+    <button @click="clickSignIn = !clickSignIn">Sign in</button>
+    <div class="sign-in-btn" v-if="clickSignIn">
+      <form @submit.prevent="login">
+        <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
+          <div v-show="inputs"></div>
+          <input v-model="email" name="email" type="email" placeholder="email" required />
+          <input v-model="password" type="password" placeholder="password" required />
+          <button @click="submit">Login</button>
+          <div class="submit-button" v-if="submit"></div>
+          <div class="submit-button" v-else>
+            <br />
+            <!-- <router-link to="/Register">if you dont have account click here </router-link> -->
+          </div>
+        </div>
+        <span v-if="$store.getters.getLoggedInUser != null">
+          <br />
+          <h2>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h2>
+        </span>
+      </form>
     </div>
-    <span v-if="$store.getters.getLoggedInUser != null">
-      <br />
-      <h2>Logged in as: {{ $store.getters.getLoggedInUser.email }}</h2>
-    </span>
-  </form>
+  </div>
 </template>
 
 <script>
@@ -24,6 +29,7 @@
 export default {
   data() {
     return {
+      clickSignIn: false,
       email: "",
       password: "",
     };

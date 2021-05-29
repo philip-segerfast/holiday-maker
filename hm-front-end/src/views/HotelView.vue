@@ -6,6 +6,12 @@
       </span>
     </div>
 
+    <div id="register-cotainer">
+      <span class="register-component">
+        <RegisterComponent />
+      </span>
+    </div>
+
     <div id="sort-bar">
       <h3>
         Sort by:
@@ -46,12 +52,14 @@
 
 <script>
 import LoginComponent from "../components/LoginComponent.vue";
+import RegisterComponent from "../components/RegisterComponent.vue";
 import HotelRoomCard from "../components/HotelRoomCard.vue";
 import moment from "moment";
 
 export default {
   components: {
     LoginComponent,
+    RegisterComponent,
     HotelRoomCard,
   },
   methods: {

@@ -1,14 +1,20 @@
 <template>
-  <div>
-    <h1>Register page</h1>
+  <div class="sign-up" v-if="$store.getters.getLoggedInUser == null">
     <!--skapar form så användaren kan mata in sina uppgifter -->
-    <form @submit.prevent="register">
-      <input v-model="email" name="email" type="email" placeholder="email" required />
-      <input v-model="password" type="password" placeholder="Password" required />
-      <input v-model="first_name" type="text" placeholder="First name" required />
-      <input v-model="last_name" type="text" placeholder="Last name" required />
-      <button type="submit">Register</button>
-    </form>
+    <button class="showRegister" @click="clickRegistration = !clickRegistration">Sign up</button>
+    <div class="registration-btn" v-if="clickRegistration">
+      <br />
+      <form @submit.prevent="register">
+        <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
+          <div v-show="inputs"></div>
+          <input v-model="email" name="email" type="email" placeholder="email" required />
+          <input v-model="password" type="password" placeholder="Password" required />
+          <input v-model="first_name" type="text" placeholder="First name" required />
+          <input v-model="last_name" type="text" placeholder="Last name" required />
+          <button type="submit">Register</button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 <script>
@@ -18,6 +24,7 @@ export default {
 
   data() {
     return {
+      clickRegistration: false,
       email: "",
       password: "",
       first_name: "",
