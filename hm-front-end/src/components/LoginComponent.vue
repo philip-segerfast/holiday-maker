@@ -1,7 +1,7 @@
 <template>
   <div class="Sign-in">
-    <button @click="clickSignIn = !clickSignIn">Sign in</button>
-    <div class="sign-in-btn" v-if="clickSignIn">
+    <button class="sign-in-btn" @click="clickSignIn = !clickSignIn">User</button>
+    <div class="sign-in" v-if="clickSignIn">
       <form @submit.prevent="login">
         <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
           <div v-show="inputs"></div>
@@ -78,4 +78,27 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.inputs {
+}
+.Sign-in {
+  display: inline-block;
+  background-color: #308f97;
+  border-radius: 30px;
+  width: 250px;
+}
+
+.sign-in-btn {
+  box-shadow: var(--box-shadow-outline-border);
+  margin-right: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  height: 50px;
+  height: 100%;
+  width: 100px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+}
+</style>

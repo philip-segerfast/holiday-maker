@@ -23,6 +23,12 @@ price etc
       </span>
     </div>
     <br />
+    <div id="register-cotainer">
+      <span class="register-component">
+        <RegisterComponent />
+      </span>
+    </div>
+    <br />
     <div class="hotel">
       <h1>{{ hotelInfo.name }}</h1>
       <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
@@ -72,6 +78,7 @@ price etc
 
 <script>
 import LoginComponent from "../components/LoginComponent.vue";
+import RegisterComponent from "../components/RegisterComponent.vue";
 import BookingRoomCard from "../components/BookingRoomCard.vue";
 import PaymentCard from "../components/PaymentCard.vue";
 import moment from "moment";
@@ -84,6 +91,7 @@ export default {
   },
   components: {
     LoginComponent,
+    RegisterComponent,
     BookingRoomCard,
     PaymentCard,
   },

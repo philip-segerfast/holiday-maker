@@ -5,7 +5,7 @@
         <LoginComponent />
       </span>
     </div>
-
+    <br />
     <div id="register-cotainer">
       <span class="register-component">
         <RegisterComponent />
