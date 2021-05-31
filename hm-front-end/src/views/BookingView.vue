@@ -54,7 +54,7 @@ price etc
           <option value="full board price">Full Board</option>
         </select>
       </div>
-      <h1>Extra Livery {{ extraCost }}Euro/day</h1>
+      <h2>Extra Livery {{ extraCost }}Euro/day</h2>
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
@@ -72,7 +72,7 @@ price etc
         </span>
       </div>
 
-      <h1>Total Price for Rooms {{ roomsCost }}Euro/day</h1>
+      <h2>Total Price for Rooms {{ roomsCost }}Euro/day</h2>
       <h1>Total Price for Booking {{ totalBookingCost }}Euro</h1>
       <!--Mockup payment -->
       <div id="payment-cotainer">
@@ -110,7 +110,8 @@ export default {
     },
 
     createBooking() {
-      console.log("cklick");
+      console.log(this.totalBookingCost);
+      this.$store.commit("setTotalCost", this.totalBookingCost);
       this.$store.dispatch("fetchCreateBooking");
     },
   },
@@ -148,7 +149,6 @@ export default {
     },
     totalBookingCost() {
       return (this.extraCost + this.roomsCost) * this.nrDays;
-      // return this.$store.getters.getTotalBookingCost;
     },
     amountAdult() {
       return this.$store.getters.getAdultAmount;

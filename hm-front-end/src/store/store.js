@@ -257,10 +257,11 @@ export default createStore({
     setHotelToBook(state, payload) {
       state.hotelToBook = payload;
     },
-
     updateRoomsCost(state, payload) {
       state.roomsCost = this.state.roomsCost + payload;
-      state.totalCost = this.state.totalCost + payload;
+    },
+    setTotalCost(state, payload) {
+      state.totalCost = payload;
     },
     setSelfcatering(state, payload) {
       state.selfcatering = payload;
@@ -555,12 +556,6 @@ export default createStore({
       } else {
         return 0;
       }
-    },
-    getTotalBookingCost(state) {
-      state.totalCost = state.extraLiveryCost + state.roomsCost;
-      console.log(state.roomsCost);
-      console.log(state.extraLiveryCost);
-      return state.totalCost;
     },
   },
 });
