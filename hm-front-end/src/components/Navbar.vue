@@ -6,9 +6,11 @@
     &nbsp;&middot;&nbsp;
     <router-link to="/register">Register</router-link>
     &nbsp;&middot;&nbsp;
+    <router-link to="/result-page">Result</router-link>
+    &nbsp;&middot;&nbsp;
     <router-link to="/login">Login</router-link>
     &nbsp;&middot;&nbsp;
-    <router-link to="/result-page">Result</router-link>
+    <router-link to="/" tag="button">Logout</router-link>
 
     <button class="navbutton" @click="$router.push('Register')">Register</button>
     <button class="navbutton" @click="logout">Logout</button>
