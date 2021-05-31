@@ -1,21 +1,5 @@
 <template>
   <body>
-    <div class="components">
-      <div class="sign-up" v-if="$store.getters.getLoggedInUser == null">
-        <div id="login-register-cotainer">
-          <span class="login-component">
-            <LoginComponent />
-          </span>
-        </div>
-        <br />
-        <div>
-          <span class="register-component">
-            <RegisterComponent />
-          </span>
-        </div>
-      </div>
-    </div>
-
     <div id="sort-bar">
       <h3>
         Sort by:
@@ -53,15 +37,11 @@
 </template>
 
 <script>
-import LoginComponent from "../components/LoginComponent.vue";
-import RegisterComponent from "../components/RegisterComponent.vue";
 import HotelRoomCard from "../components/HotelRoomCard.vue";
 import moment from "moment";
 
 export default {
   components: {
-    LoginComponent,
-    RegisterComponent,
     HotelRoomCard,
   },
   methods: {
