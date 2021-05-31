@@ -114,7 +114,6 @@ export default {
 
 <style scoped lang="scss">
 .components {
-  box-shadow: var(--box-shadow-outline-border);
   margin-right: 10px;
   display: inline-block;
   background-color: #1a88bb;
