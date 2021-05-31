@@ -3,7 +3,7 @@
     <div id="toppage">
       <div id="top">
         <div id="logo">
-          <h1><a id="logolink" href="/">Holyday Maker</a></h1>
+          <h1><a id="logolink" href="/">Holiday Maker</a></h1>
         </div>
         <div id="nav">
           <Navbar />
@@ -49,6 +49,7 @@ export default {
 <style lang="scss">
 #logolink {
   color: black;
+  text-decoration: none;
 }
 #background {
   background-color: lightgreen;

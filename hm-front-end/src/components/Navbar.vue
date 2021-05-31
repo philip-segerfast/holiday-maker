@@ -37,7 +37,6 @@ export default {
 
       //removes user from store.js
       this.$store.commit("setLoggedInUser", null);
-      alert("You have been logged out");
 
       //Shows page Home after pressing logout
       this.$router.push({ path: "/" });
