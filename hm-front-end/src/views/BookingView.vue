@@ -17,16 +17,20 @@ price etc
 
 <template>
   <body>
-    <div id="login-cotainer">
-      <span class="login-component">
-        <LoginComponent />
-      </span>
-    </div>
-    <br />
-    <div id="register-cotainer">
-      <span class="register-component">
-        <RegisterComponent />
-      </span>
+    <div class="components">
+      <div class="sign-up" v-if="$store.getters.getLoggedInUser == null">
+        <div id="login-register-cotainer">
+          <span class="login-component">
+            <LoginComponent />
+          </span>
+        </div>
+        <br />
+        <div>
+          <span class="register-component">
+            <RegisterComponent />
+          </span>
+        </div>
+      </div>
     </div>
     <br />
     <div class="hotel">
@@ -72,6 +76,7 @@ price etc
         </span>
       </div>
     </div>
+    <br />
     <button @click="createBooking" class="confirm-booking">Confirm Booking</button>
   </body>
 </template>
@@ -134,6 +139,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.components {
+  box-shadow: var(--box-shadow-outline-border);
+  margin-right: 10px;
+  display: inline-block;
+  background-color: #1a88bb;
+  border-radius: 12px;
+}
 .hotel {
   position: absolute;
   top: 450px;

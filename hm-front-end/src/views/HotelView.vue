@@ -1,15 +1,19 @@
 <template>
   <body>
-    <div id="login-cotainer">
-      <span class="login-component">
-        <LoginComponent />
-      </span>
-    </div>
-    <br />
-    <div id="register-cotainer">
-      <span class="register-component">
-        <RegisterComponent />
-      </span>
+    <div class="components">
+      <div class="sign-up" v-if="$store.getters.getLoggedInUser == null">
+        <div id="login-register-cotainer">
+          <span class="login-component">
+            <LoginComponent />
+          </span>
+        </div>
+        <br />
+        <div>
+          <span class="register-component">
+            <RegisterComponent />
+          </span>
+        </div>
+      </div>
     </div>
 
     <div id="sort-bar">
@@ -109,6 +113,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.components {
+  box-shadow: var(--box-shadow-outline-border);
+  margin-right: 10px;
+  display: inline-block;
+  background-color: #1a88bb;
+  border-radius: 12px;
+}
 .total-info {
   position: absolute;
   top: 450px;

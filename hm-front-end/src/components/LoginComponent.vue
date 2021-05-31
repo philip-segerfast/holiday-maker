@@ -93,7 +93,7 @@ export default {
 .sign-in-btn {
   box-shadow: var(--box-shadow-outline-border);
   margin-right: 10px;
-  background-color: rgba(15, 192, 68);
+  background-color: rgb(230, 211, 48);
   border: none;
   height: 100%;
   width: 100px;
