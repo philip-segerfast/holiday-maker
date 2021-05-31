@@ -11,6 +11,10 @@ export default createStore({
     hotelImages: [],
     hotel: {},
     hotelId: 1,
+    livery: String,
+    selfcateringPrice: 0,
+    halfPensionPrice: 0,
+    fullBoardPrice: 0,
     totalCost: 0,
     tempHotelName: String,
     searchHotelFilter: {
@@ -253,6 +257,10 @@ export default createStore({
     },
     setHotelToBook(state, payload) {
       state.hotelToBook = payload;
+    },
+    setLivery(state, payload) {
+      state.livery = payload;
+      console.log(state.livery);
     },
     updateTotalCost(state, payload) {
       state.totalCost = this.state.totalCost + payload;
@@ -499,7 +507,7 @@ export default createStore({
       return state.hotelToBook;
     },
     getTotalCost(state) {
-      return state.totalCost;
+      return state.totalCost; // + state.extraLiveryCost;
     },
     getHotelById(state) {
       return state.hotelById;

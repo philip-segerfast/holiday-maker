@@ -35,12 +35,29 @@ price etc
       <h2>Number of adult: {{ amountAdult }}</h2>
       <h2>Number of children: {{ amountChildren }}</h2>
 
+      <div class="livery">
+        Livery Option Select between: <br />
+        Self Catering {{ hotelInfo.selfCateringPrice }} Euro/Booking <br />
+        Half Pension {{ hotelInfo.halfPensionPrice }} Euro/Adult <br />
+        Full Board {{ hotelInfo.fullBoardPrice }} Euro/Adult
+
+        <select
+          name="liveryOption"
+          @change="updateLivery($event)"
+          class="livery-control"
+          v-model="key"
+        >
+          <option value="No catering"></option>
+          <option value="self catering price">Self Catering</option>
+          <option value="half pension price">Half pension</option>
+          <option value="full board price">Full Board</option>
+        </select>
+      </div>
+
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
         <input type="number" min="0" @input="updateAmountOfExtraBeds" />
       </div>
-
-      <h1>Total Price for Booking {{ totalCost }}kr</h1>
 
       <!--Lägger in och visar alla rum som finns i addedRooms -->
       <div id="rooms-container">
@@ -52,7 +69,8 @@ price etc
           />
         </span>
       </div>
-      <button class="confirm-booking">Confirm Booking</button>
+
+      <h1>Total Price for Booking {{ totalCost }}kr</h1>
       <!--Mockup payment -->
       <div id="payment-cotainer">
         <span class="payment-cards">
@@ -70,15 +88,39 @@ import PaymentCard from "../components/PaymentCard.vue";
 import moment from "moment";
 
 export default {
-  methods: {
-    updateAmountOfExtraBeds() {
-      alert("hej");
-    },
-  },
   components: {
     BookingRoomCard,
     PaymentCard,
   },
+  data: function () {
+    return {
+      key: "",
+    };
+  },
+  methods: {
+    updateAmountOfExtraBeds() {
+      alert("hej");
+    },
+    updateLivery(event) {
+      console.log(event.target.value); //this.$store.commit("setLivery", value);
+    },
+    updateSelfCateringPrice() {
+      this.$store.commit("selfcateringPrice", this.hotelInfo.selfCateringPrice);
+      alert(this.hotelInfo.selfCateringPrice);
+    },
+    updateHalfPensionPrice() {
+      this.$store.commit("halfPensionPrice", this.hotelInfo.halfPensionPrice);
+    },
+    updateFullBoardPrice() {
+      this.$store.commit("fullBoardPrice", this.hotelInfo.fullBoardPrice);
+    },
+
+    createBooking() {
+      console.log("cklick");
+      this.$store.dispatch("fetchCreateBooking");
+    },
+  },
+
   computed: {
     addedHotelRooms() {
       return this.$store.getters.getAddedHotelRooms;
@@ -108,22 +150,14 @@ export default {
       return this.$store.getters.getAdultAmount;
     },
   },
-  methods: {
-    createBooking() {
-      console.log("cklick");
-      this.$store.dispatch("fetchCreateBooking");
-    },
-  },
 };
 </script>
 
 <style scoped lang="scss">
 .hotel {
-  position: absolute;
-  top: 450px;
-  align-content: center;
+  background-color: #3fb0bd;
+  border-radius: 10px;
 }
-
 .tag-list {
   display: inline-block;
   background-color: #2ea4b1;
@@ -144,11 +178,9 @@ img {
   height: 200px;
   padding: 5px;
 }
-
 .room-list {
   display: inline-block;
   width: 100%;
-  background-color: rgba(95, 158, 160, 0.24);
 }
 .payment-container {
   display: inline-block;
