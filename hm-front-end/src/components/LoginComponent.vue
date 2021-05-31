@@ -1,24 +1,26 @@
 <template>
   <div class="Sign-in">
-    <button class="sign-in-btn" @click="clickSignIn = !clickSignIn">User</button>
-    <div class="sign-in" v-if="clickSignIn">
-      <form @submit.prevent="login">
-        <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
-          <div v-show="inputs"></div>
-          <input v-model="email" name="email" type="email" placeholder="email" required />
-          <input v-model="password" type="password" placeholder="password" required />
-          <button @click="submit">Login</button>
-          <div class="submit-button" v-if="submit"></div>
-          <div class="submit-button" v-else>
-            <br />
-            <!-- <router-link to="/Register">if you dont have account click here </router-link> -->
+    <div class="log-in" v-if="$store.getters.getLoggedInUser == null">
+      <button class="sign-in-btn" @click="clickSignIn = !clickSignIn">User</button>
+      <div class="sign-in" v-if="clickSignIn">
+        <form @submit.prevent="login">
+          <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
+            <div v-show="inputs"></div>
+            <input v-model="email" name="email" type="email" placeholder="email" required />
+            <input v-model="password" type="password" placeholder="password" required />
+            <button @click="submit">Login</button>
+            <div class="submit-button" v-if="submit"></div>
+            <div class="submit-button" v-else>
+              <br />
+              <!-- <router-link to="/Register">if you dont have account click here </router-link> -->
+            </div>
           </div>
-        </div>
-        <span v-if="$store.getters.getLoggedInUser != null">
-          <br />
-          <h2>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h2>
-        </span>
-      </form>
+          <span v-if="$store.getters.getLoggedInUser != null">
+            <br />
+            <h2>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h2>
+          </span>
+        </form>
+      </div>
     </div>
   </div>
 </template>
