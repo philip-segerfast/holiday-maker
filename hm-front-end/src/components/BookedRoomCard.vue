@@ -21,20 +21,9 @@ export default {
   data() {
     return {
       localBookedrooms: [],
-      listWithEmptyRoom: [
-        {
-          id: "",
-          name: "",
-          size: "",
-          singleBedsAmount: "",
-          doubleBedsAmount: "",
-          baseNightPrice: "",
-          maxAmountOfExtraBeds: "",
-        },
-      ],
     };
   },
-  props: ["bookedRoom"],
+  props: ["bookedRoom", "roomArrayIndex"],
 
   computed: {
     bookedRooms() {
@@ -45,16 +34,14 @@ export default {
     cancelRoom() {
       console.log("Running CancelRoom");
       if (this.$store.state.userBooking.hotelRooms.length > 1) {
-        var removeIndex = this.bookedRooms.map((item) => item.id).indexOf(this.bookedRoom.id);
-
-        ~removeIndex && this.localBookedrooms.splice(removeIndex, 1);
-
+        this.localBookedrooms.splice(this.roomArrayIndex, 1);
         this.$store.commit("setUserBookingRooms", this.localBookedrooms);
       } else {
         alert("You can't have a booking without rooms");
       }
       console.log("new list of booked rooms in store: ");
       console.log(this.$store.state.userBooking.hotelRooms);
+      //this.localBookedrooms = this.bookedRooms;
     },
   },
   mounted() {

@@ -27,9 +27,10 @@
     <div id="rooms-container">
       <span class="room-list" v-if="bookedRooms.length > 0">
         <BookedRoomCard
-          v-for="(bookedRoom, i) in bookedRooms"
-          :key="bookedRoom + i"
+          v-for="(bookedRoom, index) in bookedRooms"
+          :key="bookedRoom.id + index"
           :bookedRoom="bookedRoom"
+          :roomArrayIndex="index"
         />
       </span>
     </div>
