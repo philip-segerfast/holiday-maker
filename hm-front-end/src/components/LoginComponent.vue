@@ -83,7 +83,7 @@ export default {
 }
 .Sign-in {
   display: inline-block;
-  background-color: #308f97;
+  background-color: #1a88bb;
   border-radius: 30px;
   width: 250px;
 }
@@ -91,9 +91,8 @@ export default {
 .sign-in-btn {
   box-shadow: var(--box-shadow-outline-border);
   margin-right: 10px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(15, 192, 68);
   border: none;
-  height: 50px;
   height: 100%;
   width: 100px;
   &:hover {

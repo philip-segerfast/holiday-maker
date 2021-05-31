@@ -9,8 +9,11 @@
     <router-link to="/login">Login</router-link>
     &nbsp;&middot;&nbsp;
     <router-link to="/result-page">Result</router-link>
-
-    <button class="navbutton" @click="$router.push('Register')">Register</button>
+    &nbsp;&middot;&nbsp;
+    <span v-if="$store.getters.getLoggedInUser != null">
+      <br />
+      <h4>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h4>
+    </span>
     <button class="navbutton" @click="logout">Logout</button>
   </div>
 </template>
