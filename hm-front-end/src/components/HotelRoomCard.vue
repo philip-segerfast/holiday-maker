@@ -1,7 +1,7 @@
 <template>
   <div class="hotelRoom-card">
-    <h4>Room:{{ hotelRoom.name }}</h4>
-    <h3>{{ hotelRoom.size }} m^2</h3>
+    <h2>Room:{{ hotelRoom.name }}</h2>
+    <h3>Size:{{ hotelRoom.size }} m^2</h3>
     <h3 class="single-beds" v-if="hotelRoom.singleBedsAmount > 0">
       Single beds: {{ hotelRoom.singleBedsAmount }}
     </h3>
@@ -33,7 +33,7 @@ export default {
 
 <style scoped lang="scss">
 .hotelRoom-card {
-  background-color: #2ea4b1;
+  background-color: rgb(243, 243, 243);
   margin: auto;
   padding: 10px;
   font-family: "Arial";
@@ -41,13 +41,25 @@ export default {
   border-radius: 30px;
   border: 5px solid #5c8791;
   width: 50%;
+  font-family: "Arial";
+  font-size: 20px;
 }
+
+/*padding: 0;
+  display: grid;
+  grid-template-rows: min-content auto;
+  width: 225px;
+  height: 350px;
+  max-height: 350px;
+  overflow: hidden;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid rgb(230, 230, 230);
+  background-color: rgb(243, 243, 243);*/
 
 .add {
   background-color: #4caf50; /* Green */
   color: white;
-  text-align: center;
-  display: inline-block;
   font-size: 20px;
   margin: 4px 2px;
   width: 100px;

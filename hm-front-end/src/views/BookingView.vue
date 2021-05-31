@@ -19,9 +19,9 @@ price etc
   <body>
     <div class="hotel">
       <h1>{{ hotelInfo.name }}</h1>
-      <h2>check-in date: {{ startDate }} - check-out date: {{ endDate }}</h2>
+      <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
       <h2>{{ hotelInfo.description }}</h2>
-      <div id="v-image" class="split left">
+      <div id="v-image">
         <span v-for="image in hotelInfo.images" :key="image">
           <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
         </span>
@@ -31,23 +31,36 @@ price etc
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h3>{{ tag.label }}</h3>
       </span>
+
       <h2>Number of adult: {{ amountAdult }}</h2>
       <h2>Number of children: {{ amountChildren }}</h2>
-      <h1>Total Price for Booking {{ totalCost }}kr</h1>
-    </div>
 
-    <!--Lägger in och visar alla rum som finns i addedRooms -->
-    <div id="rooms-container">
-      <span class="room-list">
-        <Booking-room-card v-for="(room, i) in addedHotelRooms" :key="room + i" :hotelRoom="room" />
-      </span>
+      <div id="extraBeds">
+        <h2>How many extra beds do you want?</h2>
+        <input type="number" min="0" @input="updateAmountOfExtraBeds" />
+      </div>
+
+      <h1>Total Price for Booking {{ totalCost }}kr</h1>
+
+      <!--Lägger in och visar alla rum som finns i addedRooms -->
+      <div id="rooms-container">
+        <span class="room-list">
+          <Booking-room-card
+            v-for="(room, i) in addedHotelRooms"
+            :key="room + i"
+            :hotelRoom="room"
+          />
+        </span>
+      </div>
+      <button class="confirm-booking">Confirm Booking</button>
+      <!--Mockup payment -->
+      <div id="payment-cotainer">
+        <span class="payment-cards">
+          <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
+        </span>
+      </div>
     </div>
-    <h1>CONTINUE BOOKING AND PAY</h1>
-    <div id="payment-cotainer">
-      <span class="payment-cards">
-        <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
-      </span>
-    </div>
+    <button @click="createBooking" class="confirm-booking">Confirm Booking</button>
   </body>
 </template>
 
@@ -57,6 +70,11 @@ import PaymentCard from "../components/PaymentCard.vue";
 import moment from "moment";
 
 export default {
+  methods: {
+    updateAmountOfExtraBeds() {
+      alert("hej");
+    },
+  },
   components: {
     BookingRoomCard,
     PaymentCard,
@@ -90,14 +108,20 @@ export default {
       return this.$store.getters.getAdultAmount;
     },
   },
+  methods: {
+    createBooking() {
+      console.log("cklick");
+      this.$store.dispatch("fetchCreateBooking");
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
-body {
-  background-color: #45c3d1;
-  margin: 5%;
-  display: inline;
+.hotel {
+  position: absolute;
+  top: 450px;
+  align-content: center;
 }
 
 .tag-list {
@@ -130,5 +154,14 @@ img {
   display: inline-block;
   width: 100%;
   background-color: rgba(95, 158, 160, 0.24);
+}
+.confirm-booking {
+  display: inline-block;
+  border: 4px;
+  border-radius: 20px;
+  background-color: rgb(15, 192, 68);
+  padding: 20px 18px;
+  cursor: pointer;
+  font-size: 32px;
 }
 </style>

@@ -15,13 +15,9 @@
       </div>
     </div>
     <div id="sort-bar">
-      <h3>
-        Sort by :
-        <button @click="sortHotelRoomsByPrice">Sort Rooms</button>
-        <button @click="sortHotelsByPrice">Sort Hotels</button>
-      </h3>
+      <button @click="sortHotelRoomsByPrice" class="sort-button">Sort Rooms</button>
+      <button @click="sortHotelsByPrice" class="sort-button">Sort Hotels</button>
     </div>
-    <hr />
   </div>
 </template>
 
@@ -54,15 +50,6 @@ export default {
       this.$store.commit("setFilteredHotels");
       this.$router.push({ path: "/result-page" });
     },
-    sortHotelsByPrice() {
-      this.$store.commit("setSortedHotels");
-      this.$router.push({ path: "/result-page" });
-    },
-    sortHotelRoomsByPrice() {
-      console.log("sorting: ");
-      this.$router.push({ path: "/hotelView" });
-      this.$store.commit("setSortedRooms");
-    },
   },
   mounted() {
     this.$store.commit("updateSearchText", "");
@@ -80,28 +67,52 @@ export default {
     justify-content: center;
     justify-self: center;
     width: fit-content;
-    border: 1px solid black;
+    box-shadow: var(--box-shadow-navbar-outline-border);
     padding: 0 10px 0 10px;
     height: --search-bar-height;
     border-radius: 52px;
-    background-color: #00ffff;
+    background-color: #45c3d15e;
     .search-bar-item {
       padding: 10px;
     }
     .search-button {
       display: inline-block;
-      outline: 1px solid var(--component-border-color);
       border: none;
-      border-radius: 20px;
+      border-radius: 5px;
       background-color: var(--component-color);
       padding: 20px 18px;
       padding: var(--component-input-inner-padding);
       cursor: pointer;
+      box-shadow: var(--box-shadow-outline-border);
       &:hover {
-        background-color: var(--component-color-hover);
+        background-color: rgb(57, 78, 195);
+        box-shadow: var(--box-shadow-outline-smooth);
       }
       &:active {
-        background-color: var(--component-color-active);
+        background-color: rgb(48, 69, 187);
+      }
+    }
+  }
+  #sort-bar {
+    width: fit-content;
+    height: 40px;
+    // height: 80px;
+    margin-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-self: center;
+
+    .sort-button {
+      box-shadow: var(--box-shadow-outline-border);
+      margin-right: 10px;
+      background-color: rgba(0, 0, 0, 0);
+      border: none;
+      // height: 50px;
+      height: 100%;
+      width: 100px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        cursor: pointer;
       }
     }
   }
@@ -110,7 +121,7 @@ export default {
   width: 80%;
   // height: 80px;
   margin-left: 10px;
-  background-color: #73d895;
+  background-color: #2babb9;
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
