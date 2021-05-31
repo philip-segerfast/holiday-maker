@@ -53,8 +53,6 @@ export default {
   },
   computed: {
     userBooking() {
-      console.log("Booking object: ");
-      console.log(this.$store.state.userBooking);
       return this.$store.state.userBooking;
     },
     bookedHotel() {
@@ -88,9 +86,6 @@ export default {
   },
   methods: {
     updateBooking() {
-      //this.$store.commit("setUserBooking", null);
-      console.log("Edited booking object to send to backend: ");
-      console.log(this.$store.state.userBooking);
       this.$store.dispatch("fetchUpdateBooking");
     },
   },

@@ -32,16 +32,13 @@ export default {
   },
   methods: {
     cancelRoom() {
-      console.log("Running CancelRoom");
-      if (this.$store.state.userBooking.hotelRooms.length > 1) {
+      // Splice deletes object from list by listindex and how many objects to delete.
+      if (this.bookedRooms.length > 1) {
         this.localBookedrooms.splice(this.roomArrayIndex, 1);
         this.$store.commit("setUserBookingRooms", this.localBookedrooms);
       } else {
         alert("You can't have a booking without rooms");
       }
-      console.log("new list of booked rooms in store: ");
-      console.log(this.$store.state.userBooking.hotelRooms);
-      //this.localBookedrooms = this.bookedRooms;
     },
   },
   mounted() {
