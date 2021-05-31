@@ -10,8 +10,7 @@
     &nbsp;&middot;&nbsp;
     <router-link to="/result-page">Result</router-link>
     &nbsp;&middot;&nbsp;
-    <span v-if="$store.getters.getLoggedInUser != null">
-      <br />
+    <span class="show-logged-in" v-if="$store.getters.getLoggedInUser != null">
       <h4>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h4>
     </span>
     <button class="navbutton" @click="logout">Logout</button>
@@ -38,6 +37,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.show-logged-in {
+  display: inline-block;
+  h4 {
+    margin: 0;
+  }
+}
+
 #nav {
   display: inline-block;
 
@@ -51,6 +57,7 @@ export default {
   }
 
   .navbutton {
+    display: inline-block;
     margin-left: 10px;
   }
 }
