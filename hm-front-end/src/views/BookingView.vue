@@ -17,62 +17,62 @@ price etc
 
 <template>
   <body>
-    <div id="login-cotainer">
-      <span class="login-component">
-        <LoginComponent />
-      </span>
-    </div>
-    <br />
-    <div id="register-cotainer">
-      <span class="register-component">
-        <RegisterComponent />
-      </span>
-    </div>
-    <br />
-    <div class="hotel">
-      <h1>{{ hotelInfo.name }}</h1>
-      <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
-      <h2>{{ hotelInfo.description }}</h2>
-      <div id="v-image">
-        <span v-for="image in hotelInfo.images" :key="image">
-          <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
+    <div id="main-container">
+      <div id="login-cotainer">
+        <span class="login-component">
+          <LoginComponent />
         </span>
       </div>
-      <h3>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h3>
-      <!--Visar alla taggar som är kopplade till ett hotell  -->
-      <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
-        <h3>{{ tag.label }}</h3>
-      </span>
-
-      <h2>Number of adult: {{ amountAdult }}</h2>
-      <h2>Number of children: {{ amountChildren }}</h2>
-
-      <div id="extraBeds">
-        <h2>How many extra beds do you want?</h2>
-        <input type="number" min="0" @input="updateAmountOfExtraBeds" />
+      <br />
+      <div id="register-cotainer">
+        <span class="register-component">
+          <RegisterComponent />
+        </span>
       </div>
+      <br />
+      <div class="hotel">
+        <h1>{{ hotelInfo.name }}</h1>
+        <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
+        <h2>{{ hotelInfo.description }}</h2>
+        <div id="v-image">
+          <div v-for="image in hotelInfo.images" :key="image">
+            <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
+          </div>
+        </div>
+        <h3>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h3>
+        <!--Visar alla taggar som är kopplade till ett hotell  -->
+        <div class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
+          <h3>{{ tag.label }}</h3>
+        </div>
 
-      <h1>Total Price for Booking {{ totalCost }}kr</h1>
+        <h2>Number of adult: {{ amountAdult }}</h2>
+        <h2>Number of children: {{ amountChildren }}</h2>
 
-      <!--Lägger in och visar alla rum som finns i addedRooms -->
-      <div id="rooms-container">
-        <span class="room-list">
+        <div id="extraBeds">
+          <h2>How many extra beds do you want?</h2>
+          <input type="number" min="0" @input="updateAmountOfExtraBeds" />
+        </div>
+
+        <h1>Total Price for Booking {{ totalCost }}kr</h1>
+
+        <!--Lägger in och visar alla rum som finns i addedRooms -->
+        <div class="room-list">
           <Booking-room-card
             v-for="(room, i) in addedHotelRooms"
             :key="room + i"
             :hotelRoom="room"
           />
-        </span>
+        </div>
+        <button class="confirm-booking">Confirm Booking</button>
+        <!--Mockup payment -->
+        <div id="payment-cotainer">
+          <div class="payment-cards">
+            <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
+          </div>
+        </div>
       </div>
-      <button class="confirm-booking">Confirm Booking</button>
-      <!--Mockup payment -->
-      <div id="payment-cotainer">
-        <span class="payment-cards">
-          <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
-        </span>
-      </div>
+      <button @click="createBooking" class="confirm-booking">Confirm Booking</button>
     </div>
-    <button @click="createBooking" class="confirm-booking">Confirm Booking</button>
   </body>
 </template>
 
@@ -134,8 +134,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#main-container {
+  display: flexbox;
+}
+.hotelRoom-card {
+}
 .hotel {
-  position: absolute;
+  position: fill;
   top: 450px;
   align-content: center;
 }
