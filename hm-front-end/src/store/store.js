@@ -12,10 +12,9 @@ export default createStore({
     hotel: {},
     hotelId: 1,
     livery: String,
-    selfcateringPrice: 0,
-    halfPensionPrice: 0,
-    fullBoardPrice: 0,
     totalCost: 0,
+    roomsCost: 0,
+    extraLiveryCost: 0,
     tempHotelName: String,
     searchHotelFilter: {
       searchText: "",
@@ -258,12 +257,23 @@ export default createStore({
     setHotelToBook(state, payload) {
       state.hotelToBook = payload;
     },
+
+    updateRoomsCost(state, payload) {
+      state.roomsCost = this.state.roomsCost + payload;
+      state.totalCost = this.state.totalCost + payload;
+    },
+    setSelfcatering(state, payload) {
+      state.selfcatering = payload;
+    },
+    setHalfPension(state, payload) {
+      state.halfPension = payload;
+    },
+    setFullBoard(state, payload) {
+      state.fullBoard = payload;
+    },
     setLivery(state, payload) {
       state.livery = payload;
       console.log(state.livery);
-    },
-    updateTotalCost(state, payload) {
-      state.totalCost = this.state.totalCost + payload;
     },
     setFilteredHotels() {
       const allHotels = this.state.hotels;
@@ -506,8 +516,11 @@ export default createStore({
     getHotelToBook(state) {
       return state.hotelToBook;
     },
-    getTotalCost(state) {
-      return state.totalCost; // + state.extraLiveryCost;
+    getRoomsCost(state) {
+      return state.roomsCost;
+    },
+    getExtraCost(state) {
+      return state.extraLiveryCost;
     },
     getHotelById(state) {
       return state.hotelById;
@@ -529,6 +542,25 @@ export default createStore({
     },
     getEndDate(state) {
       return state.searchHotelFilter.checkInDates.endDate;
+    },
+    getExtraCostLivery(state) {
+      if (state.livery == "self catering price") {
+        return state.hotelToBook.selfcateringPrice;
+      } else if (state.livery == "half pension price") {
+        return (
+          state.hotelToBook.halfPensionPrice * state.searchHotelFilter.peopleAmount.adultsAmount
+        );
+      } else if (state.livery == "full board price") {
+        return state.hotelToBook.fullBoardPrice * state.searchHotelFilter.peopleAmount.adultsAmount;
+      } else {
+        return 0;
+      }
+    },
+    getTotalBookingCost(state) {
+      state.totalCost = state.extraLiveryCost + state.roomsCost;
+      console.log(state.roomsCost);
+      console.log(state.extraLiveryCost);
+      return state.totalCost;
     },
   },
 });

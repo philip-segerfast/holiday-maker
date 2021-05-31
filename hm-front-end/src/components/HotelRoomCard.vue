@@ -24,7 +24,7 @@ export default {
   methods: {
     addRoomsToBooking() {
       this.$store.commit("addRoomToBooking", this.hotelRoom);
-      this.$store.commit("updateTotalCost", this.hotelRoom.baseNightPrice);
+      this.$store.commit("updateRoomsCost", this.hotelRoom.baseNightPrice);
       console.log(this.hotelRoom);
     },
   },

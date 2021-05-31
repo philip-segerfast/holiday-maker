@@ -34,12 +34,13 @@ price etc
 
       <h2>Number of adult: {{ amountAdult }}</h2>
       <h2>Number of children: {{ amountChildren }}</h2>
+      <h2>Number of days: {{ nrDays }}</h2>
 
       <div class="livery">
         Livery Option Select between: <br />
-        Self Catering {{ hotelInfo.selfCateringPrice }} Euro/Booking <br />
-        Half Pension {{ hotelInfo.halfPensionPrice }} Euro/Adult <br />
-        Full Board {{ hotelInfo.fullBoardPrice }} Euro/Adult
+        Self Catering {{ hotelInfo.selfCateringPrice }} Euro/(Booking and day) <br />
+        Half Pension {{ hotelInfo.halfPensionPrice }} Euro/(Adult and day) <br />
+        Full Board {{ hotelInfo.fullBoardPrice }} Euro/(Adult and day)
 
         <select
           name="liveryOption"
@@ -53,6 +54,7 @@ price etc
           <option value="full board price">Full Board</option>
         </select>
       </div>
+      <h1>Extra Livery {{ extraCost }}Euro/day</h1>
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
@@ -70,7 +72,8 @@ price etc
         </span>
       </div>
 
-      <h1>Total Price for Booking {{ totalCost }}kr</h1>
+      <h1>Total Price for Rooms {{ roomsCost }}Euro/day</h1>
+      <h1>Total Price for Booking {{ totalBookingCost }}Euro</h1>
       <!--Mockup payment -->
       <div id="payment-cotainer">
         <span class="payment-cards">
@@ -95,6 +98,7 @@ export default {
   data: function () {
     return {
       key: "",
+      extraLiveryCost: 0,
     };
   },
   methods: {
@@ -102,17 +106,7 @@ export default {
       alert("hej");
     },
     updateLivery(event) {
-      console.log(event.target.value); //this.$store.commit("setLivery", value);
-    },
-    updateSelfCateringPrice() {
-      this.$store.commit("selfcateringPrice", this.hotelInfo.selfCateringPrice);
-      alert(this.hotelInfo.selfCateringPrice);
-    },
-    updateHalfPensionPrice() {
-      this.$store.commit("halfPensionPrice", this.hotelInfo.halfPensionPrice);
-    },
-    updateFullBoardPrice() {
-      this.$store.commit("fullBoardPrice", this.hotelInfo.fullBoardPrice);
+      this.$store.commit("setLivery", event.target.value);
     },
 
     createBooking() {
@@ -140,8 +134,21 @@ export default {
       var date = new Date(this.$store.getters.getEndDate * 1000);
       return moment(date).format("YYYY-MM-DD");
     },
-    totalCost() {
-      return this.$store.getters.getTotalCost;
+    nrDays() {
+      var dateS = this.$store.getters.getStartDate;
+      var dateE = this.$store.getters.getEndDate;
+      var dateDiff = (dateE - dateS) / (60 * 60 * 24);
+      return dateDiff;
+    },
+    roomsCost() {
+      return this.$store.getters.getRoomsCost;
+    },
+    extraCost() {
+      return this.$store.getters.getExtraCostLivery;
+    },
+    totalBookingCost() {
+      return (this.extraCost + this.roomsCost) * this.nrDays;
+      // return this.$store.getters.getTotalBookingCost;
     },
     amountAdult() {
       return this.$store.getters.getAdultAmount;
