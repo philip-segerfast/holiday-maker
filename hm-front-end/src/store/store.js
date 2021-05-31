@@ -95,7 +95,7 @@ export default createStore({
         ],
       },
       paid: "",
-      paymentCards: [
+      payment: [
         {
           name: "Visa",
           bank: "Nordea",
