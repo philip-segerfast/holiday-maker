@@ -5,6 +5,8 @@ import newton.grupp2.holidaymaker.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PaymentService {
     @Autowired
@@ -12,5 +14,9 @@ public class PaymentService {
 
     public Payment addPayment(Payment payment) {
        return paymentRepository.save(payment);
+    }
+
+    public List<Payment> getAllPayments() {
+        return paymentRepository.findAll();
     }
 }
