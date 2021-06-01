@@ -12,9 +12,13 @@ export default createStore({
     hotelImages: [],
     hotel: {},
     hotelId: 1,
+    livery: String,
     totalCost: 0,
     tempHotelName: "",
     routePath: "", // Because you can't access routePath from vuex store. This is updated i App.vue.
+    roomsCost: 0,
+    maxExtraBeds: 0,
+    extraLiveryCost: 0,
     searchHotelFilter: {
       searchText: "",
       checkInDates: {
@@ -253,11 +257,31 @@ export default createStore({
     addRoomToBooking(state, room) {
       state.addedHotelRooms.push(room);
     },
+    updateMaxExtraBeds(state, payload) {
+      state.maxExtraBeds = this.state.maxExtraBeds + payload;
+      console.log("Hej detta är ett test" + state.maxExtraBeds);
+    },
     setHotelToBook(state, payload) {
       state.hotelToBook = payload;
     },
-    updateTotalCost(state, payload) {
-      state.totalCost = this.state.totalCost + payload;
+    updateRoomsCost(state, payload) {
+      state.roomsCost = this.state.roomsCost + payload;
+    },
+    setTotalCost(state, payload) {
+      state.totalCost = payload;
+    },
+    setSelfcatering(state, payload) {
+      state.selfcatering = payload;
+    },
+    setHalfPension(state, payload) {
+      state.halfPension = payload;
+    },
+    setFullBoard(state, payload) {
+      state.fullBoard = payload;
+    },
+    setLivery(state, payload) {
+      state.livery = payload;
+      console.log(state.livery);
     },
     setFilteredHotels() {
       const allHotels = this.state.hotels;
@@ -553,6 +577,9 @@ export default createStore({
     },
   },
   getters: {
+    getUserId(state) {
+      return state.loggedInUser;
+    },
     getAllHotels(state) {
       return state.hotels;
     },
@@ -565,8 +592,14 @@ export default createStore({
     getHotelToBook(state) {
       return state.hotelToBook;
     },
-    getTotalCost(state) {
-      return state.totalCost;
+    getRoomsCost(state) {
+      return state.roomsCost;
+    },
+    getExtraCost(state) {
+      return state.extraLiveryCost;
+    },
+    getMaxExtraBeds() {
+      return state.maxExtraBeds;
     },
     getHotelById(state) {
       return state.hotelById;
@@ -582,6 +615,9 @@ export default createStore({
     },
     getAdultAmount(state) {
       return state.searchHotelFilter.peopleAmount.adultsAmount;
+    },
+    getChildrenAmount(state) {
+      return state.searchHotelFilter.peopleAmount.childrenAmount;
     },
     getStartDate(state) {
       return state.searchHotelFilter.checkInDates.startDate;
@@ -600,6 +636,19 @@ export default createStore({
     },
     getSelectedHotelTags(state) {
       return state.searchHotelFilter.selectedHotelTags;
+    },
+    getExtraCostLivery(state) {
+      if (state.livery == "self catering price") {
+        return state.hotelToBook.selfcateringPrice;
+      } else if (state.livery == "half pension price") {
+        return (
+          state.hotelToBook.halfPensionPrice * state.searchHotelFilter.peopleAmount.adultsAmount
+        );
+      } else if (state.livery == "full board price") {
+        return state.hotelToBook.fullBoardPrice * state.searchHotelFilter.peopleAmount.adultsAmount;
+      } else {
+        return 0;
+      }
     },
     getRoutePath(state) {
       return state.routePath;
