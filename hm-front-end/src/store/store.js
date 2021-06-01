@@ -506,7 +506,7 @@ export default createStore({
   },
   getters: {
     getUserId(state) {
-      return state.userBooking.id;
+      return state.loggedInUser;
     },
     getAllHotels(state) {
       return state.hotels;

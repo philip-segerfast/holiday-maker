@@ -84,7 +84,7 @@ export default {
       return this.$store.getters.getAdultAmount;
     },
     amountChildren() {
-      return this.$store.getters.getAdultAmount;
+      return this.$store.getters.getChildrenAmount;
     },
   },
   mounted() {

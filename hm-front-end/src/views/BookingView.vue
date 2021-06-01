@@ -32,9 +32,8 @@ price etc
         <h3>{{ tag.label }}</h3>
       </span>
 
-      <h2>Number of adult: {{ amountAdult }}</h2>
-      <h2>Number of children: {{ amountChildren }}</h2>
-      <h2>Number of days: {{ nrDays }}</h2>
+      <h3>{{ amountAdult }} Adults and {{ amountChildren }} Children</h3>
+      <h3>Number of days: {{ nrDays }}</h3>
 
       <div class="livery">
         Livery Option Select between: <br />
@@ -114,8 +113,8 @@ export default {
       this.$store.commit("setTotalCost", this.totalBookingCost);
       this.$store.dispatch("fetchCreateBooking");
 
-      const routerUrl = "/bookingdetailsview/" + this.$store.getUserId;
-      this.$router.push({ path: routerUrl });
+      /* const routerUrl = "/bookingdetailsview/" + this.$store.getUserId;
+      this.$router.push({ path: routerUrl });*/
     },
   },
 
