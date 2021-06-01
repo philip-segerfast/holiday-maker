@@ -149,6 +149,9 @@ export default {
     extraCost() {
       return this.$store.getters.getExtraCostLivery;
     },
+    maxExtraBeds() {
+      return this.$store.getters.getMaxExtraBeds;
+    },
     totalBookingCost() {
       return (this.extraCost + this.roomsCost) * this.nrDays; //+ this.extraBedCost
     },

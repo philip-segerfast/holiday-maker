@@ -14,6 +14,7 @@ export default createStore({
     livery: String,
     totalCost: 0,
     roomsCost: 0,
+    maxExtraBeds: 0,
     extraLiveryCost: 0,
     tempHotelName: String,
     searchHotelFilter: {
@@ -253,6 +254,10 @@ export default createStore({
     },
     addRoomToBooking(state, room) {
       state.addedHotelRooms.push(room);
+    },
+    updateMaxExtraBeds(state, payload) {
+      state.maxExtraBeds = this.state.maxExtraBeds + payload;
+      console.log("Hej detta är ett test" + state.maxExtraBeds);
     },
     setHotelToBook(state, payload) {
       state.hotelToBook = payload;
@@ -525,6 +530,9 @@ export default createStore({
     },
     getExtraCost(state) {
       return state.extraLiveryCost;
+    },
+    getMaxExtraBeds() {
+      return state.maxExtraBeds;
     },
     getHotelById(state) {
       return state.hotelById;
