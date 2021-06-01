@@ -36,8 +36,9 @@ export default createStore({
       },
       shouldDoSidenavFilter: false,
       beachDistance: 0,
-      centrumDistance: 0,
+      centerDistance: 0,
       selectedHotelTags: [],
+      orderBy: "",
     },
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
@@ -290,15 +291,35 @@ export default createStore({
         Annars refererar det till webbläsarfönstret, vilket inte är önskvärt.
         Detta för att bland annat kunna referera till this.state. 
       */
-      let filteredHotels = filterHotelsByCity.call(this, allHotels);
+      let filteredHotels;
+      filteredHotels = filterHotelsByCity.call(this, allHotels);
       filteredHotels = filterHotelsByAmountOfPeople.call(this, filteredHotels);
       filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
-      // If we are at the search results page, do this filtering:
+      // If we are at the search results page (side-filter is visible), do these filterings:
       if (["Result"].includes(this.state.routePath)) {
-        // Filtering by tags!
         filteredHotels = filterHotelsByTags.call(this, filteredHotels);
+        filteredHotels = filterHotelsByBeachDistance.call(this, filteredHotels);
+        filteredHotels = filterHotelsByCenterDistance.call(this, filteredHotels);
       }
-      // Hämta ut de filtrerade hotelen utifrån sökning
+
+      const orderBy = this.state.searchHotelFilter.orderBy;
+      // =========================== SORTERA HÄR!!! =========================== //
+      switch (orderBy) {
+        case "min-price":
+          // filteredHotels = this.filterByMinPrice(filteredHotels)
+          break;
+        case "max-price":
+          // filteredHotels = this.filterByMaxPrice(filteredHotels)
+          break;
+        case "ratings":
+          // filteredHotels = this.filterByRatings(filteredHotels)
+          break;
+      }
+      // ====================================================================== //
+
+      console.log("Amount of results: ", filteredHotels.length);
+
+      // Save the filtered list to state.
       this.state.filteredHotels = filteredHotels;
 
       function filterHotelsByCity(listToFilter) {
@@ -418,13 +439,40 @@ export default createStore({
       function filterHotelsByTags(listToFilter) {
         let selectedTagIds = this.state.searchHotelFilter.selectedHotelTags.map((tag) => tag.id);
         if (selectedTagIds.length === 0) {
-          console.log("No tags selected.");
           return listToFilter;
         }
         let output = listToFilter.filter((hotel) => {
           let hotelTagIds = hotel.hotelTags.map((tag) => tag.id);
           // alla selectedTags måste finnas i hotel.hotelTags
           if (selectedTagIds.every((selectedTagId) => hotelTagIds.includes(selectedTagId))) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        return output;
+      }
+
+      function filterHotelsByBeachDistance(listToFilter) {
+        const maxBeachDistanceFilter = this.state.searchHotelFilter.beachDistance;
+
+        const output = listToFilter.filter((hotel) => {
+          const hotelBeachDistance = hotel.beachDistance;
+          if (hotelBeachDistance <= maxBeachDistanceFilter || maxBeachDistanceFilter == 0) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        return output;
+      }
+
+      function filterHotelsByCenterDistance(listToFilter) {
+        const maxCenterDistanceFilter = this.state.searchHotelFilter.centerDistance;
+
+        const output = listToFilter.filter((hotel) => {
+          const hotelCenterDistance = hotel.centerDistance;
+          if (hotelCenterDistance <= maxCenterDistanceFilter || maxCenterDistanceFilter == 0) {
             return true;
           } else {
             return false;
@@ -454,8 +502,8 @@ export default createStore({
     updateChildren(state, payload) {
       state.searchHotelFilter.people.children = payload;
     },
-    updateCentrumDistance(state, payload) {
-      state.searchHotelFilter.centrumDistance = payload;
+    updateCenterDistance(state, payload) {
+      state.searchHotelFilter.centerDistance = payload;
     },
     updateBeachDistance(state, payload) {
       state.searchHotelFilter.beachDistance = payload;
@@ -474,6 +522,10 @@ export default createStore({
     },
     updateRoute(state, payload) {
       state.routePath = payload;
+    },
+    updateOrderBy(state, payload) {
+      console.log("order by: ", payload);
+      state.searchHotelFilter.orderBy = payload;
     },
   },
   actions: {
@@ -628,8 +680,8 @@ export default createStore({
     getBeachDistance(state) {
       return state.searchHotelFilter.beachDistance;
     },
-    getCentrumDistance(state) {
-      return state.searchHotelFilter.centrumDistance;
+    getCenterDistance(state) {
+      return state.searchHotelFilter.centerDistance;
     },
     getAllHotelTags(state) {
       return state.allHotelTags;
