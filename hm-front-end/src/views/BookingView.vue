@@ -71,7 +71,9 @@ price etc
       <button class="confirm-booking">Confirm Booking</button>
       <!--Mockup payment -->
       <div id="payment-cotainer">
-        <PaymentCard />
+        <span class="payment-cards">
+          <PaymentCard />
+        </span>
       </div>
     </div>
     <br />
