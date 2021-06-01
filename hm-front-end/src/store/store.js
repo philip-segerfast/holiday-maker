@@ -561,5 +561,21 @@ export default createStore({
     getEndDate(state) {
       return state.searchHotelFilter.checkInDates.endDate;
     },
+    getCardHolderName(state) {
+      return state.userBooking.payment.cardHolderName;
+    },
+    getCardNumber(state) {
+      return state.userBooking.payment.cardNumber;
+    },
+    getCardEndDate(state) {
+      return state.userBooking.payment.cardEndDate;
+    },
+    getCardCvc(state) {
+      return state.userBooking.payment.cardCvc;
+    },
+    // Might need to change this one to an already excisting TotalCost!
+    getPaymentTotalCost() {
+      return state.userBooking.payment.totalCost;
+    },
   },
 });

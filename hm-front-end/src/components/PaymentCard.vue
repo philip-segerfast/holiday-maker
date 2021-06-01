@@ -20,7 +20,9 @@
               <input type="text" id="cvc" name="cvc" placeholder="352" />
             </div>
             <h2>payment totalcost: 12000</h2>
-            <button @click="createPayment" class="btn">Create Payment</button>
+            <form @submit.prevent="createPayment">
+              <button class="btn" type="submit">Create Payment</button>
+            </form>
           </div>
         </form>
       </div>
@@ -30,8 +32,26 @@
 
 <script>
 export default {
-  method: {
+  computed: {
+    cardHolders() {
+      return this.$store.getters.getCardHolderName;
+    },
+    cardNumbers() {
+      return this.$store.getters.getCardNumber;
+    },
+    cardEndDates() {
+      return this.$store.getters.getCardEndDate;
+    },
+    cardCvc() {
+      return this.$store.getters.getCardCvc;
+    },
+    paymentTotalCost() {
+      return this.$store.getters.getPaymentTotalCost;
+    },
+  },
+  methods: {
     createPayment() {
+      console.log("CLICK - Create Payment!");
       this.$store.dispatch("fetchCreatePayment");
     },
   },
