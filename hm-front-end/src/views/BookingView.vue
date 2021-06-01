@@ -32,10 +32,10 @@ price etc
         <h3>{{ tag.label }}</h3>
       </span>
       <h2>Adults: {{ amountAdult }}</h2>
-
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
-        <input type="number" min="0" @input="updateAmountOfExtraBeds" />
+        <input type="number" v-model="amountOfExtraBeds" min="0" @input="updateAmountOfExtraBeds" />
+        <h2>Room price :{{ totalCostBeforeExtrabeds }}</h2>
       </div>
 
       <h1>Total Price for Booking {{ totalCost }}kr</h1>
@@ -61,10 +61,10 @@ import PaymentCard from "../components/PaymentCard.vue";
 import moment from "moment";
 
 export default {
-  methods: {
-    updateAmountOfExtraBeds() {
-      alert("hej");
-    },
+  data() {
+    return {
+      amountOfExtraBeds: "",
+    };
   },
   components: {
     BookingRoomCard,
@@ -74,7 +74,6 @@ export default {
     addedHotelRooms() {
       return this.$store.getters.getAddedHotelRooms;
     },
-
     hotelInfo() {
       return this.$store.getters.getHotelToBook;
     },
@@ -89,8 +88,12 @@ export default {
       var date = new Date(this.$store.getters.getEndDate * 1000);
       return moment(date).format("YYYY-MM-DD");
     },
-    totalCost() {
+    totalCostBeforeExtrabeds() {
       return this.$store.getters.getTotalCost;
+    },
+    totalCost() {
+      var extrabedsPrice = this.hotelInfo.extraBedPrice * this.amountOfExtraBeds;
+      return extrabedsPrice + this.totalCostBeforeExtrabeds;
     },
     amountAdult() {
       return this.$store.getters.getAdultAmount;
