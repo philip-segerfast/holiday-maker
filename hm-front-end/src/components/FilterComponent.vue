@@ -3,20 +3,25 @@
     <div class="filter-section">
       <div class="header">Luxuries</div>
       <div class="filter-sub-section">
-        <div class="luxury-item">
-          <span>Pool</span>
-        </div>
-        <div class="luxury-item">
-          <span>Kvällsunderhållning</span>
-        </div>
-        <div class="luxury-item">
-          <span>Barnklubb</span>
+        <!-- LIST ALL AVAILABLE HOTEL TAGS -->
+        <div
+          v-for="tag in unselectedHotelTags"
+          :key="tag.id"
+          v-on:click="selectTag(tag)"
+          class="tag-item"
+        >
+          <span>{{ tag.label }}</span>
         </div>
       </div>
       <div class="header">Selected</div>
       <div class="filter-sub-section">
-        <div class="luxury-item">
-          <span>Restaurang</span>
+        <div
+          v-for="tag in selectedHotelTags"
+          :key="tag.id"
+          v-on:click="unselectTag(tag)"
+          class="tag-item"
+        >
+          <span>{{ tag.label }}</span>
         </div>
       </div>
     </div>
@@ -31,6 +36,7 @@
             <input
               type="range"
               v-model="beachDistance"
+              @input="updateBeachDistance"
               name="max-distance-center"
               min="0"
               max="100"
@@ -48,6 +54,7 @@
             <input
               type="range"
               v-model="centrumDistance"
+              @input="updateCentrumDistance"
               name="max-distance-centrum"
               min="0"
               max="100"
@@ -82,6 +89,39 @@ export default {
       beachDistance: 0,
       centrumDistance: 0,
     };
+  },
+  methods: {
+    updateBeachDistance() {
+      this.$store.commit("updateBeachDistance", this.beachDistance);
+    },
+    updateCentrumDistance() {
+      this.$store.commit("updateCentrumDistance", this.centrumDistance);
+    },
+    selectTag(tag) {
+      this.$store.commit("selectHotelTag", tag);
+    },
+    unselectTag(tag) {
+      this.$store.commit("unselectHotelTag", tag);
+    },
+  },
+  computed: {
+    allHotelTags() {
+      return this.$store.getters.getAllHotelTags;
+    },
+    unselectedHotelTags() {
+      let allHotelTags = this.allHotelTags;
+      let selectedTags = this.selectedHotelTags;
+      let unselectedTags = [];
+      allHotelTags.forEach((tag) => {
+        if (!selectedTags.includes(tag)) {
+          unselectedTags.push(tag);
+        }
+      });
+      return unselectedTags;
+    },
+    selectedHotelTags() {
+      return this.$store.getters.getSelectedHotelTags;
+    },
   },
 };
 </script>
@@ -147,7 +187,7 @@ export default {
         }
       }
 
-      .luxury-item {
+      .tag-item {
         width: fit-content;
         border-radius: 20px;
         height: 32px;
@@ -158,6 +198,7 @@ export default {
         margin: 5px;
         background-color: whitesmoke;
         box-shadow: var(--box-shadow-outline-smooth);
+        cursor: pointer;
         span {
           display: inline-block;
           font-size: 75%;

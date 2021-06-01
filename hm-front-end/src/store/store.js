@@ -4,6 +4,7 @@ import axios from "axios";
 export default createStore({
   state: {
     hotels: [],
+    allHotelTags: [],
     HotelSearch: {},
     hotelRooms: [],
     addedHotelRooms: [],
@@ -12,7 +13,7 @@ export default createStore({
     hotel: {},
     hotelId: 1,
     totalCost: 0,
-    tempHotelName: String,
+    tempHotelName: "",
     searchHotelFilter: {
       searchText: "",
       checkInDates: {
@@ -28,8 +29,9 @@ export default createStore({
         adultsAmount: 0,
         children: [],
       },
-      // fyll på med hotelTags
-      tags: [{}],
+      beachDistance: 0,
+      centrumDistance: 0,
+      selectedHotelTags: [],
     },
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
@@ -152,7 +154,6 @@ export default createStore({
         return 0;
       });
     },
-
     setSortedHotelsAscending() {
       let sortedByPrice;
       sortedByPrice = this.state.hotels.sort((price1, price2) => {
@@ -178,7 +179,6 @@ export default createStore({
       });
       return maxHotelPrice.reverse();
     },
-
     // Sorterar alla hotelrum utifrån lägst --> högst
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
@@ -404,6 +404,24 @@ export default createStore({
     updateChildren(state, payload) {
       state.searchHotelFilter.people.children = payload;
     },
+    updateCentrumDistance(state, payload) {
+      state.searchHotelFilter.centrumDistance = payload;
+    },
+    updateBeachDistance(state, payload) {
+      state.searchHotelFilter.beachDistance = payload;
+    },
+    updateAllHotelTags(state, payload) {
+      state.allHotelTags = payload;
+    },
+    selectHotelTag(state, payload) {
+      let selectedTags = state.searchHotelFilter.selectedHotelTags;
+      selectedTags.push(payload);
+    },
+    unselectHotelTag(state, payload) {
+      state.searchHotelFilter.selectedHotelTags = state.searchHotelFilter.selectedHotelTags.filter(
+        (tag) => tag !== payload
+      );
+    },
   },
   actions: {
     // actions får tillgång till context objektet
@@ -484,6 +502,12 @@ export default createStore({
       let answer = await response.json();
       console.log(answer);
     },
+    async fetchAllHotelTags(context) {
+      const url = "/rest/tags";
+      let response = await fetch(url);
+      let json = await response.json();
+      context.commit("updateAllHotelTags", json);
+    },
   },
   getters: {
     getAllHotels(state) {
@@ -521,6 +545,18 @@ export default createStore({
     },
     getEndDate(state) {
       return state.searchHotelFilter.checkInDates.endDate;
+    },
+    getBeachDistance(state) {
+      return state.searchHotelFilter.beachDistance;
+    },
+    getCentrumDistance(state) {
+      return state.searchHotelFilter.centrumDistance;
+    },
+    getAllHotelTags(state) {
+      return state.allHotelTags;
+    },
+    getSelectedHotelTags(state) {
+      return state.searchHotelFilter.selectedHotelTags;
     },
   },
 });
