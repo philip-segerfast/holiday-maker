@@ -42,6 +42,12 @@ export default {
     hotelRooms() {
       return this.$store.getters.getHotelRooms;
     },
+    beachDistance() {
+      return this.$store.getters.getBeachDistance;
+    },
+    centrumDistance() {
+      return this.$store.getters.getCentrumDistance;
+    },
   },
   methods: {
     filterHotels() {

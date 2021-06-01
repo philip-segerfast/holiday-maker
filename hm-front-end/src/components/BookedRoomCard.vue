@@ -8,14 +8,42 @@
     <h3 class="double-beds" v-if="bookedRoom.doubleBedsAmount > 0">
       Number of double beds:{{ bookedRoom.doubleBedsAmount }}
     </h3>
+    <div>
+      <form @submit.prevent="cancelRoom">
+        <button type="submit">Remove room</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["bookedRoom"],
+  data() {
+    return {
+      localBookedrooms: [],
+    };
+  },
+  props: ["bookedRoom", "roomArrayIndex"],
 
-  computed: {},
+  computed: {
+    bookedRooms() {
+      return this.$store.state.userBooking.hotelRooms;
+    },
+  },
+  methods: {
+    cancelRoom() {
+      // Splice deletes object from list by listindex and how many objects to delete.
+      if (this.bookedRooms.length > 1) {
+        this.localBookedrooms.splice(this.roomArrayIndex, 1);
+        this.$store.commit("setUserBookingRooms", this.localBookedrooms);
+      } else {
+        alert("You can't have a booking without rooms");
+      }
+    },
+  },
+  mounted() {
+    this.localBookedrooms = this.bookedRooms;
+  },
 };
 </script>
 

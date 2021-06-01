@@ -37,4 +37,9 @@ public class BookingController {
     public void deleteBookingById(@PathVariable long id) {
         bookingService.deleteBookingById(id);
     }
+
+    @PutMapping("/rest/bookings/{id}")
+    public void updateBookingById(@PathVariable long id, @RequestBody Booking booking) {
+        bookingService.updateBookingById(id, booking);
+    }
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 export default createStore({
   state: {
     hotels: [],
+    allHotelTags: [],
     HotelSearch: {},
     hotelRooms: [],
     addedHotelRooms: [],
@@ -13,10 +14,10 @@ export default createStore({
     hotelId: 1,
     livery: String,
     totalCost: 0,
+    tempHotelName: "",
     roomsCost: 0,
     maxExtraBeds: 0,
     extraLiveryCost: 0,
-    tempHotelName: String,
     searchHotelFilter: {
       searchText: "",
       checkInDates: {
@@ -32,8 +33,9 @@ export default createStore({
         adultsAmount: 0,
         children: [],
       },
-      // fyll på med hotelTags
-      tags: [{}],
+      beachDistance: 0,
+      centrumDistance: 0,
+      selectedHotelTags: [],
     },
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
@@ -99,7 +101,7 @@ export default createStore({
         ],
       },
       paid: "",
-      paymentCards: [
+      payment: [
         {
           name: "Visa",
           bank: "Nordea",
@@ -156,7 +158,6 @@ export default createStore({
         return 0;
       });
     },
-
     setSortedHotelsAscending() {
       let sortedByPrice;
       sortedByPrice = this.state.hotels.sort((price1, price2) => {
@@ -182,7 +183,6 @@ export default createStore({
       });
       return maxHotelPrice.reverse();
     },
-
     // Sorterar alla hotelrum utifrån lägst --> högst
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
@@ -425,8 +425,29 @@ export default createStore({
     setPaymentCards(state, payload) {
       state.paymentCards = payload;
     },
+    setUserBookingRooms(state, payload) {
+      state.userBooking.hotelRooms = payload;
+    },
     updateChildren(state, payload) {
       state.searchHotelFilter.people.children = payload;
+    },
+    updateCentrumDistance(state, payload) {
+      state.searchHotelFilter.centrumDistance = payload;
+    },
+    updateBeachDistance(state, payload) {
+      state.searchHotelFilter.beachDistance = payload;
+    },
+    updateAllHotelTags(state, payload) {
+      state.allHotelTags = payload;
+    },
+    selectHotelTag(state, payload) {
+      let selectedTags = state.searchHotelFilter.selectedHotelTags;
+      selectedTags.push(payload);
+    },
+    unselectHotelTag(state, payload) {
+      state.searchHotelFilter.selectedHotelTags = state.searchHotelFilter.selectedHotelTags.filter(
+        (tag) => tag !== payload
+      );
     },
   },
   actions: {
@@ -485,6 +506,20 @@ export default createStore({
       await response.text();
       alert("Booking cancelled");
     },
+    async fetchUpdateBooking(context) {
+      let booking = this.state.userBooking;
+      console.log("Running fetchUpdateBooking. Edited booking object:");
+      console.log(booking);
+      const url = "/rest/bookings/" + booking.id;
+      let response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(booking),
+      });
+      await response.text();
+    },
     async fetchCreateBooking() {
       let booking = {
         fromTime: this.state.searchHotelFilter.checkInDates.startDate,
@@ -507,6 +542,12 @@ export default createStore({
       });
       let answer = await response.json();
       console.log(answer);
+    },
+    async fetchAllHotelTags(context) {
+      const url = "/rest/tags";
+      let response = await fetch(url);
+      let json = await response.json();
+      context.commit("updateAllHotelTags", json);
     },
   },
   getters: {
@@ -557,6 +598,18 @@ export default createStore({
     },
     getEndDate(state) {
       return state.searchHotelFilter.checkInDates.endDate;
+    },
+    getBeachDistance(state) {
+      return state.searchHotelFilter.beachDistance;
+    },
+    getCentrumDistance(state) {
+      return state.searchHotelFilter.centrumDistance;
+    },
+    getAllHotelTags(state) {
+      return state.allHotelTags;
+    },
+    getSelectedHotelTags(state) {
+      return state.searchHotelFilter.selectedHotelTags;
     },
     getExtraCostLivery(state) {
       if (state.livery == "self catering price") {

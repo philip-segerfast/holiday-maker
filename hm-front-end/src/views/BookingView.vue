@@ -17,6 +17,22 @@ price etc
 
 <template>
   <body>
+    <div class="components">
+      <div class="sign-up" v-if="$store.getters.getLoggedInUser == null">
+        <div id="login-register-cotainer">
+          <span class="login-component">
+            <LoginComponent />
+          </span>
+        </div>
+        <br />
+        <div>
+          <span class="register-component">
+            <RegisterComponent />
+          </span>
+        </div>
+      </div>
+    </div>
+    <br />
     <div class="hotel">
       <h1>{{ hotelInfo.name }}</h1>
       <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
@@ -76,15 +92,18 @@ price etc
       <!--Mockup payment -->
       <div id="payment-cotainer">
         <span class="payment-cards">
-          <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
+          <PaymentCard />
         </span>
       </div>
     </div>
+    <br />
     <button @click="createBooking" class="confirm-booking">Confirm Booking</button>
   </body>
 </template>
 
 <script>
+import LoginComponent from "../components/LoginComponent.vue";
+import RegisterComponent from "../components/RegisterComponent.vue";
 import BookingRoomCard from "../components/BookingRoomCard.vue";
 import PaymentCard from "../components/PaymentCard.vue";
 import moment from "moment";
@@ -117,7 +136,12 @@ export default {
       this.$router.push({ path: routerUrl });*/
     },
   },
-
+  components: {
+    LoginComponent,
+    RegisterComponent,
+    BookingRoomCard,
+    PaymentCard,
+  },
   computed: {
     addedHotelRooms() {
       return this.$store.getters.getAddedHotelRooms;
@@ -166,6 +190,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.components {
+  margin-right: 10px;
+  display: inline-block;
+  background-color: #1a88bb;
+  border-radius: 12px;
+}
 .hotel {
   background-color: #3fb0bd;
   border-radius: 10px;
