@@ -137,6 +137,7 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: var(--box-shadow-outline-smooth);
+  margin-right: 20px;
 
   .filter-section {
     width: 100%;
