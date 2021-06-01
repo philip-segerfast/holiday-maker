@@ -4,22 +4,47 @@
       <div class="container">
         <form>
           <label for="cardname">Firstname</label>
-          <input type="text" id="cname" name="cardname" placeholder="Lasse" />
+          <input
+            v-model="first_name"
+            id="cname"
+            name="cardname"
+            placeholder="Enter your first name"
+            required
+          />
           <label for="cardlname">Lastname</label>
-          <input type="text" id="lname" name="lastname" placeholder="Lassesson" />
+          <input
+            v-model="last_name"
+            id="lname"
+            name="lastname"
+            placeholder="Enter your last name"
+            required
+          />
           <label for="card-number">Card number</label>
-          <input type="text" id="cardnumber" name="cnumber" placeholder="111 222 333 444 555" />
+          <input
+            v-model="card_number"
+            id="cardnumber"
+            name="cnumber"
+            placeholder="ex: 111 222 333 444 555"
+            required
+          />
 
           <div class="row">
             <div class="col-50">
-              <label for="expyear">Exp Year</label>
-              <input type="text" id="expyear" name="expyear" placeholder="2018" />
+              <label for="expyear">End date</label>
+              <input
+                v-model="end_date"
+                id="expyear"
+                name="expyear"
+                placeholder="22/5-2023"
+                required
+              />
             </div>
             <div class="col-50">
               <label for="cvc">CVC</label>
-              <input type="text" id="cvc" name="cvc" placeholder="352" />
+              <input v-model="cvc" id="cvc" name="cvc" placeholder="cvc" required />
             </div>
-            <h2>payment totalcost: 12000</h2>
+            <h2>payment totalcost:</h2>
+            <br />
             <form @submit.prevent="createPayment">
               <button class="btn" type="submit">Create Payment</button>
             </form>
@@ -32,6 +57,37 @@
 
 <script>
 export default {
+  data() {
+    return {
+      first_name: "",
+      last_name: "",
+      card_number: "",
+      end_date: "",
+      cvc: "",
+    };
+  },
+  methods: {
+    // this logic works in createPayment
+    async registerPayment() {
+      console.log("Starting payment registration");
+      let credentials = {
+        first_name: this.first_name,
+        last_name: this.last_name,
+        card_number: this.card_number,
+        end_date: this.end_date,
+        cvc: this.cvc,
+      };
+      let request = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      };
+      await fetch("/rest/payments", request);
+      console.log(this.first_name, this.last_name, this.card_number, this.end_date, this.cvc);
+    },
+  },
   computed: {
     cardHolders() {
       return this.$store.getters.getCardHolderName;
@@ -50,9 +106,24 @@ export default {
     },
   },
   methods: {
-    createPayment() {
-      console.log("CLICK - Create Payment!");
-      this.$store.dispatch("fetchCreatePayment");
+    async createPayment() {
+      console.log("Starting payment registration");
+      let credentials = {
+        first_name: this.first_name,
+        last_name: this.last_name,
+        card_number: this.card_number,
+        end_date: this.end_date,
+        cvc: this.cvc,
+      };
+      let request = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      };
+      await fetch("/rest/payments", request);
+      console.log(this.first_name, this.last_name, this.card_number, this.end_date, this.cvc);
     },
   },
 };

@@ -408,6 +408,22 @@ export default createStore({
     updateChildren(state, payload) {
       state.searchHotelFilter.people.children = payload;
     },
+    setCardHolderName(state, payload) {
+      state.userBooking.payment.cardHolderName = payload;
+    },
+    setCardNumber(state, payload) {
+      state.userBooking.payment.cardNumber = payload;
+    },
+    setCardEndDate(state, payload) {
+      state.userBooking.payment.endDate = payload;
+    },
+    setCardCvc(state, payload) {
+      state.userBooking.payment.cardCvc;
+    },
+    // Might need to change this one to an already excisting TotalCost!
+    setPaymentTotalCost(state, payload) {
+      state.userBooking.payment.totalCost = payload;
+    },
   },
   actions: {
     // actions får tillgång till context objektet
