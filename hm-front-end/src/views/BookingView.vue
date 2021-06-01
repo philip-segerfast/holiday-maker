@@ -132,8 +132,8 @@ export default {
       this.$store.commit("setTotalCost", this.totalBookingCost);
       this.$store.dispatch("fetchCreateBooking");
 
-      /* const routerUrl = "/bookingdetailsview/" + this.$store.getUserId;
-      this.$router.push({ path: routerUrl });*/
+      const routerUrl = "/";
+      this.$router.push({ path: routerUrl });
     },
   },
   components: {
