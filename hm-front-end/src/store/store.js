@@ -14,6 +14,7 @@ export default createStore({
     hotelId: 1,
     totalCost: 0,
     tempHotelName: "",
+    routePath: "", // Because you can't access routePath from vuex store. This is updated i App.vue.
     searchHotelFilter: {
       searchText: "",
       checkInDates: {
@@ -29,6 +30,7 @@ export default createStore({
         adultsAmount: 0,
         children: [],
       },
+      shouldDoSidenavFilter: false,
       beachDistance: 0,
       centrumDistance: 0,
       selectedHotelTags: [],
@@ -267,10 +269,13 @@ export default createStore({
       let filteredHotels = filterHotelsByCity.call(this, allHotels);
       filteredHotels = filterHotelsByAmountOfPeople.call(this, filteredHotels);
       filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
-
+      // If we are at the search results page, do this filtering:
+      if (["Result"].includes(this.state.routePath)) {
+        // Filtering by tags!
+        filteredHotels = filterHotelsByTags.call(this, filteredHotels);
+      }
       // Hämta ut de filtrerade hotelen utifrån sökning
       this.state.filteredHotels = filteredHotels;
-      // console.log(this.state.searchHotelFilter); // <-- SHOW FILTER DATA
 
       function filterHotelsByCity(listToFilter) {
         let searchPhraseLower = this.state.searchHotelFilter.searchText.toLowerCase();
@@ -385,6 +390,24 @@ export default createStore({
 
         return qualifiedHotels;
       }
+
+      function filterHotelsByTags(listToFilter) {
+        let selectedTagIds = this.state.searchHotelFilter.selectedHotelTags.map((tag) => tag.id);
+        if (selectedTagIds.length === 0) {
+          console.log("No tags selected.");
+          return listToFilter;
+        }
+        let output = listToFilter.filter((hotel) => {
+          let hotelTagIds = hotel.hotelTags.map((tag) => tag.id);
+          // alla selectedTags måste finnas i hotel.hotelTags
+          if (selectedTagIds.every((selectedTagId) => hotelTagIds.includes(selectedTagId))) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        return output;
+      }
     },
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
@@ -424,6 +447,9 @@ export default createStore({
       state.searchHotelFilter.selectedHotelTags = state.searchHotelFilter.selectedHotelTags.filter(
         (tag) => tag !== payload
       );
+    },
+    updateRoute(state, payload) {
+      state.routePath = payload;
     },
   },
   actions: {
@@ -574,6 +600,9 @@ export default createStore({
     },
     getSelectedHotelTags(state) {
       return state.searchHotelFilter.selectedHotelTags;
+    },
+    getRoutePath(state) {
+      return state.routePath;
     },
   },
 });
