@@ -3,37 +3,12 @@
     <div class="col-75">
       <div class="container">
         <form>
-          <div class="row">
-            <div class="col-50">
-              <!-- Register som egen sida? -->
-              <h3>Register</h3>
-              <div class="row">
-                <div class="col-50">
-                  <label for="bank">Bank</label>
-                  <input type="text" id="bank" name="bank" placeholder="Nordea" />
-                </div>
-                <div class="col-50">
-                  <label for="card">Card</label>
-                  <input type="text" id="card" name="card" placeholder="Visa" />
-                </div>
-              </div>
-            </div>
-
-            <div class="col-50">
-              <h3>Payment</h3>
-              <label for="fname">Debit Card</label>
-              <h3 class="payment-card">Card name: Visa</h3>
-              <span>Visa</span>
-              -
-              <span>Nordea</span>
-            </div>
-          </div>
-          <label for="cardname">Name on Card</label>
-          <input type="text" id="cname" name="cardname" placeholder="Lasse Lasseson" />
-          <label for="cardcnum">Credit card number</label>
-          <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" />
-          <label for="expmonth">Exp Month</label>
-          <input type="text" id="expmonth" name="expmonth" placeholder="September" />
+          <label for="cardname">Firstname</label>
+          <input type="text" id="cname" name="cardname" placeholder="Lasse" />
+          <label for="cardlname">Lastname</label>
+          <input type="text" id="lname" name="lastname" placeholder="Lassesson" />
+          <label for="card-number">Card number</label>
+          <input type="text" id="cardnumber" name="cnumber" placeholder="111 222 333 444 555" />
 
           <div class="row">
             <div class="col-50">
@@ -41,13 +16,12 @@
               <input type="text" id="expyear" name="expyear" placeholder="2018" />
             </div>
             <div class="col-50">
-              <label for="cvv">CVV</label>
-              <input type="text" id="cvv" name="cvv" placeholder="352" />
+              <label for="cvc">CVC</label>
+              <input type="text" id="cvc" name="cvc" placeholder="352" />
             </div>
-            <h2>payment totalcost</h2>
+            <h2>payment totalcost: 12000</h2>
+            <button @click="createPayment" class="btn">Create Payment</button>
           </div>
-
-          <input type="submit" value="Purchase" class="btn" />
         </form>
       </div>
     </div>
@@ -55,7 +29,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  method: {
+    createPayment() {
+      this.$store.dispatch("fetchCreatePayment");
+    },
+  },
+};
 </script>
 
 <style>

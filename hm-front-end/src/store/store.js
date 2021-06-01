@@ -97,10 +97,10 @@ export default createStore({
       paid: "",
       payment: {
         cardHolderName: "Joe",
-        cardNumber: "",
-        cardEndDate: "",
-        cardCvc: "",
-        totalCost: "",
+        cardNumber: "123456",
+        cardEndDate: "11",
+        cardCvc: "456",
+        totalCost: "100000",
       },
     },
 
@@ -399,8 +399,8 @@ export default createStore({
     setUserBooking(state, payload) {
       state.userBooking = payload;
     },
-    setPayment(state, payload) {
-      state.payment = payload;
+    setCreatePayment(state, payload) {
+      state.userBooking.payment = payload;
     },
     setUserBookingRooms(state, payload) {
       state.userBooking.hotelRooms = payload;
@@ -502,13 +502,13 @@ export default createStore({
       let answer = await response.json();
       console.log(answer);
     },
-    async fetchPayment() {
+    async fetchCreatePayment() {
       let purchase = {
-        name: this.state.payment.cardHolderName,
-        number: this.state.payment.cardNumber,
-        endDate: this.state.payment.endDate,
-        cvc: this.state.payment.cardCvc,
-        totalCost: this.state.payment.totalCost,
+        cardHolderName: this.state.userBooking.payment.cardHolderName,
+        cardNumber: this.state.userBooking.payment.cardNumber,
+        endDate: this.state.userBooking.payment.endDate,
+        cardCvc: this.state.userBooking.payment.cardCvc,
+        totalCost: this.state.userBooking.payment.totalCost,
       };
       console.log("Running fetchPayment:");
       console.log(purchase);
