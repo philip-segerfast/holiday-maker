@@ -9,7 +9,7 @@
       Double beds: {{ hotelRoom.doubleBedsAmount }}
     </h3>
     <h4>
-      Number of extra beds allowed:{{ hotelRoom.maxAmountOfExtraBeds }} -Additional cost: See hotel
+      Number of extra beds allowed:{{ hotelRoom.maxAmountOfExtraBeds }} Additional cost: See hotel
       description
     </h4>
     <h2>Price:{{ hotelRoom.baseNightPrice }}</h2>
@@ -24,8 +24,8 @@ export default {
   methods: {
     addRoomsToBooking() {
       this.$store.commit("addRoomToBooking", this.hotelRoom);
-      this.$store.commit("updateTotalCost", this.hotelRoom.baseNightPrice);
-      console.log(this.hotelRoom);
+      this.$store.commit("updateRoomsCost", this.hotelRoom.baseNightPrice);
+      this.$store.commit("updateMaxExtraBeds", this.hotelRoom.maxAmountOfExtraBeds);
     },
   },
 };
