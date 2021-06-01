@@ -113,6 +113,9 @@ export default {
       console.log(this.totalBookingCost);
       this.$store.commit("setTotalCost", this.totalBookingCost);
       this.$store.dispatch("fetchCreateBooking");
+
+      const routerUrl = "/bookingdetailsview/" + this.$store.getUserId;
+      this.$router.push({ path: routerUrl });
     },
   },
 
@@ -148,13 +151,13 @@ export default {
       return this.$store.getters.getExtraCostLivery;
     },
     totalBookingCost() {
-      return (this.extraCost + this.roomsCost) * this.nrDays;
+      return (this.extraCost + this.roomsCost) * this.nrDays; //+ this.extraBedCost
     },
     amountAdult() {
       return this.$store.getters.getAdultAmount;
     },
     amountChildren() {
-      return this.$store.getters.getAdultAmount;
+      return this.$store.getters.getChildrenAmount;
     },
   },
 };

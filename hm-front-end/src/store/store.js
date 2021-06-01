@@ -505,6 +505,9 @@ export default createStore({
     },
   },
   getters: {
+    getUserId(state) {
+      return state.userBooking.id;
+    },
     getAllHotels(state) {
       return state.hotels;
     },
@@ -537,6 +540,9 @@ export default createStore({
     },
     getAdultAmount(state) {
       return state.searchHotelFilter.peopleAmount.adultsAmount;
+    },
+    getChildrenAmount(state) {
+      return state.searchHotelFilter.peopleAmount.childrenAmount;
     },
     getStartDate(state) {
       return state.searchHotelFilter.checkInDates.startDate;
