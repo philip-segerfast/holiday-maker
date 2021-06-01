@@ -50,4 +50,11 @@ public class BookingService {
     public void deleteBookingById(long id) {
         bookingRepository.deleteById(id);
     }
+
+    public void updateBookingById(long id, Booking booking) {
+        if(bookingRepository.existsById(id)) {
+            booking.setId(id);
+            bookingRepository.save(booking);
+        }
+    }
 }

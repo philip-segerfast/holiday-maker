@@ -97,7 +97,7 @@ export default createStore({
         ],
       },
       paid: "",
-      paymentCards: [
+      payment: [
         {
           name: "Visa",
           bank: "Nordea",
@@ -401,6 +401,9 @@ export default createStore({
     setPaymentCards(state, payload) {
       state.paymentCards = payload;
     },
+    setUserBookingRooms(state, payload) {
+      state.userBooking.hotelRooms = payload;
+    },
     updateChildren(state, payload) {
       state.searchHotelFilter.people.children = payload;
     },
@@ -478,6 +481,20 @@ export default createStore({
       });
       await response.text();
       alert("Booking cancelled");
+    },
+    async fetchUpdateBooking(context) {
+      let booking = this.state.userBooking;
+      console.log("Running fetchUpdateBooking. Edited booking object:");
+      console.log(booking);
+      const url = "/rest/bookings/" + booking.id;
+      let response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(booking),
+      });
+      await response.text();
     },
     async fetchCreateBooking() {
       let booking = {

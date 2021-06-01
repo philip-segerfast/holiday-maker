@@ -1,14 +1,27 @@
 <template>
-  <div>
-    <form @submit.prevent="login">
-      <input v-model="email" name="email" type="email" placeholder="email" required />
-      <input v-model="password" type="password" placeholder="password" required />
-      <button type="submit">Login</button>
-    </form>
-    <router-link to="/Register">if you dont have account click here </router-link>
-    <span v-if="$store.getters.getLoggedInUser != null">
-      Logged in as: {{ $store.getters.getLoggedInUser.email }}
-    </span>
+  <div class="Sign-in">
+    <div class="log-in" v-if="$store.getters.getLoggedInUser == null">
+      <button class="sign-in-btn" @click="clickSignIn = !clickSignIn">User</button>
+      <div class="sign-in" v-if="clickSignIn">
+        <form @submit.prevent="login">
+          <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
+            <div v-show="inputs"></div>
+            <input v-model="email" name="email" type="email" placeholder="email" required />
+            <input v-model="password" type="password" placeholder="password" required />
+            <button @click="submit">Login</button>
+            <div class="submit-button" v-if="submit"></div>
+            <div class="submit-button" v-else>
+              <br />
+              <!-- <router-link to="/Register">if you dont have account click here </router-link> -->
+            </div>
+          </div>
+          <span v-if="$store.getters.getLoggedInUser != null">
+            <br />
+            <h2>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h2>
+          </span>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,6 +31,7 @@
 export default {
   data() {
     return {
+      clickSignIn: false,
       email: "",
       password: "",
     };
@@ -54,7 +68,38 @@ export default {
         console.log("Wrong username/password");
       }
     },
+    logout() {
+      //logout from backend
+      fetch("/logout", { mode: "no-cors" });
+
+      this.$store.commit("setUserBookingList", []);
+
+      //removes user from store.js
+      this.$store.commit("setLoggedInUser", null);
+    },
   },
 };
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.inputs {
+}
+.Sign-in {
+  display: inline-block;
+  background-color: #1a88bb;
+  border-radius: 30px;
+  width: 250px;
+}
+
+.sign-in-btn {
+  box-shadow: var(--box-shadow-outline-border);
+  margin-right: 10px;
+  background-color: rgb(230, 211, 48);
+  border: none;
+  height: 100%;
+  width: 100px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+}
+</style>
