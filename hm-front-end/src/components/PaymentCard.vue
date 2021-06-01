@@ -22,15 +22,15 @@
             <div class="col-50">
               <h3>Payment</h3>
               <label for="fname">Debit Card</label>
-              <h3 class="payment-card">Card name: {{ paymentCards }}</h3>
-              <span>{{ card.name }}</span>
+              <h3 class="payment-card">Card name: Testing</h3>
+              <span>card name</span>
               -
-              <span>{{ card.bank }}</span>
+              <span>card</span>
             </div>
           </div>
-          <label for="cname">Name on Card</label>
+          <label for="cardname">Name on Card</label>
           <input type="text" id="cname" name="cardname" placeholder="Lasse Lasseson" />
-          <label for="ccnum">Credit card number</label>
+          <label for="cardcnum">Credit card number</label>
           <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" />
           <label for="expmonth">Exp Month</label>
           <input type="text" id="expmonth" name="expmonth" placeholder="September" />
@@ -44,6 +44,7 @@
               <label for="cvv">CVV</label>
               <input type="text" id="cvv" name="cvv" placeholder="352" />
             </div>
+            <h2>payment totalcost</h2>
           </div>
 
           <input type="submit" value="Purchase" class="btn" />
@@ -54,9 +55,7 @@
 </template>
 
 <script>
-export default {
-  props: ["card"],
-};
+export default {};
 </script>
 
 <style>

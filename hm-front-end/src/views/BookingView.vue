@@ -71,9 +71,7 @@ price etc
       <button class="confirm-booking">Confirm Booking</button>
       <!--Mockup payment -->
       <div id="payment-cotainer">
-        <span class="payment-cards">
-          <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
-        </span>
+        <PaymentCard />
       </div>
     </div>
     <br />
