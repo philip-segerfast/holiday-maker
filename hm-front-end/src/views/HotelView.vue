@@ -1,17 +1,5 @@
 <template>
   <body>
-    <div id="login-cotainer">
-      <span class="login-component">
-        <LoginComponent />
-      </span>
-    </div>
-    <br />
-    <div id="register-cotainer">
-      <span class="register-component">
-        <RegisterComponent />
-      </span>
-    </div>
-
     <div id="sort-bar">
       <h3>
         Sort by:
@@ -19,7 +7,6 @@
         - Sort by: <button @click="sortHotelRoomsByMaxPrice">Max Price</button>
       </h3>
     </div>
-
     <div class="hotel-info">
       <h1>{{ hotelInfo.name }}</h1>
       <!--Visar alla bilder som är kopplade till ett hotell -->
@@ -46,19 +33,22 @@
         <hotel-room-card v-for="(room, i) in rooms" :key="room + i" :hotelRoom="room" />
       </span>
     </div>
+
+    <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
+    <div id="rooms-container">
+      <span class="room-list" v-if="rooms.length > 0">
+        <hotel-room-card v-for="(room, i) in rooms" :key="room + i" :hotelRoom="room" />
+      </span>
+    </div>
   </body>
 </template>
 
 <script>
-import LoginComponent from "../components/LoginComponent.vue";
-import RegisterComponent from "../components/RegisterComponent.vue";
 import HotelRoomCard from "../components/HotelRoomCard.vue";
 import moment from "moment";
 
 export default {
   components: {
-    LoginComponent,
-    RegisterComponent,
     HotelRoomCard,
   },
   methods: {
@@ -99,7 +89,7 @@ export default {
       return this.$store.getters.getAdultAmount;
     },
     amountChildren() {
-      return this.$store.getters.getAdultAmount;
+      return this.$store.getters.getChildrenAmount;
     },
   },
   mounted() {
@@ -110,11 +100,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.components {
+  margin-right: 10px;
+  display: inline-block;
+  background-color: #1a88bb;
+  border-radius: 12px;
+}
 .total-info {
-  position: absolute;
-  top: 450px;
-  width: 100%;
-  background-color: #7db5c1;
+  background-color: #3fb0bd;
+  border-radius: 10px;
 }
 .tag-list {
   display: inline-block;

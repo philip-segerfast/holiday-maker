@@ -27,11 +27,17 @@
     <div id="rooms-container">
       <span class="room-list" v-if="bookedRooms.length > 0">
         <BookedRoomCard
-          v-for="(bookedRoom, i) in bookedRooms"
-          :key="bookedRoom + i"
+          v-for="(bookedRoom, index) in bookedRooms"
+          :key="bookedRoom.id + index"
           :bookedRoom="bookedRoom"
+          :roomArrayIndex="index"
         />
       </span>
+    </div>
+    <div>
+      <form @submit.prevent="updateBooking">
+        <button type="submit">Update booking</button>
+      </form>
     </div>
   </div>
 </template>
@@ -47,8 +53,6 @@ export default {
   },
   computed: {
     userBooking() {
-      console.log("Booking object: ");
-      console.log(this.$store.state.userBooking);
       return this.$store.state.userBooking;
     },
     bookedHotel() {
@@ -78,6 +82,11 @@ export default {
         return "All inclusive";
       }
       return "Something went wrong. LuxuryClass: " + this.userBooking.luxuryClass;
+    },
+  },
+  methods: {
+    updateBooking() {
+      this.$store.dispatch("fetchUpdateBooking");
     },
   },
   mounted() {

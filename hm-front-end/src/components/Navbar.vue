@@ -60,6 +60,7 @@ export default {
   }
 
   .navbutton {
+    display: inline-block;
     margin-left: 10px;
     background-color: transparent;
     cursor: pointer;

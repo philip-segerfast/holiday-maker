@@ -1,24 +1,26 @@
 <template>
   <div class="Sign-in">
-    <button class="sign-in-btn" @click="clickSignIn = !clickSignIn">User</button>
-    <div class="sign-in" v-if="clickSignIn">
-      <form @submit.prevent="login">
-        <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
-          <div v-show="inputs"></div>
-          <input v-model="email" name="email" type="email" placeholder="email" required />
-          <input v-model="password" type="password" placeholder="password" required />
-          <button @click="submit">Login</button>
-          <div class="submit-button" v-if="submit"></div>
-          <div class="submit-button" v-else>
-            <br />
-            <!-- <router-link to="/Register">if you dont have account click here </router-link> -->
+    <div class="log-in" v-if="$store.getters.getLoggedInUser == null">
+      <button class="sign-in-btn" @click="clickSignIn = !clickSignIn">User</button>
+      <div class="sign-in" v-if="clickSignIn">
+        <form @submit.prevent="login">
+          <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
+            <div v-show="inputs"></div>
+            <input v-model="email" name="email" type="email" placeholder="email" required />
+            <input v-model="password" type="password" placeholder="password" required />
+            <button @click="submit">Login</button>
+            <div class="submit-button" v-if="submit"></div>
+            <div class="submit-button" v-else>
+              <br />
+              <!-- <router-link to="/Register">if you dont have account click here </router-link> -->
+            </div>
           </div>
-        </div>
-        <span v-if="$store.getters.getLoggedInUser != null">
-          <br />
-          <h2>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h2>
-        </span>
-      </form>
+          <span v-if="$store.getters.getLoggedInUser != null">
+            <br />
+            <h2>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h2>
+          </span>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -83,7 +85,7 @@ export default {
 }
 .Sign-in {
   display: inline-block;
-  background-color: #308f97;
+  background-color: #1a88bb;
   border-radius: 30px;
   width: 250px;
 }
@@ -91,9 +93,8 @@ export default {
 .sign-in-btn {
   box-shadow: var(--box-shadow-outline-border);
   margin-right: 10px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgb(230, 211, 48);
   border: none;
-  height: 50px;
   height: 100%;
   width: 100px;
   &:hover {

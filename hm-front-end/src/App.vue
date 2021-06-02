@@ -9,12 +9,12 @@
           <Navbar />
         </div>
       </div>
-      <div v-if="shouldShowFilteringStuff">
+      <div v-show="shouldShowSearchBar">
         <SearchBar />
       </div>
     </div>
     <div id="bottom">
-      <div v-show="shouldShowFilteringStuff" id="sidebar">
+      <div v-show="shouldShowFilterSide" id="sidebar">
         <FilterComponent />
       </div>
       <div id="router-view">
@@ -34,13 +34,23 @@ export default {
     SearchBar,
     FilterComponent,
   },
-  mounted() {
-    this.$store.dispatch("fetchLoggedInUser");
-    this.$store.dispatch("fetchAllHotels");
+  async mounted() {
+    await this.$store.dispatch("fetchLoggedInUser");
+    await this.$store.dispatch("fetchAllHotels");
+    await this.$store.dispatch("fetchAllHotelTags");
   },
   computed: {
-    shouldShowFilteringStuff() {
+    shouldShowSearchBar() {
       return !["Login", "Register", "About"].includes(this.$route.name);
+    },
+    shouldShowFilterSide() {
+      return ["Result"].includes(this.$route.name);
+    },
+  },
+  watch: {
+    // Update current route in vuex store
+    $route(to, from) {
+      this.$store.commit("updateRoute", to.name);
     },
   },
 };
@@ -84,6 +94,8 @@ export default {
     background-color: #45c3d1;
     margin: 0 auto;
     border-radius: 2vw 2vw 0 0;
+
+    box-shadow: var(--box-shadow-outline-hard);
 
     #toppage {
       display: flex;
