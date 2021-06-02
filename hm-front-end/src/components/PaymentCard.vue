@@ -66,28 +66,27 @@ export default {
       cvc: "",
     };
   },
-  methods: {
-    // this logic works in createPayment
-    async registerPayment() {
-      console.log("Starting payment registration");
-      let credentials = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        card_number: this.card_number,
-        end_date: this.end_date,
-        cvc: this.cvc,
-      };
-      let request = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      };
-      await fetch("/rest/payments", request);
-      console.log(this.first_name, this.last_name, this.card_number, this.end_date, this.cvc);
-    },
-  },
+  // this logic works in createPayment
+  //   async registerPayment() {
+  //     console.log("Starting payment registration");
+  //     let credentials = {
+  //       first_name: this.first_name,
+  //       last_name: this.last_name,
+  //       card_number: this.card_number,
+  //       end_date: this.end_date,
+  //       cvc: this.cvc,
+  //     };
+  //     let request = {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(credentials),
+  //     };
+  //     await fetch("/rest/payments", request);
+  //     console.log(this.first_name, this.last_name, this.card_number, this.end_date, this.cvc);
+  //   },
+  // },
   computed: {
     cardHolders() {
       return this.$store.getters.getCardHolderName;
@@ -109,12 +108,12 @@ export default {
     async createPayment() {
       console.log("Starting payment registration");
       let credentials = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        card_number: this.card_number,
-        end_date: this.end_date,
-        cvc: this.cvc,
+        cardHolderName: this.first_name + " " + this.last_name,
+        cardNumber: this.card_number,
+        cardEndDate: this.end_date,
+        cardCvc: this.cvc,
       };
+      console.log(JSON.stringify(credentials));
       let request = {
         method: "POST",
         headers: {
@@ -123,7 +122,6 @@ export default {
         body: JSON.stringify(credentials),
       };
       await fetch("/rest/payments", request);
-      console.log(this.first_name, this.last_name, this.card_number, this.end_date, this.cvc);
     },
   },
 };
