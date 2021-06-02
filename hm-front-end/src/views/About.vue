@@ -27,8 +27,8 @@ export default {
       lineItems: [
         {
           //name: "TestHotel",
-          price: "price_1IxWwoEuj6pxFvwi0qiE8sf3", // The id of the one-time price you created in your Stripe dashboard
-          quantity: 1,
+          price: "price_1IxpOGEuj6pxFvwiLcDDknXF", // The id of the one-time price you created in your Stripe dashboard
+          quantity: 425,
         },
       ],
       successURL: "http://localhost:3000/",
