@@ -64,42 +64,43 @@ price etc
           <h3>{{ tag.label }}</h3>
         </div>
 
-      <h3>{{ amountAdult }} Adults and {{ amountChildren }} Children</h3>
-      <h3>Number of days: {{ nrDays }}</h3>
+        <h3>{{ amountAdult }} Adults and {{ amountChildren }} Children</h3>
+        <h3>Number of days: {{ nrDays }}</h3>
 
-      <div class="livery">
-        Livery Option Select between: <br />
-        Self Catering {{ hotelInfo.selfCateringPrice }} Euro/(Booking and day) <br />
-        Half Pension {{ hotelInfo.halfPensionPrice }} Euro/(Adult and day) <br />
-        Full Board {{ hotelInfo.fullBoardPrice }} Euro/(Adult and day)
+        <div class="livery">
+          Livery Option Select between: <br />
+          Self Catering {{ hotelInfo.selfCateringPrice }} Euro/(Booking and day) <br />
+          Half Pension {{ hotelInfo.halfPensionPrice }} Euro/(Adult and day) <br />
+          Full Board {{ hotelInfo.fullBoardPrice }} Euro/(Adult and day)
 
-        <select
-          name="liveryOption"
-          @change="updateLivery($event)"
-          class="livery-control"
-          v-model="key"
-        >
-          <option value="No catering"></option>
-          <option value="self catering price">Self Catering</option>
-          <option value="half pension price">Half pension</option>
-          <option value="full board price">Full Board</option>
-        </select>
-      </div>
-      <h2>Extra Livery {{ extraCost }}Euro/day</h2>
+          <select
+            name="liveryOption"
+            @change="updateLivery($event)"
+            class="livery-control"
+            v-model="key"
+          >
+            <option value="No catering"></option>
+            <option value="self catering price">Self Catering</option>
+            <option value="half pension price">Half pension</option>
+            <option value="full board price">Full Board</option>
+          </select>
+        </div>
+        <h2>Extra Livery {{ extraCost }}Euro/day</h2>
 
-      <div id="extraBeds">
-        <h2>How many extra beds do you want?</h2>
-        <input type="number" min="0" @input="updateAmountOfExtraBeds" />
-      </div>
+        <div id="extraBeds">
+          <h2>How many extra beds do you want?</h2>
+          <input type="number" min="0" @input="updateAmountOfExtraBeds" />
+        </div>
 
-      <!--Lägger in och visar alla rum som finns i addedRooms -->
-      <div id="rooms-container">
-        <span class="room-list">
-          <Booking-room-card
-            v-for="(room, i) in addedHotelRooms"
-            :key="room + i"
-            :hotelRoom="room"
-          />
+        <!--Lägger in och visar alla rum som finns i addedRooms -->
+        <div id="rooms-container">
+          <span class="room-list">
+            <Booking-room-card
+              v-for="(room, i) in addedHotelRooms"
+              :key="room + i"
+              :hotelRoom="room"
+            />
+          </span>
         </div>
         <button class="confirm-booking">Confirm Booking</button>
         <!--Mockup payment -->
