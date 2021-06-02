@@ -1,26 +1,21 @@
 <template>
   <div id="nav">
-    <!-- <router-link to="/">Home</router-link>
-    &nbsp;&middot;&nbsp;
-    <router-link to="/about">About</router-link>
-    &nbsp;&middot;&nbsp;
-    <router-link to="/register">Register</router-link>
-    &nbsp;&middot;&nbsp;
-    <router-link to="/result-page">Result</router-link>
-    -->
+    <router-link to="/">Home</router-link>
+
     <span id="show-login-button" v-if="$store.getters.getLoggedInUser == null">
-      &nbsp;&middot;&nbsp;
+      &nbsp;
       <router-link to="/login">Login</router-link>
     </span>
+    &nbsp;
     <!--&nbsp;&middot;&nbsp;
     <router-link to="/" tag="button">Logout</router-link> -->
-    &nbsp;&middot;&nbsp;
+
     <span id="show-logged-in" v-if="$store.getters.getLoggedInUser != null">
       <h4>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h4>
     </span>
+    &nbsp;
     <!--<button class="navbutton" @click="$router.push('Register')">Register</button> -->
     <div id="hide-logout-button" v-if="$store.getters.getLoggedInUser != null">
-      &nbsp;&middot;&nbsp;
       <button class="navbutton" @click="logout">Logout</button>
     </div>
   </div>
@@ -39,7 +34,7 @@ export default {
       this.$store.commit("setLoggedInUser", null);
 
       //Shows page Home after pressing logout
-      this.$router.push({ path: "/" });
+      this.$router.push("/");
     },
   },
 };
