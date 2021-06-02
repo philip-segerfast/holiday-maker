@@ -66,11 +66,25 @@ export default {
       amountOfExtraBeds: "",
     };
   },
+  methods: {
+    updateAmountOfExtraBeds() {
+      if (this.amountOfExtraBeds <= this.maxAmountOfExtrabeds) {
+        console.log(this.amountOfExtraBeds);
+      } else {
+        console.log("youve reached max amount of extrabeds in this room");
+        this.amountOfExtraBeds = this.maxAmountOfExtrabeds;
+      }
+    },
+  },
   components: {
     BookingRoomCard,
     PaymentCard,
   },
   computed: {
+    maxAmountOfExtrabeds() {
+      var maxextra = 4;
+      return maxextra;
+    },
     addedHotelRooms() {
       return this.$store.getters.getAddedHotelRooms;
     },
