@@ -105,11 +105,12 @@ export default createStore({
       },
       paid: "",
       payment: {
-        cardHolderName: "Joe",
-        cardNumber: "123456",
-        cardEndDate: "11",
-        cardCvc: "456",
-        totalCost: "100000",
+        cardHolderName: "",
+        cardNumber: "",
+        cardEndMonth: "",
+        cardEndYear: "",
+        cardCvc: "",
+        totalCost: "",
       },
     },
 

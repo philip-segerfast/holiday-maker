@@ -32,10 +32,22 @@
             <div class="col-50">
               <label for="expyear">End date</label>
               <input
-                v-model="end_date"
+                v-model="end_month"
                 id="expyear"
                 name="expyear"
-                placeholder="22/5-2023"
+                placeholder="MM"
+                maxlenght="2"
+                size="2"
+                required
+              />
+              /
+              <input
+                v-model="end_year"
+                id="expyear"
+                name="expyear"
+                placeholder="YY"
+                maxlenght="2"
+                size="2"
                 required
               />
             </div>
@@ -62,7 +74,8 @@ export default {
       first_name: "",
       last_name: "",
       card_number: "",
-      end_date: "",
+      end_month: "",
+      end_year: "",
       cvc: "",
     };
   },
@@ -110,7 +123,8 @@ export default {
       let credentials = {
         cardHolderName: this.first_name + " " + this.last_name,
         cardNumber: this.card_number,
-        cardEndDate: this.end_date,
+        cardEndMonth: this.end_month,
+        cardEndYear: this.end_year,
         cardCvc: this.cvc,
       };
       console.log(JSON.stringify(credentials));
