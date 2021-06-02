@@ -1,9 +1,24 @@
 <template>
-  <div class="result-page">
-    <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
-    <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
-    <div v-if="filteredHotels.length > 0">
-      <HotelCard v-for="(hotel, i) in filteredHotels" :key="hotel + i" :hotel="hotel" />
+  <div id="result-page">
+    <div id="sort-bar">
+      <h3>
+        Sort by :
+        <button @click="sortHotelsByRatings">Ratings</button>
+        -
+        <button @click="sortHotelsByMinPrice">Min Price</button>
+        -
+        <button @click="sortHotelsByMaxPrice">Max Price</button>
+      </h3>
+    </div>
+    <div class="main-container">
+      <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
+      <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
+      <div class="list-hotel" v-if="filteredHotels.length > 0">
+        <HotelCard v-for="(hotel, i) in filteredHotels" :key="hotel + i" :hotel="hotel" />
+      </div>
+      <div v-else>
+        <h2>No result on search - try again</h2>
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +34,22 @@ export default {
     HotelCard,
   },
 
+  methods: {
+    sortHotelsByMinPrice() {
+      this.$store.commit("setSortedHotelsAscending");
+      this.$router.push({ path: "/result-page" });
+    },
+    sortHotelsByMaxPrice() {
+      this.$store.commit("setSortedHotelsDescending");
+      this.$router.push({ path: "/result-page" });
+    },
+    sortHotelsByRatings() {
+      console.log("sorting ratings: ");
+      this.$store.commit("setSortedRatings");
+      this.$router.push({ path: "/result-page" });
+    },
+  },
+
   computed: {
     // Hämtar hotellistan från store
     hotels() {
@@ -28,10 +59,34 @@ export default {
     filteredHotels() {
       return this.$store.state.filteredHotels;
     },
-    
-    
   },
 };
 </script>
 
-<style></style>
+<style scoped lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#result-page {
+  #sort-bar {
+    height: fit-content;
+  }
+  .main-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .list-hotel {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      grid-gap: 10px;
+      width: 100%;
+      padding: 10px;
+      justify-content: center;
+    }
+  }
+}
+</style>

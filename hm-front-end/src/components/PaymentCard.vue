@@ -22,10 +22,10 @@
             <div class="col-50">
               <h3>Payment</h3>
               <label for="fname">Debit Card</label>
-              <h3 class="payment-card">Card name: {{ paymentCards }}</h3>
-              <span>{{ card.name }}</span>
+              <h3 class="payment-card">Card name: Visa</h3>
+              <span>Visa</span>
               -
-              <span>{{ card.bank }}</span>
+              <span>Nordea</span>
             </div>
           </div>
           <label for="cname">Name on Card</label>
@@ -54,9 +54,7 @@
 </template>
 
 <script>
-export default {
-  props: ["card"],
-};
+export default {};
 </script>
 
 <style>

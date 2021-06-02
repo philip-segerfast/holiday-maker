@@ -37,7 +37,7 @@ export default {
 
 <style scoped lang="scss">
 #date-range {
-  outline: 1px solid var(--component-border-color);
+  box-shadow: var(--box-shadow-navbar-outline-border);
   border-radius: 20px;
   display: flex;
   flex-direction: row;
@@ -54,6 +54,9 @@ export default {
   }
   span {
     padding: var(--component-input-inner-padding) 10px;
+  }
+  &:hover {
+    box-shadow: var(--box-shadow-navbar-outline-smooth);
   }
 }
 </style>

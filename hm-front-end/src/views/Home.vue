@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     <BookingList />
   </div>
 </template>
@@ -13,13 +13,9 @@ export default {
   computed: {},
   methods: {},
   mounted() {
-    this.$store.dispatch("fetchUserBookings");
+    this.$store.dispatch("fetchUserBookingList");
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.home {
-  height: 100%;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -1,13 +1,20 @@
 <template>
   <body>
-    <div class="split right">
+    <div id="sort-bar">
+      <h3>
+        Sort by:
+        <button @click="sortHotelRoomsByPrice">Min Price</button>
+        - Sort by: <button @click="sortHotelRoomsByMaxPrice">Max Price</button>
+      </h3>
+    </div>
+    <div class="hotel-info">
       <h1>{{ hotelInfo.name }}</h1>
       <!--Visar alla bilder som är kopplade till ett hotell -->
       <span v-for="image in hotelInfo.images" :key="image">
         <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
       </span>
-      <h2>check-in date: {{ startDate }} - check-out date: {{ endDate }}</h2>
-      <h2>Number of adult: {{ amountAdult }}</h2>
+      <h2>Check-in date: {{ startDate }} | Check-out date: {{ endDate }}</h2>
+      <h2>{{ amountAdult }} Adult and {{ amountChildren }} Child</h2>
       <h4>{{ hotelInfo.description }}</h4>
       <h4>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h4>
       <!--Visar alla taggar som är kopplade till ett hotell  -->
@@ -43,6 +50,16 @@ export default {
       const routerUrl = "/bookingView";
       this.$router.push({ path: routerUrl });
     },
+    sortHotelRoomsByPrice() {
+      console.log("sorting: ");
+      this.$router.push({ path: "/hotelView" });
+      this.$store.commit("setSortedRooms");
+    },
+    sortHotelRoomsByMaxPrice() {
+      console.log("sorting: ");
+      this.$router.push({ path: "/hotelView" });
+      this.$store.commit("setSortedRoomsDescending");
+    },
   },
 
   computed: {
@@ -52,9 +69,6 @@ export default {
 
     hotelInfo() {
       return this.$store.getters.getHotelById;
-    },
-    roomsByPrice() {
-      return this.$store.getters.sortedRooms;
     },
     startDate() {
       var date = new Date(this.$store.getters.getStartDate * 1000);
@@ -67,6 +81,9 @@ export default {
     amountAdult() {
       return this.$store.getters.getAdultAmount;
     },
+    amountChildren() {
+      return this.$store.getters.getChildrenAmount;
+    },
   },
   mounted() {
     this.$store.dispatch("fetchHotelRoomsByHotel");
@@ -76,18 +93,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.split {
-  width: 100%;
-  overflow-x: hidden;
-  padding-left: 20px;
+.components {
+  margin-right: 10px;
+  display: inline-block;
+  background-color: #1a88bb;
+  border-radius: 12px;
 }
-.left {
-  left: 0;
-  background-color: #5c8791;
-}
-.right {
-  right: 0;
-  background-color: #5c8791;
+.total-info {
+  background-color: #3fb0bd;
+  border-radius: 10px;
 }
 .tag-list {
   display: inline-block;
@@ -110,6 +124,7 @@ img {
 }
 
 .room-list {
+  display: inline;
   width: 100%;
   background-color: cadetblue;
 }

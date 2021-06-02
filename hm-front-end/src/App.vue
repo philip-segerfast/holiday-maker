@@ -1,16 +1,25 @@
 <template>
-  <div id="background">
+  <div id="inner-app-container">
     <div id="toppage">
-      <div id="logo">
-        <h1>Holiday Maker</h1>
+      <div id="top">
+        <div id="logo">
+          <h1>Holiday Maker</h1>
+        </div>
+        <div id="nav">
+          <Navbar />
+        </div>
       </div>
-      <div id="nav">
-        <Navbar />
+      <div v-show="shouldShowSearchBar">
+        <SearchBar />
       </div>
-      <div id="appSearchBar">
-        <SearchBar v-if="!['Login', 'Register'].includes($route.name)" />
+    </div>
+    <div id="bottom">
+      <div v-show="shouldShowFilterSide" id="sidebar">
+        <FilterComponent />
       </div>
-      <router-view />
+      <div id="router-view">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -18,20 +27,38 @@
 <script>
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar.vue";
+import FilterComponent from "./components/FilterComponent.vue";
 export default {
   components: {
     Navbar,
     SearchBar,
+    FilterComponent,
   },
-  mounted() {
-    this.$store.dispatch("fetchLoggedInUser");
-    this.$store.dispatch("fetchAllHotels");
-    this.$store.dispatch("fetchUserBookings");
+  async mounted() {
+    await this.$store.dispatch("fetchLoggedInUser");
+    await this.$store.dispatch("fetchAllHotels");
+    await this.$store.dispatch("fetchAllHotelTags");
+  },
+  computed: {
+    shouldShowSearchBar() {
+      return !["Login", "Register", "About"].includes(this.$route.name);
+    },
+    shouldShowFilterSide() {
+      return ["Result"].includes(this.$route.name);
+    },
+  },
+  watch: {
+    // Update current route in vuex store
+    $route(to, from) {
+      this.$store.commit("updateRoute", to.name);
+    },
   },
 };
 </script>
 <style lang="scss" src="./style.scss"></style>
 <style lang="scss">
+/* ALLT HÄR I ÄR GLOBALT */
+
 #background {
   background-color: lightgreen;
 }
@@ -40,30 +67,72 @@ export default {
   height: 450px;
 }
 #app {
-  text-align: center;
-  color: #2c3e50;
-  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-items: stretch;
+
+  text-align: center;
+  color: #2c3e50;
+  background-color: #ccece7;
+  padding: 2vh 0;
+  height: fit-content;
+  min-height: 100vh;
   #logo {
     margin-left: 50px;
     display: flex;
     position: left;
   }
 
-  /*
-  #nav {
-    padding: 30px;
-    position: fixed;
+  #inner-app-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 
-    a {
-      font-weight: bold;
-      color: #2c3e50;
-      &.router-link-exact-active {
-        color: #42b983;
+    width: 1300px;
+    background-color: #45c3d1;
+    margin: 0 auto;
+    border-radius: 2vw 2vw 0 0;
+
+    box-shadow: var(--box-shadow-outline-hard);
+
+    #toppage {
+      display: flex;
+      flex-direction: column;
+      background-image: url("../mockup/assets/77e8e1d2154e4616199c6dc667cd0def.jpg");
+      height: fit-content;
+      padding-bottom: 20px;
+      border-radius: inherit;
+      #top {
+        display: flex;
+        #logo {
+          display: inline-block;
+          margin-left: 50px;
+          display: flex;
+          position: left;
+          width: fit-content;
+          margin-right: auto;
+          margin-bottom: 0;
+        }
+        #nav {
+          width: fit-content;
+          display: flex;
+          margin: auto 20px;
+        }
+      }
+    }
+
+    #bottom {
+      display: flex;
+      margin: 20px;
+
+      #sidebar {
+        width: fit-content;
+      }
+
+      #router-view {
+        width: 100%;
       }
     }
   }
-  */
 }
 </style>
