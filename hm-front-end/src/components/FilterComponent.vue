@@ -1,22 +1,27 @@
 <template>
-  <div id="filter-component-main-container">
+  <div id="filter-component-main-container" class="unselectable">
     <div class="filter-section">
       <div class="header">Luxuries</div>
       <div class="filter-sub-section">
-        <div class="luxury-item">
-          <span>Pool</span>
-        </div>
-        <div class="luxury-item">
-          <span>Kvällsunderhållning</span>
-        </div>
-        <div class="luxury-item">
-          <span>Barnklubb</span>
+        <!-- LIST ALL AVAILABLE HOTEL TAGS -->
+        <div
+          v-for="tag in unselectedHotelTags"
+          :key="tag.id"
+          v-on:click="selectTag(tag)"
+          class="tag-item"
+        >
+          <span>{{ tag.label }}</span>
         </div>
       </div>
       <div class="header">Selected</div>
       <div class="filter-sub-section">
-        <div class="luxury-item">
-          <span>Restaurang</span>
+        <div
+          v-for="tag in selectedHotelTags"
+          :key="tag.id"
+          v-on:click="unselectTag(tag)"
+          class="tag-item"
+        >
+          <span>{{ tag.label }}</span>
         </div>
       </div>
     </div>
@@ -26,11 +31,12 @@
 
       <div class="filter-sub-section">
         <div class="filter-row">
-          <div class="left">To beach</div>
+          <div class="left">To beach (max)</div>
           <div class="right">
             <input
               type="range"
               v-model="beachDistance"
+              @input="updateBeachDistance"
               name="max-distance-center"
               min="0"
               max="100"
@@ -43,17 +49,18 @@
 
       <div class="filter-sub-section">
         <div class="filter-row">
-          <div class="left">To centrum</div>
+          <div class="left">To center (max)</div>
           <div class="right">
             <input
               type="range"
-              v-model="centrumDistance"
-              name="max-distance-centrum"
+              v-model="centerDistance"
+              @input="updateCenterDistance"
+              name="max-distance-center"
               min="0"
               max="100"
               id="max-distance"
             />
-            <span>{{ centrumDistance }} km</span>
+            <span>{{ centerDistance }} km</span>
           </div>
         </div>
       </div>
@@ -64,9 +71,10 @@
         <div class="filter-row">
           <div class="left">Order by</div>
           <div class="right">
-            <select>
-              <option value="cheap">Cheap</option>
-              <option value="expensive">Expensive</option>
+            <select v-model="orderBy" @change="updateOrderBy">
+              <option value="min-price">Min Price</option>
+              <option value="max-price">Max Price</option>
+              <option value="ratings">Ratings</option>
             </select>
           </div>
         </div>
@@ -79,9 +87,51 @@
 export default {
   data() {
     return {
-      beachDistance: 0,
-      centrumDistance: 0,
+      beachDistance: 100,
+      centerDistance: 100,
+      orderBy: "min-price",
     };
+  },
+  methods: {
+    updateBeachDistance() {
+      this.$store.commit("updateBeachDistance", this.beachDistance);
+    },
+    updateCenterDistance() {
+      this.$store.commit("updateCenterDistance", this.centerDistance);
+    },
+    selectTag(tag) {
+      this.$store.commit("selectHotelTag", tag);
+    },
+    unselectTag(tag) {
+      this.$store.commit("unselectHotelTag", tag);
+    },
+    updateOrderBy() {
+      this.$store.commit("updateOrderBy", this.orderBy);
+    },
+  },
+  computed: {
+    allHotelTags() {
+      return this.$store.getters.getAllHotelTags;
+    },
+    unselectedHotelTags() {
+      let allHotelTags = this.allHotelTags;
+      let selectedTags = this.selectedHotelTags;
+      let unselectedTags = [];
+      allHotelTags.forEach((tag) => {
+        if (!selectedTags.includes(tag)) {
+          unselectedTags.push(tag);
+        }
+      });
+      return unselectedTags;
+    },
+    selectedHotelTags() {
+      return this.$store.getters.getSelectedHotelTags;
+    },
+  },
+  async mounted() {
+    this.updateBeachDistance();
+    this.updateCenterDistance();
+    this.updateOrderBy();
   },
 };
 </script>
@@ -97,6 +147,7 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: var(--box-shadow-outline-smooth);
+  margin-right: 20px;
 
   .filter-section {
     width: 100%;
@@ -127,27 +178,37 @@ export default {
         flex-direction: row;
         width: 100%;
         height: 50px;
-        justify-items: center;
         align-items: center;
+        justify-items: center;
+
+        .left {
+          display: flex;
+          flex-direction: left;
+          flex-wrap: nowrap;
+          width: fit-content;
+          white-space: nowrap;
+          margin-right: auto;
+        }
 
         .right {
-          margin-left: auto;
           display: flex;
           input,
           select {
-            width: 150px;
             height: 25px;
+            width: 140px;
+          }
+          input[type="range"] {
+            width: 120px;
           }
           span {
-            display: inline-block;
             padding: 0 10px;
-            width: 75px;
+            min-width: 75px;
             text-align: right;
           }
         }
       }
 
-      .luxury-item {
+      .tag-item {
         width: fit-content;
         border-radius: 20px;
         height: 32px;
@@ -158,6 +219,7 @@ export default {
         margin: 5px;
         background-color: whitesmoke;
         box-shadow: var(--box-shadow-outline-smooth);
+        cursor: pointer;
         span {
           display: inline-block;
           font-size: 75%;

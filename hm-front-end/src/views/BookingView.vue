@@ -48,15 +48,33 @@ price etc
         <h3>{{ tag.label }}</h3>
       </span>
 
-      <h2>Number of adult: {{ amountAdult }}</h2>
-      <h2>Number of children: {{ amountChildren }}</h2>
+      <h3>{{ amountAdult }} Adults and {{ amountChildren }} Children</h3>
+      <h3>Number of days: {{ nrDays }}</h3>
+
+      <div class="livery">
+        Livery Option Select between: <br />
+        Self Catering {{ hotelInfo.selfCateringPrice }} Euro/(Booking and day) <br />
+        Half Pension {{ hotelInfo.halfPensionPrice }} Euro/(Adult and day) <br />
+        Full Board {{ hotelInfo.fullBoardPrice }} Euro/(Adult and day)
+
+        <select
+          name="liveryOption"
+          @change="updateLivery($event)"
+          class="livery-control"
+          v-model="key"
+        >
+          <option value="No catering"></option>
+          <option value="self catering price">Self Catering</option>
+          <option value="half pension price">Half pension</option>
+          <option value="full board price">Full Board</option>
+        </select>
+      </div>
+      <h2>Extra Livery {{ extraCost }}Euro/day</h2>
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
         <input type="number" min="0" @input="updateAmountOfExtraBeds" />
       </div>
-
-      <h1>Total Price for Booking {{ totalCost }}kr</h1>
 
       <!--Lägger in och visar alla rum som finns i addedRooms -->
       <div id="rooms-container">
@@ -68,7 +86,9 @@ price etc
           />
         </span>
       </div>
-      <button class="confirm-booking">Confirm Booking</button>
+
+      <h2>Total Price for Rooms {{ roomsCost }}Euro/day</h2>
+      <h1>Total Price for Booking {{ totalBookingCost }}Euro</h1>
       <!--Mockup payment -->
       <div id="payment-cotainer">
         <span class="payment-cards">
@@ -89,9 +109,31 @@ import PaymentCard from "../components/PaymentCard.vue";
 import moment from "moment";
 
 export default {
+  components: {
+    BookingRoomCard,
+    PaymentCard,
+  },
+  data: function () {
+    return {
+      key: "",
+      extraLiveryCost: 0,
+    };
+  },
   methods: {
     updateAmountOfExtraBeds() {
       alert("hej");
+    },
+    updateLivery(event) {
+      this.$store.commit("setLivery", event.target.value);
+    },
+
+    createBooking() {
+      console.log(this.totalBookingCost);
+      this.$store.commit("setTotalCost", this.totalBookingCost);
+      this.$store.dispatch("fetchCreateBooking");
+
+      const routerUrl = "/";
+      this.$router.push({ path: routerUrl });
     },
   },
   components: {
@@ -116,20 +158,29 @@ export default {
       var date = new Date(this.$store.getters.getEndDate * 1000);
       return moment(date).format("YYYY-MM-DD");
     },
-    totalCost() {
-      return this.$store.getters.getTotalCost;
+    nrDays() {
+      var dateS = this.$store.getters.getStartDate;
+      var dateE = this.$store.getters.getEndDate;
+      var dateDiff = (dateE - dateS) / (60 * 60 * 24);
+      return dateDiff;
+    },
+    roomsCost() {
+      return this.$store.getters.getRoomsCost;
+    },
+    extraCost() {
+      return this.$store.getters.getExtraCostLivery;
+    },
+    maxExtraBeds() {
+      return this.$store.getters.getMaxExtraBeds;
+    },
+    totalBookingCost() {
+      return (this.extraCost + this.roomsCost) * this.nrDays; //+ this.extraBedCost
     },
     amountAdult() {
       return this.$store.getters.getAdultAmount;
     },
     amountChildren() {
-      return this.$store.getters.getAdultAmount;
-    },
-  },
-  methods: {
-    createBooking() {
-      console.log("cklick");
-      this.$store.dispatch("fetchCreateBooking");
+      return this.$store.getters.getChildrenAmount;
     },
   },
 };
@@ -143,11 +194,9 @@ export default {
   border-radius: 12px;
 }
 .hotel {
-  position: absolute;
-  top: 450px;
-  align-content: center;
+  background-color: #3fb0bd;
+  border-radius: 10px;
 }
-
 .tag-list {
   display: inline-block;
   background-color: #2ea4b1;
@@ -168,11 +217,9 @@ img {
   height: 200px;
   padding: 5px;
 }
-
 .room-list {
   display: inline-block;
   width: 100%;
-  background-color: rgba(95, 158, 160, 0.24);
 }
 .payment-container {
   display: inline-block;

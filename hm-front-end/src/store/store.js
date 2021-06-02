@@ -4,6 +4,7 @@ import axios from "axios";
 export default createStore({
   state: {
     hotels: [],
+    allHotelTags: [],
     HotelSearch: {},
     hotelRooms: [],
     addedHotelRooms: [],
@@ -11,8 +12,13 @@ export default createStore({
     hotelImages: [],
     hotel: {},
     hotelId: 1,
+    livery: String,
     totalCost: 0,
-    tempHotelName: String,
+    tempHotelName: "",
+    routePath: "", // Because you can't access routePath from vuex store. This is updated i App.vue.
+    roomsCost: 0,
+    maxExtraBeds: 0,
+    extraLiveryCost: 0,
     searchHotelFilter: {
       searchText: "",
       checkInDates: {
@@ -28,8 +34,11 @@ export default createStore({
         adultsAmount: 0,
         children: [],
       },
-      // fyll på med hotelTags
-      tags: [{}],
+      shouldDoSidenavFilter: false,
+      beachDistance: 0,
+      centerDistance: 0,
+      selectedHotelTags: [],
+      orderBy: "",
     },
     hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
     filteredHotels: [],
@@ -153,7 +162,6 @@ export default createStore({
         return 0;
       });
     },
-
     setSortedHotelsAscending() {
       let sortedByPrice;
       sortedByPrice = this.state.hotels.sort((price1, price2) => {
@@ -179,7 +187,6 @@ export default createStore({
       });
       return maxHotelPrice.reverse();
     },
-
     // Sorterar alla hotelrum utifrån lägst --> högst
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
@@ -252,11 +259,31 @@ export default createStore({
     addRoomToBooking(state, room) {
       state.addedHotelRooms.push(room);
     },
+    updateMaxExtraBeds(state, payload) {
+      state.maxExtraBeds = this.state.maxExtraBeds + payload;
+      console.log("Hej detta är ett test" + state.maxExtraBeds);
+    },
     setHotelToBook(state, payload) {
       state.hotelToBook = payload;
     },
-    updateTotalCost(state, payload) {
-      state.totalCost = this.state.totalCost + payload;
+    updateRoomsCost(state, payload) {
+      state.roomsCost = this.state.roomsCost + payload;
+    },
+    setTotalCost(state, payload) {
+      state.totalCost = payload;
+    },
+    setSelfcatering(state, payload) {
+      state.selfcatering = payload;
+    },
+    setHalfPension(state, payload) {
+      state.halfPension = payload;
+    },
+    setFullBoard(state, payload) {
+      state.fullBoard = payload;
+    },
+    setLivery(state, payload) {
+      state.livery = payload;
+      console.log(state.livery);
     },
     setFilteredHotels() {
       const allHotels = this.state.hotels;
@@ -265,13 +292,36 @@ export default createStore({
         Annars refererar det till webbläsarfönstret, vilket inte är önskvärt.
         Detta för att bland annat kunna referera till this.state. 
       */
-      let filteredHotels = filterHotelsByCity.call(this, allHotels);
+      let filteredHotels;
+      filteredHotels = filterHotelsByCity.call(this, allHotels);
       filteredHotels = filterHotelsByAmountOfPeople.call(this, filteredHotels);
       filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
+      // If we are at the search results page (side-filter is visible), do these filterings:
+      if (["Result"].includes(this.state.routePath)) {
+        filteredHotels = filterHotelsByTags.call(this, filteredHotels);
+        filteredHotels = filterHotelsByBeachDistance.call(this, filteredHotels);
+        filteredHotels = filterHotelsByCenterDistance.call(this, filteredHotels);
+      }
 
-      // Hämta ut de filtrerade hotelen utifrån sökning
+      const orderBy = this.state.searchHotelFilter.orderBy;
+      // =========================== SORTERA HÄR!!! =========================== //
+      switch (orderBy) {
+        case "min-price":
+          // filteredHotels = this.filterByMinPrice(filteredHotels)
+          break;
+        case "max-price":
+          // filteredHotels = this.filterByMaxPrice(filteredHotels)
+          break;
+        case "ratings":
+          // filteredHotels = this.filterByRatings(filteredHotels)
+          break;
+      }
+      // ====================================================================== //
+
+      console.log("Amount of results: ", filteredHotels.length);
+
+      // Save the filtered list to state.
       this.state.filteredHotels = filteredHotels;
-      // console.log(this.state.searchHotelFilter); // <-- SHOW FILTER DATA
 
       function filterHotelsByCity(listToFilter) {
         let searchPhraseLower = this.state.searchHotelFilter.searchText.toLowerCase();
@@ -386,6 +436,51 @@ export default createStore({
 
         return qualifiedHotels;
       }
+
+      function filterHotelsByTags(listToFilter) {
+        let selectedTagIds = this.state.searchHotelFilter.selectedHotelTags.map((tag) => tag.id);
+        if (selectedTagIds.length === 0) {
+          return listToFilter;
+        }
+        let output = listToFilter.filter((hotel) => {
+          let hotelTagIds = hotel.hotelTags.map((tag) => tag.id);
+          // alla selectedTags måste finnas i hotel.hotelTags
+          if (selectedTagIds.every((selectedTagId) => hotelTagIds.includes(selectedTagId))) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        return output;
+      }
+
+      function filterHotelsByBeachDistance(listToFilter) {
+        const maxBeachDistanceFilter = this.state.searchHotelFilter.beachDistance;
+
+        const output = listToFilter.filter((hotel) => {
+          const hotelBeachDistance = hotel.beachDistance;
+          if (hotelBeachDistance <= maxBeachDistanceFilter || maxBeachDistanceFilter == 0) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        return output;
+      }
+
+      function filterHotelsByCenterDistance(listToFilter) {
+        const maxCenterDistanceFilter = this.state.searchHotelFilter.centerDistance;
+
+        const output = listToFilter.filter((hotel) => {
+          const hotelCenterDistance = hotel.centerDistance;
+          if (hotelCenterDistance <= maxCenterDistanceFilter || maxCenterDistanceFilter == 0) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        return output;
+      }
     },
     setLoggedInUser(state, user) {
       state.loggedInUser = user;
@@ -407,6 +502,31 @@ export default createStore({
     },
     updateChildren(state, payload) {
       state.searchHotelFilter.people.children = payload;
+    },
+    updateCenterDistance(state, payload) {
+      state.searchHotelFilter.centerDistance = payload;
+    },
+    updateBeachDistance(state, payload) {
+      state.searchHotelFilter.beachDistance = payload;
+    },
+    updateAllHotelTags(state, payload) {
+      state.allHotelTags = payload;
+    },
+    selectHotelTag(state, payload) {
+      let selectedTags = state.searchHotelFilter.selectedHotelTags;
+      selectedTags.push(payload);
+    },
+    unselectHotelTag(state, payload) {
+      state.searchHotelFilter.selectedHotelTags = state.searchHotelFilter.selectedHotelTags.filter(
+        (tag) => tag !== payload
+      );
+    },
+    updateRoute(state, payload) {
+      state.routePath = payload;
+    },
+    updateOrderBy(state, payload) {
+      console.log("order by: ", payload);
+      state.searchHotelFilter.orderBy = payload;
     },
     setCardHolderName(state, payload) {
       state.userBooking.payment.cardHolderName = payload;
@@ -518,6 +638,12 @@ export default createStore({
       let answer = await response.json();
       console.log(answer);
     },
+    async fetchAllHotelTags(context) {
+      const url = "/rest/tags";
+      let response = await fetch(url);
+      let json = await response.json();
+      context.commit("updateAllHotelTags", json);
+    },
     async fetchCreatePayment() {
       let purchase = {
         cardHolderName: this.state.userBooking.payment.cardHolderName,
@@ -541,6 +667,9 @@ export default createStore({
     },
   },
   getters: {
+    getUserId(state) {
+      return state.loggedInUser;
+    },
     getAllHotels(state) {
       return state.hotels;
     },
@@ -553,8 +682,14 @@ export default createStore({
     getHotelToBook(state) {
       return state.hotelToBook;
     },
-    getTotalCost(state) {
-      return state.totalCost;
+    getRoomsCost(state) {
+      return state.roomsCost;
+    },
+    getExtraCost(state) {
+      return state.extraLiveryCost;
+    },
+    getMaxExtraBeds() {
+      return state.maxExtraBeds;
     },
     getHotelById(state) {
       return state.hotelById;
@@ -571,11 +706,42 @@ export default createStore({
     getAdultAmount(state) {
       return state.searchHotelFilter.peopleAmount.adultsAmount;
     },
+    getChildrenAmount(state) {
+      return state.searchHotelFilter.peopleAmount.childrenAmount;
+    },
     getStartDate(state) {
       return state.searchHotelFilter.checkInDates.startDate;
     },
     getEndDate(state) {
       return state.searchHotelFilter.checkInDates.endDate;
+    },
+    getBeachDistance(state) {
+      return state.searchHotelFilter.beachDistance;
+    },
+    getCenterDistance(state) {
+      return state.searchHotelFilter.centerDistance;
+    },
+    getAllHotelTags(state) {
+      return state.allHotelTags;
+    },
+    getSelectedHotelTags(state) {
+      return state.searchHotelFilter.selectedHotelTags;
+    },
+    getExtraCostLivery(state) {
+      if (state.livery == "self catering price") {
+        return state.hotelToBook.selfcateringPrice;
+      } else if (state.livery == "half pension price") {
+        return (
+          state.hotelToBook.halfPensionPrice * state.searchHotelFilter.peopleAmount.adultsAmount
+        );
+      } else if (state.livery == "full board price") {
+        return state.hotelToBook.fullBoardPrice * state.searchHotelFilter.peopleAmount.adultsAmount;
+      } else {
+        return 0;
+      }
+    },
+    getRoutePath(state) {
+      return state.routePath;
     },
     getCardHolderName(state) {
       return state.userBooking.payment.cardHolderName;
