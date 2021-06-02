@@ -33,8 +33,8 @@
               <label for="expyear">End date</label>
               <input
                 v-model="end_month"
-                id="expyear"
-                name="expyear"
+                id="expmonth"
+                name="expmonth"
                 placeholder="MM"
                 maxlenght="2"
                 size="2"
@@ -55,11 +55,12 @@
               <label for="cvc">CVC</label>
               <input v-model="cvc" id="cvc" name="cvc" placeholder="cvc" required />
             </div>
-            <h2>payment totalcost:</h2>
-            <br />
-            <form @submit.prevent="createPayment">
-              <button class="btn" type="submit">Create Payment</button>
-            </form>
+            <h1>Total Price for Booking {{ totalBookingCost }}Euro</h1>
+            <div class="Submit-btn">
+              <form @submit.prevent="createPayment">
+                <button class="btn" type="submit">Create Payment</button>
+              </form>
+            </div>
           </div>
         </form>
       </div>
@@ -113,8 +114,8 @@ export default {
     cardCvc() {
       return this.$store.getters.getCardCvc;
     },
-    paymentTotalCost() {
-      return this.$store.getters.getPaymentTotalCost;
+    totalBookingCost() {
+      return (this.extraCost + this.roomsCost) * this.nrDays; //+ this.extraBedCost
     },
   },
   methods: {
@@ -141,7 +142,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .row {
   display: -ms-flexbox; /* IE10 */
   display: flex;
@@ -193,6 +194,14 @@ label {
   padding: 7px 0;
   font-size: 24px;
 }
+.Submit-btn {
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  font-size: 17px;
+}
 
 .btn {
   background-color: #04aa6d;
@@ -204,6 +213,10 @@ label {
   border-radius: 3px;
   cursor: pointer;
   font-size: 17px;
+  &:hover {
+    background-color: #027e50;
+    cursor: pointer;
+  }
 }
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
