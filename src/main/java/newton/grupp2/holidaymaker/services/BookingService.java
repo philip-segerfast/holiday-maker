@@ -1,14 +1,15 @@
 package newton.grupp2.holidaymaker.services;
 
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Product;
 import newton.grupp2.holidaymaker.entities.Booking;
 import newton.grupp2.holidaymaker.entities.User;
 import newton.grupp2.holidaymaker.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BookingService {
@@ -55,6 +56,19 @@ public class BookingService {
         if(bookingRepository.existsById(id)) {
             booking.setId(id);
             bookingRepository.save(booking);
+        }
+    }
+
+    public void createStripeProduct(String hotelname) {
+        Stripe.apiKey = "sk_test_51IxU9qEuj6pxFvwiOS428d9MjBBYL6ARPqjr2v8SH8dOvzIXpw4B3GnuOYFyrrc3AdPC3QokZI5mrpG6UXr85mib00nxzfmfaj";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", hotelname);
+
+        try {
+            Product product = Product.create(params);
+        } catch (StripeException e) {
+            e.printStackTrace();
         }
     }
 }
