@@ -53,12 +53,20 @@
             </div>
             <div class="col-50">
               <label for="cvc">CVC</label>
-              <input v-model="cvc" id="cvc" name="cvc" placeholder="cvc" required />
+              <input
+                v-model="cvc"
+                id="cvc"
+                name="cvc"
+                placeholder="cvc"
+                maxlenght="3"
+                size="4"
+                required
+              />
             </div>
             <h1>Total Price for Booking {{ totalBookingCost }}Euro</h1>
             <div class="Submit-btn">
               <form @submit.prevent="createPayment">
-                <button class="btn" type="submit">Create Payment</button>
+                <button class="btn" type="submit">Purchase</button>
               </form>
             </div>
           </div>
@@ -137,6 +145,7 @@ export default {
         body: JSON.stringify(credentials),
       };
       await fetch("/rest/payments", request);
+      alert("Purchase Successfully!");
     },
   },
 };
