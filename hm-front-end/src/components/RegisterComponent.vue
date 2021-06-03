@@ -2,7 +2,9 @@
   <div class="Registration">
     <div class="sign-up" v-if="$store.getters.getLoggedInUser == null">
       <!--skapar form så användaren kan mata in sina uppgifter -->
-      <button class="show-register" @click="clickRegistration = !clickRegistration">Sign up</button>
+      <button class="show-register" @click="clickRegistration = !clickRegistration">
+        Click here to sign up
+      </button>
       <div class="registration-btn" v-if="clickRegistration">
         <br />
         <form @submit.prevent="register">

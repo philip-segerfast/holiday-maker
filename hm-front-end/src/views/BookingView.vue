@@ -24,7 +24,6 @@ price etc
             <LoginComponent />
           </span>
         </div>
-        <br />
         <div>
           <span class="register-component">
             <RegisterComponent />

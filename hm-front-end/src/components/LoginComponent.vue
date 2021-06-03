@@ -1,18 +1,18 @@
 <template>
   <div class="Sign-in">
     <div class="log-in" v-if="$store.getters.getLoggedInUser == null">
-      <button class="sign-in-btn" @click="clickSignIn = !clickSignIn">User</button>
+      <button class="sign-in-btn" @click="clickSignIn = !clickSignIn">Click here to log in</button>
       <div class="sign-in" v-if="clickSignIn">
         <form @submit.prevent="login">
           <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
             <div v-show="inputs"></div>
             <input v-model="email" name="email" type="email" placeholder="email" required />
             <input v-model="password" type="password" placeholder="password" required />
-            <button @click="submit">Login</button>
+            <br />
+            <button class="loginButton" @click="submit">Login</button>
             <div class="submit-button" v-if="submit"></div>
             <div class="submit-button" v-else>
               <br />
-              <router-link to="/Register">if you dont have account click here </router-link>
             </div>
           </div>
           <span v-if="$store.getters.getLoggedInUser != null">
@@ -81,6 +81,20 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.loginButton {
+  display: inline-block;
+  margin-left: 10px;
+  background-color: transparent;
+  cursor: pointer;
+  position: right;
+  font-weight: bold;
+  color: #f5f100;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  text-decoration: underline;
+}
 .inputs {
 }
 .Sign-in {
