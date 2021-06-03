@@ -58,7 +58,7 @@ export default {
 <style lang="scss" src="./style.scss"></style>
 <style lang="scss">
 #logolink {
-  color: black;
+  color: #f5f100;
   text-decoration: none;
 }
 #background {

@@ -1,11 +1,13 @@
 <template>
-  <LoginComponent />
+  <login-component-login-page />
 </template>
 <script>
-import LoginComponent from "../components/LoginComponent.vue";
+import LoginComponentLoginPage from "../components/LoginComponentLoginPage.vue";
 export default {
   components: {
-    LoginComponent,
+    LoginComponentLoginPage,
   },
 };
 </script>
+
+LoginComponentLoginPage
