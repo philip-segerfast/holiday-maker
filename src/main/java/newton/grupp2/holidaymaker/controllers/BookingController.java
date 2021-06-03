@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BookingController {
@@ -55,6 +56,11 @@ public class BookingController {
     @PostMapping("/rest/bookings/stripe/createprice/{paymentcost}")
     public void createStripePrice(@PathVariable int paymentcost) {
         bookingService.createStripePrice(paymentcost);
+    }
+
+    @PostMapping("/rest/bookings/stripe/session")
+    public Map sessionResponse(@RequestBody Map bookingPayment) {
+        return bookingService.createSession(bookingPayment);
     }
 
 
