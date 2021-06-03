@@ -73,7 +73,8 @@ price etc
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
-        <input type="number" min="0" @input="updateAmountOfExtraBeds" />
+        <input type="number" v-model="amountOfExtraBeds" min="0" @input="updateAmountOfExtraBeds" />
+        <h2>price of your extrabeds {{ totalExtraBedsCost }}</h2>
       </div>
 
       <!--Lägger in och visar alla rum som finns i addedRooms -->
@@ -119,9 +120,19 @@ export default {
       extraLiveryCost: 0,
     };
   },
+  data() {
+    return {
+      amountOfExtraBeds: "",
+    };
+  },
   methods: {
     updateAmountOfExtraBeds() {
-      alert("hej");
+      if (this.amountOfExtraBeds <= this.maxExtraBeds) {
+        console.log(this.amountOfExtraBeds);
+      } else {
+        console.log(this.maxExtraBeds);
+        this.amountOfExtraBeds = this.maxExtraBeds;
+      }
     },
     updateLivery(event) {
       this.$store.commit("setLivery", event.target.value);
@@ -146,7 +157,6 @@ export default {
     addedHotelRooms() {
       return this.$store.getters.getAddedHotelRooms;
     },
-
     hotelInfo() {
       return this.$store.getters.getHotelToBook;
     },
@@ -174,7 +184,10 @@ export default {
       return this.$store.getters.getMaxExtraBeds;
     },
     totalBookingCost() {
-      return (this.extraCost + this.roomsCost) * this.nrDays; //+ this.extraBedCost
+      return (this.extraCost + this.roomsCost) * this.nrDays + this.totalExtraBedsCost;
+    },
+    totalExtraBedsCost() {
+      return this.hotelInfo.extraBedPrice * this.amountOfExtraBeds;
     },
     amountAdult() {
       return this.$store.getters.getAdultAmount;
