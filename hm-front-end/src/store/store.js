@@ -650,7 +650,7 @@ export default createStore({
     getExtraCost(state) {
       return state.extraLiveryCost;
     },
-    getMaxExtraBeds() {
+    getMaxExtraBeds(state) {
       return state.maxExtraBeds;
     },
     getHotelById(state) {
