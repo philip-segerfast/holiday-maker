@@ -59,6 +59,7 @@ export default {
         //save user in store using setLoggedInUser mutation
         this.$store.commit("setLoggedInUser", user);
         console.log(user.email + " is logged in");
+        this.$router.push("/");
       } catch (err) {
         alert("Wrong username/password");
       }
@@ -66,7 +67,6 @@ export default {
       if (response.url.includes("error")) {
         console.log("Wrong username/password");
       }
-      this.$router.push("/");
     },
     logout() {
       //logout from backend
