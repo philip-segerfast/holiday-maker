@@ -76,44 +76,4 @@ public class BookingService {
         }
     }
 
-    public void updateStripeProduct(String hotelname) {
-        Stripe.apiKey = "sk_test_51IxU9qEuj6pxFvwiOS428d9MjBBYL6ARPqjr2v8SH8dOvzIXpw4B3GnuOYFyrrc3AdPC3QokZI5mrpG6UXr85mib00nxzfmfaj";
-
-        Product product =
-                null;
-        try {
-            product = Product.retrieve("prod_JbMyv5sOOIslfp");  //Hardcoded which product to update
-        } catch (StripeException e) {
-            e.printStackTrace();
-        }
-
-        Map<String, Object> metadata = new HashMap<>();
-        metadata.put("order_id", "6735");           //example data
-        Map<String, Object> params = new HashMap<>();
-        params.put("metadata", metadata);
-        params.put("name", hotelname);
-
-        try {
-            Product updatedProduct = product.update(params);
-        } catch (StripeException e) {
-            e.printStackTrace();
-        }
-
-        }
-
-    public void createStripePrice(int paymentcost) {
-        Stripe.apiKey = "sk_test_51IxU9qEuj6pxFvwiOS428d9MjBBYL6ARPqjr2v8SH8dOvzIXpw4B3GnuOYFyrrc3AdPC3QokZI5mrpG6UXr85mib00nxzfmfaj";
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("unit_amount", paymentcost);
-        params.put("currency", "eur");
-        params.put("product", "prod_JbMyv5sOOIslfp"); //Hardcoded which product to connect price to
-
-        try {
-            Price price = Price.create(params);
-        } catch (StripeException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

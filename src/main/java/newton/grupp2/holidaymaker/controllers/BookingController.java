@@ -43,19 +43,5 @@ public class BookingController {
     public void updateBookingById(@PathVariable long id, @RequestBody Booking booking) {
         bookingService.updateBookingById(id, booking);
     }
-    @PostMapping("/rest/bookings/stripe/{hotelname}")
-    public void createStripeProduct(@PathVariable String hotelname) {
-        bookingService.createStripeProduct(hotelname);
-    }
-
-    @PostMapping("/rest/bookings/stripe/update/{hotelname}")
-    public void updateStripeProduct(@PathVariable String hotelname) {
-        bookingService.updateStripeProduct(hotelname);
-    }
-
-    @PostMapping("/rest/bookings/stripe/createprice/{paymentcost}")
-    public void createStripePrice(@PathVariable int paymentcost) {
-        bookingService.createStripePrice(paymentcost);
-    }
 
 }
