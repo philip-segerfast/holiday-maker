@@ -10,23 +10,32 @@
         Arrival: {{ bookedFromDate }}. <br />
         Checkout: {{ bookedToDate }}.
       </h4>
+      <form @submit.prevent="makeReview">
+        <div id="rating">
+          <h2>Rate the hotel after visiting</h2>
 
-      <div id="rating">
-        <h2>Rate the hotel after visiting</h2>
-        <select v-model="rating">
-          <option disabled value="">Please select one</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-        <span>Selected: {{ rating }}</span>
-        <label for="comments">Exp Month</label>
-        <input type="text" id="comments" name="comments" placeholder="make a comment" />
+          <select v-model="rating" required>
+            <option disabled value="">Please select one</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <span>{{ rating }}/5 ⭐</span>
+          <label for="comments">Exp Month</label>
+          <input
+            v-model="comment"
+            type="text"
+            id="comments"
+            name="comments"
+            placeholder="type here to describe your experience in this hotel"
+            required
+          />
 
-        <button type="submit">Send</button>
-      </div>
+          <button type="submit">Post review</button>
+        </div>
+      </form>
 
       <div id="v-image" class="split left"></div>
       <button @click="redirectToBookingDetailsView">Details</button>
@@ -40,7 +49,7 @@ export default {
   data() {
     return {
       rating: 0,
-      comments: "",
+      comment: "",
     };
   },
   props: ["userBooking"],
@@ -59,9 +68,9 @@ export default {
       //skapar objekt hotelRating (
       let hotelRating = {
         rating: this.rating,
-        comments: this.comments,
-        author: { id: this.userBooking.id },
-        hotel: { id: this.userBooking.hotel },
+        comment: this.comment,
+        author_id: { id: this.userBooking.id },
+        hotel_id: { id: this.userBooking.hotel },
       };
       //gör en POST request
       let request = {
