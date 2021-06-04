@@ -180,14 +180,14 @@ export default {
     roomsCost() {
       return this.$store.getters.getRoomsCost;
     },
-    extraCost() {
+    extraCostLivery() {
       return this.$store.getters.getExtraCostLivery;
     },
     maxExtraBeds() {
       return this.$store.getters.getMaxExtraBeds;
     },
     totalBookingCost() {
-      return (this.extraCost + this.roomsCost) * this.nrDays + this.totalExtraBedsCost;
+      return (this.extraCostLivery + this.roomsCost) * this.nrDays + this.totalExtraBedsCost;
     },
     totalExtraBedsCost() {
       return this.hotelInfo.extraBedPrice * this.amountOfExtraBeds;

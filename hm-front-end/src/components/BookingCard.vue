@@ -19,11 +19,11 @@
 
           <select v-model="rating" required>
             <option disabled value="">Please select one</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
           </select>
           <span>{{ rating }}/5 ⭐</span>
           <label for="comments">Exp Month</label>
@@ -43,8 +43,6 @@
       <div id="v-image" class="split left"></div>
       <button @click="redirectToBookingDetailsView">Details</button>
       <button @click="cancelBooking">Cancel booking</button>
-
-      <button @click="makeReview">fake review</button>
     </div>
   </div>
 </template>
@@ -53,7 +51,7 @@
 export default {
   data() {
     return {
-      rating: 0,
+      rating: "",
       comment: "",
     };
   },
@@ -72,11 +70,11 @@ export default {
       //console.log("review test");
       //console.log("Hotel id" + this.userBooking.hotel.id);
       //console.log("user id" + this.userBooking.user.id);
-      console.log("my rating is" + this.myRating);
+      console.log("my rating is" + this.rating);
 
       let hotelRating = {
-        rating: this.myRating,
-        comment: this.myComment,
+        rating: this.rating,
+        comment: this.comment,
         author: {
           id: this.userBooking.user.id,
         },
