@@ -13,19 +13,13 @@
             <input v-model="email" name="email" type="email" placeholder="email" required />
             <input v-model="password" type="password" placeholder="Password" required />
             <input
-              class="f-name"
+              class="names"
               v-model="first_name"
               type="text"
               placeholder="First name"
               required
             />
-            <input
-              class="l-name"
-              v-model="last_name"
-              type="text"
-              placeholder="Last name"
-              required
-            />
+            <input class="names" v-model="last_name" type="text" placeholder="Last name" required />
             <button type="submit">Register</button>
           </div>
         </form>
@@ -75,6 +69,36 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.names {
+  width: 50%;
+  padding: 1px 2px;
+  padding-top: 1px;
+  padding-right: 2px;
+  padding-bottom: 1px;
+  padding-left: 2px;
+  -webkit-writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+  color: -internal-light-dark(black, white);
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  appearance: auto;
+  background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  margin: 0em;
+  font: 400 13.3333px Arial;
+  padding: 1px 2px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+  border-image: initial;
+  border-radius: 2px;
+}
 .Registration {
   display: inline-block;
   background-color: #1a88bb;
@@ -90,6 +114,7 @@ export default {
   height: 50px;
   height: 100%;
   width: 100px;
+  margin-bottom: 5px;
   &:hover {
     background-color: rgba(0, 0, 0, 0.2);
     cursor: pointer;
