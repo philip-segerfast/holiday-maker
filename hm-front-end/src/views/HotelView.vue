@@ -1,12 +1,5 @@
 <template>
   <body>
-    <div id="sort-bar">
-      <h3>
-        Sort by:
-        <button @click="sortHotelRoomsByPrice">Min Price</button>
-        - Sort by: <button @click="sortHotelRoomsByMaxPrice">Max Price</button>
-      </h3>
-    </div>
     <div class="hotel-info">
       <h1>{{ hotelInfo.name }}</h1>
       <!--Visar alla bilder som är kopplade till ett hotell -->
@@ -21,6 +14,13 @@
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h4>{{ tag.label }}</h4>
       </span>
+      <div id="sort-bar">
+        <h4>
+          Sort by:
+          <button class="btn" @click="sortHotelRoomsByPrice">Min Price</button>
+          <button class="btn" @click="sortHotelRoomsByMaxPrice">Max Price</button>
+        </h4>
+      </div>
       <h3>
         Add rooms and press book
         <button class="booking" @click="redirectToBookingView">Book</button>
@@ -93,6 +93,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.btn {
+  margin-right: 10px;
+  background-color: rgba(230, 211, 48);
+  border: none;
+  height: 50px;
+  height: 100%;
+  width: 100px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+}
 .components {
   margin-right: 10px;
   display: inline-block;

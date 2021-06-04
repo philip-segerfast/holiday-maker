@@ -308,13 +308,13 @@ export default createStore({
       // =========================== SORTERA HÄR!!! =========================== //
       switch (orderBy) {
         case "min-price":
-          // filteredHotels = this.filterByMinPrice(filteredHotels)
+          filteredHotels = filterByMinPrice.call(this, filteredHotels);
           break;
         case "max-price":
-          // filteredHotels = this.filterByMaxPrice(filteredHotels)
+          filteredHotels = filterByMaxPrice.call(this, filteredHotels);
           break;
         case "ratings":
-          // filteredHotels = this.filterByRatings(filteredHotels)
+          filteredHotels = filterByRatings.call(this, filteredHotels);
           break;
       }
       // ====================================================================== //
@@ -323,6 +323,51 @@ export default createStore({
 
       // Save the filtered list to state.
       this.state.filteredHotels = filteredHotels;
+
+      function filterByMinPrice(listToFilter) {
+        let sortedList = this.state.hotels.sort((price1, price2) => {
+          if (price1.minRoomPrice < price2.minRoomPrice) {
+            return -1;
+          }
+          if (price1.minRoomPrice > price2.minRoomPrice) {
+            return 1;
+          }
+          return 0;
+        });
+        listToFilter = sortedList;
+        return listToFilter;
+      }
+      function filterByMaxPrice(listToFilter) {
+        let maxHotelPrice = this.state.hotels.sort((price1, price2) => {
+          if (price1.minRoomPrice < price2.minRoomPrice) {
+            return -1;
+          }
+          if (price1.minRoomPrice > price2.minRoomPrice) {
+            return 1;
+          }
+          return 0;
+        });
+        listToFilter = maxHotelPrice;
+        return listToFilter.reverse();
+      }
+      function filterByRatings(listToFilter) {
+        let sortedByRating;
+        let hotels = this.state.hotels;
+        console.log("Hotels: ", hotels);
+        sortedByRating = hotels.sort((hotel1, hotel2) => {
+          console.log(hotel1.averageRating);
+          if (hotel1.averageRating < hotel2.averageRating) {
+            return -1;
+          }
+          if (hotel1.averageRating > hotel2.averageRating) {
+            return 1;
+          }
+          return 0;
+        });
+        console.log("Sorted by rating: ", sortedByRating);
+        listToFilter = sortedByRating;
+        return listToFilter;
+      }
 
       function filterHotelsByCity(listToFilter) {
         let searchPhraseLower = this.state.searchHotelFilter.searchText.toLowerCase();
