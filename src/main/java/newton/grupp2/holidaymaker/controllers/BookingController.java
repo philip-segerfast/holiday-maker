@@ -58,10 +58,4 @@ public class BookingController {
         bookingService.createStripePrice(paymentcost);
     }
 
-    @PostMapping("/rest/bookings/stripe/session")
-    public Map sessionResponse(@RequestBody Map bookingPayment) {
-        return bookingService.createSession(bookingPayment);
-    }
-
-
 }

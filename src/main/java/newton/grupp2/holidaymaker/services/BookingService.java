@@ -82,13 +82,13 @@ public class BookingService {
         Product product =
                 null;
         try {
-            product = Product.retrieve("prod_JbMyv5sOOIslfp");
+            product = Product.retrieve("prod_JbMyv5sOOIslfp");  //Hardcoded which product to update
         } catch (StripeException e) {
             e.printStackTrace();
         }
 
         Map<String, Object> metadata = new HashMap<>();
-        metadata.put("order_id", "6735");
+        metadata.put("order_id", "6735");           //example data
         Map<String, Object> params = new HashMap<>();
         params.put("metadata", metadata);
         params.put("name", hotelname);
@@ -107,7 +107,7 @@ public class BookingService {
         Map<String, Object> params = new HashMap<>();
         params.put("unit_amount", paymentcost);
         params.put("currency", "eur");
-        params.put("product", "prod_JbMyv5sOOIslfp");
+        params.put("product", "prod_JbMyv5sOOIslfp"); //Hardcoded which product to connect price to
 
         try {
             Price price = Price.create(params);
@@ -116,46 +116,4 @@ public class BookingService {
         }
     }
 
-    public Map createSession(Map bookingPayment) {
-        Stripe.apiKey =
-                "sk_test_51IxU9qEuj6pxFvwiOS428d9MjBBYL6ARPqjr2v8SH8dOvzIXpw4B3GnuOYFyrrc3AdPC3QokZI5mrpG6UXr85mib00nxzfmfaj";
-
-        Integer cost = (Integer) bookingPayment.get("totalCost");
-        Long totalCost = Long.valueOf(cost.longValue());
-
-        String hotelName = (String) bookingPayment.get("hotelName");
-
-        SessionCreateParams params =
-                SessionCreateParams.builder()
-                        .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
-                        .setMode(SessionCreateParams.Mode.PAYMENT)
-                        .setSuccessUrl("http://localhost:3000")
-                        .setCancelUrl("http://localhost:3000/about")
-                        .addLineItem(
-                                SessionCreateParams.LineItem.builder()
-                                        .setQuantity(1L)
-                                        .setPriceData(
-                                                SessionCreateParams.LineItem.PriceData.builder()
-                                                        .setCurrency("eur")
-                                                        .setUnitAmount(totalCost*100) //converts from euro to cent
-                                                        .setProductData(
-                                                                SessionCreateParams.LineItem.PriceData.ProductData.builder()
-                                                                        .setName(hotelName)
-                                                                        .build())
-                                                        .build())
-                                        .build())
-                        .build();
-
-        Session session = null;
-        try {
-            session = Session.create(params);
-        } catch (StripeException e) {
-            e.printStackTrace();
-        }
-
-        Map<String, String> responseData = new HashMap();
-        responseData.put("id", session.getId());
-
-        return responseData;
-    }
 }
