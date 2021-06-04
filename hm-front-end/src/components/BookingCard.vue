@@ -10,6 +10,7 @@
         Arrival: {{ bookedFromDate }}. <br />
         Checkout: {{ bookedToDate }}.
       </h4>
+
       <div id="rating">
         <h2>Rate the hotel after visiting</h2>
         <select v-model="rating">
@@ -21,8 +22,9 @@
           <option>5</option>
         </select>
         <span>Selected: {{ rating }}</span>
+        <label for="comments">Exp Month</label>
+        <input type="text" id="comments" name="comments" placeholder="make a comment" />
 
-        <input v-model="comments" type="text" placeholder="make a comment" />
         <button type="submit">Send</button>
       </div>
 
