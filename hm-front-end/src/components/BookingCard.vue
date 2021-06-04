@@ -2,6 +2,9 @@
   <div class="booking-card">
     <div>
       <h3>{{ userBooking.hotel.name }}</h3>
+      <h3>"Rating of Hotel is:{{ userBooking.hotel.averageRating }}</h3>
+      <!--<h3>"Comments about Hotel is:{{ userBooking.hotel.reviews }}</h3> 
+      HUR VISAR VI COMMENTS -->
 
       <!-- Shows first image in list of images in hotel object -->
       <img v-bind:src="`http://localhost:5000/uploads/${userBooking.hotel.images[0].fileName}`" />
@@ -40,6 +43,8 @@
       <div id="v-image" class="split left"></div>
       <button @click="redirectToBookingDetailsView">Details</button>
       <button @click="cancelBooking">Cancel booking</button>
+
+      <button @click="makeReview">fake review</button>
     </div>
   </div>
 </template>
@@ -64,13 +69,20 @@ export default {
   },
   methods: {
     async makeReview() {
-      console.log("review test");
-      //skapar objekt hotelRating (
+      //console.log("review test");
+      //console.log("Hotel id" + this.userBooking.hotel.id);
+      //console.log("user id" + this.userBooking.user.id);
+      console.log("my rating is" + this.myRating);
+
       let hotelRating = {
-        rating: this.rating,
-        comment: this.comment,
-        author_id: { id: this.userBooking.id },
-        hotel_id: { id: this.userBooking.hotel },
+        rating: this.myRating,
+        comment: this.myComment,
+        author: {
+          id: this.userBooking.user.id,
+        },
+        hotel: {
+          id: this.userBooking.hotel.id,
+        },
       };
       //gör en POST request
       let request = {
@@ -81,9 +93,6 @@ export default {
         body: JSON.stringify(hotelRating),
       };
       await fetch("/rest/hotels/reviews/add", request);
-    },
-    updateRatingOfHotel() {
-      this.$store.dispatch("countRatingOfHotel", this.yourRating);
     },
     redirectToBookingDetailsView() {
       const routerUrl = "/bookingdetailsview/" + this.userBooking.id;
