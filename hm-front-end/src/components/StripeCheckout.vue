@@ -28,7 +28,7 @@ export default {
         totalCost: this.totalCost,
       };
 
-      await fetch("/rest/payments/stripe/session", {
+      await fetch("/rest/payments/stripe/checkoutsession", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

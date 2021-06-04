@@ -26,9 +26,9 @@ public class PaymentController {
         return paymentService.getAllPayments();
     }
 
-    @PostMapping("/rest/payments/stripe/session")
-    public Map sessionResponse(@RequestBody Map bookingPayment) {
-        return paymentService.createSession(bookingPayment);
+    @PostMapping("/rest/payments/stripe/checkoutsession")
+    public Map createCheckoutSession(@RequestBody Map bookingPayment) {
+        return paymentService.createCheckoutSession(bookingPayment);
     }
 
 }

@@ -26,7 +26,7 @@ public class PaymentService {
         return paymentRepository.findAll();
     }
 
-    public Map createSession(Map bookingPayment) {
+    public Map createCheckoutSession(Map bookingPayment) {
         Stripe.apiKey =
                 "sk_test_51IxU9qEuj6pxFvwiOS428d9MjBBYL6ARPqjr2v8SH8dOvzIXpw4B3GnuOYFyrrc3AdPC3QokZI5mrpG6UXr85mib00nxzfmfaj";
 
