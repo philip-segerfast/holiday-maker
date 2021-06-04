@@ -12,6 +12,9 @@ export default {
       this.$router.push({ path: "/" });
     },
   },
+  mounted() {
+    this.$store.dispatch("fetchCreateBooking");
+  },
 };
 </script>
 

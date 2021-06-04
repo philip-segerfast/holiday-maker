@@ -90,15 +90,11 @@ price etc
 
       <h2>Total Price for Rooms {{ roomsCost }}Euro/day</h2>
       <h1>Total Price for Booking {{ totalBookingCost }}Euro</h1>
-      <!--Mockup payment -->
-      <div id="payment-cotainer">
-        <span class="payment-cards">
-          <PaymentCard />
-        </span>
+      <div id="payment-container">
+        <StripeCheckout :hotelInfo="hotelInfo" :totalBookingCost="totalBookingCost" />
       </div>
     </div>
     <br />
-    <button @click="createBooking" class="confirm-booking">Confirm Booking</button>
   </body>
 </template>
 
@@ -106,14 +102,10 @@ price etc
 import LoginComponent from "../components/LoginComponent.vue";
 import RegisterComponent from "../components/RegisterComponent.vue";
 import BookingRoomCard from "../components/BookingRoomCard.vue";
-import PaymentCard from "../components/PaymentCard.vue";
+import StripeCheckout from "../components/StripeCheckout.vue";
 import moment from "moment";
 
 export default {
-  components: {
-    BookingRoomCard,
-    PaymentCard,
-  },
   data: function () {
     return {
       key: "",
@@ -140,18 +132,14 @@ export default {
 
     createBooking() {
       console.log(this.totalBookingCost);
-      this.$store.commit("setTotalCost", this.totalBookingCost);
-      this.$store.dispatch("fetchCreateBooking");
-
-      const routerUrl = "/";
-      this.$router.push({ path: routerUrl });
     },
   },
   components: {
+    BookingRoomCard,
     LoginComponent,
     RegisterComponent,
     BookingRoomCard,
-    PaymentCard,
+    StripeCheckout,
   },
   computed: {
     addedHotelRooms() {
