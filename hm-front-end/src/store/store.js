@@ -163,31 +163,6 @@ export default createStore({
         return 0;
       });
     },
-    setSortedHotelsAscending() {
-      let sortedByPrice;
-      sortedByPrice = this.state.hotels.sort((price1, price2) => {
-        if (price1.minRoomPrice < price2.minRoomPrice) {
-          return -1;
-        }
-        if (price1.minRoomPrice > price2.minRoomPrice) {
-          return 1;
-        }
-        return 0;
-      });
-    },
-    setSortedHotelsDescending() {
-      let maxHotelPrice;
-      maxHotelPrice = this.state.hotels.sort((price1, price2) => {
-        if (price1.minRoomPrice < price2.minRoomPrice) {
-          return -1;
-        }
-        if (price1.minRoomPrice > price2.minRoomPrice) {
-          return 1;
-        }
-        return 0;
-      });
-      return maxHotelPrice.reverse();
-    },
     // Sorterar alla hotelrum utifrån lägst --> högst
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
@@ -218,23 +193,6 @@ export default createStore({
         return 0;
       });
       return maxRoomPrice.reverse();
-    },
-    setSortedRatings() {
-      let sortedByRating;
-      let hotels = this.state.hotels;
-      console.log("Hotels: ", hotels);
-      sortedByRating = hotels.sort((hotel1, hotel2) => {
-        console.log(hotel1.averageRating);
-        if (hotel1.averageRating < hotel2.averageRating) {
-          return -1;
-        }
-        if (hotel1.averageRating > hotel2.averageRating) {
-          return 1;
-        }
-        return 0;
-      });
-      console.log("Sorted by rating: ", sortedByRating);
-      return sortedByRating;
     },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;

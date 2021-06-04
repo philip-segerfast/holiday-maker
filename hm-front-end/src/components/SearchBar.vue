@@ -14,10 +14,6 @@
         <button class="search-button" @click="filterHotels">Search</button>
       </div>
     </div>
-    <div id="sort-bar">
-      <button @click="sortHotelRoomsByPrice" class="sort-button">Sort Rooms</button>
-      <button @click="sortHotelsByPrice" class="sort-button">Sort Hotels</button>
-    </div>
   </div>
 </template>
 
