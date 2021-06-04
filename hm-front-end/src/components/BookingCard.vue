@@ -10,6 +10,22 @@
         Arrival: {{ bookedFromDate }}. <br />
         Checkout: {{ bookedToDate }}.
       </h4>
+      <div id="rating">
+        <h2>Rate the hotel after visiting</h2>
+        <select v-model="rating">
+          <option disabled value="">Please select one</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+        <span>Selected: {{ rating }}</span>
+
+        <input v-model="comments" type="text" placeholder="make a comment" />
+        <button type="submit">Send</button>
+      </div>
+
       <div id="v-image" class="split left"></div>
       <button @click="redirectToBookingDetailsView">Details</button>
       <button @click="cancelBooking">Cancel booking</button>
@@ -19,6 +35,12 @@
 
 <script>
 export default {
+  data() {
+    return {
+      rating: 0,
+      comments: "",
+    };
+  },
   props: ["userBooking"],
   computed: {
     // Changes epoch time format to normal date format
@@ -30,6 +52,28 @@ export default {
     },
   },
   methods: {
+    async makeReview() {
+      console.log("review test");
+      //skapar objekt hotelRating (
+      let hotelRating = {
+        rating: this.rating,
+        comments: this.comments,
+        author: { id: this.userBooking.id },
+        hotel: { id: this.userBooking.hotel },
+      };
+      //gör en POST request
+      let request = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(hotelRating),
+      };
+      await fetch("/rest/hotels/reviews/add", request);
+    },
+    updateRatingOfHotel() {
+      this.$store.dispatch("countRatingOfHotel", this.yourRating);
+    },
     redirectToBookingDetailsView() {
       const routerUrl = "/bookingdetailsview/" + this.userBooking.id;
       this.$router.push({ path: routerUrl });

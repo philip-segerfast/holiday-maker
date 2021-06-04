@@ -12,6 +12,8 @@ export default createStore({
     hotelImages: [],
     hotel: {},
     hotelId: 1,
+    nrRating: 1,
+    hotelRating: 1,
     livery: String,
     totalCost: 0,
     tempHotelName: "",
@@ -526,6 +528,14 @@ export default createStore({
     updateOrderBy(state, payload) {
       console.log("order by: ", payload);
       state.searchHotelFilter.orderBy = payload;
+    },
+    countRatingOfHotel(state, payload) {
+      if (state.nrRated > 1) {
+        state.nrRated = state.nrRated + 1;
+      } else {
+        state.nrRated = 1;
+      }
+      state.hotelRating = (this.hotelRating + payload) / state.nrRated;
     },
   },
   actions: {
