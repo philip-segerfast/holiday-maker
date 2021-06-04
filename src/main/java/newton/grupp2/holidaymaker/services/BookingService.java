@@ -124,7 +124,6 @@ public class BookingService {
         Long totalCost = Long.valueOf(cost.longValue());
 
         String hotelName = (String) bookingPayment.get("hotelName");
-        System.out.println(hotelName);
 
         SessionCreateParams params =
                 SessionCreateParams.builder()
@@ -138,7 +137,7 @@ public class BookingService {
                                         .setPriceData(
                                                 SessionCreateParams.LineItem.PriceData.builder()
                                                         .setCurrency("eur")
-                                                        .setUnitAmount(totalCost)
+                                                        .setUnitAmount(totalCost*100) //converts from euro to cent
                                                         .setProductData(
                                                                 SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                                                         .setName(hotelName)
