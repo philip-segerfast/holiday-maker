@@ -1,5 +1,5 @@
 <template>
-  <div id="filter-component-main-container">
+  <div id="filter-component-main-container" class="unselectable">
     <div class="filter-section">
       <div class="header">Luxuries</div>
       <div class="filter-sub-section">
@@ -31,7 +31,7 @@
 
       <div class="filter-sub-section">
         <div class="filter-row">
-          <div class="left">To beach</div>
+          <div class="left">To beach (max)</div>
           <div class="right">
             <input
               type="range"
@@ -49,18 +49,18 @@
 
       <div class="filter-sub-section">
         <div class="filter-row">
-          <div class="left">To centrum</div>
+          <div class="left">To center (max)</div>
           <div class="right">
             <input
               type="range"
-              v-model="centrumDistance"
-              @input="updateCentrumDistance"
-              name="max-distance-centrum"
+              v-model="centerDistance"
+              @input="updateCenterDistance"
+              name="max-distance-center"
               min="0"
               max="100"
               id="max-distance"
             />
-            <span>{{ centrumDistance }} km</span>
+            <span>{{ centerDistance }} km</span>
           </div>
         </div>
       </div>
@@ -71,9 +71,10 @@
         <div class="filter-row">
           <div class="left">Order by</div>
           <div class="right">
-            <select>
-              <option value="cheap">Cheap</option>
-              <option value="expensive">Expensive</option>
+            <select v-model="orderBy" @change="updateOrderBy">
+              <option value="min-price">Min Price</option>
+              <option value="max-price">Max Price</option>
+              <option value="ratings">Ratings</option>
             </select>
           </div>
         </div>
@@ -86,22 +87,26 @@
 export default {
   data() {
     return {
-      beachDistance: 0,
-      centrumDistance: 0,
+      beachDistance: 100,
+      centerDistance: 100,
+      orderBy: "min-price",
     };
   },
   methods: {
     updateBeachDistance() {
       this.$store.commit("updateBeachDistance", this.beachDistance);
     },
-    updateCentrumDistance() {
-      this.$store.commit("updateCentrumDistance", this.centrumDistance);
+    updateCenterDistance() {
+      this.$store.commit("updateCenterDistance", this.centerDistance);
     },
     selectTag(tag) {
       this.$store.commit("selectHotelTag", tag);
     },
     unselectTag(tag) {
       this.$store.commit("unselectHotelTag", tag);
+    },
+    updateOrderBy() {
+      this.$store.commit("updateOrderBy", this.orderBy);
     },
   },
   computed: {
@@ -123,6 +128,11 @@ export default {
       return this.$store.getters.getSelectedHotelTags;
     },
   },
+  async mounted() {
+    this.updateBeachDistance();
+    this.updateCenterDistance();
+    this.updateOrderBy();
+  },
 };
 </script>
 
@@ -137,6 +147,7 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: var(--box-shadow-outline-smooth);
+  margin-right: 20px;
 
   .filter-section {
     width: 100%;
@@ -167,21 +178,31 @@ export default {
         flex-direction: row;
         width: 100%;
         height: 50px;
-        justify-items: center;
         align-items: center;
+        justify-items: center;
+
+        .left {
+          display: flex;
+          flex-direction: left;
+          flex-wrap: nowrap;
+          width: fit-content;
+          white-space: nowrap;
+          margin-right: auto;
+        }
 
         .right {
-          margin-left: auto;
           display: flex;
           input,
           select {
-            width: 150px;
             height: 25px;
+            width: 140px;
+          }
+          input[type="range"] {
+            width: 120px;
           }
           span {
-            display: inline-block;
             padding: 0 10px;
-            width: 75px;
+            min-width: 75px;
             text-align: right;
           }
         }

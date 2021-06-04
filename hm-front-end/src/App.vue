@@ -47,6 +47,12 @@ export default {
       return ["Result"].includes(this.$route.name);
     },
   },
+  watch: {
+    // Update current route in vuex store
+    $route(to, from) {
+      this.$store.commit("updateRoute", to.name);
+    },
+  },
 };
 </script>
 <style lang="scss" src="./style.scss"></style>

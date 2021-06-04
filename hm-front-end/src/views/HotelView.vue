@@ -82,7 +82,7 @@ export default {
       return this.$store.getters.getAdultAmount;
     },
     amountChildren() {
-      return this.$store.getters.getAdultAmount;
+      return this.$store.getters.getChildrenAmount;
     },
   },
   mounted() {
@@ -100,10 +100,8 @@ export default {
   border-radius: 12px;
 }
 .total-info {
-  position: absolute;
-  top: 450px;
-  width: 100%;
-  background-color: #7db5c1;
+  background-color: #3fb0bd;
+  border-radius: 10px;
 }
 .tag-list {
   display: inline-block;

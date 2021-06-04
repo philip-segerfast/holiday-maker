@@ -9,7 +9,7 @@
       Double beds: {{ hotelRoom.doubleBedsAmount }}
     </h3>
     <h4>
-      Number of extra beds allowed:{{ hotelRoom.maxAmountOfExtraBeds }} -Additional cost: See hotel
+      Number of extra beds allowed:{{ hotelRoom.maxAmountOfExtraBeds }} Additional cost: See hotel
       description
     </h4>
     <h2>Price:{{ hotelRoom.baseNightPrice }}</h2>
@@ -22,10 +22,12 @@
 export default {
   props: ["hotelRoom"],
   methods: {
+    // addRoomsToBooking adds room to list addedHotelRooms in store, it also ads the total cost for rooms
+    // and it also updates the max amount of extrabeds that can be added in the booking.
     addRoomsToBooking() {
       this.$store.commit("addRoomToBooking", this.hotelRoom);
-      this.$store.commit("updateTotalCost", this.hotelRoom.baseNightPrice);
-      console.log(this.hotelRoom);
+      this.$store.commit("updateRoomsCost", this.hotelRoom.baseNightPrice);
+      this.$store.commit("updateMaxExtraBeds", this.hotelRoom.maxAmountOfExtraBeds);
     },
   },
 };
@@ -44,18 +46,6 @@ export default {
   font-family: "Arial";
   font-size: 20px;
 }
-
-/*padding: 0;
-  display: grid;
-  grid-template-rows: min-content auto;
-  width: 225px;
-  height: 350px;
-  max-height: 350px;
-  overflow: hidden;
-  border-radius: 15px;
-  cursor: pointer;
-  border: 1px solid rgb(230, 230, 230);
-  background-color: rgb(243, 243, 243);*/
 
 .add {
   background-color: #4caf50; /* Green */
