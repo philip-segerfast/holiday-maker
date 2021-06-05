@@ -2,9 +2,12 @@
   <div class="booking-card">
     <div>
       <h3>{{ userBooking.hotel.name }}</h3>
-      <h3>"Rating of Hotel is:{{ userBooking.hotel.averageRating }}</h3>
-      <!--<h3>"Comments about Hotel is:{{ userBooking.hotel.reviews }}</h3> 
-      HUR VISAR VI COMMENTS -->
+      <h3>
+        <div v-if="userBooking.hotel.averageRating > 0">
+          "Rating of Hotel is:{{ userBooking.hotel.averageRating }}
+        </div>
+        <div v-else>"No ratings on this Hotel"</div>
+      </h3>
 
       <!-- Shows first image in list of images in hotel object -->
       <img v-bind:src="`http://localhost:5000/uploads/${userBooking.hotel.images[0].fileName}`" />
@@ -13,20 +16,24 @@
         Arrival: {{ bookedFromDate }}. <br />
         Checkout: {{ bookedToDate }}.
       </h4>
+
+      <div id="v-image" class="split left"></div>
+      <button @click="redirectToBookingDetailsView">Details</button>
+      <button @click="cancelBooking">Cancel booking</button>
+
       <form @submit.prevent="makeReview">
         <div id="rating">
           <h2>Rate the hotel after visiting</h2>
 
           <select v-model="rating" required>
             <option disabled value="">Please select one</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
           </select>
           <span>{{ rating }}/5 ⭐</span>
-          <label for="comments">Exp Month</label>
           <input
             v-model="comment"
             type="text"
@@ -35,14 +42,9 @@
             placeholder="type here to describe your experience in this hotel"
             required
           />
-
-          <button type="submit">Post review</button>
+          <button id="sendComment" type="submit">Post review</button>
         </div>
       </form>
-
-      <div id="v-image" class="split left"></div>
-      <button @click="redirectToBookingDetailsView">Details</button>
-      <button @click="cancelBooking">Cancel booking</button>
     </div>
   </div>
 </template>
@@ -70,10 +72,10 @@ export default {
       //console.log("review test");
       //console.log("Hotel id" + this.userBooking.hotel.id);
       //console.log("user id" + this.userBooking.user.id);
-      console.log("my rating is" + this.rating);
+      console.log("my rating is" + this.rating.toString());
 
       let hotelRating = {
-        rating: this.rating,
+        rating: this.rating.toString(),
         comment: this.comment,
         author: {
           id: this.userBooking.user.id,
@@ -121,5 +123,10 @@ img {
   width: 200px;
   height: 200px;
   padding: 5px;
+}
+#rating {
+  width: 250px;
+  border-radius: 30px;
+  border: 5px solid whitesmoke;
 }
 </style>

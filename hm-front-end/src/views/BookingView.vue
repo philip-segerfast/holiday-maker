@@ -64,12 +64,12 @@ price etc
           v-model="key"
         >
           <option value="No catering"></option>
-          <option value="self catering price">Self Catering</option>
-          <option value="half pension price">Half pension</option>
-          <option value="full board price">Full Board</option>
+          <option value="self">Self Catering</option>
+          <option value="half">Half pension</option>
+          <option value="full">Full Board</option>
         </select>
       </div>
-      <h2>Extra Livery {{ extraCost }}Euro/day</h2>
+      <h2>Extra Livery {{ extraCostLivery }}Euro/day</h2>
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
@@ -117,7 +117,7 @@ export default {
   data: function () {
     return {
       key: "",
-      extraLiveryCost: 0,
+      // extraLiveryCost: 0,
     };
   },
   data() {
@@ -183,6 +183,7 @@ export default {
     extraCostLivery() {
       return this.$store.getters.getExtraCostLivery;
     },
+
     maxExtraBeds() {
       return this.$store.getters.getMaxExtraBeds;
     },
