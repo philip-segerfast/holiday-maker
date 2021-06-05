@@ -690,13 +690,13 @@ export default createStore({
       return state.searchHotelFilter.selectedHotelTags;
     },
     getExtraCostLivery(state) {
-      if (state.livery == "self catering price") {
-        return state.hotelToBook.selfcateringPrice;
-      } else if (state.livery == "half pension price") {
+      if (state.livery == "self") {
+        return state.hotelToBook.selfCateringPrice;
+      } else if (state.livery == "half") {
         return (
           state.hotelToBook.halfPensionPrice * state.searchHotelFilter.peopleAmount.adultsAmount
         );
-      } else if (state.livery == "full board price") {
+      } else if (state.livery == "full") {
         return state.hotelToBook.fullBoardPrice * state.searchHotelFilter.peopleAmount.adultsAmount;
       } else {
         return 0;
