@@ -39,15 +39,17 @@ const routes = [
   },
   {
     path: "/hotelView",
-    name: "Hotel",
+    name: "Hotel View",
     component: HotelView,
   },
   {
     path: "/hotelView/:id",
+    name: "Hotel View",
     component: HotelView,
   },
   {
     path: "/bookingView",
+    name: "Booking View",
     component: BookingView,
   },
   {
