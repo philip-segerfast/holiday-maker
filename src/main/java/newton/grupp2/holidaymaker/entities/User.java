@@ -34,7 +34,7 @@ public class User {
     @OneToMany(mappedBy = "author")
     // Vi kommer ändå antagligen aldrig hämta reviews
     // direkt från en användare, utan snarare via hotellet.
-    // Bli så stor JSON annars.
+    // Blir så stor JSON annars.
     @JsonIgnore
     private List<HotelReview> reviews;
 
