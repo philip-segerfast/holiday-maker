@@ -155,6 +155,9 @@ export default createStore({
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
     },
+
+    // ============ Check D.2 ========================
+
     setSortedRooms() {
       this.state.hotelRooms.sort((price1, price2) => {
         if (price1.baseNightPrice < price2.baseNightPrice) {
