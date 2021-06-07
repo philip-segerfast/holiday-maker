@@ -64,7 +64,7 @@ public class Hotel {
     @JsonProperty
     public String getAverageRating() {
         double totalRating = 0;
-        double amountOfRatings = 0;
+        double amountOfRatings = 1;
         for(HotelReview review : reviews) {
             totalRating += review.getRating();
             amountOfRatings++;

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PaymentController {
@@ -24,6 +25,9 @@ public class PaymentController {
         return paymentService.getAllPayments();
     }
 
-
+    @PostMapping("/rest/payments/stripe/checkoutsession")
+    public Map createCheckoutSession(@RequestBody Map bookingPayment) {
+        return paymentService.createCheckoutSession(bookingPayment);
+    }
 
 }

@@ -64,12 +64,12 @@ price etc
           v-model="key"
         >
           <option value="No catering"></option>
-          <option value="self catering price">Self Catering</option>
-          <option value="half pension price">Half pension</option>
-          <option value="full board price">Full Board</option>
+          <option value="self">Self Catering</option>
+          <option value="half">Half pension</option>
+          <option value="full">Full Board</option>
         </select>
       </div>
-      <h2>Extra Livery {{ extraCost }}Euro/day</h2>
+      <h2>Extra Livery {{ extraCostLivery }}Euro/day</h2>
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
@@ -90,10 +90,11 @@ price etc
 
       <h2>Total Price for Rooms {{ roomsCost }}Euro/day</h2>
       <h1>Total Price for Booking {{ totalBookingCost }}Euro</h1>
-      <!--Mockup payment -->
+      <div id="payment-container">
+        <StripeCheckout :hotelInfo="hotelInfo" :totalBookingCost="totalBookingCost" />
+      </div>
     </div>
     <br />
-    <button @click="createBooking" class="confirm-booking">Confirm Booking</button>
   </body>
 </template>
 
@@ -101,16 +102,14 @@ price etc
 import LoginComponent from "../components/LoginComponent.vue";
 import RegisterComponent from "../components/RegisterComponent.vue";
 import BookingRoomCard from "../components/BookingRoomCard.vue";
+import StripeCheckout from "../components/StripeCheckout.vue";
 import moment from "moment";
 
 export default {
-  components: {
-    BookingRoomCard,
-  },
   data: function () {
     return {
       key: "",
-      extraLiveryCost: 0,
+      // extraLiveryCost: 0,
     };
   },
   data() {
@@ -133,17 +132,14 @@ export default {
 
     createBooking() {
       console.log(this.totalBookingCost);
-      this.$store.commit("setTotalCost", this.totalBookingCost);
-      this.$store.dispatch("fetchCreateBooking");
-
-      const routerUrl = "/";
-      this.$router.push({ path: routerUrl });
     },
   },
   components: {
+    BookingRoomCard,
     LoginComponent,
     RegisterComponent,
     BookingRoomCard,
+    StripeCheckout,
   },
   computed: {
     addedHotelRooms() {
@@ -169,14 +165,15 @@ export default {
     roomsCost() {
       return this.$store.getters.getRoomsCost;
     },
-    extraCost() {
+    extraCostLivery() {
       return this.$store.getters.getExtraCostLivery;
     },
+
     maxExtraBeds() {
       return this.$store.getters.getMaxExtraBeds;
     },
     totalBookingCost() {
-      return (this.extraCost + this.roomsCost) * this.nrDays + this.totalExtraBedsCost;
+      return (this.extraCostLivery + this.roomsCost) * this.nrDays + this.totalExtraBedsCost;
     },
     totalExtraBedsCost() {
       return this.hotelInfo.extraBedPrice * this.amountOfExtraBeds;
