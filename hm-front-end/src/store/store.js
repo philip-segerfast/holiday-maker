@@ -660,8 +660,6 @@ export default createStore({
       let outputRooms = getters.getFilteredHotelRoomsByAmountOfPeople(hotel);
       outputRooms = getters.getFilteredRoomsByCheckinDates(outputRooms);
 
-      console.log("OUTPUT: ", outputRooms);
-
       return outputRooms;
     },
     getFilteredHotelRoomsByAmountOfPeople: (state) => (hotel) => {
