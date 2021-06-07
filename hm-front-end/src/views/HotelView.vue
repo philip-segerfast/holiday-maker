@@ -16,7 +16,7 @@
       </span>
       <div id="sort-bar">
         <h4>
-          Sort by:
+          Sort rooms:
           <button class="btn" @click="sortHotelRoomsByPrice">Min Price</button>
           <button class="btn" @click="sortHotelRoomsByMaxPrice">Max Price</button>
         </h4>
@@ -100,6 +100,7 @@ export default {
   height: 50px;
   height: 100%;
   width: 100px;
+  border-radius: 15px;
   &:hover {
     background-color: rgba(0, 0, 0, 0.2);
     cursor: pointer;
