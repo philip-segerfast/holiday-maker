@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       isDropdownHidden: true,
-      adultsAmount: 0,
+      adultsAmount: 2,
       childrenAmount: 0,
       children: [],
       childrenAges: [],

@@ -1,55 +1,52 @@
-❔❓✔️❌✨
+❔❓✔️❌✨❗
 
-A.01 Som besökare vill jag kunna se bilder på accommodation ✔️
-A.02 Som besökare vill jag kunna se hur långt från centrum(/stranden) ett accommodation ligger ❌
-A.03 Som besökare vill jag kunna se var accommodation ligger på en karta (bonus) ✨
-A.04 Som besökare vill jag kunna se accommodation adress ✔️
-A.05 Som besökare vill jag kunna läsa en beskrivande text om accommodation ✔️
-A.06 Som besökare vill jag kunna se ett minimi-pris på accommodation (bonus) ✨
-A.07 Som besökare vill jag kunna se vilken typ av rum accommodation har. ✔️
-A.08 Som besökare vill jag kunna se om det finns restaurang på accommodation (tagg) ✔️
-A.09 Som besökare vill jag kunna se hur andra har bedömt accommodation. ❌
-A.10 Som besökare vill jag se populära accommodations ✨
-A.11 Som besökare vill jag se detaljer om ett hotel. ✔️
-B.01 Som besökare vill jag kunna söka boenden på olika resmål när jag ska boka semester. ✔️
-B.02 Som besökare vill jag kunna se sökresultaten i en lista. ✔️
-C.01 Som besökare vill jag kunna skapa ett konto. ✔️
-C.02 Som besökare vill jag kunna logga in. ✔️
-C.03 Som besökare vill jag kunna logga ut. ✔️
-D.01 Som besökare vill jag kunna skapa en bokning för ett eller flera rum. ✔️
-D.02 Som besökare vill jag kunna skapa en bokning med tillägg ❌
-D.03 Som besökare vill jag kunna se mina bokningar i en lista. ✔️
-D.04 Som besökare vill jag kunna ta bort en bokning. ✔️
-D.05 Som besökare vill jag kunna se detaljer om mina bokningar. ✔️
-D.06 Som besökare vill jag kunna ändra på detaljer på min bokning. ❌
-E.01 Som inloggad användare vill jag kunna knyta ett kort till mitt konto ✨
-E.02 Som inloggad användare vill jag kunna betala för ett specifikt rum 
+A.01  Som besökare vill jag kunna se bilder på accommodation ✔️
+A.02  Som besökare vill jag kunna se hur långt från centrum(/stranden) ett accommodation ligger ❌
+        * Det går inte att se hur långt ett hotell är från stranden/stan ❗
+A.03  Som besökare vill jag kunna se var accommodation ligger på en karta (bonus) ✨
+A.04  Som besökare vill jag kunna se accommodation adress ✔️
+A.05  Som besökare vill jag kunna läsa en beskrivande text om accommodation ✔️
+A.06  Som besökare vill jag kunna se ett minimi-pris på accommodation (bonus) ✨
+A.07  Som besökare vill jag kunna se vilken typ av rum accommodation har. ✔️
+A.08  Som besökare vill jag kunna se om det finns restaurang på accommodation (tagg) ✔️
+        * På vissa hotell visas dubbla taggar ❗
+A.09  Som besökare vill jag kunna se hur andra har bedömt accommodation. ❌
+A.10  Som besökare vill jag se populära accommodations ✨
+A.11  Som besökare vill jag se detaljer om ett hotel. ✔️
+B.01  Som besökare vill jag kunna söka boenden på olika resmål när jag ska boka semester. ✔️
+B.02  Som besökare vill jag kunna se sökresultaten i en lista. ✔️
+C.01  Som besökare vill jag kunna skapa ett konto. ✔️
+C.02  Som besökare vill jag kunna logga in. ✔️
+C.03  Som besökare vill jag kunna logga ut. ✔️
+D.01  Som besökare vill jag kunna skapa en bokning för ett eller flera rum. ✔️
+        * Markera tydligare att ett rum är valt under bokning ❗
+D.02  Som besökare vill jag kunna skapa en bokning med tillägg ❌
+        * All inclusive finns inte att välja vid bokning ❗
+D.03  Som besökare vill jag kunna se mina bokningar i en lista. ✔️
+        * Måste ladda om sidan för att se mina bokningar ❗
+D.04  Som besökare vill jag kunna ta bort en bokning. ✔️
+        * Det går inte att ta bort rum för bokning ❗
+D.05  Som besökare vill jag kunna se detaljer om mina bokningar. ✔️
+D.06  Som besökare vill jag kunna ändra på detaljer på min bokning. ❌
+E.01  Som inloggad användare vill jag kunna knyta ett kort till mitt konto ✨
+E.02  Som inloggad användare vill jag kunna betala för ett specifikt rum 
       beroende på hur länge jag ska bo där + vilka extra tjänster man väljer ❌
-F.01 Som besökare vill jag kunna ange stjärn-rating och en recension för accommodation ✔️
-F.02 Som besökare vill jag kunna se betyg och recension för ett accommodation. ❌
-  * Det går inte att se andras recensioner/betyg
-G.01 Som besökare vill jag kunna söka boende utifrån egenskaper hos accommodation eller rummet. ❌
-  * Datumsökning funkar ej. alla hotell filtreras bort vid sökning av datum
-H.01 Som besökare vill jag kunna favoritmarkera valfritt accommodation. ❌
-  * Ej implementerat
-H.02 Som besökare vill jag kunna se mina favoritmarkerade accommodations. ❌
-  * Ej implementerat
+        * Extra livery funkar endast för self-catering (och är det korrekt pris??) ❗
+F.01  Som besökare vill jag kunna ange stjärn-rating och en recension för accommodation ✔️
+        * Går att göra oändligt många ratings på samma bokning ❗
+F.02  Som besökare vill jag kunna se betyg och recension för ett accommodation. ❌
+        * Det går inte att se andras recensioner/betyg ❗
+G.01  Som besökare vill jag kunna söka boende utifrån egenskaper hos accommodation eller rummet. ❌
+H.01  Som besökare vill jag kunna favoritmarkera valfritt accommodation. ❌
+        * Ej implementerat ❗
+H.02  Som besökare vill jag kunna se mina favoritmarkerade accommodations. ❌
+        * Ej implementerat ❗
 
 BUGS/NOTES
-* På vissa hotell visas dubbla taggar
-* För-och efternamn används aldrig
-* Det går inte att se hur långt ett hotell är från stranden/stan
-* Ingen feedback när man registrerar sig
-* Markera tydligare att ett rum är valt under bokning
-* All inclusive finns inte att välja vid bokning
-* Det går att göra en bokning för 0 dagar
-* Extra livery funkar endast för self-catering (och är det korrekt pris??)
-* Går att göra bokning när man inte är inloggad (user_id = null), och personer valda
-* Måste ladda om sidan för att se mina bokningar
-* Det går inte att ta bort rum för bokning
-* Går inte att söka på datum
-* Antal personer dropdown hamnar bakom HotelCards
-* Antal barn visas inte vid bokning, men gör det i bokningen
-* Sortera efter min- och max-price vid bokning av rum funkar ej. Man vidarebefordras till en annan sida.
-* Går att göra oändligt många ratings på samma bokning
-* Fixa så att alla hotell har priser/visar att det inte finns ett satt pris så att det inte buggar när hotellen listas ut.
+* För-och efternamn används aldrig ❗
+* Antal personer dropdown hamnar bakom HotelCards ❗
+* Antal barn visas inte vid bokning, men gör det i bokningen ❗
+* Sortera efter min- och max-price vid bokning av rum funkar ej. Man vidarebefordras till en annan sida. ❗
+* Fixa så att alla hotell har priser/visar att det inte finns ett satt pris så att det inte buggar när hotellen listas ut. ✔️
+* Vissa rum har inga sängar men några extrasängar ❗
+* Fel datum visas för check-in/out-date ❗
