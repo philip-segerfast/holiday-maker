@@ -68,6 +68,7 @@ export default {
       };
       //fetchar request
       await fetch("/auth/register", request);
+      alert("Registered successfully!");
     },
   },
 };

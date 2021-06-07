@@ -1,6 +1,6 @@
 <template>
   <div id="result-page">
-    <div id="sort-bar">
+    <!-- <div id="sort-bar">
       <h3>
         Sort by :
         <button @click="sortHotelsByRatings">Ratings</button>
@@ -9,7 +9,7 @@
         -
         <button @click="sortHotelsByMaxPrice">Max Price</button>
       </h3>
-    </div>
+    </div> -->
     <div class="main-container">
       <!-- Insert hotels in hotelsList (Nestlar componenten HotelCard i ResultPage)-->
       <!-- Loopar ut (v-for) listan av hotel enskilt = Skapar varje "hotel" som en egen komponent-->
@@ -36,16 +36,16 @@ export default {
 
   methods: {
     sortHotelsByMinPrice() {
-      this.$store.commit("setSortedHotelsAscending");
+      this.$store.dispatch("setFilteredHotels");
       this.$router.push({ path: "/result-page" });
     },
     sortHotelsByMaxPrice() {
-      this.$store.commit("setSortedHotelsDescending");
+      this.$store.dispatch("setFilteredHotels");
       this.$router.push({ path: "/result-page" });
     },
     sortHotelsByRatings() {
       console.log("sorting ratings: ");
-      this.$store.commit("setSortedRatings");
+      this.$store.dispatch("setFilteredHotels");
       this.$router.push({ path: "/result-page" });
     },
   },

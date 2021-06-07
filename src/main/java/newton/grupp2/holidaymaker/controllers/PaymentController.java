@@ -1,7 +1,6 @@
 package newton.grupp2.holidaymaker.controllers;
 
-import newton.grupp2.holidaymaker.entities.Payment;
-import newton.grupp2.holidaymaker.services.PaymentService;
+import newton.grupp2.holidaymaker.entities.Payment;import newton.grupp2.holidaymaker.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
