@@ -2,12 +2,10 @@
   <div class="booking-card">
     <div>
       <h3>{{ userBooking.hotel.name }}</h3>
-      <h3>
-        <div v-if="userBooking.hotel.averageRating > 0">
-          "Rating of Hotel is:{{ userBooking.hotel.averageRating }}
-        </div>
-        <div v-else>"No ratings on this Hotel"</div>
-      </h3>
+
+      <div class="stars">
+        <i v-for="n in theAmountOfStars" v-bind:key="n" class="fa fa-star"></i>
+      </div>
 
       <!-- Shows first image in list of images in hotel object -->
       <img v-bind:src="`http://localhost:5000/uploads/${userBooking.hotel.images[0].fileName}`" />
@@ -57,8 +55,13 @@ export default {
       comment: "",
     };
   },
+
   props: ["userBooking"],
   computed: {
+    theAmountOfStars() {
+      let rounded = Math.round(parseInt(this.hotel.averageRating));
+      return rounded;
+    },
     // Changes epoch time format to normal date format
     bookedFromDate() {
       return new Date(this.userBooking.fromTime * 1000).toLocaleString();
