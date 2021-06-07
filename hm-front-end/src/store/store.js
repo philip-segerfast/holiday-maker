@@ -26,10 +26,6 @@ export default createStore({
         endDate: "",
       },
       AmountOfExtraBeds: 0,
-      peopleAmount: {
-        adultsAmount: 0,
-        childrenAmount: 0,
-      },
       people: {
         adultsAmount: 0,
         children: [],
@@ -249,11 +245,8 @@ export default createStore({
     updateEndDate(state, endDate) {
       state.searchHotelFilter.checkInDates.endDate = endDate;
     },
-    updateChildrenAmount(state, childrenAmount) {
-      state.searchHotelFilter.peopleAmount.childrenAmount = childrenAmount;
-    },
     updateAdultsAmount(state, adultsAmount) {
-      state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
+      state.searchHotelFilter.people.adultsAmount = adultsAmount;
     },
     addRoomToBooking(state, room) {
       state.addedHotelRooms.push(room);
@@ -425,7 +418,7 @@ export default createStore({
       context.commit("updateAllHotelTags", json);
     },
     // Filtering hotels here because I need access to the context object
-    setFilteredHotels(context) {
+    setFilteredHotels(context, state) {
       const allHotels = this.state.hotels;
       /* 
         .call används för att bestämma vad "this" ska referera till när man använder det i den följande metoden.
@@ -435,7 +428,7 @@ export default createStore({
       let filteredHotels;
       filteredHotels = filterHotelsByCity.call(this, allHotels);
       filteredHotels = filterHotelsByAmountOfPeople.call(this, filteredHotels);
-      filteredHotels = filterHotelsByCheckin.call(this, filteredHotels); // yup
+      filteredHotels = filterHotelsByCheckin.call(this, filteredHotels);
       // If we are at the search results page (side-filter is visible), do these filterings:
       if (["Result"].includes(this.state.routePath)) {
         filteredHotels = filterHotelsByTags.call(this, filteredHotels);
@@ -511,7 +504,7 @@ export default createStore({
       }
 
       function filterHotelsByAmountOfPeople(listToFilter) {
-        const adultsAmount = parseInt(this.state.searchHotelFilter.peopleAmount.adultsAmount);
+        const adultsAmount = parseInt(this.state.searchHotelFilter.people.adultsAmount);
         if (adultsAmount <= 0) {
           // console.log("No adults specified. You need to have at least one adult on the booking.");
           return listToFilter;
@@ -586,9 +579,6 @@ export default createStore({
     getHotelRooms(state) {
       return state.hotelRooms;
     },
-    getFilteredHotelRooms(state) {
-      /* =================================================================================================================== */
-    },
     getAddedHotelRooms(state) {
       return state.addedHotelRooms;
     },
@@ -617,10 +607,10 @@ export default createStore({
       return state.loggedInUser;
     },
     getAdultAmount(state) {
-      return state.searchHotelFilter.peopleAmount.adultsAmount;
+      return state.searchHotelFilter.people.adultsAmount;
     },
     getChildrenAmount(state) {
-      return state.searchHotelFilter.peopleAmount.childrenAmount;
+      return state.searchHotelFilter.people.children.length;
     },
     getStartDate(state) {
       return state.searchHotelFilter.checkInDates.startDate;
@@ -663,9 +653,9 @@ export default createStore({
       return outputRooms;
     },
     getFilteredHotelRoomsByAmountOfPeople: (state) => (hotel) => {
-      const statePeopleAmount = state.searchHotelFilter.peopleAmount;
+      const statePeopleAmount = state.searchHotelFilter.people;
       const adultsAmount = parseInt(statePeopleAmount.adultsAmount);
-      const childrenAmount = parseInt(statePeopleAmount.childrenAmount); // BEHÖVER ÄNDRAS SEN!!!
+      const childrenAmount = parseInt(statePeopleAmount.children.length);
       const totalAmountOfPeople = adultsAmount + childrenAmount;
 
       // Hämta ut alla hotell som har rum som tillåter lika många personer som i peopleAmount

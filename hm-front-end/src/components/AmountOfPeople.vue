@@ -102,6 +102,10 @@ export default {
       this.$store.commit("updateChildren", this.getSelectedChildren);
     },
   },
+  mounted() {
+    this.updateAdultsAmount();
+    this.updateChildren();
+  },
 };
 </script>
 
