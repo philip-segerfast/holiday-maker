@@ -4,13 +4,6 @@
       <h1>Loading...</h1>
     </div>
     <div v-else>
-      <div id="sort-bar">
-        <h4>
-          Sort rooms:
-          <button class="btn" @click="sortHotelRoomsByPrice">Min Price</button>
-          <button class="btn" @click="sortHotelRoomsByMaxPrice">Max Price</button>
-        </h4>
-      </div>
       <div class="hotel-info">
         <h1>{{ hotel.name }}</h1>
         <!--Visar alla bilder som är kopplade till ett hotell -->
@@ -25,6 +18,13 @@
         <span class="tag-list" v-for="tag in hotel.hotelTags" :key="tag">
           <h4>{{ tag.label }}</h4>
         </span>
+        <div id="sort-bar">
+          <h4>
+            Sort rooms:
+            <button class="btn" @click="sortHotelRoomsByPrice">Min Price</button>
+            <button class="btn" @click="sortHotelRoomsByMaxPrice">Max Price</button>
+          </h4>
+        </div>
         <h3>
           Add rooms and press book
           <button class="booking" @click="redirectToBookingView">Book</button>
