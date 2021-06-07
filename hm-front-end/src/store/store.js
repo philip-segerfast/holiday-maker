@@ -104,14 +104,6 @@ export default createStore({
         ],
       },
       paid: "",
-      payment: {
-        cardHolderName: "",
-        cardNumber: "",
-        cardEndMonth: "",
-        cardEndYear: "",
-        cardCvc: "",
-        totalCost: "",
-      },
     },
 
     newBooking: {
@@ -532,22 +524,6 @@ export default createStore({
       console.log("order by: ", payload);
       state.searchHotelFilter.orderBy = payload;
     },
-    setCardHolderName(state, payload) {
-      state.userBooking.payment.cardHolderName = payload;
-    },
-    setCardNumber(state, payload) {
-      state.userBooking.payment.cardNumber = payload;
-    },
-    setCardEndDate(state, payload) {
-      state.userBooking.payment.endDate = payload;
-    },
-    setCardCvc(state, payload) {
-      state.userBooking.payment.cardCvc;
-    },
-    // Might need to change this one to an already excisting TotalCost!
-    setPaymentTotalCost(state, payload) {
-      state.userBooking.payment.totalCost = payload;
-    },
   },
   actions: {
     // actions får tillgång till context objektet
@@ -648,27 +624,6 @@ export default createStore({
       let json = await response.json();
       context.commit("updateAllHotelTags", json);
     },
-    async fetchCreatePayment() {
-      let purchase = {
-        cardHolderName: this.state.userBooking.payment.cardHolderName,
-        cardNumber: this.state.userBooking.payment.cardNumber,
-        endDate: this.state.userBooking.payment.endDate,
-        cardCvc: this.state.userBooking.payment.cardCvc,
-        totalCost: this.state.userBooking.payment.totalCost,
-      };
-      console.log("Running fetchPayment:");
-      console.log(purchase);
-      const url = "/rest/payments";
-      let response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(purchase),
-      });
-      let answer = await response.json();
-      console.log(answer);
-    },
   },
   getters: {
     getUserId(state) {
@@ -746,22 +701,6 @@ export default createStore({
     },
     getRoutePath(state) {
       return state.routePath;
-    },
-    getCardHolderName(state) {
-      return state.userBooking.payment.cardHolderName;
-    },
-    getCardNumber(state) {
-      return state.userBooking.payment.cardNumber;
-    },
-    getCardEndDate(state) {
-      return state.userBooking.payment.cardEndDate;
-    },
-    getCardCvc(state) {
-      return state.userBooking.payment.cardCvc;
-    },
-    // Might need to change this one to an already excisting TotalCost!
-    getPaymentTotalCost() {
-      return state.userBooking.payment.totalCost;
     },
   },
 });
