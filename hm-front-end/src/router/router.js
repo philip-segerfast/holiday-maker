@@ -8,6 +8,7 @@ import LoginView from "../views/LoginView.vue";
 import BookingView from "@/views/BookingView.vue";
 import BookingDetailsView from "../views/BookingDetailsView.vue";
 import SuccessfullPayment from "../views/SuccessfullPayment.vue";
+import CancelledPayment from "../views/CancelledPayment.vue";
 
 const routes = [
   {
@@ -59,6 +60,11 @@ const routes = [
     path: "/successfullpayment",
     name: "SuccessfullPayment",
     component: SuccessfullPayment,
+  },
+  {
+    path: "/cancelledpayment",
+    name: "CancelledPayment",
+    component: CancelledPayment,
   },
 ];
 

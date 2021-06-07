@@ -2,7 +2,7 @@
   <body>
     <div>
       <form @submit.prevent="toStripeCheckout">
-        <button type="submit">Confrim booking</button>
+        <button class="confirm-booking" type="submit">Confrim booking</button>
       </form>
     </div>
   </body>
@@ -27,7 +27,7 @@ export default {
   methods: {
     //This function sends us to the stripe checkout
     async toStripeCheckout() {
-      //first check if user is logged in
+      //first checks if user is logged in
       if (!this.isLoggedIn) {
         alert("Please login or sign up at top of this booking page");
         window.scrollTo(0, 0);
@@ -70,3 +70,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.confirm-booking {
+  display: inline-block;
+  border: 4px;
+  border-radius: 20px;
+  background-color: rgb(15, 192, 68);
+  padding: 20px 18px;
+  cursor: pointer;
+  font-size: 32px;
+}
+</style>

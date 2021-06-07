@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Booking Successfull</h2>
+    <h2>The booking was successfull</h2>
     <button @click="redirectToHome">See my bookings</button>
   </div>
 </template>
@@ -11,9 +11,6 @@ export default {
     redirectToHome() {
       this.$router.push({ path: "/" });
     },
-  },
-  mounted() {
-    this.$store.dispatch("fetchCreateBooking");
   },
 };
 </script>
