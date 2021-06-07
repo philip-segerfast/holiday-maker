@@ -58,13 +58,13 @@ export default {
     },
     sortHotelRoomsByPrice() {
       console.log("sorting: ");
-      this.$router.push({ path: "/hotelView" });
       this.$store.commit("setSortedRooms");
+      this.$router.push({ path: "/hotelView" });
     },
     sortHotelRoomsByMaxPrice() {
       console.log("sorting: ");
-      this.$router.push({ path: "/hotelView" });
       this.$store.commit("setSortedRoomsDescending");
+      this.$router.push({ path: "/hotelView" });
     },
   },
   computed: {

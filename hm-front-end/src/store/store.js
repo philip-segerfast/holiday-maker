@@ -156,8 +156,7 @@ export default createStore({
       state.hotelRooms = payload;
     },
     setSortedRooms() {
-      let sortedByPrice;
-      sortedByPrice = this.state.hotelRooms.sort((price1, price2) => {
+      this.state.hotelRooms.sort((price1, price2) => {
         if (price1.baseNightPrice < price2.baseNightPrice) {
           return -1;
         }
@@ -166,7 +165,6 @@ export default createStore({
         }
         return 0;
       });
-      return sortedByPrice;
     },
     setSortedRoomsDescending() {
       let maxRoomPrice;
@@ -180,7 +178,7 @@ export default createStore({
         }
         return 0;
       });
-      return maxRoomPrice.reverse();
+      maxRoomPrice.reverse();
     },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;
@@ -450,7 +448,7 @@ export default createStore({
         });
         console.log("Sorted by rating: ", sortedByRating);
         listToFilter = sortedByRating;
-        return listToFilter;
+        return listToFilter.reverse();
       }
 
       function filterHotelsByCity(listToFilter) {

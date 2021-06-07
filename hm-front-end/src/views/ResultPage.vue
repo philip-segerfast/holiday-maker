@@ -36,16 +36,16 @@ export default {
 
   methods: {
     sortHotelsByMinPrice() {
-      this.$store.commit("setFilteredHotels");
+      this.$store.dispatch("setFilteredHotels");
       this.$router.push({ path: "/result-page" });
     },
     sortHotelsByMaxPrice() {
-      this.$store.commit("filterByMaxPrice");
+      this.$store.dispatch("setFilteredHotels");
       this.$router.push({ path: "/result-page" });
     },
     sortHotelsByRatings() {
       console.log("sorting ratings: ");
-      this.$store.commit("setFilteredHotels");
+      this.$store.dispatch("setFilteredHotels");
       this.$router.push({ path: "/result-page" });
     },
   },
