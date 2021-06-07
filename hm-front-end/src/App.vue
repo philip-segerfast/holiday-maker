@@ -41,7 +41,9 @@ export default {
   },
   computed: {
     shouldShowSearchBar() {
-      return !["Login", "Register", "About", "SuccessfullPayment"].includes(this.$route.name);
+      return !["Login", "Register", "About", "Hotel View", "Booking View"].includes(
+        this.$route.name
+      );
     },
     shouldShowFilterSide() {
       return ["Result"].includes(this.$route.name);
