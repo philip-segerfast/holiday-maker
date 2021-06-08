@@ -44,17 +44,15 @@
       </div>
     </div>
 
-    <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
-    <div id="rooms-container">
-      <span class="room-list" v-if="rooms.length > 0">
-        <hotel-room-card v-for="(room, i) in rooms" :key="room + i" :hotelRoom="room" />
-      </span>
+    <div class="review-list" v-if="hotel.reviews.length > 0">
+      <review-card v-for="review in hotel.reviews" :key="review.id" :hotelReview="review" />
     </div>
   </body>
 </template>
 
 <script>
 import HotelRoomCard from "../components/HotelRoomCard.vue";
+import reviewCard from "../components/reviewCard.vue";
 import moment from "moment";
 
 export default {
@@ -66,10 +64,12 @@ export default {
   },
   components: {
     HotelRoomCard,
+    reviewCard,
   },
   data() {
     return {
       rooms: [],
+      reviews: [],
     };
   },
   methods: {
@@ -198,6 +198,15 @@ img {
   display: inline;
   width: 100%;
   background-color: cadetblue;
+}
+.review-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  grid-gap: 10px;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
 }
 .booking {
   background-color: #4caf50; /* Green */
