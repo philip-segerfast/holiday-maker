@@ -41,13 +41,6 @@ price etc
           <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
         </span>
       </div>
-      <br />
-      <div id="register-cotainer">
-        <span class="register-component">
-          <RegisterComponent />
-        </span>
-      </div>
-      <br />
       <div class="hotel">
         <h1>{{ hotelInfo.name }}</h1>
         <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>

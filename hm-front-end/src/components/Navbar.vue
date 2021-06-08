@@ -55,7 +55,7 @@ export default {
     font-weight: bold;
     color: rgb(137, 149, 27);
     &.router-link-exact-active {
-      color: #f5f100;
+      color: #f4d160;
     }
   }
 
