@@ -21,8 +21,8 @@
         <div id="sort-bar">
           <h4>
             Sort rooms:
-            <button class="btn" @click="sortHotelRoomsByPrice">Min Price</button>
-            <button class="btn" @click="sortHotelRoomsByMaxPrice">Max Price</button>
+            <button class="btn" @click="setSortedRoomsAscending">Min Price</button>
+            <button class="btn" @click="setSortedRoomsDescending">Max Price</button>
           </h4>
         </div>
         <h3>
@@ -32,8 +32,8 @@
       </div>
 
       <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
-      <div class="room-list" v-if="filteredRooms.length > 0">
-        <hotel-room-card v-for="room in filteredRooms" :key="room.id" :hotelRoom="room" />
+      <div class="room-list" v-if="rooms.length > 0">
+        <hotel-room-card v-for="room in rooms" :key="room.id" :hotelRoom="room" />
       </div>
     </div>
   </body>
@@ -48,7 +48,9 @@ export default {
     HotelRoomCard,
   },
   data() {
-    return {};
+    return {
+      rooms: [],
+    };
   },
   methods: {
     redirectToBookingView() {
@@ -59,12 +61,35 @@ export default {
     sortHotelRoomsByPrice() {
       console.log("sorting min price: ");
       this.$store.commit("setSortedRooms");
-      this.$router.push({ path: "/hotelView" });
     },
     sortHotelRoomsByMaxPrice() {
       console.log("sorting max price: ");
       this.$store.commit("setSortedRoomsDescending");
       this.$router.push({ path: "/hotelView" });
+    },
+    setSortedRoomsAscending() {
+      this.rooms.sort((price1, price2) => {
+        if (price1.baseNightPrice < price2.baseNightPrice) {
+          return -1;
+        }
+        if (price1.baseNightPrice > price2.baseNightPrice) {
+          return 1;
+        }
+        return 0;
+      });
+    },
+    setSortedRoomsDescending() {
+      let maxPrice = this.rooms.sort((maxPrice1, maxPrice2) => {
+        console.log(maxPrice1.baseNightPrice);
+        if (maxPrice1.baseNightPrice > maxPrice2.baseNightPrice) {
+          return 1;
+        }
+        if (maxPrice1.baseNightPrice < maxPrice2.baseNightPrice) {
+          return -1;
+        }
+        return 0;
+      });
+      maxPrice.reverse();
     },
   },
   computed: {
@@ -88,9 +113,9 @@ export default {
     hotel() {
       return this.$store.getters.getHotelById(this.hotelId);
     },
-    filteredRooms() {
-      return this.$store.getters.getFilteredRooms(this.hotel);
-    },
+  },
+  mounted() {
+    this.rooms = this.$store.getters.getFilteredRooms(this.hotel);
   },
 };
 </script>
