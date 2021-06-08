@@ -1,12 +1,12 @@
 <template>
   <div id="nav">
-    <span id="show-logged-in" v-if="$store.getters.getLoggedInUser != null">
+    <span id="show-logged-in" v-if="isLoggedIn">
       <h4>{{ $store.getters.getLoggedInUser.first_name }}</h4>
     </span>
     &nbsp; &nbsp;
     <router-link class="navRoute" to="/">Home</router-link>
 
-    <span id="show-login-button" v-if="$store.getters.getLoggedInUser == null">
+    <span id="show-login-button" v-if="!isLoggedIn">
       &nbsp;
       <router-link class="navRoute" to="/login">Login</router-link>
     </span>
@@ -16,14 +16,17 @@
 
     &nbsp;
     <!--<button class="navbutton" @click="$router.push('Register')">Register</button> -->
-    <div id="hide-logout-button" v-if="$store.getters.getLoggedInUser != null">
-      <button class="navbutton" @click="logout">Logout</button>
-    </div>
+    <button v-if="isLoggedIn" class="navbutton" @click="logout">Logout</button>
   </div>
 </template>
 
 <script>
 export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.getLoggedInUser != null;
+    },
+  },
   methods: {
     logout() {
       //logout from backend

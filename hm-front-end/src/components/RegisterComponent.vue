@@ -1,17 +1,28 @@
 <template>
   <div class="Registration">
-    <div class="sign-up" v-if="$store.getters.getLoggedInUser == null">
+    <div class="sign-up">
       <!--skapar form så användaren kan mata in sina uppgifter -->
-      <button class="show-register" @click="clickRegistration = !clickRegistration">
-        Click here to sign up
-      </button>
-      <div class="registration-btn" v-if="clickRegistration">
+
+      <div class="registration-btn">
         <br />
         <form @submit.prevent="register">
           <div class="inputs" v-if="$store.getters.getLoggedInUser == null">
             <div v-show="inputs"></div>
-            <input v-model="email" name="email" type="email" placeholder="email" required />
-            <input v-model="password" type="password" placeholder="Password" required />
+            <input
+              class="names"
+              v-model="email"
+              name="email"
+              type="email"
+              placeholder="email"
+              required
+            />
+            <input
+              class="names"
+              v-model="password"
+              type="password"
+              placeholder="Password"
+              required
+            />
             <input
               class="names"
               v-model="first_name"
@@ -20,7 +31,8 @@
               required
             />
             <input class="names" v-model="last_name" type="text" placeholder="Last name" required />
-            <button type="submit">Register</button>
+            <br />
+            <button class="loginButton" type="submit">Register</button>
           </div>
         </form>
       </div>
@@ -70,13 +82,21 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.loginButton {
+  display: inline-block;
+  margin-left: 10px;
+  background-color: transparent;
+  cursor: pointer;
+  position: right;
+  font-weight: bold;
+  color: #f4d160;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  text-decoration: underline;
+}
 .names {
-  width: 50%;
-  padding: 1px 2px;
-  padding-top: 1px;
-  padding-right: 2px;
-  padding-bottom: 1px;
-  padding-left: 2px;
   -webkit-writing-mode: horizontal-tb !important;
   text-rendering: auto;
   color: -internal-light-dark(black, white);

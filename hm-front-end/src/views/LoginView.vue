@@ -11,7 +11,7 @@
           <div class="submit-button" v-if="submit"></div>
           <div class="submit-button" v-else>
             <router-link to="/Register">
-              <span class="loginButton">if you dont have account click here</span></router-link
+              <span class="loginButton">Click here to register</span></router-link
             >
           </div>
         </div>
@@ -93,7 +93,6 @@ export default {
   margin: 0;
   padding: 0;
   font-size: 16px;
-  text-decoration: underline;
 }
 
 .inputs {

@@ -2,7 +2,7 @@
   <div>
     <div v-if="isLoggedIn">
       <h2>List of bookings</h2>
-      <h4>{{ loggedInUser.email }}, you have {{ userBookingList.length }} booking(s)</h4>
+      <h4>{{ loggedInUser.first_name }}, you have {{ userBookingList.length }} booking(s)</h4>
       <div v-if="userBookingList.length > 0">
         <BookingCard
           v-for="(userBooking, i) in userBookingList"
