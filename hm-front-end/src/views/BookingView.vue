@@ -53,9 +53,9 @@ price etc
 
       <div class="livery">
         Livery Option Select between: <br />
-        Self Catering {{ hotelInfo.selfCateringPrice }} Euro/(Booking and day) <br />
-        Half Pension {{ hotelInfo.halfPensionPrice }} Euro/(Adult and day) <br />
-        Full Board {{ hotelInfo.fullBoardPrice }} Euro/(Adult and day)
+        Self Catering {{ hotelInfo.selfCateringPrice }} SEK/(Booking and day) <br />
+        Half Pension {{ hotelInfo.halfPensionPrice }} SEK/(Adult and day) <br />
+        Full Board {{ hotelInfo.fullBoardPrice }} SEK/(Adult and day)
 
         <select
           name="liveryOption"
@@ -69,12 +69,12 @@ price etc
           <option value="full">Full Board</option>
         </select>
       </div>
-      <h2>Extra Livery {{ extraCostLivery }}Euro/day</h2>
+      <h2>Extra Livery {{ extraCostLivery }}SEK/day</h2>
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
         <input type="number" v-model="amountOfExtraBeds" min="0" @input="updateAmountOfExtraBeds" />
-        <h2>price of your extrabeds {{ totalExtraBedsCost }}</h2>
+        <h2>price of your extrabeds {{ totalExtraBedsCost }} SEK</h2>
       </div>
 
       <!--Lägger in och visar alla rum som finns i addedRooms -->
@@ -88,8 +88,8 @@ price etc
         </span>
       </div>
 
-      <h2>Total Price for Rooms {{ roomsCost }}Euro/day</h2>
-      <h1>Total Price for Booking {{ totalBookingCost }}Euro</h1>
+      <h2>Total Price for Rooms {{ roomsCost }}SEK/day</h2>
+      <h1>Total Price for Booking {{ totalBookingCost }}SEK</h1>
       <div id="payment-container">
         <StripeCheckout :hotelInfo="hotelInfo" :totalBookingCost="totalBookingCost" />
       </div>
