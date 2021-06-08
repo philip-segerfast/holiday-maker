@@ -40,6 +40,9 @@ export default {
     this.startDate = today;
     this.minDate = today;
     this.endDate = today;
+
+    this.updateStartDate();
+    this.updateEndDate();
   },
   methods: {
     updateStartDate() {
