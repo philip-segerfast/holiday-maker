@@ -1,18 +1,19 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link>
+    <span id="show-logged-in" v-if="$store.getters.getLoggedInUser != null">
+      <h4>{{ $store.getters.getLoggedInUser.first_name }}</h4>
+    </span>
+    &nbsp; &nbsp;
+    <router-link class="navRoute" to="/">Home</router-link>
 
     <span id="show-login-button" v-if="$store.getters.getLoggedInUser == null">
       &nbsp;
-      <router-link to="/login">Login</router-link>
+      <router-link class="navRoute" to="/login">Login</router-link>
     </span>
     &nbsp;
     <!--&nbsp;&middot;&nbsp;
     <router-link to="/" tag="button">Logout</router-link> -->
 
-    <span id="show-logged-in" v-if="$store.getters.getLoggedInUser != null">
-      <h4>Signed in as: {{ $store.getters.getLoggedInUser.email }}</h4>
-    </span>
     &nbsp;
     <!--<button class="navbutton" @click="$router.push('Register')">Register</button> -->
     <div id="hide-logout-button" v-if="$store.getters.getLoggedInUser != null">
@@ -42,6 +43,8 @@ export default {
 
 <style scoped lang="scss">
 #show-logged-in {
+  font-style: italic;
+  color: white;
   display: inline-block;
   h4 {
     margin: 0;
@@ -66,7 +69,7 @@ export default {
     cursor: pointer;
     position: right;
     font-weight: bold;
-    color: #1a88bb;
+    color: rgb(137, 149, 27);
     border: 0;
     margin: 0;
     padding: 0;

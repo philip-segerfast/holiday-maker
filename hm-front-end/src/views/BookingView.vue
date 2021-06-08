@@ -24,6 +24,7 @@ price etc
             <LoginComponent />
           </span>
         </div>
+        <br />
         <div>
           <span class="register-component">
             <RegisterComponent />
@@ -41,29 +42,20 @@ price etc
           <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
         </span>
       </div>
-      <div class="hotel">
-        <h1>{{ hotelInfo.name }}</h1>
-        <h2>check-in date: {{ startDate }} | check-out date: {{ endDate }}</h2>
-        <h2>{{ hotelInfo.description }}</h2>
-        <div id="v-image">
-          <div v-for="image in hotelInfo.images" :key="image">
-            <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
-          </div>
-        </div>
-        <h3>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h3>
-        <!--Visar alla taggar som är kopplade till ett hotell  -->
-        <div class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
-          <h3>{{ tag.label }}</h3>
-        </div>
+      <h3>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h3>
+      <!--Visar alla taggar som är kopplade till ett hotell  -->
+      <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
+        <h3>{{ tag.label }}</h3>
+      </span>
 
-        <h3>{{ amountAdult }} Adults and {{ amountChildren }} Children</h3>
-        <h3>Number of days: {{ nrDays }}</h3>
+      <h3>{{ amountAdult }} Adults and {{ amountChildren }} Children</h3>
+      <h3>Number of days: {{ nrDays }}</h3>
 
-        <div class="livery">
-          Livery Option Select between: <br />
-          Self Catering {{ hotelInfo.selfCateringPrice }} Euro/(Booking and day) <br />
-          Half Pension {{ hotelInfo.halfPensionPrice }} Euro/(Adult and day) <br />
-          Full Board {{ hotelInfo.fullBoardPrice }} Euro/(Adult and day)
+      <div class="livery">
+        Livery Option Select between: <br />
+        Self Catering {{ hotelInfo.selfCateringPrice }} Euro/(Booking and day) <br />
+        Half Pension {{ hotelInfo.halfPensionPrice }} Euro/(Adult and day) <br />
+        Full Board {{ hotelInfo.fullBoardPrice }} Euro/(Adult and day)
 
         <select
           name="liveryOption"
@@ -85,23 +77,15 @@ price etc
         <h2>price of your extrabeds {{ totalExtraBedsCost }}</h2>
       </div>
 
-        <!--Lägger in och visar alla rum som finns i addedRooms -->
-        <div id="rooms-container">
-          <span class="room-list">
-            <Booking-room-card
-              v-for="(room, i) in addedHotelRooms"
-              :key="room + i"
-              :hotelRoom="room"
-            />
-          </span>
-        </div>
-        <button class="confirm-booking">Confirm Booking</button>
-        <!--Mockup payment -->
-        <div id="payment-cotainer">
-          <div class="payment-cards">
-            <PaymentCard v-for="(everyCard, i) in paymentCards" :key="i" :card="everyCard" />
-          </div>
-        </div>
+      <!--Lägger in och visar alla rum som finns i addedRooms -->
+      <div id="rooms-container">
+        <span class="room-list">
+          <Booking-room-card
+            v-for="(room, i) in addedHotelRooms"
+            :key="room + i"
+            :hotelRoom="room"
+          />
+        </span>
       </div>
 
       <h2>Total Price for Rooms {{ roomsCost }}Euro/day</h2>

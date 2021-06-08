@@ -60,7 +60,7 @@ export default {
 <style lang="scss" src="./style.scss"></style>
 <style lang="scss">
 #logolink {
-  color: black;
+  color: #2c3e50;
   text-decoration: none;
 }
 #background {
