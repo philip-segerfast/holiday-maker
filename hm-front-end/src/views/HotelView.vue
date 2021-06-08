@@ -13,9 +13,6 @@
       </div>
       <div class="hotel-info">
         <h1>{{ hotel.name }}</h1>
-        <div class="stars">
-          <i v-for="n in theAmountOfStars" v-bind:key="n" class="fa fa-star"></i>
-        </div>
         <!--Visar alla bilder som är kopplade till ett hotell -->
         <span v-for="image in hotel.images" :key="image">
           <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
@@ -47,15 +44,6 @@ import HotelRoomCard from "../components/HotelRoomCard.vue";
 import moment from "moment";
 
 export default {
-  watch: {
-    rounded(val) {
-      let newVal = Math.round(val);
-      if (newVal !== val) {
-        this.val = newVal;
-      }
-      // or even simply this.val = Math.round(this.val) without the check ...
-    },
-  },
   components: {
     HotelRoomCard,
   },
@@ -102,10 +90,6 @@ export default {
     },
     filteredRooms() {
       return this.$store.getters.getFilteredRooms(this.hotel);
-    },
-    theAmountOfStars() {
-      let rounded = Math.round(parseInt(this.hotel.averageRating));
-      return rounded;
     },
   },
 };

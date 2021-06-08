@@ -2,6 +2,9 @@
 <template>
   <div class="hotel-card-container" @click="redirectToHotelView">
     <div class="image-container">
+      <span class="material-icons like"> favorite_border </span>
+      <!-- <img src="../assets/images/superhotel.jpg" /> -->
+
       <img
         v-if="hotel.images.length > 0"
         v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`"
@@ -9,10 +12,7 @@
     </div>
     <div class="info-container">
       <div class="header">{{ hotel.name }}</div>
-      <div class="stars">
-        <i v-for="n in theAmountOfStars" v-bind:key="n" class="fa fa-star"></i>
-      </div>
-
+      <div class="stars">★★★★☆</div>
       <div class="separator"></div>
       <div class="city-price-container">
         <div class="imp-info-container">
@@ -51,24 +51,10 @@ export default {
       this.$router.push({ path: routerUrl });
     },
   },
-  mounted() {},
-  computed: {
-    theAmountOfStars() {
-      let rounded = Math.round(parseInt(this.hotel.averageRating));
-      return rounded;
-    },
-  },
 };
 </script>
 
 <style lang="scss" scoped>
-.checked {
-  color: orange;
-}
-.stars {
-  color: rgb(243, 169, 32);
-}
-
 .hotel-card-container {
   padding: 0;
   display: grid;
