@@ -14,9 +14,13 @@
           <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
         </span>
         <h2>Check-in date: {{ startDate }} | Check-out date: {{ endDate }}</h2>
-        <h2>{{ amountAdult }} Adult and {{ amountChildren }} Child</h2>
+        <h2>{{ amountAdult }} adults and {{ amountChildren }} children</h2>
         <h4>{{ hotel.description }}</h4>
         <h4>Cost Extrabed: {{ hotel.extraBedPrice }} | Location: {{ hotel.address }}</h4>
+        <h4>
+          Distance to beach: {{ hotel.beachDistance }} km | Distance to center:
+          {{ hotel.centerDistance }} km
+        </h4>
         <!--Visar alla taggar som är kopplade till ett hotell  -->
         <span class="tag-list" v-for="tag in hotel.hotelTags" :key="tag">
           <h4>{{ tag.label }}</h4>
