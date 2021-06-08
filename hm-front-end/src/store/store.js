@@ -15,7 +15,7 @@ export default createStore({
     livery: String,
     totalCost: 0,
     tempHotelName: "",
-    routePath: "", // Because you can't access routePath from vuex store. This is updated i App.vue.
+    routePath: "", // Because you can't access routePath from vuex store. This variable is updated i App.vue.
     roomsCost: 0,
     maxExtraBeds: 0,
     extraLiveryCost: 0,
@@ -154,31 +154,6 @@ export default createStore({
     // Sorterar alla hotelrum utifrån lägst --> högst
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
-    },
-    setSortedRooms() {
-      this.state.hotelRooms.sort((price1, price2) => {
-        if (price1.baseNightPrice < price2.baseNightPrice) {
-          return -1;
-        }
-        if (price1.baseNightPrice > price2.baseNightPrice) {
-          return 1;
-        }
-        return 0;
-      });
-    },
-    setSortedRoomsDescending() {
-      let maxRoomPrice;
-      maxRoomPrice = this.state.hotelRooms.sort((maxPrice1, maxPrice2) => {
-        console.log(maxPrice1.baseNightPrice);
-        if (maxPrice1.baseNightPrice > maxPrice2.baseNightPrice) {
-          return 1;
-        }
-        if (maxPrice1.baseNightPrice < maxPrice2.baseNightPrice) {
-          return -1;
-        }
-        return 0;
-      });
-      maxRoomPrice.reverse();
     },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;
@@ -472,10 +447,8 @@ export default createStore({
         const filterStartDate = filter.checkInDates.startDate;
         const filterEndDate = filter.checkInDates.endDate;
 
-        if (!filterStartDate || !filterEndDate) {
-          // console.log("You need to specify a start and end date.");
-          return listToFilter;
-        }
+        console.log("filterStartDate", filterStartDate);
+        console.log("filterEndDate", filterEndDate);
 
         const filteredOutput = listToFilter.filter((hotel) => {
           const hotelRooms = hotel.hotelRooms;

@@ -3,7 +3,7 @@
     <div id="toppage">
       <div id="top">
         <div id="logo">
-          <h1>Holiday Maker</h1>
+          <h1><a id="logolink" href="/">Holiday Maker</a></h1>
         </div>
         <div id="nav">
           <Navbar />
@@ -59,8 +59,10 @@ export default {
 </script>
 <style lang="scss" src="./style.scss"></style>
 <style lang="scss">
-/* ALLT HÄR I ÄR GLOBALT */
-
+#logolink {
+  color: #2c3e50;
+  text-decoration: none;
+}
 #background {
   background-color: lightgreen;
 }

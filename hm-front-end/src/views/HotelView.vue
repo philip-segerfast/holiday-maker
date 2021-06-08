@@ -6,6 +6,9 @@
     <div v-else>
       <div class="hotel-info">
         <h1>{{ hotel.name }}</h1>
+        <div class="stars">
+          <i v-for="n in theAmountOfStars" v-bind:key="n" class="fa fa-star"></i>
+        </div>
         <!--Visar alla bilder som är kopplade till ett hotell -->
         <span v-for="image in hotel.images" :key="image">
           <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
@@ -21,8 +24,8 @@
         <div id="sort-bar">
           <h4>
             Sort rooms:
-            <button class="btn" @click="sortHotelRoomsByPrice">Min Price</button>
-            <button class="btn" @click="sortHotelRoomsByMaxPrice">Max Price</button>
+            <button class="btn" @click="setSortedRoomsAscending">Min Price</button>
+            <button class="btn" @click="setSortedRoomsDescending">Max Price</button>
           </h4>
         </div>
         <h3>
@@ -32,9 +35,16 @@
       </div>
 
       <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
-      <div class="room-list" v-if="filteredRooms.length > 0">
-        <hotel-room-card v-for="room in filteredRooms" :key="room.id" :hotelRoom="room" />
+      <div class="room-list" v-if="rooms.length > 0">
+        <hotel-room-card v-for="room in rooms" :key="room.id" :hotelRoom="room" />
       </div>
+    </div>
+
+    <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
+    <div id="rooms-container">
+      <span class="room-list" v-if="rooms.length > 0">
+        <hotel-room-card v-for="(room, i) in rooms" :key="room + i" :hotelRoom="room" />
+      </span>
     </div>
   </body>
 </template>
@@ -44,11 +54,19 @@ import HotelRoomCard from "../components/HotelRoomCard.vue";
 import moment from "moment";
 
 export default {
+  watch: {
+    rounded(val) {
+      let newVal = Math.round(val);
+      this.val = newVal;
+    },
+  },
   components: {
     HotelRoomCard,
   },
   data() {
-    return {};
+    return {
+      rooms: [],
+    };
   },
   methods: {
     redirectToBookingView() {
@@ -57,14 +75,37 @@ export default {
       this.$router.push({ path: routerUrl });
     },
     sortHotelRoomsByPrice() {
-      console.log("sorting: ");
+      console.log("sorting min price: ");
       this.$store.commit("setSortedRooms");
-      this.$router.push({ path: "/hotelView" });
     },
     sortHotelRoomsByMaxPrice() {
-      console.log("sorting: ");
+      console.log("sorting max price: ");
       this.$store.commit("setSortedRoomsDescending");
       this.$router.push({ path: "/hotelView" });
+    },
+    setSortedRoomsAscending() {
+      this.rooms.sort((price1, price2) => {
+        if (price1.baseNightPrice < price2.baseNightPrice) {
+          return -1;
+        }
+        if (price1.baseNightPrice > price2.baseNightPrice) {
+          return 1;
+        }
+        return 0;
+      });
+    },
+    setSortedRoomsDescending() {
+      let maxPrice = this.rooms.sort((maxPrice1, maxPrice2) => {
+        console.log(maxPrice1.baseNightPrice);
+        if (maxPrice1.baseNightPrice > maxPrice2.baseNightPrice) {
+          return 1;
+        }
+        if (maxPrice1.baseNightPrice < maxPrice2.baseNightPrice) {
+          return -1;
+        }
+        return 0;
+      });
+      maxPrice.reverse();
     },
   },
   computed: {
@@ -91,11 +132,21 @@ export default {
     filteredRooms() {
       return this.$store.getters.getFilteredRooms(this.hotel);
     },
+    theAmountOfStars() {
+      let rounded = Math.round(parseInt(this.hotel.averageRating));
+      return rounded;
+    },
+  },
+  mounted() {
+    this.rooms = this.$store.getters.getFilteredRooms(this.hotel);
   },
 };
 </script>
 
 <style scoped lang="scss">
+.stars {
+  color: rgb(243, 169, 32);
+}
 .btn {
   margin-right: 10px;
   background-color: rgba(230, 211, 48);
