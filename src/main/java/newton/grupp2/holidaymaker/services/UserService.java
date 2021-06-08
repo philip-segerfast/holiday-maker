@@ -19,6 +19,13 @@ public class UserService {
 
     //for registering a user (C 1.3)
     public User register(User user) {
+        List<User> allUsers = getAll();
+
+        for (User userInList : allUsers) {
+            if (user.getEmail().equals(userInList.getEmail())) {
+                return null;
+            }
+        }
         return detailsService.registerUser(user);
     }
 
