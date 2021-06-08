@@ -20,7 +20,7 @@
 
       <div v-if="checkoutTimeStamp > dateTodayStamp">
         <form @submit.prevent="makeReview">
-          <div id="rating">
+          <div v-show="notRated" id="rating">
             <h2>Rate the hotel after visiting</h2>
 
             <select v-model="rating" required>
@@ -54,6 +54,7 @@ export default {
     return {
       rating: "",
       comment: "",
+      notRated: true,
     };
   },
   props: ["userBooking"],
@@ -99,6 +100,7 @@ export default {
         body: JSON.stringify(hotelRating),
       };
       await fetch("/rest/hotels/reviews/add", request);
+      this.notRated = false;
     },
     redirectToBookingDetailsView() {
       const routerUrl = "/bookingdetailsview/" + this.userBooking.id;
