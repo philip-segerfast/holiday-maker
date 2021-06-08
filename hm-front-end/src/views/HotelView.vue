@@ -1,40 +1,43 @@
 <template>
   <body>
-    <div id="sort-bar">
-      <h3>
-        Sort by:
-        <button @click="sortHotelRoomsByPrice">Min Price</button>
-        - Sort by: <button @click="sortHotelRoomsByMaxPrice">Max Price</button>
-      </h3>
+    <div v-if="hotel == null">
+      <h1>Loading...</h1>
     </div>
-    <div class="hotel-info">
-      <h1>{{ hotelInfo.name }}</h1>
-      <div class="stars">
-        <i v-for="n in theAmountOfStars" v-bind:key="n" class="fa fa-star"></i>
+    <div v-else>
+      <div id="sort-bar">
+        <h3>
+          Sort by:
+          <button @click="sortHotelRoomsByPrice">Min Price</button>
+          - Sort by: <button @click="sortHotelRoomsByMaxPrice">Max Price</button>
+        </h3>
       </div>
-      <!--Visar alla bilder som är kopplade till ett hotell -->
-      <span v-for="image in hotelInfo.images" :key="image">
-        <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
-      </span>
-      <h2>Check-in date: {{ startDate }} | Check-out date: {{ endDate }}</h2>
-      <h2>{{ amountAdult }} Adult and {{ amountChildren }} Child</h2>
-      <h4>{{ hotelInfo.description }}</h4>
-      <h4>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h4>
-      <!--Visar alla taggar som är kopplade till ett hotell  -->
-      <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
-        <h4>{{ tag.label }}</h4>
-      </span>
-      <h3>
-        Add rooms and press book
-        <button class="booking" @click="redirectToBookingView">Book</button>
-      </h3>
-    </div>
+      <div class="hotel-info">
+        <h1>{{ hotel.name }}</h1>
+        <div class="stars">
+          <i v-for="n in theAmountOfStars" v-bind:key="n" class="fa fa-star"></i>
+        </div>
+        <!--Visar alla bilder som är kopplade till ett hotell -->
+        <span v-for="image in hotel.images" :key="image">
+          <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
+        </span>
+        <h2>Check-in date: {{ startDate }} | Check-out date: {{ endDate }}</h2>
+        <h2>{{ amountAdult }} Adult and {{ amountChildren }} Child</h2>
+        <h4>{{ hotel.description }}</h4>
+        <h4>Cost Extrabed: {{ hotel.extraBedPrice }} | Location: {{ hotel.address }}</h4>
+        <!--Visar alla taggar som är kopplade till ett hotell  -->
+        <span class="tag-list" v-for="tag in hotel.hotelTags" :key="tag">
+          <h4>{{ tag.label }}</h4>
+        </span>
+        <h3>
+          Add rooms and press book
+          <button class="booking" @click="redirectToBookingView">Book</button>
+        </h3>
+      </div>
 
-    <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
-    <div id="rooms-container">
-      <span class="room-list" v-if="rooms.length > 0">
-        <hotel-room-card v-for="(room, i) in rooms" :key="room + i" :hotelRoom="room" />
-      </span>
+      <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
+      <div class="room-list" v-if="filteredRooms.length > 0">
+        <hotel-room-card v-for="room in filteredRooms" :key="room.id" :hotelRoom="room" />
+      </div>
     </div>
   </body>
 </template>
@@ -56,9 +59,12 @@ export default {
   components: {
     HotelRoomCard,
   },
+  data() {
+    return {};
+  },
   methods: {
     redirectToBookingView() {
-      this.$store.commit("setHotelToBook", this.hotelInfo);
+      this.$store.commit("setHotelToBook", this.hotel);
       const routerUrl = "/bookingView";
       this.$router.push({ path: routerUrl });
     },
@@ -73,15 +79,7 @@ export default {
       this.$store.commit("setSortedRoomsDescending");
     },
   },
-
   computed: {
-    rooms() {
-      return this.$store.getters.getHotelRooms;
-    },
-
-    hotelInfo() {
-      return this.$store.getters.getHotelById;
-    },
     startDate() {
       var date = new Date(this.$store.getters.getStartDate * 1000);
       return moment(date).format("YYYY-MM-DD");
@@ -96,14 +94,19 @@ export default {
     amountChildren() {
       return this.$store.getters.getChildrenAmount;
     },
+    hotelId() {
+      return this.$route.params.id;
+    },
+    hotel() {
+      return this.$store.getters.getHotelById(this.hotelId);
+    },
+    filteredRooms() {
+      return this.$store.getters.getFilteredRooms(this.hotel);
+    },
     theAmountOfStars() {
       let rounded = Math.round(parseInt(this.hotel.averageRating));
       return rounded;
     },
-  },
-  mounted() {
-    this.$store.dispatch("fetchHotelRoomsByHotel");
-    this.$store.dispatch("fetchHotelById");
   },
 };
 </script>

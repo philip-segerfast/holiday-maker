@@ -5,11 +5,19 @@
       class="date-picker"
       type="date"
       name="start"
+      v-bind:min="minDate"
       v-model="startDate"
       @input="updateStartDate"
     />
     <span>to:</span>
-    <input class="date-picker" type="date" name="end" v-model="endDate" @input="updateEndDate" />
+    <input
+      class="date-picker"
+      v-bind:min="startDate"
+      type="date"
+      name="end"
+      v-model="endDate"
+      @input="updateEndDate"
+    />
   </div>
 </template>
 
@@ -19,7 +27,19 @@ export default {
     return {
       startDate: "",
       endDate: "",
+      minDate: "",
     };
+  },
+  mounted() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = `${yyyy}-${mm}-${dd}`;
+    this.startDate = today;
+    this.minDate = today;
+    this.endDate = today;
   },
   methods: {
     updateStartDate() {

@@ -18,31 +18,32 @@
       <div id="v-image" class="split left"></div>
       <button @click="redirectToBookingDetailsView">Details</button>
       <button @click="cancelBooking">Cancel booking</button>
+      <div v-if="userBooking.toTime > timestamp">
+        <form @submit.prevent="makeReview">
+          <div id="rating">
+            <h2>Rate Hotel 1-5</h2>
 
-      <form @submit.prevent="makeReview">
-        <div id="rating">
-          <h2>Rate the hotel after visiting</h2>
-
-          <select v-model="rating" required>
-            <option disabled value="">Please select one</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-          <span>{{ rating }}/5 ⭐</span>
-          <input
-            v-model="comment"
-            type="text"
-            id="comments"
-            name="comments"
-            placeholder="type here to describe your experience in this hotel"
-            required
-          />
-          <button id="sendComment" type="submit">Post review</button>
-        </div>
-      </form>
+            <select v-model="rating" required>
+              <option disabled value="">Please select one</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <span>{{ rating }}/5 ⭐</span>
+            <input
+              v-model="comment"
+              type="text"
+              id="comments"
+              name="comments"
+              placeholder="type here to describe your experience in this hotel"
+              required
+            />
+            <button id="sendComment" type="submit">Post review</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +55,9 @@ export default {
       rating: "",
       comment: "",
     };
+  },
+  mounted() {
+    const timestamp = Date.now();
   },
 
   props: ["userBooking"],
@@ -72,9 +76,6 @@ export default {
   },
   methods: {
     async makeReview() {
-      //console.log("review test");
-      //console.log("Hotel id" + this.userBooking.hotel.id);
-      //console.log("user id" + this.userBooking.user.id);
       console.log("my rating is" + this.rating.toString());
 
       let hotelRating = {
