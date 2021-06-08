@@ -15,7 +15,7 @@ export default createStore({
     livery: String,
     totalCost: 0,
     tempHotelName: "",
-    routePath: "", // Because you can't access routePath from vuex store. This is updated i App.vue.
+    routePath: "", // Because you can't access routePath from vuex store. This variable is updated i App.vue.
     roomsCost: 0,
     maxExtraBeds: 0,
     extraLiveryCost: 0,
@@ -447,10 +447,8 @@ export default createStore({
         const filterStartDate = filter.checkInDates.startDate;
         const filterEndDate = filter.checkInDates.endDate;
 
-        if (!filterStartDate || !filterEndDate) {
-          // console.log("You need to specify a start and end date.");
-          return listToFilter;
-        }
+        console.log("filterStartDate", filterStartDate);
+        console.log("filterEndDate", filterEndDate);
 
         const filteredOutput = listToFilter.filter((hotel) => {
           const hotelRooms = hotel.hotelRooms;
