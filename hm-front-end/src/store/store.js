@@ -155,31 +155,6 @@ export default createStore({
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
     },
-    setSortedRooms() {
-      this.state.hotelRooms.sort((price1, price2) => {
-        if (price1.baseNightPrice < price2.baseNightPrice) {
-          return -1;
-        }
-        if (price1.baseNightPrice > price2.baseNightPrice) {
-          return 1;
-        }
-        return 0;
-      });
-    },
-    setSortedRoomsDescending() {
-      let maxRoomPrice;
-      maxRoomPrice = this.state.hotelRooms.sort((maxPrice1, maxPrice2) => {
-        console.log(maxPrice1.baseNightPrice);
-        if (maxPrice1.baseNightPrice > maxPrice2.baseNightPrice) {
-          return 1;
-        }
-        if (maxPrice1.baseNightPrice < maxPrice2.baseNightPrice) {
-          return -1;
-        }
-        return 0;
-      });
-      maxRoomPrice.reverse();
-    },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;
     },
