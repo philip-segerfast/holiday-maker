@@ -42,34 +42,35 @@ price etc
           <img v-bind:src="`http://localhost:5000/uploads/${image.fileName}`" />
         </span>
       </div>
-      <h3>Cost Extrabed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h3>
+      <h3>Cost for extra bed: {{ hotelInfo.extraBedPrice }} | Location: {{ hotelInfo.address }}</h3>
       <!--Visar alla taggar som är kopplade till ett hotell  -->
       <span class="tag-list" v-for="tag in hotelInfo.hotelTags" :key="tag">
         <h3>{{ tag.label }}</h3>
       </span>
 
-      <h3>{{ amountAdult }} Adults and {{ amountChildren }} Children</h3>
+      <h3>{{ amountAdult }} adults and {{ amountChildren }} children</h3>
       <h3>Number of days: {{ nrDays }}</h3>
 
       <div class="livery">
         Livery Option Select between: <br />
-        Self Catering {{ hotelInfo.selfCateringPrice }} SEK/(Booking and day) <br />
-        Half Pension {{ hotelInfo.halfPensionPrice }} SEK/(Adult and day) <br />
-        Full Board {{ hotelInfo.fullBoardPrice }} SEK/(Adult and day)
+        Self Catering {{ hotelInfo.selfCateringPrice }} SEK/day <br />
+        Half Pension {{ hotelInfo.halfPensionPrice }} SEK/adult and day <br />
+        Full Board {{ hotelInfo.fullBoardPrice }} SEK/adult and day <br />
+        All Inclusive {{ hotelInfo.allInclusivePrice }} SEK/adult and day <br />
 
         <select
           name="liveryOption"
-          @change="updateLivery($event)"
+          @change="updateLivery"
           class="livery-control"
-          v-model="key"
+          v-model="selectedLiveryOption"
         >
-          <option value="No catering"></option>
-          <option value="self">Self Catering</option>
+          <option value="self" selected="selected">Self Catering</option>
           <option value="half">Half pension</option>
           <option value="full">Full Board</option>
+          <option value="all">All Inclusive</option>
         </select>
       </div>
-      <h2>Extra Livery {{ extraCostLivery }}SEK/day</h2>
+      <h2>Extra Livery {{ extraCostLivery }} SEK/day</h2>
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
@@ -106,15 +107,11 @@ import StripeCheckout from "../components/StripeCheckout.vue";
 import moment from "moment";
 
 export default {
-  data: function () {
-    return {
-      key: "",
-      // extraLiveryCost: 0,
-    };
-  },
   data() {
     return {
       amountOfExtraBeds: "",
+      hotelInfo: {},
+      selectedLiveryOption: "self",
     };
   },
   methods: {
@@ -126,8 +123,8 @@ export default {
         this.amountOfExtraBeds = this.maxExtraBeds;
       }
     },
-    updateLivery(event) {
-      this.$store.commit("setLivery", event.target.value);
+    updateLivery() {
+      this.$store.commit("setLivery", this.selectedLiveryOption);
     },
 
     createBooking() {
@@ -144,9 +141,6 @@ export default {
   computed: {
     addedHotelRooms() {
       return this.$store.getters.getAddedHotelRooms;
-    },
-    hotelInfo() {
-      return this.$store.getters.getHotelToBook;
     },
     startDate() {
       var date = new Date(this.$store.getters.getStartDate * 1000);
@@ -184,6 +178,9 @@ export default {
     amountChildren() {
       return this.$store.getters.getChildrenAmount;
     },
+  },
+  mounted() {
+    this.hotelInfo = this.$store.getters.getHotelToBook;
   },
 };
 </script>

@@ -599,14 +599,19 @@ export default createStore({
       return state.searchHotelFilter.selectedHotelTags;
     },
     getExtraCostLivery(state) {
-      if (state.livery == "self") {
-        return state.hotelToBook.selfCateringPrice;
-      } else if (state.livery == "half") {
-        return state.hotelToBook.halfPensionPrice * state.searchHotelFilter.people.adultsAmount;
-      } else if (state.livery == "full") {
-        return state.hotelToBook.fullBoardPrice * state.searchHotelFilter.people.adultsAmount;
-      } else {
-        return 0;
+      const livery = state.livery;
+      const hotelToBook = state.hotelToBook;
+      const adultsAmount = state.searchHotelFilter.people.adultsAmount;
+
+      switch (livery) {
+        case "self":
+          return hotelToBook.selfCateringPrice;
+        case "half":
+          return hotelToBook.halfPensionPrice * adultsAmount;
+        case "full":
+          return hotelToBook.fullBoardPrice * adultsAmount;
+        case "all":
+          return hotelToBook.allInclusivePrice * adultsAmount;
       }
     },
     getRoutePath(state) {
