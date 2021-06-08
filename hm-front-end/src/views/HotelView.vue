@@ -64,7 +64,9 @@ export default {
     HotelRoomCard,
   },
   data() {
-    return {};
+    return {
+      rooms: [],
+    };
   },
   methods: {
     redirectToBookingView() {
