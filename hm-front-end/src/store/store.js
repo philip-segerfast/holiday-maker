@@ -318,7 +318,7 @@ export default createStore({
         fromTime: this.state.searchHotelFilter.checkInDates.startDate,
         toTime: this.state.searchHotelFilter.checkInDates.endDate,
         children: [{ age: 11 }], //this.state.searchHotelFilter.peopleAmount.childrenAmount,
-        adults: this.state.searchHotelFilter.peopleAmount.adultsAmount,
+        adults: this.state.searchHotelFilter.people.adultsAmount,
         user: this.state.loggedInUser,
         hotelRooms: this.state.addedHotelRooms,
       };
@@ -604,11 +604,9 @@ export default createStore({
       if (state.livery == "self") {
         return state.hotelToBook.selfCateringPrice;
       } else if (state.livery == "half") {
-        return (
-          state.hotelToBook.halfPensionPrice * state.searchHotelFilter.peopleAmount.adultsAmount
-        );
+        return state.hotelToBook.halfPensionPrice * state.searchHotelFilter.people.adultsAmount;
       } else if (state.livery == "full") {
-        return state.hotelToBook.fullBoardPrice * state.searchHotelFilter.peopleAmount.adultsAmount;
+        return state.hotelToBook.fullBoardPrice * state.searchHotelFilter.people.adultsAmount;
       } else {
         return 0;
       }
