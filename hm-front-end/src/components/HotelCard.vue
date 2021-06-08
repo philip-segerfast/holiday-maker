@@ -4,7 +4,7 @@
     <div class="image-container">
       <img
         v-if="hotel.images.length > 0"
-        v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].thumbnailFileName}`"
+        v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`"
       />
     </div>
     <div class="info-container">
@@ -33,7 +33,6 @@
         <span class="description">
           {{ hotel.description }}
         </span>
-        -->
       </div>
     </div>
   </div>
