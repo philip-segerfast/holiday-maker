@@ -26,10 +26,6 @@ export default createStore({
         endDate: "",
       },
       AmountOfExtraBeds: 0,
-      peopleAmount: {
-        adultsAmount: 0,
-        childrenAmount: 0,
-      },
       people: {
         adultsAmount: 0,
         children: [],
@@ -40,7 +36,7 @@ export default createStore({
       selectedHotelTags: [],
       orderBy: "",
     },
-    hotelById: {}, // Använd this.$route.params.programId istället  -Kan behöva förklaras
+    hotelById: {}, // Använd this.$route.params.id istället  -Kan behöva förklaras
     filteredHotels: [],
     ascending: true,
     loggedInUser: null,
@@ -104,12 +100,6 @@ export default createStore({
         ],
       },
       paid: "",
-      payment: [
-        {
-          name: "Visa",
-          bank: "Nordea",
-        },
-      ],
     },
 
     newBooking: {
@@ -161,38 +151,12 @@ export default createStore({
         return 0;
       });
     },
-    setSortedHotelsAscending() {
-      let sortedByPrice;
-      sortedByPrice = this.state.hotels.sort((price1, price2) => {
-        if (price1.minRoomPrice < price2.minRoomPrice) {
-          return -1;
-        }
-        if (price1.minRoomPrice > price2.minRoomPrice) {
-          return 1;
-        }
-        return 0;
-      });
-    },
-    setSortedHotelsDescending() {
-      let maxHotelPrice;
-      maxHotelPrice = this.state.hotels.sort((price1, price2) => {
-        if (price1.minRoomPrice < price2.minRoomPrice) {
-          return -1;
-        }
-        if (price1.minRoomPrice > price2.minRoomPrice) {
-          return 1;
-        }
-        return 0;
-      });
-      return maxHotelPrice.reverse();
-    },
     // Sorterar alla hotelrum utifrån lägst --> högst
     setHotelRooms(state, payload) {
       state.hotelRooms = payload;
     },
     setSortedRooms() {
-      let sortedByPrice;
-      sortedByPrice = this.state.hotelRooms.sort((price1, price2) => {
+      this.state.hotelRooms.sort((price1, price2) => {
         if (price1.baseNightPrice < price2.baseNightPrice) {
           return -1;
         }
@@ -201,7 +165,6 @@ export default createStore({
         }
         return 0;
       });
-      return sortedByPrice;
     },
     setSortedRoomsDescending() {
       let maxRoomPrice;
@@ -215,24 +178,7 @@ export default createStore({
         }
         return 0;
       });
-      return maxRoomPrice.reverse();
-    },
-    setSortedRatings() {
-      let sortedByRating;
-      let hotels = this.state.hotels;
-      console.log("Hotels: ", hotels);
-      sortedByRating = hotels.sort((hotel1, hotel2) => {
-        console.log(hotel1.averageRating);
-        if (hotel1.averageRating < hotel2.averageRating) {
-          return -1;
-        }
-        if (hotel1.averageRating > hotel2.averageRating) {
-          return 1;
-        }
-        return 0;
-      });
-      console.log("Sorted by rating: ", sortedByRating);
-      return sortedByRating;
+      maxRoomPrice.reverse();
     },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;
@@ -249,11 +195,8 @@ export default createStore({
     updateEndDate(state, endDate) {
       state.searchHotelFilter.checkInDates.endDate = endDate;
     },
-    updateChildrenAmount(state, childrenAmount) {
-      state.searchHotelFilter.peopleAmount.childrenAmount = childrenAmount;
-    },
     updateAdultsAmount(state, adultsAmount) {
-      state.searchHotelFilter.peopleAmount.adultsAmount = adultsAmount;
+      state.searchHotelFilter.people.adultsAmount = adultsAmount;
     },
     addRoomToBooking(state, room) {
       state.addedHotelRooms.push(room);
@@ -284,7 +227,148 @@ export default createStore({
       state.livery = payload;
       console.log(state.livery);
     },
-    setFilteredHotels() {
+    setLoggedInUser(state, user) {
+      state.loggedInUser = user;
+    },
+    setAllHotelsInFilteredHotels(state, payload) {
+      state.filteredHotels = payload;
+    },
+    setUserBookingList(state, payload) {
+      state.userBookingList = payload;
+    },
+    setUserBooking(state, payload) {
+      state.userBooking = payload;
+    },
+    setPaymentCards(state, payload) {
+      state.paymentCards = payload;
+    },
+    setUserBookingRooms(state, payload) {
+      state.userBooking.hotelRooms = payload;
+    },
+    updateChildren(state, payload) {
+      state.searchHotelFilter.people.children = payload;
+    },
+    updateCenterDistance(state, payload) {
+      state.searchHotelFilter.centerDistance = payload;
+    },
+    updateBeachDistance(state, payload) {
+      state.searchHotelFilter.beachDistance = payload;
+    },
+    updateAllHotelTags(state, payload) {
+      state.allHotelTags = payload;
+    },
+    selectHotelTag(state, payload) {
+      let selectedTags = state.searchHotelFilter.selectedHotelTags;
+      selectedTags.push(payload);
+    },
+    unselectHotelTag(state, payload) {
+      state.searchHotelFilter.selectedHotelTags = state.searchHotelFilter.selectedHotelTags.filter(
+        (tag) => tag !== payload
+      );
+    },
+    updateRoute(state, payload) {
+      state.routePath = payload;
+    },
+    updateOrderBy(state, payload) {
+      console.log("order by: ", payload);
+      state.searchHotelFilter.orderBy = payload;
+    },
+  },
+  actions: {
+    async fetchAllHotels(context) {
+      // fetch alla hotel från backend och lägg i response-variabeln
+      let response = await fetch("/rest/hotels/all-hotels");
+      // gör om response till json objekt
+      let json = await response.json();
+
+      //console.log("Response:");
+      // console.log(json);
+
+      // objektet context gör så att vi kan commita alla hotels, json??
+      context.commit("setAllHotels", json);
+    } /*
+    async fetchHotelRoomsByHotel() {
+      console.log("hotel id: " + this.state.hotelId);
+      const url = "/rest/hotels/get-rooms/" + this.state.hotelId;
+      await axios.get(url).then((response) => {
+        this.commit("setHotelRooms", response.data);
+      });
+    },*/,
+    async fetchLoggedInUser() {
+      const url = "/auth/whoami";
+      await axios.get(url).then((response) => {
+        // If no user is logged it sets LoggedInUser to null instead of empty object.
+        if (!response.data) {
+          this.commit("setLoggedInUser", null);
+        } else {
+          this.commit("setLoggedInUser", response.data);
+        }
+      });
+    },
+    async fetchUserBookingList(context) {
+      let response = await fetch("/rest/bookings/userbookings");
+      let json = await response.json();
+      context.commit("setUserBookingList", json);
+    },
+    async fetchUserBooking(context, payload) {
+      const url = "/rest/bookings/id/" + payload;
+      let response = await fetch(url);
+      let json = await response.json();
+      context.commit("setUserBooking", json);
+    },
+    async fetchDeleteBooking({ context }, payload) {
+      const url = "/rest/bookings/" + payload.id;
+      let response = await fetch(url, {
+        method: "DELETE",
+      });
+      await response.text();
+      alert("Booking cancelled");
+    },
+    async fetchUpdateBooking(context) {
+      let booking = this.state.userBooking;
+      console.log("Running fetchUpdateBooking. Edited booking object:");
+      console.log(booking);
+      const url = "/rest/bookings/" + booking.id;
+      let response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(booking),
+      });
+      await response.text();
+    },
+    async fetchCreateBooking() {
+      let booking = {
+        fromTime: this.state.searchHotelFilter.checkInDates.startDate,
+        toTime: this.state.searchHotelFilter.checkInDates.endDate,
+        children: [{ age: 11 }], //this.state.searchHotelFilter.peopleAmount.childrenAmount,
+        adults: this.state.searchHotelFilter.people.adultsAmount,
+        user: this.state.loggedInUser,
+        hotelRooms: this.state.addedHotelRooms,
+      };
+      //let booking = this.state.newBooking;
+      console.log("Running fetchCreateBooking. New booking object:");
+      console.log(booking);
+      const url = "/rest/bookings/add";
+      let response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(booking),
+      });
+      let answer = await response.json();
+      console.log(answer);
+    },
+    async fetchAllHotelTags(context) {
+      const url = "/rest/tags";
+      let response = await fetch(url);
+      let json = await response.json();
+      context.commit("updateAllHotelTags", json);
+    },
+    // Filtering hotels here because I need access to the context object
+    setFilteredHotels(context, state) {
       const allHotels = this.state.hotels;
       /* 
         .call används för att bestämma vad "this" ska referera till när man använder det i den följande metoden.
@@ -306,13 +390,13 @@ export default createStore({
       // =========================== SORTERA HÄR!!! =========================== //
       switch (orderBy) {
         case "min-price":
-          // filteredHotels = this.filterByMinPrice(filteredHotels)
+          filteredHotels = filterByMinPrice.call(this, filteredHotels);
           break;
         case "max-price":
-          // filteredHotels = this.filterByMaxPrice(filteredHotels)
+          filteredHotels = filterByMaxPrice.call(this, filteredHotels);
           break;
         case "ratings":
-          // filteredHotels = this.filterByRatings(filteredHotels)
+          filteredHotels = filterByRatings.call(this, filteredHotels);
           break;
       }
       // ====================================================================== //
@@ -321,6 +405,51 @@ export default createStore({
 
       // Save the filtered list to state.
       this.state.filteredHotels = filteredHotels;
+
+      function filterByMinPrice(listToFilter) {
+        let sortedList = this.state.hotels.sort((price1, price2) => {
+          if (price1.minRoomPrice < price2.minRoomPrice) {
+            return -1;
+          }
+          if (price1.minRoomPrice > price2.minRoomPrice) {
+            return 1;
+          }
+          return 0;
+        });
+        listToFilter = sortedList;
+        return listToFilter;
+      }
+      function filterByMaxPrice(listToFilter) {
+        let maxHotelPrice = this.state.hotels.sort((price1, price2) => {
+          if (price1.minRoomPrice < price2.minRoomPrice) {
+            return -1;
+          }
+          if (price1.minRoomPrice > price2.minRoomPrice) {
+            return 1;
+          }
+          return 0;
+        });
+        listToFilter = maxHotelPrice;
+        return listToFilter.reverse();
+      }
+      function filterByRatings(listToFilter) {
+        let sortedByRating;
+        let hotels = this.state.hotels;
+        console.log("Hotels: ", hotels);
+        sortedByRating = hotels.sort((hotel1, hotel2) => {
+          console.log(hotel1.averageRating);
+          if (hotel1.averageRating < hotel2.averageRating) {
+            return -1;
+          }
+          if (hotel1.averageRating > hotel2.averageRating) {
+            return 1;
+          }
+          return 0;
+        });
+        console.log("Sorted by rating: ", sortedByRating);
+        listToFilter = sortedByRating;
+        return listToFilter.reverse();
+      }
 
       function filterHotelsByCity(listToFilter) {
         let searchPhraseLower = this.state.searchHotelFilter.searchText.toLowerCase();
@@ -352,37 +481,8 @@ export default createStore({
           const hotelRooms = hotel.hotelRooms;
           if (hotelRooms.length > 0) {
             // filteredRooms contains all Available rooms
-            const filteredRooms = hotelRooms.filter((room) => {
-              const bookings = room.bookings;
-              if (bookings.length > 0) {
-                // Loopar igenom bokningarna med en vanlig for-loop för for-each-loop
-                // funkar inte av någon konstig anledning...
-                for (let i = 0; i < bookings.length; i++) {
-                  let booking = bookings[i];
+            const filteredRooms = context.getters.getFilteredRoomsByCheckinDates(hotel);
 
-                  const bookingStartDate = booking.fromTime;
-                  const bookingEndDate = booking.toTime;
-
-                  /*
-                    Om datumfiltret slutar innan bokningen
-                      och
-                    Om datumfiltret börjar efter bokningens slutdatum
-                    - då är det ledigt.
-                  */
-
-                  if (filterEndDate < bookingStartDate || filterStartDate > bookingEndDate) {
-                    // Ledigt
-                    console.log("No booking found within searched period.");
-                    return true;
-                  } else {
-                    console.log("Booking found within searched period.");
-                    return false;
-                  }
-                }
-              } else {
-                return true;
-              }
-            });
             // returnera vilka hotell som har lediga rum...
             if (filteredRooms.length > 0) {
               return true;
@@ -399,32 +499,14 @@ export default createStore({
       }
 
       function filterHotelsByAmountOfPeople(listToFilter) {
-        const statePeopleAmount = this.state.searchHotelFilter.peopleAmount;
-        const adultsAmount = parseInt(statePeopleAmount.adultsAmount);
-        const childrenAmount = parseInt(statePeopleAmount.childrenAmount); // BEHÖVER ÄNDRAS SEN!!!
-        const totalAmountOfPeople = adultsAmount + childrenAmount;
-
+        const adultsAmount = parseInt(this.state.searchHotelFilter.people.adultsAmount);
         if (adultsAmount <= 0) {
           // console.log("No adults specified. You need to have at least one adult on the booking.");
           return listToFilter;
         }
 
         const qualifiedHotels = listToFilter.filter((hotel) => {
-          // Hämta ut alla hotell som har rum som tillåter lika många personer som i peopleAmount
-          const hotelRooms = hotel.hotelRooms;
-
-          const qualifiedRooms = hotelRooms.filter((room) => {
-            const singleBedsAmount = room.singleBedsAmount;
-            const doubleBedsAmount = room.doubleBedsAmount;
-            const extraBeds = room.maxAmountOfExtraBeds;
-            const totalAmountOfSpaces = singleBedsAmount + doubleBedsAmount * 2 + extraBeds;
-
-            if (totalAmountOfSpaces >= totalAmountOfPeople) {
-              return true;
-            } else {
-              return false;
-            }
-          });
+          let qualifiedRooms = context.getters.getFilteredHotelRoomsByAmountOfPeople(hotel);
 
           if (qualifiedRooms.length > 0) {
             return true;
@@ -481,152 +563,6 @@ export default createStore({
         return output;
       }
     },
-    setLoggedInUser(state, user) {
-      state.loggedInUser = user;
-    },
-    setAllHotelsInFilteredHotels(state, payload) {
-      state.filteredHotels = payload;
-    },
-    setUserBookingList(state, payload) {
-      state.userBookingList = payload;
-    },
-    setUserBooking(state, payload) {
-      state.userBooking = payload;
-    },
-    setPaymentCards(state, payload) {
-      state.paymentCards = payload;
-    },
-    setUserBookingRooms(state, payload) {
-      state.userBooking.hotelRooms = payload;
-    },
-    updateChildren(state, payload) {
-      state.searchHotelFilter.people.children = payload;
-    },
-    updateCenterDistance(state, payload) {
-      state.searchHotelFilter.centerDistance = payload;
-    },
-    updateBeachDistance(state, payload) {
-      state.searchHotelFilter.beachDistance = payload;
-    },
-    updateAllHotelTags(state, payload) {
-      state.allHotelTags = payload;
-    },
-    selectHotelTag(state, payload) {
-      let selectedTags = state.searchHotelFilter.selectedHotelTags;
-      selectedTags.push(payload);
-    },
-    unselectHotelTag(state, payload) {
-      state.searchHotelFilter.selectedHotelTags = state.searchHotelFilter.selectedHotelTags.filter(
-        (tag) => tag !== payload
-      );
-    },
-    updateRoute(state, payload) {
-      state.routePath = payload;
-    },
-    updateOrderBy(state, payload) {
-      console.log("order by: ", payload);
-      state.searchHotelFilter.orderBy = payload;
-    },
-  },
-  actions: {
-    // actions får tillgång till context objektet
-    async fetchHotelById() {
-      const url = "/rest/hotels/id/" + this.state.hotelId;
-      await axios.get(url).then((response) => this.commit("setHotelById", response.data));
-    },
-    // actions får tillgång till context objektet
-    async fetchAllHotels(context) {
-      // fetch alla hotel från backend och lägg i response-variabeln
-      let response = await fetch("/rest/hotels/all-hotels");
-      // gör om response till json objekt
-      let json = await response.json();
-
-      //console.log("Response:");
-      // console.log(json);
-
-      // objektet context gör så att vi kan commita alla hotels, json??
-      context.commit("setAllHotels", json);
-    },
-    async fetchHotelRoomsByHotel() {
-      console.log("hotel id: " + this.state.hotelId);
-      const url = "/rest/hotels/get-rooms/" + this.state.hotelId;
-      await axios.get(url).then((response) => {
-        this.commit("setHotelRooms", response.data);
-      });
-    },
-    async fetchLoggedInUser() {
-      const url = "/auth/whoami";
-      await axios.get(url).then((response) => {
-        // If no user is logged it sets LoggedInUser to null instead of empty object.
-        if (!response.data) {
-          this.commit("setLoggedInUser", null);
-        } else {
-          this.commit("setLoggedInUser", response.data);
-        }
-      });
-    },
-    async fetchUserBookingList(context) {
-      let response = await fetch("/rest/bookings/userbookings");
-      let json = await response.json();
-      context.commit("setUserBookingList", json);
-    },
-    async fetchUserBooking(context, payload) {
-      const url = "/rest/bookings/id/" + payload;
-      let response = await fetch(url);
-      let json = await response.json();
-      context.commit("setUserBooking", json);
-    },
-    async fetchDeleteBooking({ context }, payload) {
-      const url = "/rest/bookings/" + payload.id;
-      let response = await fetch(url, {
-        method: "DELETE",
-      });
-      await response.text();
-      alert("Booking cancelled");
-    },
-    async fetchUpdateBooking(context) {
-      let booking = this.state.userBooking;
-      console.log("Running fetchUpdateBooking. Edited booking object:");
-      console.log(booking);
-      const url = "/rest/bookings/" + booking.id;
-      let response = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(booking),
-      });
-      await response.text();
-    },
-    async fetchCreateBooking() {
-      let booking = {
-        fromTime: this.state.searchHotelFilter.checkInDates.startDate,
-        toTime: this.state.searchHotelFilter.checkInDates.endDate,
-        children: [{ age: 11 }], //this.state.searchHotelFilter.peopleAmount.childrenAmount,
-        adults: this.state.searchHotelFilter.peopleAmount.adultsAmount,
-        user: this.state.loggedInUser,
-        hotelRooms: this.state.addedHotelRooms,
-      };
-      //let booking = this.state.newBooking;
-      console.log("Running fetchCreateBooking. New booking object:");
-      console.log(booking);
-      const url = "/rest/bookings/add";
-      let response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(booking),
-      });
-      let answer = await response.json();
-      console.log(answer);
-    },
-    async fetchAllHotelTags(context) {
-      const url = "/rest/tags";
-      let response = await fetch(url);
-      let json = await response.json();
-      context.commit("updateAllHotelTags", json);
-    },
   },
   getters: {
     getUserId(state) {
@@ -650,12 +586,12 @@ export default createStore({
     getExtraCost(state) {
       return state.extraLiveryCost;
     },
-    getMaxExtraBeds() {
+    getMaxExtraBeds(state) {
       return state.maxExtraBeds;
-    },
+    } /*
     getHotelById(state) {
       return state.hotelById;
-    },
+    },*/,
     getHotelSearch(state) {
       return state.hotels;
     },
@@ -666,10 +602,10 @@ export default createStore({
       return state.loggedInUser;
     },
     getAdultAmount(state) {
-      return state.searchHotelFilter.peopleAmount.adultsAmount;
+      return state.searchHotelFilter.people.adultsAmount;
     },
     getChildrenAmount(state) {
-      return state.searchHotelFilter.peopleAmount.childrenAmount;
+      return state.searchHotelFilter.people.children.length;
     },
     getStartDate(state) {
       return state.searchHotelFilter.checkInDates.startDate;
@@ -690,20 +626,106 @@ export default createStore({
       return state.searchHotelFilter.selectedHotelTags;
     },
     getExtraCostLivery(state) {
-      if (state.livery == "self catering price") {
-        return state.hotelToBook.selfcateringPrice;
-      } else if (state.livery == "half pension price") {
-        return (
-          state.hotelToBook.halfPensionPrice * state.searchHotelFilter.peopleAmount.adultsAmount
-        );
-      } else if (state.livery == "full board price") {
-        return state.hotelToBook.fullBoardPrice * state.searchHotelFilter.peopleAmount.adultsAmount;
+      if (state.livery == "self") {
+        return state.hotelToBook.selfCateringPrice;
+      } else if (state.livery == "half") {
+        return state.hotelToBook.halfPensionPrice * state.searchHotelFilter.people.adultsAmount;
+      } else if (state.livery == "full") {
+        return state.hotelToBook.fullBoardPrice * state.searchHotelFilter.people.adultsAmount;
       } else {
         return 0;
       }
     },
     getRoutePath(state) {
       return state.routePath;
+    },
+    getFilteredRooms: (state, getters) => (hotel) => {
+      let outputRooms = getters.getFilteredHotelRoomsByAmountOfPeople(hotel);
+      outputRooms = getters.getFilteredRoomsByCheckinDates(outputRooms);
+
+      return outputRooms;
+    },
+    getFilteredHotelRoomsByAmountOfPeople: (state) => (hotel) => {
+      const statePeopleAmount = state.searchHotelFilter.people;
+      const adultsAmount = parseInt(statePeopleAmount.adultsAmount);
+      const childrenAmount = parseInt(statePeopleAmount.children.length);
+      const totalAmountOfPeople = adultsAmount + childrenAmount;
+
+      // Hämta ut alla hotell som har rum som tillåter lika många personer som i peopleAmount
+      const hotelRooms = hotel.hotelRooms;
+
+      const qualifiedRooms = hotelRooms.filter((room) => {
+        const singleBedsAmount = room.singleBedsAmount;
+        const doubleBedsAmount = room.doubleBedsAmount;
+        const extraBeds = room.maxAmountOfExtraBeds;
+        const totalAmountOfSpaces = singleBedsAmount + doubleBedsAmount * 2 + extraBeds;
+
+        if (totalAmountOfSpaces >= totalAmountOfPeople) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      return qualifiedRooms;
+    },
+    getFilteredRoomsByCheckinDates: (state) => (roomsToFilter) => {
+      const filter = state.searchHotelFilter;
+      const filterStartDate = filter.checkInDates.startDate;
+      const filterEndDate = filter.checkInDates.endDate;
+
+      if (!filterStartDate || !filterEndDate) {
+        // console.log("You need to specify a start and end date.");
+        return roomsToFilter;
+      }
+
+      if (roomsToFilter.length > 0) {
+        // filteredRooms contains all Available rooms
+        const filteredRooms = roomsToFilter.filter((room) => {
+          const bookings = room.bookings;
+          if (bookings.length > 0) {
+            // Loopar igenom bokningarna med en vanlig for-loop för for-each-loop
+            // funkar inte av någon konstig anledning...
+            for (let i = 0; i < bookings.length; i++) {
+              let booking = bookings[i];
+
+              const bookingStartDate = booking.fromTime;
+              const bookingEndDate = booking.toTime;
+
+              /* Om datumfiltret slutar innan bokningen och 
+                      Om datumfiltret börjar efter bokningens slutdatum
+                        - då är det ledigt. */
+
+              if (filterEndDate < bookingStartDate || filterStartDate > bookingEndDate) {
+                // Ledigt
+                console.log("No booking found within searched period.");
+                return true;
+              } else {
+                console.log("Booking found within searched period.");
+                return false;
+              }
+            }
+          } else {
+            return true;
+          }
+        });
+
+        return filteredRooms;
+      } else {
+        // Hotel didn't have any rooms at all.
+        return [];
+      }
+    },
+    getHotelById: (state) => (hotelId) => {
+      let hotels = state.hotels;
+
+      for (let i = 0; i < hotels.length; i++) {
+        let hotel = hotels[i];
+        if (hotel.id == hotelId) {
+          return hotel;
+        }
+      }
+      return null;
     },
   },
 });

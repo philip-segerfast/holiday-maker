@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BookingController {
@@ -42,4 +43,5 @@ public class BookingController {
     public void updateBookingById(@PathVariable long id, @RequestBody Booking booking) {
         bookingService.updateBookingById(id, booking);
     }
+
 }

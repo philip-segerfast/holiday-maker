@@ -22,7 +22,8 @@ public class Payment {
 
     private String cardHolderName;
     private Long cardNumber;
-    private Long cardEndDate;
+    private Long cardEndMonth;
+    private Long cardEndYear;
     private int cardCvc;
     private double totalCost;
 

@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       isDropdownHidden: true,
-      adultsAmount: 0,
+      adultsAmount: 2,
       childrenAmount: 0,
       children: [],
       childrenAges: [],
@@ -101,6 +101,10 @@ export default {
     storeChildren() {
       this.$store.commit("updateChildren", this.getSelectedChildren);
     },
+  },
+  mounted() {
+    this.updateAdultsAmount();
+    this.updateChildren();
   },
 };
 </script>
