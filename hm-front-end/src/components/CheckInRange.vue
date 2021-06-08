@@ -33,13 +33,18 @@ export default {
   mounted() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
+    var tomorrow = String(today.getDate() + 1).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
 
     today = `${yyyy}-${mm}-${dd}`;
+    tomorrow = `${yyyy}-${mm}-${tomorrow}`;
     this.startDate = today;
     this.minDate = today;
-    this.endDate = today;
+    this.endDate = tomorrow;
+
+    this.updateStartDate();
+    this.updateEndDate();
   },
   methods: {
     updateStartDate() {

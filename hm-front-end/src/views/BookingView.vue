@@ -148,9 +148,6 @@ export default {
     hotelInfo() {
       return this.$store.getters.getHotelToBook;
     },
-    paymentCards() {
-      return this.$store.state.paymentCards;
-    },
     startDate() {
       var date = new Date(this.$store.getters.getStartDate * 1000);
       return moment(date).format("YYYY-MM-DD");
