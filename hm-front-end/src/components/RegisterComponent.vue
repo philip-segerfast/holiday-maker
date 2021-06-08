@@ -62,9 +62,15 @@ export default {
         },
         body: JSON.stringify(credentials),
       };
+
       //fetchar request
-      await fetch("/auth/register", request);
-      alert("Registered successfully!");
+      let registerFetch = await fetch("/auth/register", request);
+      try {
+        await registerFetch.json();
+        alert("you are registered");
+      } catch (error) {
+        alert("this email already exists");
+      }
     },
   },
 };

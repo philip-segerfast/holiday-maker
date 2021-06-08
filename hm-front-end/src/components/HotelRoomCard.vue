@@ -1,25 +1,30 @@
 <template>
   <div class="hotelRoom-card">
     <h2>Room:{{ hotelRoom.name }}</h2>
-    <h3>Size:{{ hotelRoom.size }} m^2</h3>
-    <h3 class="single-beds" v-if="hotelRoom.singleBedsAmount > 0">
+    <h4>Size:{{ hotelRoom.size }} m^2</h4>
+    <h4 class="single-beds" v-if="hotelRoom.singleBedsAmount > 0">
       Single beds: {{ hotelRoom.singleBedsAmount }}
-    </h3>
-    <h3 class="double-beds" v-if="hotelRoom.doubleBedsAmount > 0">
+    </h4>
+    <h4 class="double-beds" v-if="hotelRoom.doubleBedsAmount > 0">
       Double beds: {{ hotelRoom.doubleBedsAmount }}
-    </h3>
+    </h4>
     <h4>
       Number of extra beds allowed:{{ hotelRoom.maxAmountOfExtraBeds }} Additional cost: See hotel
       description
     </h4>
     <h2>Price:{{ hotelRoom.baseNightPrice }} SEK</h2>
 
-    <button class="add" @click="addRoomsToBooking">Add room</button>
+    <button v-show="notAdded" class="add" @click="addRoomsToBooking">Add room</button>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      notAdded: true,
+    };
+  },
   props: ["hotelRoom"],
   methods: {
     // addRoomsToBooking adds room to list addedHotelRooms in store, it also ads the total cost for rooms
@@ -28,6 +33,7 @@ export default {
       this.$store.commit("addRoomToBooking", this.hotelRoom);
       this.$store.commit("updateRoomsCost", this.hotelRoom.baseNightPrice);
       this.$store.commit("updateMaxExtraBeds", this.hotelRoom.maxAmountOfExtraBeds);
+      this.notAdded = false;
     },
   },
 };
