@@ -1,7 +1,7 @@
 <template>
   <div id="filter-component-main-container" class="unselectable">
     <div class="filter-section">
-      <div class="header">Luxuries</div>
+      <div class="header">Unselected</div>
       <div class="filter-sub-section">
         <!-- LIST ALL AVAILABLE HOTEL TAGS -->
         <div

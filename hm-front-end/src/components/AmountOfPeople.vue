@@ -144,6 +144,7 @@ export default {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: var(--box-shadow-navbar-outline-border);
+    z-index: 1;
     .dropdown-info {
       display: flex;
       height: fit-content;
