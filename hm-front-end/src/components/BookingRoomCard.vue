@@ -12,7 +12,7 @@
       Number of extra beds allowed:{{ hotelRoom.maxAmountOfExtraBeds }} -Additional cost: See hotel
       description
     </h4>
-    <h2>Price:{{ hotelRoom.baseNightPrice }}</h2>
+    <h2>Price:{{ hotelRoom.baseNightPrice }} SEK</h2>
   </div>
 </template>
 
