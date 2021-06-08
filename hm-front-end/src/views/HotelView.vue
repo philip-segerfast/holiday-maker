@@ -57,12 +57,12 @@ export default {
       this.$router.push({ path: routerUrl });
     },
     sortHotelRoomsByPrice() {
-      console.log("sorting: ");
+      console.log("sorting min price: ");
       this.$store.commit("setSortedRooms");
       this.$router.push({ path: "/hotelView" });
     },
     sortHotelRoomsByMaxPrice() {
-      console.log("sorting: ");
+      console.log("sorting max price: ");
       this.$store.commit("setSortedRoomsDescending");
       this.$router.push({ path: "/hotelView" });
     },

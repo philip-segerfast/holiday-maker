@@ -181,7 +181,7 @@ export default createStore({
         }
         return 0;
       });
-      maxRoomPrice.reverse();
+      return maxRoomPrice.reverse();
     },
     setaddedHotelRooms(state, payload) {
       state.addedHotelRooms = payload;
