@@ -36,6 +36,13 @@
         <hotel-room-card v-for="room in filteredRooms" :key="room.id" :hotelRoom="room" />
       </div>
     </div>
+
+    <!--Lägger in och visar alla rum som finns i rooms, Hämtade från store fetchHotelRoomsByHotel() -->
+    <div id="rooms-container">
+      <span class="room-list" v-if="rooms.length > 0">
+        <hotel-room-card v-for="(room, i) in rooms" :key="room + i" :hotelRoom="room" />
+      </span>
+    </div>
   </body>
 </template>
 
