@@ -33,7 +33,6 @@
         <span class="description">
           {{ hotel.description }}
         </span>
-        -->
       </div>
     </div>
   </div>

@@ -109,6 +109,9 @@ public class HotelService {
         return hotelReviewRepository.save(review);
     }
 
+    public void createThumbnails() {
+        hotelImageService.createThumbnails();
+    }
 }
 
 

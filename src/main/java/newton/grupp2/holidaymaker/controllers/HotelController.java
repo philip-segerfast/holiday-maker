@@ -64,6 +64,11 @@ public class HotelController {
         return hotelService.postReview(review);
     }
 
+    @PostMapping("/rest/hotels/createThumbnails")
+    public void createThumbnails() {
+        hotelService.createThumbnails();
+    }
+
 }
 
 

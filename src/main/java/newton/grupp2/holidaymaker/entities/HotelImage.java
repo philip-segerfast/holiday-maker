@@ -23,9 +23,11 @@ public class HotelImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fileName;
+    private String thumbnailFileName;
 
-    public HotelImage(String fileName) {
+    public HotelImage(String fileName, String thumbnailFileName) {
         this.fileName = fileName;
+        this.thumbnailFileName = thumbnailFileName;
     }
 
     @Override
