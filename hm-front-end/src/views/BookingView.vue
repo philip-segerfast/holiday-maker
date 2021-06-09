@@ -64,13 +64,13 @@ price etc
           class="livery-control"
           v-model="selectedLiveryOption"
         >
-          <option value="self" selected="selected">Self Catering</option>
+          <option value="self">Self Catering</option>
           <option value="half">Half pension</option>
           <option value="full">Full Board</option>
           <option value="all">All Inclusive</option>
         </select>
       </div>
-      <h2>Extra Livery {{ extraCostLivery }} SEK/day</h2>
+      <h2>Livery Cost {{ extraCostLivery }} SEK/day</h2>
 
       <div id="extraBeds">
         <h2>How many extra beds do you want?</h2>
@@ -89,7 +89,7 @@ price etc
         </span>
       </div>
 
-      <h2>Total Price for Rooms {{ roomsCost }}SEK/day</h2>
+      <h2>Price Rooms {{ roomsCost }}SEK/day</h2>
       <h1>Total Price for Booking {{ totalBookingCost }}SEK</h1>
       <div id="payment-container">
         <StripeCheckout :hotelInfo="hotelInfo" :totalBookingCost="totalBookingCost" />
@@ -109,7 +109,7 @@ import moment from "moment";
 export default {
   data() {
     return {
-      amountOfExtraBeds: "",
+      amountOfExtraBeds: "0",
       hotelInfo: {},
       selectedLiveryOption: "self",
     };
@@ -117,9 +117,7 @@ export default {
   methods: {
     updateAmountOfExtraBeds() {
       if (this.amountOfExtraBeds <= this.maxExtraBeds) {
-        console.log(this.amountOfExtraBeds);
       } else {
-        console.log(this.maxExtraBeds);
         this.amountOfExtraBeds = this.maxExtraBeds;
       }
     },
