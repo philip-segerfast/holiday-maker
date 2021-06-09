@@ -6,8 +6,8 @@
       <div class="stars">
         <i v-for="n in theAmountOfStars" v-bind:key="n" class="fa fa-star"></i>
       </div>
-      <div class="header">Comment: {{ hotelReview.comment }}</div>
-      <div class="header">Guest: {{ hotelReview.author.first_name }}</div>
+      <div class="header">{{ hotelReview.comment }}</div>
+      <div id="author" class="header">- {{ hotelReview.author.first_name }}</div>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
   border-radius: 15px;
   cursor: pointer;
   border: 1px solid rgb(22, 19, 19);
-  background-color: rgb(196, 84, 84);
+  background-color: rgb(253, 252, 229);
 
   .info-container {
     display: grid;
@@ -52,8 +52,11 @@ export default {
     border-bottom-right-radius: inherit;
     padding: 0 5px 15px 5px;
     .header {
-      font-size: 150%;
+      font-size: 90%;
       text-align: center;
+    }
+    #author {
+      font-style: italic;
     }
     .stars {
       text-align: center;
