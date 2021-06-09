@@ -2,7 +2,7 @@
   <body>
     <div>
       <form @submit.prevent="toStripeCheckout">
-        <button class="confirm-booking" type="submit">Confrim booking</button>
+        <button class="confirm-booking" type="submit">Confirm booking</button>
       </form>
     </div>
   </body>

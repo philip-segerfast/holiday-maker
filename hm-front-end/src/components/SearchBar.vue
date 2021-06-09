@@ -73,7 +73,8 @@ export default {
     padding: 0 10px 0 10px;
     height: --search-bar-height;
     border-radius: 52px;
-    background-color: #45c3d15e;
+    background: rgba(69, 195, 209, 0.35); // Make sure this color has an opacity of less than 1
+    backdrop-filter: blur(5px); // This be the blur
     .search-bar-item {
       display: flex;
       justify-items: center;

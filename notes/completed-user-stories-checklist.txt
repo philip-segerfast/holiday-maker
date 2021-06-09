@@ -19,7 +19,7 @@ C.01  Som besökare vill jag kunna skapa ett konto. ✔️
 C.02  Som besökare vill jag kunna logga in. ✔️
 C.03  Som besökare vill jag kunna logga ut. ✔️
 D.01  Som besökare vill jag kunna skapa en bokning för ett eller flera rum. ✔️
-        * Markera tydligare att ett rum är valt under bokning ❗
+        * Markera tydligare att ett rum är valt under bokning ✔️
 D.02  Som besökare vill jag kunna skapa en bokning med tillägg ❌
         * All inclusive finns inte att välja vid bokning ❗
 D.03  Som besökare vill jag kunna se mina bokningar i en lista. ✔️

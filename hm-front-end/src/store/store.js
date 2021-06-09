@@ -363,27 +363,22 @@ export default createStore({
 
       console.log("Before sorting: ", filteredHotels);
 
-      console.log("====================");
-
       const orderBy = this.state.searchHotelFilter.orderBy;
-      // =========================== SORTERA HÄR!!! =========================== //
       switch (orderBy) {
         case "min-price":
           filteredHotels = filterByMinPrice.call(this, filteredHotels);
-          console.log("min-price", filteredHotels);
           break;
         case "max-price":
           filteredHotels = filterByMaxPrice.call(this, filteredHotels);
-          console.log("max-price", filteredHotels);
           break;
         case "ratings":
           filteredHotels = filterByRatings.call(this, filteredHotels);
-          console.log("ratings", filteredHotels);
           break;
       }
-      // ====================================================================== //
 
+      console.log("After sorting: ", filteredHotels);
       console.log("Amount of results: ", filteredHotels.length);
+      console.log("==============================");
 
       // Save the filtered list to state.
       this.state.filteredHotels = filteredHotels;
@@ -413,16 +408,28 @@ export default createStore({
           .reverse();
       }
       function filterByRatings(listToFilter) {
-        return listToFilter.sort((hotel1, hotel2) => {
-          console.log(hotel1.averageRating);
-          if (hotel1.averageRating < hotel2.averageRating) {
-            return -1;
-          }
-          if (hotel1.averageRating > hotel2.averageRating) {
-            return 1;
-          }
-          return 0;
-        });
+        return listToFilter
+          .sort((hotel1, hotel2) => {
+            let hotel1AvgRating = hotel1.averageRating;
+            let hotel2AvgRating = hotel2.averageRating;
+
+            if (isNaN(hotel1AvgRating)) {
+              return -1;
+            }
+            if (isNaN(hotel2AvgRating)) {
+              return 1;
+            }
+            if (hotel1AvgRating > hotel2AvgRating) {
+              return 1;
+            }
+            if (hotel1AvgRating < hotel2AvgRating) {
+              return -1;
+            }
+            if (hotel1AvgRating == hotel2AvgRating) {
+              return 0;
+            }
+          })
+          .reverse();
       }
 
       function filterHotelsByCity(listToFilter) {
@@ -432,7 +439,10 @@ export default createStore({
           // console.log("Filtering on search-phrase: ", searchPhraseLower);
           let filteredOutput = listToFilter.filter((hotel) => {
             let hotelCityLower = hotel.city.toLowerCase();
-            return hotelCityLower.includes(searchPhraseLower);
+            let hotelName = hotel.name.toLowerCase();
+            return (
+              hotelCityLower.includes(searchPhraseLower) || hotelName.includes(searchPhraseLower)
+            );
           });
           return filteredOutput;
         } else {
@@ -676,10 +686,10 @@ export default createStore({
 
               if (filterEndDate < bookingStartDate || filterStartDate > bookingEndDate) {
                 // Ledigt
-                console.log("No booking found within searched period.");
+                // console.log("No booking found within searched period.");
                 return true;
               } else {
-                console.log("Booking found within searched period.");
+                // console.log("Booking found within searched period.");
                 return false;
               }
             }
