@@ -165,7 +165,15 @@ export default {
       return this.$store.getters.getMaxExtraBeds;
     },
     totalBookingCost() {
-      return (this.extraCostLivery + this.roomsCost) * this.nrDays + this.totalExtraBedsCost;
+      console.log(this.totalExtraBedsCost);
+      console.log(this.extraCostLivery);
+      console.log(this.roomsCost);
+      console.log(this.nrDays);
+      if (this.extraCostLivery != null) {
+        return (this.extraCostLivery + this.roomsCost) * this.nrDays + this.totalExtraBedsCost;
+      } else {
+        return this.roomsCost * this.nrDays + this.totalExtraBedsCost;
+      }
     },
     totalExtraBedsCost() {
       return this.hotelInfo.extraBedPrice * this.amountOfExtraBeds;
@@ -179,6 +187,7 @@ export default {
   },
   mounted() {
     this.hotelInfo = this.$store.getters.getHotelToBook;
+    this.updateLivery();
   },
 };
 </script>
