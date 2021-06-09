@@ -178,7 +178,6 @@ export default createStore({
     },
     updateMaxExtraBeds(state, payload) {
       state.maxExtraBeds = this.state.maxExtraBeds + payload;
-      console.log("Hej detta är ett test" + state.maxExtraBeds);
     },
     setHotelToBook(state, payload) {
       state.hotelToBook = payload;
@@ -255,9 +254,6 @@ export default createStore({
       let response = await fetch("/rest/hotels/all-hotels");
       // gör om response till json objekt
       let json = await response.json();
-
-      //console.log("Response:");
-      // console.log(json);
 
       // objektet context gör så att vi kan commita alla hotels, json??
       context.commit("setAllHotels", json);
@@ -362,7 +358,6 @@ export default createStore({
       }
 
       const orderBy = this.state.searchHotelFilter.orderBy;
-      // =========================== SORTERA HÄR!!! =========================== //
       switch (orderBy) {
         case "min-price":
           filteredHotels = filterByMinPrice.call(this, filteredHotels);
@@ -374,57 +369,10 @@ export default createStore({
           filteredHotels = filterByRatings.call(this, filteredHotels);
           break;
       }
-      // ====================================================================== //
 
       console.log("Amount of results: ", filteredHotels.length);
-
       // Save the filtered list to state.
       this.state.filteredHotels = filteredHotels;
-
-      function filterByMinPrice(listToFilter) {
-        let sortedList = this.state.hotels.sort((price1, price2) => {
-          if (price1.minRoomPrice < price2.minRoomPrice) {
-            return -1;
-          }
-          if (price1.minRoomPrice > price2.minRoomPrice) {
-            return 1;
-          }
-          return 0;
-        });
-        listToFilter = sortedList;
-        return listToFilter;
-      }
-      function filterByMaxPrice(listToFilter) {
-        let maxHotelPrice = this.state.hotels.sort((price1, price2) => {
-          if (price1.minRoomPrice < price2.minRoomPrice) {
-            return -1;
-          }
-          if (price1.minRoomPrice > price2.minRoomPrice) {
-            return 1;
-          }
-          return 0;
-        });
-        listToFilter = maxHotelPrice;
-        return listToFilter.reverse();
-      }
-      function filterByRatings(listToFilter) {
-        let sortedByRating;
-        let hotels = this.state.hotels;
-        console.log("Hotels: ", hotels);
-        sortedByRating = hotels.sort((hotel1, hotel2) => {
-          console.log(hotel1.averageRating);
-          if (hotel1.averageRating < hotel2.averageRating) {
-            return -1;
-          }
-          if (hotel1.averageRating > hotel2.averageRating) {
-            return 1;
-          }
-          return 0;
-        });
-        console.log("Sorted by rating: ", sortedByRating);
-        listToFilter = sortedByRating;
-        return listToFilter.reverse();
-      }
 
       function filterHotelsByCity(listToFilter) {
         let searchPhraseLower = this.state.searchHotelFilter.searchText.toLowerCase();
@@ -443,13 +391,6 @@ export default createStore({
       }
 
       function filterHotelsByCheckin(listToFilter) {
-        const filter = this.state.searchHotelFilter;
-        const filterStartDate = filter.checkInDates.startDate;
-        const filterEndDate = filter.checkInDates.endDate;
-
-        console.log("filterStartDate", filterStartDate);
-        console.log("filterEndDate", filterEndDate);
-
         const filteredOutput = listToFilter.filter((hotel) => {
           const hotelRooms = hotel.hotelRooms;
           if (hotelRooms.length > 0) {
@@ -474,7 +415,7 @@ export default createStore({
       function filterHotelsByAmountOfPeople(listToFilter) {
         const adultsAmount = parseInt(this.state.searchHotelFilter.people.adultsAmount);
         if (adultsAmount <= 0) {
-          // console.log("No adults specified. You need to have at least one adult on the booking.");
+          alert("No adults specified. You need to have at least one adult on the booking.");
           return listToFilter;
         }
 
@@ -534,6 +475,49 @@ export default createStore({
           }
         });
         return output;
+      }
+
+      function filterByMinPrice(listToFilter) {
+        return listToFilter.sort((price1, price2) => {
+          if (price1.minRoomPrice < price2.minRoomPrice) {
+            return -1;
+          }
+          if (price1.minRoomPrice > price2.minRoomPrice) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+
+      function filterByMaxPrice(listToFilter) {
+        return listToFilter
+          .sort((price1, price2) => {
+            if (price1.minRoomPrice < price2.minRoomPrice) {
+              return -1;
+            }
+            if (price1.minRoomPrice > price2.minRoomPrice) {
+              return 1;
+            }
+            return 0;
+          })
+          .reverse();
+      }
+
+      function filterByRatings(listToFilter) {
+        let sortedByRating;
+        let hotels = this.state.filteredHotels;
+        sortedByRating = hotels.sort((hotel1, hotel2) => {
+          console.log(hotel1.averageRating);
+          if (hotel1.averageRating < hotel2.averageRating) {
+            return -1;
+          }
+          if (hotel1.averageRating > hotel2.averageRating) {
+            return 1;
+          }
+          return 0;
+        });
+        listToFilter = sortedByRating;
+        return listToFilter.reverse();
       }
     },
   },
@@ -647,10 +631,11 @@ export default createStore({
 
       return qualifiedRooms;
     },
-    getFilteredRoomsByCheckinDates: (state) => (roomsToFilter) => {
+    getFilteredRoomsByCheckinDates: (state) => (hotel) => {
       const filter = state.searchHotelFilter;
       const filterStartDate = filter.checkInDates.startDate;
       const filterEndDate = filter.checkInDates.endDate;
+      const roomsToFilter = hotel.hotelRooms;
 
       if (!filterStartDate || !filterEndDate) {
         // console.log("You need to specify a start and end date.");

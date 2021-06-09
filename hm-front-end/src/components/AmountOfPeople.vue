@@ -16,7 +16,7 @@
         <input
           type="number"
           name="adults-amt"
-          min="0"
+          min="1"
           v-model="adultsAmount"
           @input="updateAdultsAmount"
         />
