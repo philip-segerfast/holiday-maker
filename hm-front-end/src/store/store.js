@@ -189,8 +189,8 @@ export default createStore({
     setTotalCost(state, payload) {
       state.totalCost = payload;
     },
-    setSelfcatering(state, payload) {
-      state.selfcatering = payload;
+    setSelfCatering(state, payload) {
+      state.selfCatering = payload;
     },
     setHalfPension(state, payload) {
       state.halfPension = payload;
