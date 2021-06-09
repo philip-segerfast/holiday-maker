@@ -27,6 +27,8 @@ export default {
   background-color: var(--component-color);
   width: 200px;
   margin-bottom: 0;
+  height: 100%;
+  padding-left: 10px;
   &:hover {
     background-color: var(--component-color-hover);
     box-shadow: var(--box-shadow-navbar-outline-smooth);

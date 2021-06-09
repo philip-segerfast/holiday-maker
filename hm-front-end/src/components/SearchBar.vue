@@ -75,7 +75,11 @@ export default {
     border-radius: 52px;
     background-color: #45c3d15e;
     .search-bar-item {
+      display: flex;
+      justify-items: center;
+      align-items: center;
       padding: 10px;
+      height: 100%;
     }
     .search-button {
       display: inline-block;
