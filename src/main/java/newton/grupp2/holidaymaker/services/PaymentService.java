@@ -46,8 +46,8 @@ public class PaymentService {
                                         .setQuantity(1L)
                                         .setPriceData(
                                                 SessionCreateParams.LineItem.PriceData.builder()
-                                                        .setCurrency("eur")
-                                                        .setUnitAmount(totalCost*100) //converts from euro to cent
+                                                        .setCurrency("sek")
+                                                        .setUnitAmount(totalCost*100) //converts from kronor to öre                                                        // cent
                                                         .setProductData(
                                                                 SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                                                         .setName(hotelName)
