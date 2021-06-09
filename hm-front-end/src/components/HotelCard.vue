@@ -4,7 +4,7 @@
     <div class="image-container">
       <img
         v-if="hotel.images.length > 0"
-        v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].fileName}`"
+        v-bind:src="`http://localhost:5000/uploads/${hotel.images[0].thumbnailFileName}`"
       />
     </div>
     <div class="info-container">
@@ -29,11 +29,9 @@
         </div>
       </div>
       <div class="separator"></div>
-      <div class="description-container">
-        <span class="description">
-          {{ hotel.description }}
-        </span>
-      </div>
+      <span class="description">
+        {{ hotel.description }}
+      </span>
     </div>
   </div>
 </template>
@@ -70,7 +68,6 @@ export default {
   width: 225px;
   height: 350px;
   max-height: 350px;
-  overflow: hidden;
   border-radius: 15px;
   cursor: pointer;
   border: 1px solid rgb(230, 230, 230);
@@ -82,7 +79,7 @@ export default {
     border-top-right-radius: inherit;
     img {
       width: 100%;
-      height: 100px;
+      height: 125px;
       border-top-left-radius: inherit;
       border-top-right-radius: inherit;
     }
@@ -101,8 +98,9 @@ export default {
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
     padding: 0 5px 15px 5px;
+    //overflow-x: hidden;
     .header {
-      font-size: 150%;
+      font-size: 125%;
       text-align: center;
     }
     .stars {
@@ -114,16 +112,22 @@ export default {
         margin-left: auto;
       }
     }
-    description-container {
-      overflow: hidden;
-      .description {
-        font-size: 65%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: -17px; /* Increase/Decrease this value for cross-browser compatibility */
-        overflow-y: scroll;
+    .description {
+      position: relative;
+      display: inline-block;
+      text-align: left;
+      height: 110px;
+      border-bottom-left-radius: inherit;
+      border-bottom-right-radius: inherit;
+      padding-bottom: 10px;
+      padding-top: 3px;
+
+      overflow-y: scroll;
+
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
       }
     }
   }

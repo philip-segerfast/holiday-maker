@@ -79,10 +79,7 @@ public class HotelService {
     public Hotel getHotelById(long id) {
         Optional<Hotel> hotel = hotelRepository.findById(id);
 
-        if (hotel.isPresent()) {
-            return hotel.get();
-        }
-        return null;
+        return hotel.orElse(null);
     }
 
     public Hotel saveImages(long hotelId, NewHotelImagesForm hotelImages) throws Exception {
@@ -102,10 +99,6 @@ public class HotelService {
 
     public HotelReview postReview(HotelReview review) {
         User author = userService.getById(review.getAuthor().getId());
-        System.out.println("============================================");
-        System.out.println("AUTHOR");
-        System.out.println(author);
-        System.out.println("============================================");
         return hotelReviewRepository.save(review);
     }
 

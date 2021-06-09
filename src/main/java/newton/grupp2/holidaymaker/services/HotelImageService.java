@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
@@ -28,31 +27,30 @@ public class HotelImageService {
         String originalFileName = imageFile.getOriginalFilename();
         long currentTime = new Date().getTime();
         String outputFileName = currentTime + "-" + originalFileName;
-        String outputThumbnailFileName = currentTime + "-thumbnail-" + originalFileName;
         byte[] bytes = imageFile.getBytes();
         Path path = HmUtils.imagesPath.resolve(outputFileName);
-        Path thumbnailPath = HmUtils.imagesPath.resolve(outputThumbnailFileName);
-        ByteArrayOutputStream thumbnail = createThumbnail(imageFile, 640);
 
         // Save the file
         String savedFileName = Files.write(path, bytes).getFileName().toString();
-        String savedThumbnailFileName = Files.write(thumbnailPath, thumbnail.toByteArray()).getFileName().toString();
-        return new HotelImage(savedFileName, savedThumbnailFileName);
+        return new HotelImage(savedFileName);
     }
 
-    private ByteArrayOutputStream createThumbnail(MultipartFile originalFile, Integer width) throws IOException {
-        ByteArrayOutputStream thumbOutput = new ByteArrayOutputStream();
-        BufferedImage thumbImg = null;
-        BufferedImage img = ImageIO.read(originalFile.getInputStream());
-        thumbImg = Scalr.resize(img, Scalr.Method.AUTOMATIC, Scalr.Mode.AUTOMATIC, width, Scalr.OP_ANTIALIAS);
-        ImageIO.write(thumbImg, originalFile.getContentType().split("/")[1], thumbOutput);
-        return thumbOutput;
-    }
-
+    /**
+     * Call this method when you have added more images.
+     * This will generate thumbnails for them for faster loading in frontend.
+     */
     public void createThumbnails() {
         List<HotelImage> allHotelImages = hotelImageRepository.findAll();
-        for(int i = 0; i < allHotelImages.size(); i++) {
+        int skipped = 0;
+        int amountOfImages = allHotelImages.size();
+        for(int i = 0; i < amountOfImages; i++) {
             HotelImage image = allHotelImages.get(i);
+            if(image.getThumbnailFileName() != null) {
+                // Generera ingen bild ifall en thumbnail redan är genererad sedan tidigare.
+                skipped++;
+                continue;
+            }
+
             Path path = HmUtils.imagesPath.resolve(image.getFileName());
             byte[] imageBytes = null;
             try {
@@ -82,6 +80,7 @@ public class HotelImageService {
                 e.printStackTrace();
             }
         }
+        System.out.printf("Skipped generation of thumbnails for %d/%d images.%n", skipped, amountOfImages);
     }
 }
 

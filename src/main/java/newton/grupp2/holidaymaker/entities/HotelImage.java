@@ -25,6 +25,10 @@ public class HotelImage {
     private String fileName;
     private String thumbnailFileName;
 
+    public HotelImage(String fileName) {
+        this(fileName, null);
+    }
+
     public HotelImage(String fileName, String thumbnailFileName) {
         this.fileName = fileName;
         this.thumbnailFileName = thumbnailFileName;
