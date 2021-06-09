@@ -3,13 +3,13 @@
     <div id="toppage">
       <div id="top">
         <div id="logo">
-          <h1><a id="logolink" href="/">Holiday Maker</a></h1>
+          <h1><a href="/" id="logolink">Holiday Maker</a></h1>
         </div>
         <div id="nav">
           <Navbar />
         </div>
       </div>
-      <div v-show="shouldShowSearchBar">
+      <div id="search-bar-container-app" v-show="shouldShowSearchBar">
         <SearchBar />
       </div>
     </div>
@@ -61,7 +61,9 @@ export default {
 <style lang="scss">
 #logolink {
   color: #2c3e50;
+  font-size: 120%;
   text-decoration: none;
+  font-family: "Poppins", sans-serif;
 }
 #background {
   background-color: lightgreen;
@@ -103,11 +105,14 @@ export default {
       display: flex;
       flex-direction: column;
       background-image: url("../mockup/assets/77e8e1d2154e4616199c6dc667cd0def.jpg");
-      height: fit-content;
-      padding-bottom: 20px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position-y: 20%;
+      height: 275px;
       border-radius: inherit;
       #top {
         display: flex;
+        margin-bottom: auto;
         #logo {
           display: inline-block;
           margin-left: 50px;
@@ -122,6 +127,9 @@ export default {
           display: flex;
           margin: auto 20px;
         }
+      }
+      #search-bar-container-app {
+        margin-bottom: 50px;
       }
     }
 

@@ -220,6 +220,9 @@ export default {
         background-color: whitesmoke;
         box-shadow: var(--box-shadow-outline-smooth);
         cursor: pointer;
+        &:hover {
+          background-color: rgb(216, 216, 216);
+        }
         span {
           display: inline-block;
           font-size: 75%;
