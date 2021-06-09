@@ -18,32 +18,30 @@
       <button @click="redirectToBookingDetailsView">Details</button>
       <button @click="cancelBooking">Cancel booking</button>
 
-      <div v-if="checkoutTimeStamp > dateTodayStamp">
-        <form @submit.prevent="makeReview">
-          <div v-show="notRated" id="rating">
-            <h2>Rate the hotel after visiting</h2>
+      <form @submit.prevent="makeReview">
+        <div v-show="notRated" id="rating">
+          <h2>Rate the hotel after visiting</h2>
 
-            <select v-model="rating" required>
-              <option disabled value="">Please select one</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-            <span>{{ rating }}/5 ⭐</span>
-            <input
-              v-model="comment"
-              type="text"
-              id="comments"
-              name="comments"
-              placeholder="type here to describe your experience in this hotel"
-              required
-            />
-            <button id="sendComment" type="submit">Post review</button>
-          </div>
-        </form>
-      </div>
+          <select v-model="rating" required>
+            <option disabled value="">Please select one</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <span>{{ rating }}/5 ⭐</span>
+          <input
+            v-model="comment"
+            type="text"
+            id="comments"
+            name="comments"
+            placeholder="type here to describe your experience in this hotel"
+            required
+          />
+          <button id="sendComment" type="submit">Post review</button>
+        </div>
+      </form>
     </div>
   </div>
 </template>

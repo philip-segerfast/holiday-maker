@@ -15,7 +15,7 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping(value = "/rest/bookings/add")
-    public boolean addBooking(@RequestBody Booking booking) throws Exception {
+    public Booking addBooking(@RequestBody Booking booking) throws Exception {
         return bookingService.addBooking(booking);
     }
 
