@@ -52,7 +52,7 @@ export default {
     border-bottom-right-radius: inherit;
     padding: 0 5px 15px 5px;
     .header {
-      font-size: 150%;
+      font-size: 105%;
       text-align: center;
     }
     .stars {
