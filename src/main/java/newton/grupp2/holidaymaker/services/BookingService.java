@@ -23,11 +23,11 @@ public class BookingService {
     @Autowired
     private UserService userService;
 
-    public boolean addBooking(Booking booking) throws Exception {
+    public Booking addBooking(Booking booking) throws Exception {
         // Connects the children to this booking. This is not done automatically.
         booking.getChildren().forEach(child -> child.setBooking(booking));
         Booking savedBooking = bookingRepository.save(booking);
-        return true;
+        return savedBooking;
     }
 
     public List<Booking> getBookings() {
