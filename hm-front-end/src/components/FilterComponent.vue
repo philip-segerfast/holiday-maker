@@ -95,18 +95,23 @@ export default {
   methods: {
     updateBeachDistance() {
       this.$store.commit("updateBeachDistance", this.beachDistance);
+      this.$store.dispatch("setFilteredHotels");
     },
     updateCenterDistance() {
       this.$store.commit("updateCenterDistance", this.centerDistance);
+      this.$store.dispatch("setFilteredHotels");
     },
     selectTag(tag) {
       this.$store.commit("selectHotelTag", tag);
+      this.$store.dispatch("setFilteredHotels");
     },
     unselectTag(tag) {
       this.$store.commit("unselectHotelTag", tag);
+      this.$store.dispatch("setFilteredHotels");
     },
     updateOrderBy() {
       this.$store.commit("updateOrderBy", this.orderBy);
+      this.$store.dispatch("setFilteredHotels");
     },
   },
   computed: {
